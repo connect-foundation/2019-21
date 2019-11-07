@@ -1,5 +1,11 @@
 🙋‍♀️ 🙋‍♂️  바글바글 (Sli.do clone project): 실시간 질의응답 및 투표 공유 서비스
 
+# 참여자 
+* 권혁 
+* 김근영
+* 김유준
+* 홍태의
+
 # 아이디어 기획서
 ## 팀원 (가나다순)
 - 권혁
@@ -33,3 +39,4 @@
 -	Back-end: Nginx, nodejs, MySQL2, Sequelize, GraphQL(Yoga), Oauth
 -	Deployment: Docker
 -	Env: Eslint, babel, webpack, prettier, yarn, github을 충실하게 사용함
+
