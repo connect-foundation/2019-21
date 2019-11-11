@@ -1,0 +1,12 @@
+/build/**
+/coverage/**
+/docs/**
+/tmp/**
+/src/libs/**
+/node_modules/**
+/scripts/**
+/config/**
+/public/**
+prettier.json
+/DB/models/index.js
+/DB/config/**
