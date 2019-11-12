@@ -1,0 +1,24 @@
+{
+    "presets": [
+        [
+            "@babel/env",
+            {
+                "targets": {
+                    "node": "current"
+                }
+            }
+        ]
+    ],
+    "plugins": [["@babel/transform-runtime"]],
+    "ignore": [
+        "server/public",
+        "node_modules",
+        "sandbox",
+        ".babelrc",
+        "package.json",
+        "package-lock.json",
+        ".idea",
+        ".vscode",
+        "nodemon.json"
+    ]
+}

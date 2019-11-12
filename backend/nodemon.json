@@ -1,0 +1,11 @@
+{
+    "ignore": [
+        "/script/",
+        "/build/",
+        "/express/public/",
+        "/express/views/",
+        "/spec/",
+        ".gitignore"
+    ],
+    "verbose": true
+}

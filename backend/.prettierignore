@@ -1,0 +1,6 @@
+.git
+.eslintignore
+.gitignore
+.prettierignore
+*.fixtures.json
+src/libs/**
