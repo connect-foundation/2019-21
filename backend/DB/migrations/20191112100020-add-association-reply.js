@@ -4,12 +4,12 @@ module.exports = {
     up: (queryInterface, Sequelize) => {
         return queryInterface
             .addColumn(
-                "Questions", // name of Source model
-                "EventId", // name of the key we're adding
+                "Replies", // name of Source model
+                "GuestId", // name of the key we're adding
                 {
                     type: Sequelize.INTEGER,
                     references: {
-                        model: "Events", // name of Target model
+                        model: "Guests", // name of Target model
                         key: "id", // key in Target model that we're referencing
                     },
                     onUpdate: "CASCADE",
@@ -17,13 +17,14 @@ module.exports = {
                 }
             )
             .then(() => {
+                // Payment hasOne Order
                 return queryInterface.addColumn(
-                    "Questions", // name of Target model
-                    "GuestId", // name of the key we're adding
+                    "Replies", // name of Target model
+                    "QuestionId", // name of the key we're adding
                     {
                         type: Sequelize.INTEGER,
                         references: {
-                            model: "Guests", // name of Source model
+                            model: "Questions", // name of Source model
                             key: "id",
                         },
                         onUpdate: "CASCADE",
@@ -36,13 +37,13 @@ module.exports = {
     down: (queryInterface, Sequelize) => {
         return queryInterface
             .removeColumn(
-                "Questions", // name of Source model
-                "EventId" // key we want to remove
+                "Replies", // name of Source model
+                "GuestId" // key we want to remove
             )
             .then(() => {
                 return queryInterface.removeColumn(
-                    "Questions", // name of the Target model
-                    "GuestId" // key we want to remove
+                    "Replies", // name of the Target model
+                    "QuestionId" // key we want to remove
                 );
             });
     },

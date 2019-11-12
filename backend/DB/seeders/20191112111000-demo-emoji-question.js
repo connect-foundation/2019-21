@@ -3,14 +3,14 @@
 module.exports = {
     up: (queryInterface, Sequelize) => {
         return queryInterface.bulkInsert(
-            "Polls",
+            "EmojiQuestions",
             [
                 {
-                    name: "선거",
-                    pollType: 0,
-                    duplicateOption: false,
                     createdAt: new Date(),
                     updatedAt: new Date(),
+                    EmojiId: 1,
+                    QuestionId: 1,
+                    GuestId: 2,
                 },
             ],
             {}
@@ -18,6 +18,6 @@ module.exports = {
     },
 
     down: (queryInterface, Sequelize) => {
-        return queryInterface.bulkDelete("Polls", null, {});
+        return queryInterface.bulkDelete("EmojiQuestions", null, {});
     },
 };

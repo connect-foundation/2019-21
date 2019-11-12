@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
         Guest.belongsTo(models.Event);
         Guest.hasMany(models.Reply);
         Guest.hasMany(models.Question);
+        Guest.hasMany(models.Voter);
         Guest.belongsToMany(models.Emoji, { through: "EmojiQuestion" });
         Guest.belongsToMany(models.Emoji, { through: "EmojiReply" });
         Guest.belongsToMany(models.Question, { through: "Like" });

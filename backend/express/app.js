@@ -6,8 +6,11 @@ require("dotenv").config();
 const app = express();
 
 app.get("/", async (req, res) => {
-    const host = await models.Guest.findAll({
-        include: [models.Event],
+    const host = await models.Question.findOne({
+        include: [models.Event, models.Guest],
+        where:{
+            Event[id]:1
+        }
     });
     res.json(host);
 });

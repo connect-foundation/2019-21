@@ -3,25 +3,21 @@
 module.exports = {
     up: (queryInterface, Sequelize) => {
         return queryInterface.bulkInsert(
-            "Events",
+            "Guests",
             [
                 {
-                    code: "ABCD",
-                    moderationOption: false,
-                    replyOption: false,
+                    name: "a",
+                    guestSid: "asdfadsf",
                     createdAt: new Date(),
                     updatedAt: new Date(),
-                    endAt: new Date(),
-                    HostId: 1,
+                    EventId: 1,
                 },
                 {
-                    code: "BBBD",
-                    moderationOption: false,
-                    replyOption: false,
+                    name: "b",
+                    guestSid: "asdfadsf",
                     createdAt: new Date(),
                     updatedAt: new Date(),
-                    endAt: new Date(),
-                    HostId: 2,
+                    EventId: 2,
                 },
             ],
             {}
@@ -29,6 +25,6 @@ module.exports = {
     },
 
     down: (queryInterface, Sequelize) => {
-        return queryInterface.bulkDelete("Events", null, {});
+        return queryInterface.bulkDelete("Guests", null, {});
     },
 };
