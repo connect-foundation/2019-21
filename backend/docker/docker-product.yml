@@ -1,0 +1,16 @@
+version: "2.0"
+
+services:
+  express:
+    container_name: express
+    image: ${NODE_IMAGE_NAME}
+    command: node ./build/express/app.js
+    tty: true
+    ports:
+      - 3000:3000
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: "bridge"

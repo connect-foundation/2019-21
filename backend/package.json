@@ -15,7 +15,12 @@
         "start:express": "cross-env NODE_ENV=dev ./node_modules/.bin/nodemon --config ./nodemon.json --exec babel-watch ./express/app.js",
         "lint": "npx eslint .",
         "lint:fix": "npx eslint --fix .",
-        "pretty": "sh script/pretty.sh"
+        "pretty": "sh script/pretty.sh",
+        "docker:build": "yarn build && sh ./script/build-docker-image.sh",
+        "docker:build:force": "rm -rf docker/cached && yarn build && sh ./script/build-docker-image.sh",
+        "docker:start": "docker-compose -f docker/docker-product.yml up -d",
+        "docker:stop": "docker-compose -f docker/docker-product.yml down",
+        "docker:clean": "docker image prune -f"
     },
     "main": "index.js",
     "license": "MIT",
@@ -36,8 +41,8 @@
         "eslint-plugin-import": "^2.18.2",
         "express": "^4.17.1",
         "mocha": "^6.2.2",
+        "morgan": "^1.9.1",
         "nodemon": "^1.19.4",
-        "prettier": "^1.19.1",
-        "sequelize": "^5.21.2"
+        "prettier": "^1.19.1"
     }
 }
