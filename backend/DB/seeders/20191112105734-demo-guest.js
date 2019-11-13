@@ -1,27 +1,9 @@
 "use strict";
+import { makeGuestDummy } from "../utils";
 
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.bulkInsert(
-            "Guests",
-            [
-                {
-                    name: "a",
-                    guestSid: "asdfadsf",
-                    createdAt: new Date(),
-                    updatedAt: new Date(),
-                    EventId: 1,
-                },
-                {
-                    name: "b",
-                    guestSid: "asdfadsf",
-                    createdAt: new Date(),
-                    updatedAt: new Date(),
-                    EventId: 2,
-                },
-            ],
-            {}
-        );
+        return queryInterface.bulkInsert("Guests", makeGuestDummy(), {});
     },
 
     down: (queryInterface, Sequelize) => {

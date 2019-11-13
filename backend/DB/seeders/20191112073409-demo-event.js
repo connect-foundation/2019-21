@@ -1,31 +1,9 @@
 "use strict";
+import { makeEventDummy } from "../utils";
 
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.bulkInsert(
-            "Events",
-            [
-                {
-                    code: "ABCD",
-                    moderationOption: false,
-                    replyOption: false,
-                    createdAt: new Date(),
-                    updatedAt: new Date(),
-                    endAt: new Date(),
-                    HostId: 1,
-                },
-                {
-                    code: "BBBD",
-                    moderationOption: false,
-                    replyOption: false,
-                    createdAt: new Date(),
-                    updatedAt: new Date(),
-                    endAt: new Date(),
-                    HostId: 2,
-                },
-            ],
-            {}
-        );
+        return queryInterface.bulkInsert("Events", makeEventDummy(), {});
     },
 
     down: (queryInterface, Sequelize) => {

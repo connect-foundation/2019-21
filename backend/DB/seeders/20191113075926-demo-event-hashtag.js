@@ -1,17 +1,17 @@
 "use strict";
 
-import { makeEmojiQuestionDummy } from "../utils";
+import { makeEventHashTagDummy } from "../utils";
 
 module.exports = {
     up: (queryInterface, Sequelize) => {
         return queryInterface.bulkInsert(
-            "EmojiQuestions",
-            makeEmojiQuestionDummy(),
+            "EventHashtags",
+            makeEventHashTagDummy(),
             {}
         );
     },
 
     down: (queryInterface, Sequelize) => {
-        return queryInterface.bulkDelete("EmojiQuestions", null, {});
+        return queryInterface.bulkDelete("EventHashtags", null, {});
     },
 };
