@@ -6,7 +6,7 @@
         "node": ">=10.15.1"
     },
     "scripts": {
-        "node": "node -r @babel/register",
+        "node:babel": "node -r @babel/register",
         "reinstall": "rm -rf ../node_modules && yarn install",
         "test": "./node_modules/.bin/mocha ./spec --recursive",
         "test:watch": "./node_modules/.bin/mocha ./spec --recursive --watch",
@@ -35,6 +35,7 @@
         "eslint-config-naver": "^2.1.0",
         "eslint-plugin-import": "^2.18.2",
         "express": "^4.17.1",
+        "faker": "^4.1.0",
         "mocha": "^6.2.2",
         "mysql2": "^2.0.0",
         "nodemon": "^1.19.4",
