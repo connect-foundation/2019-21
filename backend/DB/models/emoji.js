@@ -27,8 +27,8 @@ module.exports = (sequelize, DataTypes) => {
         {}
     );
     Emoji.associate = function(models) {
-        Emoji.belongsToMany(models.Question, { through: "EmojiQuestion" });
-        Emoji.belongsToMany(models.Reply, { through: "EmojiReply" });
+        Emoji.belongsToMany(models.Question, { through: "EmojiQuestions" });
+        Emoji.belongsToMany(models.Reply, { through: "EmojiReplies" });
     };
     return Emoji;
 };

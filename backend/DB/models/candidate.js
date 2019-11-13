@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     );
     Candidate.associate = function(models) {
         Candidate.belongsTo(models.Poll);
-        Candidate.belongsToMany(models.Voter, { through: "Seletion" });
+        Candidate.belongsToMany(models.Voter, { through: "Seletions" });
     };
     return Candidate;
 };

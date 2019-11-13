@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     );
     Voter.associate = function(models) {
         Voter.belongsTo(models.Guest);
-        Voter.belongsToMany(models.Candidate, { through: "Selection" });
+        Voter.belongsToMany(models.Candidate, { through: "Selections" });
     };
     return Voter;
 };

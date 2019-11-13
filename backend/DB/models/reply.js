@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     Reply.associate = function(models) {
         Reply.belongsTo(models.Question);
         Reply.belongsTo(models.Guest);
-        Reply.belongsToMany(models.Guest, { through: "EmojiReply" });
+        Reply.belongsToMany(models.Guest, { through: "EmojiReplies" });
     };
     return Reply;
 };
