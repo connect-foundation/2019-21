@@ -7,7 +7,6 @@ WORKDIR /usr/src/app
 COPY package.json ./
 COPY yarn.lock ./
 
-# 앱 소스 추가
-COPY ./build/ ./build
+COPY .env ./
 
 RUN yarn install
