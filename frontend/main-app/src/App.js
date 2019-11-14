@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import "./App.css";
-// import Header from "./compounds/Header";
 import EventForm from "./compounds/EventForm";
 import HostLoginMessage from "./compounds/HostLoginMessage";
 import LoginModal from "./compounds/LoginModal";
