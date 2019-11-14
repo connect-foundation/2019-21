@@ -6,6 +6,13 @@ build
 
 # docker
 docker/cached
-docker-volumes
+docker/volumes
 
+# express public
+express/public
+
+# dot env
 .env
+
+# yarn stuff
+yarn-error.log
