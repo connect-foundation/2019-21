@@ -5,6 +5,7 @@ import {withStyles} from "@material-ui/core/styles";
 
 const EventFormStyle = styled.div`
 	display: flex;
+	flex-direction: column;
 	flex: 1;
 	overflow: auto;
 	justify-content: center;
@@ -14,14 +15,13 @@ const EventFormStyle = styled.div`
 const StyledTextField = withStyles({
 	root: {
 		width: "300px",
-		fontSize: "1.5rem",
 	},
 })(TextField);
 
 const StyledButton = withStyles({
 	root: {
 		width: "300px",
-		fontSize: "1.3rem",
+		fontSize: "1.4rem",
 	},
 })(Button);
 
@@ -38,6 +38,11 @@ function EventForm() {
 
 	return (
 		<EventFormStyle>
+			<h1>바글바글</h1>
+			<div>
+				익명으로 질문할 수 있습니다. 강의 중 궁금한 것들을 편하게
+				질문하세요.
+			</div>
 			<form autoComplete="off">
 				<div>
 					<StyledTextField
