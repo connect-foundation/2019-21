@@ -13,7 +13,7 @@ services:
       - ../build:/usr/src/app/build
     tty: true
     ports:
-      - 3000:3000
+      - 80:3000
     networks:
       - backend
     links:
