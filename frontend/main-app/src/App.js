@@ -1,15 +1,24 @@
-import React from "react";
+import React, {useState} from "react";
 import "./App.css";
-import Header from "./compounds/Header";
+// import Header from "./compounds/Header";
 import EventForm from "./compounds/EventForm";
-import HostLogin from "./compounds/HostLogin";
+import HostLoginMessage from "./compounds/HostLoginMessage";
+import LoginModal from "./compounds/LoginModal";
 
 function App() {
+	const [show, setShow] = useState(0);
+	const onHideModal = () => {
+		setShow(0);
+	};
+	const onShowModal = () => {
+		setShow(1);
+	};
+
 	return (
 		<div className="App">
-			<Header />
 			<EventForm />
-			<HostLogin />
+			<HostLoginMessage onShowModal={onShowModal} />
+			{show === 0 ? null : <LoginModal onHideModal={onHideModal} />}
 		</div>
 	);
 }
