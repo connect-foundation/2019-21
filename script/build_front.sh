@@ -45,7 +45,7 @@ cp -r $host_app_build_dir $host_app_build_dest_dir
 
 echo "dump guest app"
 guest_app_build_dest_dir="./backend/build/express/public/guest-app"
-cp -r $guest_app_build_dir "$public_path/host-guest"
+cp -r $guest_app_build_dir "$public_path/guest-app"
 cp -r $guest_app_build_dir $guest_app_build_dest_dir
 
 echo "dump main app"
