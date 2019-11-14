@@ -38,10 +38,11 @@ function EventForm() {
 
 	return (
 		<EventFormStyle>
-			<form>
+			<form autoComplete="off">
 				<div>
 					<StyledTextField
 						required
+						autoFocus
 						id="outlined-basic"
 						name="eventCode"
 						margin="normal"
