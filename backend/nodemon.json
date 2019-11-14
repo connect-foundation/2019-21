@@ -5,7 +5,8 @@
         "/express/public/",
         "/express/views/",
         "/spec/",
-        ".gitignore"
+        ".gitignore",
+        "/docker/"
     ],
     "verbose": true
 }
