@@ -3,10 +3,10 @@ import { makeReplyDummy } from "../utils";
 
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.bulkInsert("Replies", makeReplyDummy(), {});
+        return queryInterface.bulkInsert("Questions", makeReplyDummy(), {});
     },
 
     down: (queryInterface, Sequelize) => {
-        return queryInterface.bulkDelete("Replies", null, {});
+        return queryInterface.bulkDelete("Questions", null, {});
     },
 };

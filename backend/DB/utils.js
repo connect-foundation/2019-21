@@ -10,14 +10,18 @@ function makeQuestionDummy(number = 100) {
         let content = faker.lorem.sentence();
         let createdAt = faker.date.past(1);
         let updatedAt = createdAt;
+        let state = "active";
         let EventId = faker.random.number({ min: 1, max: 200 });
         let GuestId = faker.random.number({ min: 1, max: 200 });
+        let QuestionId = null;
         bulkQuestion.push({
             content,
             createdAt,
+            state,
             updatedAt,
             EventId,
             GuestId,
+            QuestionId,
         });
     }
     return bulkQuestion;
@@ -79,23 +83,27 @@ function makeGuestDummy(number = 200) {
     return bulkGuest;
 }
 
-function makeReplyDummy(number = 300) {
-    let bulkReply = [];
+function makeReplyDummy(number = 200) {
+    let bulkQuestion = [];
     for (let i = 0; i < number; ++i) {
         let content = faker.lorem.sentence();
         let createdAt = faker.date.past(1);
         let updatedAt = createdAt;
+        let state = "active";
+        let EventId = faker.random.number({ min: 1, max: 200 });
         let GuestId = faker.random.number({ min: 1, max: 200 });
         let QuestionId = faker.random.number({ min: 1, max: 100 });
-        bulkReply.push({
+        bulkQuestion.push({
             content,
             createdAt,
+            state,
             updatedAt,
+            EventId,
             GuestId,
             QuestionId,
         });
     }
-    return bulkReply;
+    return bulkQuestion;
 }
 
 function makePollDummy(number = 200) {

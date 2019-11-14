@@ -28,12 +28,9 @@ module.exports = (sequelize, DataTypes) => {
     );
     Guest.associate = function(models) {
         Guest.belongsTo(models.Event);
-        Guest.hasMany(models.Reply);
-        /**/ Guest.hasMany(models.Question);
+        Guest.hasMany(models.Question);
         Guest.hasMany(models.Voter);
-        /**/ Guest.belongsToMany(models.Emoji, { through: "EmojiQuestions" });
-        /**/ Guest.belongsToMany(models.Emoji, { through: "EmojiReplies" });
-        /**/ Guest.belongsToMany(models.Question, { through: "Likes" });
+        Guest.belongsToMany(models.Emoji, { through: "EmojiQuestions" });
     };
     return Guest;
 };

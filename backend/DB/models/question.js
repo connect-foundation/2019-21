@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
             content: {
                 type: DataTypes.STRING(500),
             },
+            state: {
+                type: DataTypes.STRING(20),
+                allowNull: false,
+            },
             createdAt: {
                 allowNull: false,
                 type: DataTypes.DATE,
@@ -26,9 +30,9 @@ module.exports = (sequelize, DataTypes) => {
     Question.associate = function(models) {
         Question.belongsTo(models.Event);
         Question.belongsTo(models.Guest);
-        Question.hasMany(models.Reply);
+        Question.hasMany(models.Question);
+        Question.belongsTo(models.Question);
         Question.belongsToMany(models.Emoji, { through: "EmojiQuestions" });
-        Question.belongsToMany(models.Guest, { through: "Likes" });
     };
     return Question;
 };

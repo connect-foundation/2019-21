@@ -30,6 +30,21 @@ module.exports = {
                         onDelete: "CASCADE",
                     }
                 );
+            })
+            .then(() => {
+                return queryInterface.addColumn(
+                    "Questions", // name of Target model
+                    "QuestionId", // name of the key we're adding
+                    {
+                        type: Sequelize.INTEGER,
+                        references: {
+                            model: "Questions", // name of Source model
+                            key: "id",
+                        },
+                        onUpdate: "CASCADE",
+                        onDelete: "CASCADE",
+                    }
+                );
             });
     },
 
@@ -43,6 +58,12 @@ module.exports = {
                 return queryInterface.removeColumn(
                     "Questions", // name of the Target model
                     "GuestId" // key we want to remove
+                );
+            })
+            .then(() => {
+                return queryInterface.removeColumn(
+                    "Questions", // name of the Target model
+                    "ReplyId" // key we want to remove
                 );
             });
     },
