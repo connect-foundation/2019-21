@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const host = process.env.MYSQL_PROD_HOST;
 const user = process.env.MYSQL_PROD_USER;
 const password = process.env.MYSQL_PROD_PASSWORD;
 const scheme = process.env.MYSQL_PROD_SCHEME;

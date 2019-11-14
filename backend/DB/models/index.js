@@ -18,8 +18,6 @@ if (config.use_env_variable) {
 		config.host = config.containerName;
 	}
 
-	console.log(config);
-
 	sequelize = new Sequelize(
 		config.database,
 		config.username,
