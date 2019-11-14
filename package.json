@@ -1,0 +1,14 @@
+{
+  "name": "2019-21",
+  "version": "1.0.0",
+  "scripts": {
+    "build:frontend": "sh script/build_front.sh",
+    "build:backend": "sh script/build_backend.sh",
+    "build": "yarn build:frontend && yarn build:backend",
+    "deploy": "sh script/deploy.sh",
+    "deploy:undo": "sh script/deploy_undo.sh",
+    "deploy:auto":"sh script/deploy_demon.sh"
+  },
+  "dependencies": {},
+  "license": "MIT"
+}

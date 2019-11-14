@@ -10,3 +10,5 @@
 prettier.json
 /DB/models/index.js
 /DB/config/**
+/express/public/**
+/docker/**

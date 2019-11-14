@@ -337,23 +337,24 @@ function makeEmojiQuestionDummy(number = 100) {
     return bulkEmojiQuestion;
 }
 
+
 function applyAllConstraint(queryInterface, tableName, constraints) {
-    constraints.forEach(({ attributes, options }) => {
-        queryInterface.addConstraint(tableName, attributes, options);
-    });
+	constraints.forEach(({attributes, options}) => {
+		queryInterface.addConstraint(tableName, attributes, options);
+	});
 }
 
 async function loadSequelize(config) {
-    const sequelize = new Sequelize(
-        config.scheme,
-        config.user,
-        config.password,
-        config
-    );
+	const sequelize = new Sequelize(
+		config.scheme,
+		config.user,
+		config.password,
+		config,
+	);
 
-    await sequelize.authenticate();
+	await sequelize.authenticate();
 
-    return sequelize;
+	return sequelize;
 }
 
 module.exports = {
