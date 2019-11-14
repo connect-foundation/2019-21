@@ -1,12 +1,11 @@
 {
-    "ignore": [
-        "/script/",
-        "/build/",
-        "/express/public/",
-        "/express/views/",
-        "/spec/",
-        ".gitignore",
-        "/docker/"
-    ],
-    "verbose": true
+	"ignore": [
+		"/build/",
+		"/docker/volumes/",
+		"/script/",
+		"/express/public/",
+		"/node_modules/",
+		"/spec/",
+		".gitignore"
+	]
 }
