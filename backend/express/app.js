@@ -1,4 +1,5 @@
 import express from "express";
+
 const models = require("../DB/models");
 
 require("dotenv").config();
@@ -6,12 +7,20 @@ require("dotenv").config();
 const app = express();
 
 app.get("/", async (req, res) => {
-    const host = await models.Question.findOne({
-        include: [models.Event, models.Guest],
-        where:{
-            Event[id]:1
-        }
+    const host = await models.Question.findAll({
+        include: [
+            {
+                model: models.Question,
+                // include: [
+                //     {
+                //         model: models.Question,
+                //         through: {},
+                //     },
+                // ],
+            },
+        ],
     });
+
     res.json(host);
 });
 

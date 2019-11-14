@@ -1,16 +1,12 @@
-"use strict";
-import { makeCandadateDummy } from "../utils";
+
+import {makeCandadateDummy} from "../utils";
 
 module.exports = {
-    up: (queryInterface, Sequelize) => {
-        return queryInterface.bulkInsert(
-            "Candidates",
-            makeCandadateDummy(),
-            {}
-        );
-    },
+	up: (queryInterface, Sequelize) => queryInterface.bulkInsert(
+		"Candidates",
+		makeCandadateDummy(),
+		{},
+	),
 
-    down: (queryInterface, Sequelize) => {
-        return queryInterface.bulkDelete("Candidate", null, {});
-    },
+	down: (queryInterface, Sequelize) => queryInterface.bulkDelete("Candidate", null, {}),
 };

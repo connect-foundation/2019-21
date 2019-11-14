@@ -1,17 +1,13 @@
-"use strict";
 
-import { makeEventHashTagDummy } from "../utils";
+
+import {makeEventHashTagDummy} from "../utils";
 
 module.exports = {
-    up: (queryInterface, Sequelize) => {
-        return queryInterface.bulkInsert(
-            "EventHashtags",
-            makeEventHashTagDummy(),
-            {}
-        );
-    },
+	up: (queryInterface, Sequelize) => queryInterface.bulkInsert(
+		"EventHashtags",
+		makeEventHashTagDummy(),
+		{},
+	),
 
-    down: (queryInterface, Sequelize) => {
-        return queryInterface.bulkDelete("EventHashtags", null, {});
-    },
+	down: (queryInterface, Sequelize) => queryInterface.bulkDelete("EventHashtags", null, {}),
 };

@@ -1,12 +1,8 @@
-"use strict";
-import { makeEmojiDummy } from "../utils";
+
+import {makeEmojiDummy} from "../utils";
 
 module.exports = {
-    up: (queryInterface, Sequelize) => {
-        return queryInterface.bulkInsert("Emojis", makeEmojiDummy(), {});
-    },
+	up: (queryInterface, Sequelize) => queryInterface.bulkInsert("Emojis", makeEmojiDummy(), {}),
 
-    down: (queryInterface, Sequelize) => {
-        return queryInterface.bulkDelete("Emojis", null, {});
-    },
+	down: (queryInterface, Sequelize) => queryInterface.bulkDelete("Emojis", null, {}),
 };
