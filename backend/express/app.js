@@ -1,27 +1,22 @@
 import express from "express";
-
-const models = require("../DB/models");
+import EventQuery from "../DB/queries/event";
 
 require("dotenv").config();
 
 const app = express();
 
 app.get("/", async (req, res) => {
-    const host = await models.Question.findAll({
-        include: [
-            {
-                model: models.Question,
-                // include: [
-                //     {
-                //         model: models.Question,
-                //         through: {},
-                //     },
-                // ],
-            },
-        ],
-    });
+    res.send("ok");
+});
 
-    res.json(host);
+app.get("/test/:code", async (req, res, next) => {
+    try {
+        const eventQuery = new EventQuery();
+        const questions = await eventQuery.getQuestionsInEvent(req.params.code);
+        return res.json(questions);
+    } catch (e) {
+        return next(e);
+    }
 });
 
 app.listen(3000, () => {

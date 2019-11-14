@@ -1,6 +1,6 @@
 import models from "../models";
 
-class Event {
+module.exports = class EventQuery {
     constructor() {}
 
     async getIdByCode(code) {
@@ -15,8 +15,27 @@ class Event {
     }
 
     async getQuestionsInEvent(code) {
-        const questions = await models.Event.findAll({
-            include: [{ model: models.Question }],
+        const question = await models.Event.findAll({
+            include: [
+                {
+                    model: models.Question,
+                    include: [
+                        {
+                            model: models.Emoji,
+                        },
+                        {
+                            model: models.Question,
+                        },
+                        {
+                            model: models.Like,
+                        },
+                    ],
+                },
+            ],
+            where: {
+                code: code,
+            },
         });
+        return question;
     }
-}
+};
