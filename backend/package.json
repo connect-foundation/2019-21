@@ -10,7 +10,7 @@
         "reinstall": "rm -rf ../node_modules && yarn install",
         "test": "./node_modules/.bin/mocha ./spec --recursive",
         "test:watch": "./node_modules/.bin/mocha ./spec --recursive --watch",
-        "test:DB": "./node_modules/.bin/mocha $(find ./spec -name '*.db.spec.js') --recursive --watch",
+        "test:DB": "./node_modules/.bin/mocha ./spec -name '*.db.spec.js' --recursive --watch",
         "build": "sh script/build.sh",
         "build:clean": "rm -rf ./build",
         "start:express": "cross-env NODE_ENV=dev ./node_modules/.bin/nodemon --config ./nodemon.json --exec babel-watch ./express/app.js",

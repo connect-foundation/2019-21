@@ -1,5 +1,4 @@
 import express from "express";
-import sequelize from "sequelize";
 
 const models = require("../DB/models");
 
@@ -21,6 +20,7 @@ app.get("/", async (req, res) => {
             },
         ],
     });
+
     res.json(host);
 });
 
