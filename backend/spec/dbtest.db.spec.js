@@ -1,7 +1,7 @@
 const should = require("should");
 const httpMocks = require("node-mocks-http");
 const Sequelize = require("sequelize");
-const {getQuestionsInEvent} = require("../DB/queries/event.js");
+const queries = require("../DB/queries/event");
 const req = httpMocks.createRequest();
 const res = httpMocks.createResponse();
 const models = require("../DB/models");
@@ -11,7 +11,7 @@ const models = require("../DB/models");
 
 describe("DB_TEST", () => {
 	it("get question Id from EventCode k9me", async () => {
-		const questions = getQuestionsInEvent("k9me");
+		const questions = await queries.prototype.getQuestionsInEvent("k9me");
 		const parsedQuestion = JSON.parse(JSON.stringify(questions));
 		const compare = [];
 
@@ -19,7 +19,7 @@ describe("DB_TEST", () => {
 		compare.should.be.eql([]);
 	});
 	it("get question Id from EventCode u0xn", async () => {
-		const questions = getQuestionsInEvent("u0xn");
+		const questions = await queries.prototype.getQuestionsInEvent("u0xn");
 		const parsedQuestion = JSON.parse(JSON.stringify(questions));
 		const compare = [];
 
@@ -27,7 +27,7 @@ describe("DB_TEST", () => {
 		compare.should.be.eql([119]);
 	});
 	it("get question Id from EventCode 1cfs", async () => {
-		const questions = getQuestionsInEvent("1cfs");
+		const questions = await queries.prototype.getQuestionsInEvent("1cfs");
 		const parsedQuestion = JSON.parse(JSON.stringify(questions));
 		const compare = [];
 
@@ -35,7 +35,7 @@ describe("DB_TEST", () => {
 		compare.should.be.eql([27, 50, 96, 279, 298]);
 	});
 	it("get question Id from EventCode dutu", async () => {
-		const questions = getQuestionsInEvent("dutu");
+		const questions = await queries.prototype.getQuestionsInEvent("dutu");
 		const parsedQuestion = JSON.parse(JSON.stringify(questions));
 		const compare = [];
 
@@ -43,7 +43,7 @@ describe("DB_TEST", () => {
 		compare.should.be.eql([212, 220]);
 	});
 	it("get question Id from EventCode uomf", async () => {
-		const questions = getQuestionsInEvent("uomf");
+		const questions = await queries.prototype.getQuestionsInEvent("uomf");
 		const parsedQuestion = JSON.parse(JSON.stringify(questions));
 		const compare = [];
 
