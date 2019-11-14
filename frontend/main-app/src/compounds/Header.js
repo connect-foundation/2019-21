@@ -6,7 +6,7 @@ const HeaderStyle = styled.header`
 	flex-direction: row;
 	justify-content: space-between;
 	padding: 1rem 40px;
-	background-color: #f76707;
+	background-color: #212529;
 	color: white;
 `;
 
