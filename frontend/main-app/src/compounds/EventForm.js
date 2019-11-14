@@ -12,6 +12,11 @@ const EventFormStyle = styled.div`
 	align-items: center;
 `;
 
+const ErrorStyle = styled.div`
+	color: red;
+	height: 2rem;
+`;
+
 const StyledTextField = withStyles({
 	root: {
 		width: "300px",
@@ -27,13 +32,16 @@ const StyledButton = withStyles({
 
 function EventForm() {
 	const [code, setCode] = useState("");
+	const [errorMessage, setMessage] = useState(" ");
 
 	const onChange = e => {
 		setCode(e.target.value);
+		setMessage(" ");
 	};
 
 	const onEnterEvent = () => {
 		setCode("");
+		setMessage("이벤트 번호가 전달되었습니다.");
 	};
 
 	return (
@@ -66,7 +74,7 @@ function EventForm() {
 				>
 					참가하기
 				</StyledButton>
-				<div>{code}</div>
+				<ErrorStyle>{errorMessage}</ErrorStyle>
 			</form>
 		</EventFormStyle>
 	);
