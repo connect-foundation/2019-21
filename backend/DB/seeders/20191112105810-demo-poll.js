@@ -1,12 +1,8 @@
-"use strict";
-import { makePollDummy } from "../utils";
+
+import {makePollDummy} from "../utils";
 
 module.exports = {
-    up: (queryInterface, Sequelize) => {
-        return queryInterface.bulkInsert("Polls", makePollDummy(), {});
-    },
+	up: (queryInterface, Sequelize) => queryInterface.bulkInsert("Polls", makePollDummy(), {}),
 
-    down: (queryInterface, Sequelize) => {
-        return queryInterface.bulkDelete("Polls", null, {});
-    },
+	down: (queryInterface, Sequelize) => queryInterface.bulkDelete("Polls", null, {}),
 };

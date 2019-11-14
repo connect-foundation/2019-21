@@ -1,13 +1,9 @@
-"use strict";
 
-import { makeHashTagDummy } from "../utils";
+
+import {makeHashTagDummy} from "../utils";
 
 module.exports = {
-    up: (queryInterface, Sequelize) => {
-        return queryInterface.bulkInsert("Hashtags", makeHashTagDummy(), {});
-    },
+	up: (queryInterface, Sequelize) => queryInterface.bulkInsert("Hashtags", makeHashTagDummy(), {}),
 
-    down: (queryInterface, Sequelize) => {
-        return queryInterface.bulkDelete("Hashtags", null, {});
-    },
+	down: (queryInterface, Sequelize) => queryInterface.bulkDelete("Hashtags", null, {}),
 };

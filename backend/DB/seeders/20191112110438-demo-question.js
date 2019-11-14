@@ -1,12 +1,8 @@
-"use strict";
-import { makeQuestionDummy } from "../utils";
+
+import {makeQuestionDummy} from "../utils";
 
 module.exports = {
-    up: (queryInterface, Sequelize) => {
-        return queryInterface.bulkInsert("Questions", makeQuestionDummy(), {});
-    },
+	up: (queryInterface, Sequelize) => queryInterface.bulkInsert("Questions", makeQuestionDummy(), {}),
 
-    down: (queryInterface, Sequelize) => {
-        return queryInterface.bulkDelete("Questions", null, {});
-    },
+	down: (queryInterface, Sequelize) => queryInterface.bulkDelete("Questions", null, {}),
 };

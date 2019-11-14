@@ -1,7 +1,7 @@
 
 
 module.exports = {
-	up: (queryInterface, Sequelize) => queryInterface.createTable("EmojiQuestions", {
+	up: (queryInterface, Sequelize) => queryInterface.createTable("Likes", {
 		createdAt: {
 			allowNull: false,
 			type: Sequelize.DATE,
@@ -9,10 +9,6 @@ module.exports = {
 		updatedAt: {
 			allowNull: false,
 			type: Sequelize.DATE,
-		},
-		EmojiId: {
-			type: Sequelize.INTEGER,
-			primaryKey: true,
 		},
 		QuestionId: {
 			type: Sequelize.INTEGER,
@@ -26,6 +22,6 @@ module.exports = {
 
 	down: (queryInterface, Sequelize) =>
 	// remove table
-		queryInterface.dropTable("EmojiQuestions")
+		queryInterface.dropTable("Likes")
 	,
 };
