@@ -1,11 +1,21 @@
 import express from "express";
+import {config} from "dotenv";
 
-require("dotenv").config();
-const logger = require("morgan"); // 로그 모듈
+config();
+
+const morgan = require("morgan"); // 로그 모듈
 
 const app = express();
 
-app.use(logger("dev"));
+const loggingFormat =
+	":method :url :status :res[content-length] - :response-time ms";
+
+app.use(morgan(loggingFormat));
+
+app.use("/host-app", express.static("express/public/host-app"));
+app.use("/guest-app", express.static("express/public/guest-app"));
+app.use("/main-app", express.static("express/public/main-app"));
+
 app.get("/", (req, res) => {
 	res.send("hello");
 });

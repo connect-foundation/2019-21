@@ -65,6 +65,12 @@ const resolveModule = (resolveFn, filePath) => {
   return resolveFn(`${filePath}.js`);
 };
 
+// react app 빌드 후 node/express 에서 정적 파일로 서빙하기위한 경로 세팅
+// servedPath 의 경우 string append 로 경로를 처리하므로 뒤에  '/' 붙여야함
+const appName = "main-app";
+const publicUrl = `/${appName}`;
+const servedPath = `/${appName}/`;
+
 // config after eject: we're in ./config/
 module.exports = {
   dotenv: resolveApp('.env'),
@@ -81,8 +87,8 @@ module.exports = {
   testsSetup: resolveModule(resolveApp, 'src/setupTests'),
   proxySetup: resolveApp('src/setupProxy.js'),
   appNodeModules: resolveApp('node_modules'),
-  publicUrl: getPublicUrl(resolveApp('package.json')),
-  servedPath: getServedPath(resolveApp('package.json')),
+  publicUrl: publicUrl,
+  servedPath: servedPath,
 };
 
 
