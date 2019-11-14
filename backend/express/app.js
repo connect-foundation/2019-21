@@ -1,5 +1,5 @@
 import express from "express";
-import {config} from "dotenv";
+import { config } from "dotenv";
 import EventQuery from "../DB/queries/event";
 
 config();
@@ -28,5 +28,6 @@ app.get("/test/:code", async (req, res, next) => {
 	}
 });
 app.listen(3000, () => {
+	console.log("start server at 3000");
 });
 export default app;
