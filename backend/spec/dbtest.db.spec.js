@@ -2,6 +2,7 @@ const should = require("should");
 const httpMocks = require("node-mocks-http");
 const Sequelize = require("sequelize");
 const queries = require("../DB/queries/event");
+
 const req = httpMocks.createRequest();
 const res = httpMocks.createResponse();
 const models = require("../DB/models");
@@ -16,7 +17,7 @@ describe("DB_TEST", () => {
 		const compare = [];
 
 		parsedQuestion[0].Questions.forEach(elem => compare.push(elem.id));
-		compare.should.be.eql([]);
+		new Set(compare).should.be.eql(new Set([]));
 	});
 	it("get question Id from EventCode u0xn", async () => {
 		const questions = await queries.prototype.getQuestionsInEvent("u0xn");
@@ -24,7 +25,7 @@ describe("DB_TEST", () => {
 		const compare = [];
 
 		parsedQuestion[0].Questions.forEach(elem => compare.push(elem.id));
-		compare.should.be.eql([119]);
+		new Set(compare).should.be.eql(new Set([119]));
 	});
 	it("get question Id from EventCode 1cfs", async () => {
 		const questions = await queries.prototype.getQuestionsInEvent("1cfs");
@@ -32,7 +33,7 @@ describe("DB_TEST", () => {
 		const compare = [];
 
 		parsedQuestion[0].Questions.forEach(elem => compare.push(elem.id));
-		compare.should.be.eql([27, 50, 96, 279, 298]);
+		new Set(compare).should.be.eql(new Set([27, 50, 96, 279, 298]));
 	});
 	it("get question Id from EventCode dutu", async () => {
 		const questions = await queries.prototype.getQuestionsInEvent("dutu");
@@ -40,7 +41,7 @@ describe("DB_TEST", () => {
 		const compare = [];
 
 		parsedQuestion[0].Questions.forEach(elem => compare.push(elem.id));
-		compare.should.be.eql([212, 220]);
+		new Set(compare).should.be.eql(new Set([212, 220]));
 	});
 	it("get question Id from EventCode uomf", async () => {
 		const questions = await queries.prototype.getQuestionsInEvent("uomf");
@@ -48,6 +49,7 @@ describe("DB_TEST", () => {
 		const compare = [];
 
 		parsedQuestion[0].Questions.forEach(elem => compare.push(elem.id));
-		compare.should.be.eql([172, 228]);
+		new Set(compare).should.be.eql(new Set([172, 228]));
 	});
 });
+
