@@ -12,6 +12,7 @@ module.exports = {
 		host: process.env.MYSQL_DEV_HOST,
 		dialect: process.env.MYSQL_DEV_DIALECT,
 		port: process.env.MYSQL_DEV_PORT,
+		containerName: process.env.MYSQL_DEV_CONTAINER_NAME,
 		logging: false,
 	},
 	test: {
@@ -21,6 +22,7 @@ module.exports = {
 		host: process.env.MYSQL_TEST_HOST,
 		dialect: process.env.MYSQL_TEST_DIALECT,
 		port: process.env.MYSQL_TEST_PORT,
+		containerName: process.env.MYSQL_TEST_CONTAINER_NAME,
 		logging: false,
 	},
 	production: {
@@ -30,6 +32,7 @@ module.exports = {
 		host: process.env.MYSQL_PROD_HOST,
 		dialect: process.env.MYSQL_PROD_DIALECT,
 		port: process.env.MYSQL_PROD_PORT,
+		containerName: process.env.MYSQL_PROD_CONTAINER_NAME,
 		logging: false,
 		pool: {
 			max: 5,

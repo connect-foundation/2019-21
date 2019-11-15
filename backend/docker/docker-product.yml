@@ -5,11 +5,15 @@ services:
     container_name: ${EXPRESS_PROD_CONTAINER_NAME}
     image: ${NODE_IMAGE_NAME}
     command: yarn pm2-runtime start ./build/express/app.js --watch
+    environment:
+      - NODE_ENV=production
+      # container 내부에서 DB container 를 접근하기위해 필요한 환경변수
+      - IS_DOCKER_CONTAINER=true
     volumes:
       - ../build:/usr/src/app/build
     tty: true
     ports:
-      - 3000:3000
+      - 80:3000
     networks:
       - backend
     links:
