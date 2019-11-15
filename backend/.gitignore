@@ -1,2 +1,18 @@
+# package dependency
 node_modules
+
+# babel build folder
 build
+
+# docker
+docker/cached
+docker/volumes
+
+# express public
+express/public
+
+# dot env
+.env
+
+# yarn stuff
+yarn-error.log

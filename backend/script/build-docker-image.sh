@@ -1,14 +1,29 @@
-start=$SECONDS
+NODE_IMAGE_NAME=$(grep NODE_IMAGE_NAME .env | cut -d '=' -f2)
 
-echo "1/3 build node image"
-docker build -t demetoir:node -f ./docker/dockerfiles/node.Dockerfile .
+cached_package_dir=./docker/cached
+cached_package_json=./docker/cached/package.json
+cached_yarn_lock=./docker/cached/yarn.lock
 
-echo "2/3 build express image"
-docker build -t demetoir:express -f ./docker/dockerfiles/express.Dockerfile .
+build_node_docker_image() {
+  echo "start build docker image of node"
+  docker build -t "$NODE_IMAGE_NAME" -f ./docker/dockerfiles/node.Dockerfile .
 
-echo "3/3 build graphql image"
-docker build -t demetoir:graphql -f ./docker/dockerfiles/graphql.Dockerfile .
+  echo "update cache package.json"
+  mkdir $cached_package_dir
+  cp ./package.json $cached_package_json
+  cp ./yarn.lock $cached_yarn_lock
+}
 
-end=$SECONDS
-duration=$((end - start))
-echo "stuff took $duration seconds to complete"
+if [[ -d $cached_package_dir ]] && [[ -f $cached_package_json ]] && [[ -f $cached_yarn_lock ]]; then
+  package_diff=$(diff $cached_package_json ./package.json)
+  package_lock_diff=$(diff $cached_yarn_lock ./yarn.lock)
+  if [[ "$package_diff" != "" ]] || [[ "$package_lock_diff" != "" ]]; then
+    echo "package cache miss"
+    echo "$package_diff"
+    echo "$package_lock_diff"
+    build_node_docker_image
+  fi
+else
+  echo "package or lock file not found"
+  build_node_docker_image
+fi
