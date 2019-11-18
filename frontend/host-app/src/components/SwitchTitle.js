@@ -12,7 +12,7 @@ const TitleStyle = styled.div`
 	font-weight: bold;
 `;
 
-function SwitchTitle({type}) {
+function SwitchTitle({titleName}) {
 	const [state, setState] = React.useState(false);
 
 	const handleChange = event => {
@@ -21,7 +21,7 @@ function SwitchTitle({type}) {
 
 	return (
 		<TitleBox>
-			<TitleStyle>질문 검열</TitleStyle>
+			<TitleStyle>{titleName}</TitleStyle>
 			<Switch
 				checked={state}
 				onChange={handleChange}
