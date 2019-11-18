@@ -5,7 +5,7 @@ import Nav from "./components/Nav";
 import Content from "./components/Content";
 
 function App() {
-	const [event] = useState(false);
+	const [event] = useState(true);
 
 	return (
 		<div className="App">

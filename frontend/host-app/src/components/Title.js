@@ -1,7 +1,15 @@
 import React from "react";
+import SwitchTitle from "./SwitchTitle";
 
-function Title({value}) {
-	return <React.Fragment>{value}</React.Fragment>;
+function Title({type}) {
+	switch (type) {
+		case "moderation": return <SwitchTitle>{type}</SwitchTitle>;
+		case "newQuestion": return <React.Fragment>{type}</React.Fragment>;
+		case "popularQuestion": return <React.Fragment>{type}</React.Fragment>;
+		case "completeQuestion": return <React.Fragment>{type}</React.Fragment>;
+		case "poll": return <React.Fragment>{type}</React.Fragment>;
+		default: return <React.Fragment>{"wrongInput"}</React.Fragment>;
+	}
 }
 
 export default Title;

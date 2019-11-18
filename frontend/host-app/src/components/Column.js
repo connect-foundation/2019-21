@@ -19,10 +19,10 @@ const ColumnStyle = styled.div`
 	}
 `;
 
-function Column({title}) {
+function Column({type}) {
 	return (
 		<ColumnStyle>
-			<Title value={title} />
+			<Title type={type} />
 		</ColumnStyle>
 	);
 }

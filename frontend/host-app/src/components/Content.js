@@ -16,11 +16,11 @@ const ContentStyle = styled.div`
 function Content({event}) {
 	return event ? (
 		<ContentStyle>
-			<Column title="검열중" />
-			<Column title="최신 질문" />
-			<Column title="인기 질문" />
-			<Column title="완료 질문" />
-			<Column title="투표" />
+			<Column type="moderation" />
+			<Column type="newQuestion" />
+			<Column type="popularQuestion" />
+			<Column type="completeQuestion" />
+			<Column type="poll" />
 		</ContentStyle>
 	) : (
 		<ContentStyle>
