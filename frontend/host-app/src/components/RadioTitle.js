@@ -1,15 +1,14 @@
 import React from "react";
-import Switch from "@material-ui/core/Switch";
+import Radio from "@material-ui/core/Radio";
 import styled from "styled-components";
 import Badge from "@material-ui/core/Badge";
-import {makeStyles} from "@material-ui/core";
-
+import {makeStyles} from "@material-ui/core/styles";
 
 const TitleBox = styled.div`
 	display:flex;
 	align-items: center;
-    width:100%;
-	justify-content:space-around;
+	width:100%;
+	justify-content:space-between;
 `;
 
 const TitleStyle = styled.div`
@@ -25,10 +24,10 @@ const useStyles = makeStyles(theme => ({
 ));
 
 function SwitchTitle({titleName}) {
-	const [state, setState] = React.useState(false);
+	const [state, setState] = React.useState("a");
 
 	const handleChange = event => {
-		setState(event.target.checked);
+		setState(event.target.value);
 	};
 
 	const classes = useStyles();
@@ -42,11 +41,13 @@ function SwitchTitle({titleName}) {
 				className={classes.margin}
 			/>
 			<TitleStyle>{titleName}</TitleStyle>
-			<Switch
-				checked={state}
+			<Radio
+				checked={state === "a"}
 				onChange={handleChange}
-			>
-			</Switch>
+				value="a"
+				name="radio-button-demo"
+				inputProps={{"aria-label": "A"}}
+			/>
 		</TitleBox>
 	);
 }
