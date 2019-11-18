@@ -5,19 +5,22 @@ import HostLoginMessage from "./compounds/HostLoginMessage";
 import LoginModal from "./compounds/LoginModal";
 
 function App() {
-	const [show, setShow] = useState(0);
+	const MODAL_OPENED = true;
+	const MODAL_CLOSED = false;
+
+	const [loginModalStatus, setModalStatus] = useState(MODAL_CLOSED);
 	const onHideModal = () => {
-		setShow(0);
+		setModalStatus(MODAL_CLOSED);
 	};
 	const onShowModal = () => {
-		setShow(1);
+		setModalStatus(MODAL_OPENED);
 	};
 
 	return (
 		<div className="App">
 			<EventForm />
 			<HostLoginMessage onShowModal={onShowModal} />
-			{show === 0 ? null : <LoginModal onHideModal={onHideModal} />}
+			{loginModalStatus && <LoginModal onHideModal={onHideModal} />}
 		</div>
 	);
 }
