@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Title from "../primitives/Title";
+import Title from "./Title";
 
 const ColumnStyle = styled.div`
 	display: flex;
