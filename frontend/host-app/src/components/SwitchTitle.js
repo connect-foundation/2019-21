@@ -24,14 +24,14 @@ const useStyles = makeStyles(theme => ({
 }
 ));
 
-function SwitchTitle({titleName, state, stateHandler}) {
+function SwitchTitle({titleName, state, stateHandler, badgeState}) {
 	const classes = useStyles();
 
 	return (
 		<TitleBox>
 			<Badge
 				color="secondary"
-				badgeContent={0}
+				badgeContent={badgeState[0]}
 				showZero
 				className={classes.margin}
 			/>

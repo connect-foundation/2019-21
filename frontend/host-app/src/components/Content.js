@@ -20,6 +20,8 @@ function Content({event}) {
 	const MODERATION_OFF = false;
 	const [radioState, setRadioState] = useState([SELECTED, UNSELECTED, UNSELECTED, UNSELECTED]);
 	const [moderationState, setModeration] = useState(MODERATION_OFF);
+	const [questionNumberStatus] = useState([4, 3, 2, 1]);
+	const [pollNumberStatus] = useState(5);
 
 	const handleRadioState = buttonIndex => {
 		const newState = [0, 0, 0, 0].map((e, idx) => (idx === buttonIndex ? SELECTED : UNSELECTED));
@@ -33,11 +35,16 @@ function Content({event}) {
 
 	return event ? (
 		<ContentStyle>
-			<Column type="moderation" state={moderationState} stateHandler={handleModerationState}/>
-			<Column type="newQuestion" state={radioState} stateHandler={handleRadioState}/>
-			<Column type="popularQuestion" state={radioState} stateHandler={handleRadioState}/>
-			<Column type="completeQuestion" state={radioState} stateHandler={handleRadioState}/>
-			<Column type="poll" state={radioState} stateHandler={handleRadioState}/>
+			<Column type="moderation" state={moderationState}
+				stateHandler={handleModerationState} badgeState={questionNumberStatus}/>
+			<Column type="newQuestion" state={radioState} stateHandler={handleRadioState}
+				badgeState={questionNumberStatus}/>
+			<Column type="popularQuestion" state={radioState} stateHandler={handleRadioState}
+				badgeState={questionNumberStatus}/>
+			<Column type="completeQuestion" state={radioState} stateHandler={handleRadioState}
+				badgeState={questionNumberStatus}/>
+			<Column type="poll" state={radioState} stateHandler={handleRadioState}
+				badgeState={pollNumberStatus}/>
 		</ContentStyle>
 	) : (
 		<ContentStyle>

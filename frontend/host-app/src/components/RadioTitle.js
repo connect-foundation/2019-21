@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 		margin: theme.spacing(2)}}
 ));
 
-function SwitchTitle({titleName, state, stateHandler, idx}) {
+function SwitchTitle({titleName, state, stateHandler, idx, badgeState}) {
 	const SELECTED = 1;
 	const classes = useStyles();
 
@@ -29,7 +29,7 @@ function SwitchTitle({titleName, state, stateHandler, idx}) {
 		<TitleBox>
 			<Badge
 				color="secondary"
-				badgeContent={0}
+				badgeContent={badgeState[idx + 1]}
 				showZero
 				className={classes.margin}
 			/>
@@ -44,7 +44,7 @@ function SwitchTitle({titleName, state, stateHandler, idx}) {
 		<TitleBox>
 			<Badge
 				color="secondary"
-				badgeContent={0}
+				badgeContent={idx === 3 ? badgeState : badgeState[idx + 1]}
 				showZero
 				className={classes.margin}
 			/>
