@@ -8,7 +8,7 @@ const TitleBox = styled.div`
 	display:flex;
 	align-items: center;
 	width:100%;
-	justify-content:space-between;
+	justify-content:space-around;
 `;
 
 const TitleStyle = styled.div`
@@ -16,20 +16,11 @@ const TitleStyle = styled.div`
 `;
 
 const useStyles = makeStyles(theme => ({
-
 	margin: {
-		margin: theme.spacing(2),
-	},
-}
+		margin: theme.spacing(2)}}
 ));
 
-function SwitchTitle({titleName}) {
-	const [state, setState] = React.useState("a");
-
-	const handleChange = event => {
-		setState(event.target.value);
-	};
-
+function SwitchTitle({titleName, state, stateHandler, idx}) {
 	const classes = useStyles();
 
 	return (
@@ -42,11 +33,8 @@ function SwitchTitle({titleName}) {
 			/>
 			<TitleStyle>{titleName}</TitleStyle>
 			<Radio
-				checked={state === "a"}
-				onChange={handleChange}
-				value="a"
-				name="radio-button-demo"
-				inputProps={{"aria-label": "A"}}
+				checked={state[idx] === 1}
+				onClick={stateHandler.bind(this, idx)}
 			/>
 		</TitleBox>
 	);

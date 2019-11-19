@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import Column from "./Column";
 import EmptyContent from "./EmptyContent";
@@ -14,13 +14,20 @@ const ContentStyle = styled.div`
 `;
 
 function Content({event}) {
+	const [radioState, setRadioState] = useState([1, 0, 0, 0]);
+	const handleRadioState = buttonIndex => {
+		const newState = [0, 0, 0, 0].map((e, idx) => (idx === buttonIndex ? 1 : 0));
+
+		setRadioState(newState);
+	};
+
 	return event ? (
 		<ContentStyle>
 			<Column type="moderation" />
-			<Column type="newQuestion" />
-			<Column type="popularQuestion" />
-			<Column type="completeQuestion" />
-			<Column type="poll" />
+			<Column type="newQuestion" state={radioState} stateHandler={handleRadioState}/>
+			<Column type="popularQuestion" state={radioState} stateHandler={handleRadioState}/>
+			<Column type="completeQuestion" state={radioState} stateHandler={handleRadioState}/>
+			<Column type="poll" state={radioState} stateHandler={handleRadioState}/>
 		</ContentStyle>
 	) : (
 		<ContentStyle>

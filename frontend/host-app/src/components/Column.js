@@ -19,10 +19,10 @@ const ColumnStyle = styled.div`
 	}
 `;
 
-function Column({type}) {
+function Column({type, state, stateHandler}) {
 	return (
 		<ColumnStyle>
-			<Title type={type} />
+			<Title type={type} state={state} stateHandler={stateHandler}/>
 		</ColumnStyle>
 	);
 }
