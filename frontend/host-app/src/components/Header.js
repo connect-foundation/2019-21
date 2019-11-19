@@ -1,41 +1,26 @@
 import React from "react";
-import styled from "styled-components";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import {makeStyles} from "@material-ui/core/styles";
 
-const HeaderStyle = styled.header`
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	padding: 0.6rem 40px;
-	background-color: #212529;
-	color: white;
-`;
-
-const LeftStyle = styled.div`
-	display: flex;
-	flex-direction: row;
-	align-items: flex-start;
-	font-size: 1.2rem;
-	font-weight: bold;
-`;
-
-const CenterStyle = styled.div`
-	font-size: 1.1rem;
-	text-align: center;
-`;
-
-const RightStyle = styled.div`
-	display: flex;
-	flex-direction: row;
-	align-items: flex-end;
-`;
+const useStyles = makeStyles(theme => ({
+	header: {
+		backgroundColor: "#212529",
+	},
+}));
 
 function Header() {
+	const classes = useStyles();
+
 	return (
-		<HeaderStyle>
-			<LeftStyle>바글바글</LeftStyle>
-			<CenterStyle>부캠-2019-마스터클래스-4차</CenterStyle>
-			<RightStyle>email | logout</RightStyle>
-		</HeaderStyle>
+		<AppBar position="static">
+			<Toolbar variant="dense" className={classes.header}>
+				<Typography variant="h6">
+					Vaggle
+				</Typography>
+			</Toolbar>
+		</AppBar>
 	);
 }
 
