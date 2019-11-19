@@ -3,6 +3,7 @@ import {Modal} from "@material-ui/core";
 import styled from "styled-components";
 import InputEventName from "./InputEventName";
 import InputStartDate from "./InputStartDate";
+import EndDateField from "./EndDateField";
 import {eventModalReducer, initialModalState} from "./eventModalReducer";
 
 const modalSize = 450;
@@ -62,6 +63,7 @@ function CreateEventModal({open, handleClose}) {
 						startDate={modalState.startDate}
 						dispatch={{setStartDate, setEndDate}}
 					/>
+					<EndDateField endDate={modalState.endDate} />
 				</form>
 			</PopUpLayOutStyle>
 		</Modal>
