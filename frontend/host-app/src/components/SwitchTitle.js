@@ -24,13 +24,7 @@ const useStyles = makeStyles(theme => ({
 }
 ));
 
-function SwitchTitle({titleName}) {
-	const [state, setState] = React.useState(false);
-
-	const handleChange = event => {
-		setState(event.target.checked);
-	};
-
+function SwitchTitle({titleName, state, stateHandler}) {
 	const classes = useStyles();
 
 	return (
@@ -44,7 +38,7 @@ function SwitchTitle({titleName}) {
 			<TitleStyle>{titleName}</TitleStyle>
 			<Switch
 				checked={state}
-				onChange={handleChange}
+				onClick={stateHandler}
 			>
 			</Switch>
 		</TitleBox>
