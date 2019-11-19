@@ -3,7 +3,9 @@ import {Modal} from "@material-ui/core";
 import styled from "styled-components";
 import InputEventName from "./InputEventName";
 import InputStartDate from "./InputStartDate";
+import InputHashTag from "./InputHashTag";
 import EndDateField from "./EndDateField";
+import HashTagsField from "./HashTagsField";
 import {eventModalReducer, initialModalState} from "./eventModalReducer";
 
 const modalSize = 450;
@@ -46,6 +48,13 @@ function CreateEventModal({open, handleClose}) {
 		});
 	};
 
+	const updateHashTag = hashTagList => {
+		dispatchModalState({
+			type: "updateHashTags",
+			hashTags: hashTagList,
+		});
+	};
+
 	console.log(modalState.startDate);
 	return (
 		<Modal
@@ -64,6 +73,14 @@ function CreateEventModal({open, handleClose}) {
 						dispatch={{setStartDate, setEndDate}}
 					/>
 					<EndDateField endDate={modalState.endDate} />
+					<InputHashTag
+						hashTags={modalState.hashTags}
+						dispatch={updateHashTag}
+					/>
+					<HashTagsField
+						hashTags={modalState.hashTags}
+						dispatch={updateHashTag}
+					/>
 				</form>
 			</PopUpLayOutStyle>
 		</Modal>

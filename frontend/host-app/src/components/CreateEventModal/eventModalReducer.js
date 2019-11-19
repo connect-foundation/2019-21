@@ -2,6 +2,7 @@ const initialModalState = {
 	eventName: "",
 	startDate: new Date(),
 	endDate: new Date(),
+	hashTags: [],
 };
 
 const eventModalReducer = (state, action) => {
@@ -17,6 +18,9 @@ const eventModalReducer = (state, action) => {
 		}
 		case "setEndDate": {
 			return {...state, endDate: action.endDate};
+		}
+		case "updateHashTags": {
+			return {...state, hashTags: action.hashTags};
 		}
 		default: {
 			throw new Error(`unexpected action.type: ${action.type}`);
