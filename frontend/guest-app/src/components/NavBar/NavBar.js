@@ -5,7 +5,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import {LeftSideNavMenu, useLeftMenuBarState} from "./LeftNavMenuBar.js";
 
-export function NavBar() {
+function NavBar() {
 	const navBarState = useLeftMenuBarState();
 
 	return (
@@ -25,3 +25,5 @@ export function NavBar() {
 		</AppBar>
 	);
 }
+
+export default NavBar;

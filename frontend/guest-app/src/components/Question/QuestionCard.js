@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Card from "@material-ui/core/Card";
 import {CardContent, Typography} from "@material-ui/core";
-import {UserAvata} from "./UserAvata.js";
+import UserAvata from "./UserAvata.js";
 import {LikeButton, useLikeButtonState} from "./LikeButton.js";
 
 const QuestionHeader = styled.div`

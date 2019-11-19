@@ -14,6 +14,7 @@ function NamedAvata({userName}) {
 	});
 	const classes = useStyles();
 	const inner = userName.slice(0, 1);
+
 	return <Avatar className={classes.randomAvatar}>{inner}</Avatar>;
 }
 
@@ -25,6 +26,8 @@ function AnonymousAvata() {
 	);
 }
 
-export function UserAvata({isAnonymous, userName}) {
+function UserAvata({isAnonymous, userName}) {
 	return isAnonymous ? <AnonymousAvata /> : <NamedAvata {...{userName}} />;
 }
+
+export default UserAvata;

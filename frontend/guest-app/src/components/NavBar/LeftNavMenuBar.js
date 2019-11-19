@@ -63,6 +63,7 @@ export function useLeftMenuBarState() {
 	const toggleNavMenu = () => {
 		setState(!state);
 	};
+
 	return {
 		state,
 		toggleNavMenu,

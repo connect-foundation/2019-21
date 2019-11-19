@@ -26,4 +26,4 @@ TabPanel.propTypes = {
 	value: PropTypes.any.isRequired,
 };
 
-export {TabPanel};
+export default TabPanel;

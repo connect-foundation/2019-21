@@ -1,6 +1,6 @@
 import Button from "@material-ui/core/Button";
-import React, { useState } from "react";
-import { UndoLikeConfirmModal, UseUndoLikeConfirmModalState } from "./UndoLikeModal.js";
+import React, {useState} from "react";
+import {UndoLikeConfirmModal, UseUndoLikeConfirmModalState} from "./UndoLikeModal.js";
 
 export function LikeButton({likeCount, isLikeClicked, like, undoLike}) {
 	const modalState = UseUndoLikeConfirmModalState();
@@ -40,7 +40,7 @@ export function LikeButton({likeCount, isLikeClicked, like, undoLike}) {
 export function useLikeButtonState(
 	initialState = {isLikeClicked: false, likeCount: 0},
 ) {
-	let [likeState, setLikeState] = useState(initialState);
+	const [likeState, setLikeState] = useState(initialState);
 
 	const like = () =>
 		setLikeState({likeCount: likeState.likeCount + 1, isLikeClicked: true});
@@ -51,5 +51,5 @@ export function useLikeButtonState(
 			isLikeClicked: false,
 		});
 
-	return { ...likeState, like, undoLike };
+	return {...likeState, like, undoLike};
 }
