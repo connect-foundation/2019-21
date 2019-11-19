@@ -6,9 +6,14 @@ const CustomTextField = styled(TextField)({
 	width: 400,
 });
 
-function InputEventName() {
+function InputEventName(props) {
 	return (
-		<CustomTextField id="eventName" label="이벤트 이름" color="primary" />
+		<CustomTextField
+			id="eventName"
+			label="이벤트 이름"
+			color="primary"
+			onChange={props.dispatch}
+		/>
 	);
 }
 
