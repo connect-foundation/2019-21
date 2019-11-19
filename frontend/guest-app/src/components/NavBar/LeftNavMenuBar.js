@@ -97,11 +97,11 @@ function MenuList({classes, toggleNavMenu}) {
 	);
 }
 
-export function LeftSideNavMenu({state, toggleNavMenu}) {
+export function LeftSideNavMenu({isOpen, toggleNavMenu}) {
 	const classes = useSideMenuStyles();
 
 	return (
-		<Drawer open={state} onClose={toggleNavMenu}>
+		<Drawer open={isOpen} onClose={toggleNavMenu}>
 			<MenuHeader {...{classes}} />
 			<MenuList {...{classes, toggleNavMenu}} />
 		</Drawer>
@@ -109,13 +109,13 @@ export function LeftSideNavMenu({state, toggleNavMenu}) {
 }
 
 export function useLeftMenuBarState() {
-	const [state, setState] = React.useState(false);
+	const [isOpen, setState] = React.useState(false);
 	const toggleNavMenu = () => {
-		setState(!state);
+		setState(!isOpen);
 	};
 
 	return {
-		state,
+		isOpen,
 		toggleNavMenu,
 	};
 }
