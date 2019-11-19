@@ -8,15 +8,16 @@ import EndDateField from "./EndDateField";
 import HashTagsField from "./HashTagsField";
 import {eventModalReducer, initialModalState} from "./eventModalReducer";
 
-const modalSize = 450;
+const modalHeight = 600;
+const modalWidth = 450;
 const PopUpLayOutStyle = styled.div`
 	position: relative;
-	top: calc(50% - ${modalSize / 2}px);
-	left: calc(50% - ${modalSize / 2}px);
+	top: calc(50% - ${modalHeight / 2}px);
+	left: calc(50% - ${modalWidth / 2}px);
 	display: flex;
 	flex-direction: column;
-	width: ${modalSize}px;
-	height: ${modalSize}px;
+	width: ${modalWidth}px;
+	height: ${modalHeight}px;
 	background-color: white;
 	padding-left: 20px;
 `;
