@@ -20,34 +20,32 @@ const CustomTimePicker = styled(TimePicker)({
 });
 
 function InputStartDate(props) {
-	const [startDate, handleStartDateChange] = useState(new Date());
+	const {setStartDate, setEndDate} = props.dispatch;
 	const [lastTime, handleLastTimeChange] = useState(0);
-	const [endDate, handleEndDateChange] = useState(new Date());
 
 	const calcEndDate = inputTime => {
 		const hour = moment(inputTime).format("HH");
 		const minuate = moment(inputTime).format("mm");
 
-		let addedDate = moment(startDate)
+		let addedDate = moment(props.startDate)
 			.add(hour, "h")
 			.toDate();
 
 		addedDate = moment(addedDate)
 			.add(minuate, "m")
 			.toDate();
-		handleEndDateChange(addedDate);
+		setEndDate(addedDate);
 		handleLastTimeChange(inputTime);
 	};
 
-	console.log(endDate);
 	return (
 		<>
 			<MuiPickersUtilsProvider utils={DateFnsUtils}>
 				<CustomDateTimePicker
 					variant="inline"
 					label="시작날짜"
-					value={startDate}
-					onChange={handleStartDateChange}
+					value={props.startDate}
+					onChange={setStartDate}
 				/>
 				<CustomTimePicker
 					clearable

@@ -1,7 +1,7 @@
 const initialModalState = {
 	eventName: "",
-	startDate: null,
-	endDate: null,
+	startDate: new Date(),
+	endDate: new Date(),
 };
 
 const eventModalReducer = (state, action) => {

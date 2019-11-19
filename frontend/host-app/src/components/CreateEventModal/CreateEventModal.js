@@ -31,7 +31,21 @@ function CreateEventModal({open, handleClose}) {
 		});
 	};
 
-	console.log(modalState.eventName);
+	const setStartDate = event => {
+		dispatchModalState({
+			type: "setStartDate",
+			startDate: event,
+		});
+	};
+
+	const setEndDate = event => {
+		dispatchModalState({
+			type: "setEndDate",
+			endDate: event,
+		});
+	};
+
+	console.log(modalState.startDate);
 	return (
 		<Modal
 			aria-labelledby="createEvent-modal-title"
@@ -43,7 +57,11 @@ function CreateEventModal({open, handleClose}) {
 				<h1 id="createEvent-modal-title">이벤트만들기</h1>
 				<form>
 					<InputEventName dispatch={setEventName} />
-					<InputStartDate />
+					<InputStartDate
+						endDate={modalState.endDate}
+						startDate={modalState.startDate}
+						dispatch={{setStartDate, setEndDate}}
+					/>
 				</form>
 			</PopUpLayOutStyle>
 		</Modal>
