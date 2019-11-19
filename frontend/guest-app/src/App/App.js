@@ -10,6 +10,7 @@ import {
 } from "../components/NavBar/LeftNavMenuBar.js";
 import useTabBarState from "../components/Tab/TabBarState.js";
 import useModalState from "../components/useModalState.js";
+import LogOutModal from "../components/NavBar/LogoutModal.js";
 
 export default function App() {
 	const navBarState = useLeftMenuBarState();
@@ -21,7 +22,10 @@ export default function App() {
 	return (
 		<div>
 			<NavBar onToggleNavClick={navBarState.toggleNavMenu} />
-
+			<LeftSideNavMenu
+				isOpen={navBarState.isOpen}
+				toggleNavMenu={navBarState.toggleNavMenu}
+			/>
 			<TabBar
 				{...{
 					tabIdx: tabBarState.tabIdx,
@@ -41,6 +45,12 @@ export default function App() {
 				onEditProfileClick={editProfileModalState.openModal}
 				onMyQuestionClick={myQuestionModalState.openModal}
 				onLogoutClick={logoutModalState.openModal}
+			/>
+
+			<LogOutModal
+				isOpened={logoutModalState.isOpened}
+				onCancelClick={logoutModalState.closeModal}
+				onConfirmClick={logoutModalState.closeModal}
 			/>
 		</div>
 	);
