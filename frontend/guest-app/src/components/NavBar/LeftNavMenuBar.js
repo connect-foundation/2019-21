@@ -5,13 +5,60 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
+import Typography from "@material-ui/core/Typography";
 import makeStyles from "@material-ui/core/styles/makeStyles.js";
+
+import {Grid} from "@material-ui/core";
 
 const useSideMenuStyles = makeStyles({
 	list: {
 		width: 250,
 	},
+	header: {
+		minHeight: 150,
+		paddingLeft: "1rem",
+		paddingRight: "1rem",
+	},
+	headerWrappedText: {
+		overflow: "hidden",
+		textOverflow: "ellipsis",
+		width: 200,
+	},
+	headerSpace: {
+		height: 100,
+	},
 });
+
+function MenuHeader({
+	classes,
+	eventName = "event name ",
+	eventTerm = "event term ",
+	eventCode = "event code ",
+}) {
+	return (
+		<Grid
+			container
+			className={classes.header}
+			direction="column"
+			justify="flex-end"
+		>
+			<div className={classes.headerSpace} />
+			<div className={classes.headerWrappedText}>
+				<Typography>{eventName}</Typography>
+			</div>
+			<div className={classes.headerWrappedText}>
+				<Typography color={"textSecondary"} variant={"body1"}>
+					{eventTerm}
+				</Typography>
+			</div>
+			<div className={classes.headerWrappedText}>
+				<Typography color={"textSecondary"} variant={"body1"}>
+					{eventCode}
+				</Typography>
+			</div>
+		</Grid>
+	);
+}
 
 function MenuItem({icon, itemText}) {
 	return (
@@ -55,6 +102,7 @@ export function LeftSideNavMenu({state, toggleNavMenu}) {
 
 	return (
 		<Drawer open={state} onClose={toggleNavMenu}>
+			<MenuHeader {...{classes}} />
 			<MenuList {...{classes, toggleNavMenu}} />
 		</Drawer>
 	);
