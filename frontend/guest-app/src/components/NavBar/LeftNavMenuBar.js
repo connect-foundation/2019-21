@@ -60,16 +60,24 @@ function MenuHeader({
 	);
 }
 
-function MenuItem({icon, itemText}) {
+function MenuItem({icon, itemText, onClick}) {
 	return (
-		<ListItem button key={"edit my profile"}>
+		<ListItem button key={"edit my profile"} onClick={onClick}>
 			<ListItemIcon>{icon}</ListItemIcon>
 			<ListItemText primary={itemText} />
 		</ListItem>
 	);
 }
 
-function MenuList({classes, toggleNavMenu}) {
+function MenuList(props) {
+	const {
+		classes,
+		toggleNavMenu,
+		onEditProfileClick,
+		onMyQuestionClick,
+		onLogoutClick,
+	} = props;
+
 	return (
 		<div
 			className={classes.list}
@@ -82,14 +90,17 @@ function MenuList({classes, toggleNavMenu}) {
 				<MenuItem
 					icon={<i className="fas fa-user" />}
 					itemText={"edit my profile"}
+					onClick={onEditProfileClick}
 				/>
 				<MenuItem
 					icon={<i className="fas fa-comment-dots" />}
 					itemText={"my questions"}
+					onClick={onMyQuestionClick}
 				/>
 				<MenuItem
 					icon={<i className="fas fa-sign-out-alt" />}
 					itemText={"logout"}
+					onClick={onLogoutClick}
 				/>
 			</List>
 			<Divider />
@@ -97,13 +108,14 @@ function MenuList({classes, toggleNavMenu}) {
 	);
 }
 
-export function LeftSideNavMenu({isOpen, toggleNavMenu}) {
+export function LeftSideNavMenu(props) {
+	const {isOpen, toggleNavMenu} = props;
 	const classes = useSideMenuStyles();
 
 	return (
 		<Drawer open={isOpen} onClose={toggleNavMenu}>
 			<MenuHeader {...{classes}} />
-			<MenuList {...{classes, toggleNavMenu}} />
+			<MenuList {...{classes, toggleNavMenu}} {...props} />
 		</Drawer>
 	);
 }
