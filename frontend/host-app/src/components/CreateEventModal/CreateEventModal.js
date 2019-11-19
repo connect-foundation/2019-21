@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useReducer} from "react";
 import {Modal} from "@material-ui/core";
 import styled from "styled-components";
 import InputEventName from "./InputEventName";
 import InputStartDate from "./InputStartDate";
+import {eventModalReducer, initialModalState} from "./eventModalReducer";
 
 const modalSize = 450;
 const PopUpLayOutStyle = styled.div`
@@ -18,6 +19,19 @@ const PopUpLayOutStyle = styled.div`
 `;
 
 function CreateEventModal({open, handleClose}) {
+	const [modalState, dispatchModalState] = useReducer(
+		eventModalReducer,
+		initialModalState,
+	);
+
+	const setEventName = event => {
+		dispatchModalState({
+			type: "setEventName",
+			eventName: event.target.value,
+		});
+	};
+
+	console.log(modalState.eventName);
 	return (
 		<Modal
 			aria-labelledby="createEvent-modal-title"
@@ -28,7 +42,7 @@ function CreateEventModal({open, handleClose}) {
 			<PopUpLayOutStyle>
 				<h1 id="createEvent-modal-title">이벤트만들기</h1>
 				<form>
-					<InputEventName />
+					<InputEventName dispatch={setEventName} />
 					<InputStartDate />
 				</form>
 			</PopUpLayOutStyle>
