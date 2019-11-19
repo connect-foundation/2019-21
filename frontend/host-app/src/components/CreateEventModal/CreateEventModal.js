@@ -27,6 +27,10 @@ function CreateEventModal({open, handleClose}) {
 		>
 			<PopUpLayOutStyle>
 				<h1 id="createEvent-modal-title">이벤트만들기</h1>
+				<form>
+					<InputEventName />
+					<InputStartDate />
+				</form>
 			</PopUpLayOutStyle>
 		</Modal>
 	);
