@@ -3,6 +3,7 @@ import Radio from "@material-ui/core/Radio";
 import styled from "styled-components";
 import Badge from "@material-ui/core/Badge";
 import {makeStyles} from "@material-ui/core/styles";
+import {Icon} from "@material-ui/core";
 
 const TitleBox = styled.div`
 	display:flex;
@@ -21,9 +22,10 @@ const useStyles = makeStyles(theme => ({
 ));
 
 function SwitchTitle({titleName, state, stateHandler, idx}) {
+	const SELECTED = 1;
 	const classes = useStyles();
 
-	return (
+	return idx <= 1 ? (
 		<TitleBox>
 			<Badge
 				color="secondary"
@@ -33,7 +35,22 @@ function SwitchTitle({titleName, state, stateHandler, idx}) {
 			/>
 			<TitleStyle>{titleName}</TitleStyle>
 			<Radio
-				checked={state[idx] === 1}
+				checked={state[idx] === SELECTED}
+				onClick={stateHandler.bind(this, idx)}
+			/>
+			<Icon>delete_outlined_icon</Icon>
+		</TitleBox>
+	) : (
+		<TitleBox>
+			<Badge
+				color="secondary"
+				badgeContent={0}
+				showZero
+				className={classes.margin}
+			/>
+			<TitleStyle>{titleName}</TitleStyle>
+			<Radio
+				checked={state[idx] === SELECTED}
 				onClick={stateHandler.bind(this, idx)}
 			/>
 		</TitleBox>
