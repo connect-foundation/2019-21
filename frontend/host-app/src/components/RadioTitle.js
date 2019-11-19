@@ -18,7 +18,13 @@ const TitleStyle = styled.div`
 
 const useStyles = makeStyles(theme => ({
 	margin: {
-		margin: theme.spacing(2)}}
+		margin: theme.spacing(2)},
+	icon: {
+		"&:hover": {
+			color: "#EF0046",
+		},
+	},
+}
 ));
 
 function SwitchTitle({titleName, state, stateHandler, idx, badgeState}) {
@@ -38,7 +44,7 @@ function SwitchTitle({titleName, state, stateHandler, idx, badgeState}) {
 				checked={state[idx] === SELECTED}
 				onClick={stateHandler.bind(this, idx)}
 			/>
-			<Icon>delete_outlined_icon</Icon>
+			<Icon className={classes.icon}>delete_outlined_icon</Icon>
 		</TitleBox>
 	) : (
 		<TitleBox>

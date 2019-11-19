@@ -8,6 +8,10 @@ function HeaderConfigAvatar() {
 			backgroundColor: "#FFF",
 			color: "#212529",
 			margin: "0.5rem",
+			"&:hover": {
+				color: "#FFF",
+				backgroundColor: "#69747f",
+			},
 		},
 	});
 	const classes = useStyles();
