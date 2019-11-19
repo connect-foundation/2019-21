@@ -1,7 +1,15 @@
 import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
+import {makeStyles, styled} from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
 import Paper from "@material-ui/core/Paper";
+
+const MyPaper = styled(Paper)({
+	display: "flex",
+	flexDirection: "column",
+	flex: 1,
+	overflowY: "auto",
+	width: 400,
+});
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -12,6 +20,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	chip: {
 		margin: theme.spacing(0.5),
+		maxWidth: 400,
 	},
 }));
 
@@ -26,7 +35,7 @@ function HashTagField(props) {
 	};
 
 	return (
-		<Paper>
+		<MyPaper>
 			{props.hashTags.map(data => (
 				<Chip
 					key={data.key}
@@ -35,7 +44,7 @@ function HashTagField(props) {
 					onDelete={handleDelete(data)}
 				/>
 			))}
-		</Paper>
+		</MyPaper>
 	);
 }
 

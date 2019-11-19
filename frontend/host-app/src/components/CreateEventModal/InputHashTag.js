@@ -12,6 +12,10 @@ function InputHashTag(props) {
 	const prevHashTagList = props.hashTags;
 	const addHashTag = event => {
 		if (event.keyCode === ENTER_KEY) {
+			if (event.target.value.length > 28) {
+				alert("너무길어");
+				return;
+			}
 			const hashTag = {
 				key: uuidv1(),
 				label: event.target.value,

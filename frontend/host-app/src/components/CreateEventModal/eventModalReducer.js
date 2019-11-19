@@ -1,10 +1,16 @@
-import uuidv1 from "uuid/v1";
-
 const makeEventCode = () => {
-	const uuid = uuidv1();
+	const codeLen = 4;
+	const characterCode =
+		"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ0123456789";
+	let code = "";
 
+	for (let i = 0; i < codeLen; ++i) {
+		code += characterCode.charAt(
+			Math.floor(Math.random() * characterCode.length),
+		);
+	}
 	/* if uuid.substring(0,4) 존재하면 다시 돌리기 */
-	return uuid.substring(0, 4);
+	return code;
 };
 
 const initialModalState = {
@@ -18,7 +24,8 @@ const initialModalState = {
 const eventModalReducer = (state, action) => {
 	switch (action.type) {
 		case "reset": {
-			return initialModalState;
+			Object.assign(initialModalState, {eventCode: makeEventCode()});
+			return {...initialModalState};
 		}
 		case "setEventName": {
 			return {...state, eventName: action.eventName};

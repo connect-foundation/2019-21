@@ -6,9 +6,16 @@ import {
 } from "@material-ui/pickers";
 import {styled} from "@material-ui/core/styles";
 import DateFnsUtils from "@date-io/date-fns";
+import Container from "@material-ui/core/Container";
 import moment from "moment";
 
 const marginTopLength = 20;
+
+const CustomContainer = styled(Container)({
+	display: "flex",
+	margin: 0,
+	padding: 0,
+});
 
 const CustomDateTimePicker = styled(DateTimePicker)({
 	marginTop: marginTopLength,
@@ -41,7 +48,7 @@ function InputStartDate(props) {
 	};
 
 	return (
-		<>
+		<CustomContainer>
 			<MuiPickersUtilsProvider utils={DateFnsUtils}>
 				<CustomDateTimePicker
 					variant="inline"
@@ -58,7 +65,7 @@ function InputStartDate(props) {
 					minutesStep={5}
 				/>
 			</MuiPickersUtilsProvider>
-		</>
+		</CustomContainer>
 	);
 }
 
