@@ -1,8 +1,18 @@
+import uuidv1 from "uuid/v1";
+
+const makeEventCode = () => {
+	const uuid = uuidv1();
+
+	/* if uuid.substring(0,4) 존재하면 다시 돌리기 */
+	return uuid.substring(0, 4);
+};
+
 const initialModalState = {
 	eventName: "",
 	startDate: new Date(),
 	endDate: new Date(),
 	hashTags: [],
+	eventCode: makeEventCode(),
 };
 
 const eventModalReducer = (state, action) => {
