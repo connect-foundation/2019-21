@@ -2,7 +2,7 @@ import {makeStyles, Icon} from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import React from "react";
 
-function HeaderConfigAvatar() {
+function HeaderConfigAvatar({onClick}) {
 	const useStyles = makeStyles({
 		headerAvatar: {
 			backgroundColor: "#FFF",
@@ -16,9 +16,11 @@ function HeaderConfigAvatar() {
 	});
 	const classes = useStyles();
 
-	return <Avatar className={classes.headerAvatar}>
-		<Icon>settings</Icon>
-	</Avatar>;
+	return (
+		<Avatar onClick={onClick} className={classes.headerAvatar}>
+			<Icon>settings</Icon>
+		</Avatar>
+	);
 }
 
 export default HeaderConfigAvatar;
