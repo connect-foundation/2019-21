@@ -6,14 +6,13 @@ import Content from "./components/Content";
 import NewPollModal from "./components/Poll/NewPollModal";
 
 function App() {
-	const modal = true;
+	const modal = false;
 	const [event] = useState(true);
 
 	return (
 		<div className="App">
 			<Header />
 			<Nav />
-			<Content />
 			{modal && <NewPollModal />}
 			<Content event={event}/>
 		</div>
