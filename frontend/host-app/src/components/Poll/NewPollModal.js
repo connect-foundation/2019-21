@@ -144,7 +144,7 @@ function NewPollModal() {
 						onDeleteDate={onDeleteDate}
 					/> :
 					<RatingBlock
-						initialValue={ratingValue}
+						ratingValue={ratingValue}
 						maxValue={MAX_STARS}
 						onChange={setRatingValue}
 					/>
