@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "./App.css";
 import Header from "./components/Header";
 import Nav from "./components/Nav";
@@ -7,6 +7,7 @@ import NewPollModal from "./components/Poll/NewPollModal";
 
 function App() {
 	const modal = true;
+	const [event] = useState(true);
 
 	return (
 		<div className="App">
@@ -14,6 +15,7 @@ function App() {
 			<Nav />
 			<Content />
 			{modal && <NewPollModal />}
+			<Content event={event}/>
 		</div>
 	);
 }
