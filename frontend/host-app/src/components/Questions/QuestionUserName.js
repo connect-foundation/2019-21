@@ -5,7 +5,7 @@ function QuestionUserName({userName}) {
 	return (
 		<Typography
 			color={"textPrimary"}
-			variant={"subtitle1"}
+			variant={"subtitle2"}
 			style={{fontWeight: "bold"}}
 		>
 			{userName}

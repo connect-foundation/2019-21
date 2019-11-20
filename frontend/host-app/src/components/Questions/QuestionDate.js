@@ -3,7 +3,7 @@ import React from "react";
 
 function QuestionDate({date}) {
 	return (
-		<Typography color={"textSecondary"} variant={"body1"}>
+		<Typography color={"textSecondary"} variant={"body2"}>
 			{`${date.getFullYear()}.${date.getMonth()}.${date.getDay()}`}
 		</Typography>
 	);

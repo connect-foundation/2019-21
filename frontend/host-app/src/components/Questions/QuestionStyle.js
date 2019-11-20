@@ -7,6 +7,8 @@ const QuestionHeader = styled.div`
 
 const QuestionMeta = styled.div`
 	display: flex;
+	width: 100%;
+	align-items: center;
 `;
 
 const QuestionInfo = styled.div`
@@ -16,6 +18,13 @@ const QuestionInfo = styled.div`
 	margin-left: 1rem;
 `;
 
-const QuestionBody = styled.div``;
+const QuestionBody = styled.div`
+	font-size: 0.9rem;
+	margin: 1rem 0;
+`;
 
-export {QuestionHeader, QuestionMeta, QuestionInfo, QuestionBody};
+const QuestionButtons = styled.div`
+	margin-left:auto;
+`;
+
+export {QuestionHeader, QuestionMeta, QuestionInfo, QuestionBody, QuestionButtons};
