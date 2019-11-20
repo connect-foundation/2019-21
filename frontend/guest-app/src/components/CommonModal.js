@@ -1,8 +1,7 @@
-import makeStyles from "@material-ui/core/styles/makeStyles.js";
 import React from "react";
 import Modal from "@material-ui/core/Modal";
-import {Grid} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
+import makeStyles from "@material-ui/core/styles/makeStyles.js";
+import PropTypes from "prop-types";
 
 function getModalStyle() {
 	return {
@@ -22,29 +21,23 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function LogOutModal({isOpened, onCancelClick, onConfirmClick}) {
+function CommonModal(props) {
+	const {isOpened, onCancelClick} = props;
 	const classes = useStyles();
 	const [modalStyle] = React.useState(getModalStyle);
 
 	return (
 		<Modal open={isOpened} onClose={onCancelClick}>
 			<div style={modalStyle} className={classes.paper}>
-				<p>Do you want to logout</p>
-				<Grid container direction={"row"} justify="flex-end">
-					<Button className={classes.button} onClick={onCancelClick}>
-						Cancel
-					</Button>
-					<Button
-						color="secondary"
-						className={classes.button}
-						onClick={onConfirmClick}
-					>
-						logout
-					</Button>
-				</Grid>
+				{props.children}
 			</div>
 		</Modal>
 	);
 }
 
-export default LogOutModal;
+CommonModal.propTypes = {
+	isOpened: PropTypes.bool,
+	onCancelClick: PropTypes.func,
+};
+
+export default CommonModal;
