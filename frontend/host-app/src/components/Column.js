@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Title from "./Title";
+import QuestionContainer from "./Questions/QuestionContainer";
 
 const ColumnStyle = styled.div`
 	display: flex;
@@ -19,10 +20,11 @@ const ColumnStyle = styled.div`
 	}
 `;
 
-function Column({type, state, stateHandler, badgeState}) {
+function Column({type, state, stateHandler, badgeState, data}) {
 	return (
 		<ColumnStyle>
 			<Title type={type} state={state} stateHandler={stateHandler} badgeState={badgeState}/>
+			<QuestionContainer type={type} datas={data}/>
 		</ColumnStyle>
 	);
 }

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import styled from "styled-components";
 import Column from "./Column";
 import EmptyContent from "./EmptyContent";
+import DummyData from "./Questions/QuestionDummyData";
 
 const ContentStyle = styled.div`
 	display: flex;
@@ -23,6 +24,15 @@ function Content({event}) {
 	const [questionNumberStatus] = useState([4, 3, 2, 1]);
 	const [pollNumberStatus] = useState(5);
 
+	const [modeartionDatas] = useState({questions: DummyData()
+		.filter(e => e.status === "moderation")});
+	const [newQuestionDatas] = useState({questions: DummyData()
+		.filter(e => e.status === "newQuestion")});
+	const [popQuestionDatas] = useState({questions: DummyData()
+		.filter(e => e.status === "popularQuestion")});
+	const [completeQuestionDatas] = useState({questions: DummyData()
+		.filter(e => e.status === "completeQuestion")});
+
 	const handleRadioState = buttonIndex => {
 		const newState = [0, 0, 0, 0].map((e, idx) => (idx === buttonIndex ? SELECTED : UNSELECTED));
 
@@ -35,16 +45,40 @@ function Content({event}) {
 
 	return event ? (
 		<ContentStyle>
-			<Column type="moderation" state={moderationState}
-				stateHandler={handleModerationState} badgeState={questionNumberStatus}/>
-			<Column type="newQuestion" state={radioState} stateHandler={handleRadioState}
-				badgeState={questionNumberStatus}/>
-			<Column type="popularQuestion" state={radioState} stateHandler={handleRadioState}
-				badgeState={questionNumberStatus}/>
-			<Column type="completeQuestion" state={radioState} stateHandler={handleRadioState}
-				badgeState={questionNumberStatus}/>
-			<Column type="poll" state={radioState} stateHandler={handleRadioState}
-				badgeState={pollNumberStatus}/>
+			<Column
+				type="moderation"
+				state={moderationState}
+				stateHandler={handleModerationState}
+				badgeState={questionNumberStatus}
+				data={modeartionDatas}
+			/>
+			<Column
+				type="newQuestion"
+				state={radioState}
+				stateHandler={handleRadioState}
+				badgeState={questionNumberStatus}
+				data={newQuestionDatas}
+			/>
+			<Column
+				type="popularQuestion"
+				state={radioState}
+				stateHandler={handleRadioState}
+				badgeState={questionNumberStatus}
+				data={popQuestionDatas}
+			/>
+			<Column
+				type="completeQuestion"
+				state={radioState}
+				stateHandler={handleRadioState}
+				badgeState={questionNumberStatus}
+				data={completeQuestionDatas}
+			/>
+			<Column
+				type="poll"
+				state={radioState}
+				stateHandler={handleRadioState}
+				badgeState={pollNumberStatus}
+			/>
 		</ContentStyle>
 	) : (
 		<ContentStyle>

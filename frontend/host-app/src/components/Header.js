@@ -3,8 +3,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
-import HeaderAccountAvatar from "./HeaderAccountAvatar";
-import HeaderConfigAvatar from "./HeaderConfigAvatar";
+import HeaderAccountAvata from "./HeaderAccountAvata";
+import HeaderConfigAvata from "./HeaderConfigAvata";
 
 const useStyles = makeStyles(() => ({
 	header: {
@@ -26,8 +26,8 @@ function Header() {
 					Vaggle
 				</Typography>
 				<div className={classes.rightSide}>
-					<HeaderConfigAvatar/>
-					<HeaderAccountAvatar userName={"홍"}/>
+					<HeaderConfigAvata/>
+					<HeaderAccountAvata userName={"홍"}/>
 				</div>
 			</Toolbar>
 		</AppBar>
