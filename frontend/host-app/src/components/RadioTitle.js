@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 }
 ));
 
-function SwitchTitle({titleName, state, stateHandler, idx, badgeState}) {
+function RadioTitle({titleName, state, stateHandler, idx, badgeState}) {
 	const SELECTED = 1;
 	const classes = useStyles();
 
@@ -63,4 +63,4 @@ function SwitchTitle({titleName, state, stateHandler, idx, badgeState}) {
 	);
 }
 
-export default SwitchTitle;
+export default RadioTitle;

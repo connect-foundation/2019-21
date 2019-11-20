@@ -22,7 +22,7 @@ const EmptyContentDiv = styled.div`
 	margin: auto 0;
 `;
 
-function Column() {
+function EmptyContent() {
 	return (
 		<EmptyContentBox>
 			<EmptyContentDiv>
@@ -39,4 +39,4 @@ function Column() {
 	);
 }
 
-export default Column;
+export default EmptyContent;
