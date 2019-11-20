@@ -36,6 +36,7 @@ function CommonModal(props) {
 }
 
 CommonModal.propTypes = {
+	children: PropTypes.node,
 	isOpened: PropTypes.bool,
 	onCancelClick: PropTypes.func,
 };
