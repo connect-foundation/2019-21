@@ -1,7 +1,8 @@
 import React from "react";
 import {Tab, Box, Tabs} from "@material-ui/core";
 import {styled} from "@material-ui/core/styles";
-import GeneralSetting from "./SettingTabContents/GeneralSetting";
+import TabContent from "./TabContent";
+import GeneralSetting from "./GeneralSetting/GeneralSetting";
 
 const MyContainer = styled(Box)({
 	display: "flex",
@@ -18,8 +19,8 @@ function allyProps(index) {
 	};
 }
 
-export default function ModalNavigationTab() {
-	const [value, setValue] = React.useState(0);
+export default function TabNavigation() {
+	const [value, setValue] = React.useState(1);
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
@@ -33,13 +34,15 @@ export default function ModalNavigationTab() {
 				onChange={handleChange}
 				aria-label="simple tabs example"
 			>
+				/
+				<CustomTab label="이벤트설정" disabled={true} />
 				<CustomTab label="Item One" {...allyProps(0)} />
 				<CustomTab label="Item Two" {...allyProps(1)} />
 				<CustomTab label="Item Three" {...allyProps(2)} />
 			</Tabs>
-			<GeneralSetting value={value} index={0}>
-				Item One
-			</GeneralSetting>
+			<TabContent value={value} index={1}>
+				<GeneralSetting />
+			</TabContent>
 		</MyContainer>
 	);
 }

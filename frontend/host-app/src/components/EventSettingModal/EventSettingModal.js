@@ -1,7 +1,7 @@
 import React from "react";
 import {Modal} from "@material-ui/core";
 import styled from "styled-components";
-import ModalNavigationTab from "./ModalNavigationTab";
+import TabNavigation from "./EventSettingTab/TabNavigation";
 
 const modalHeight = 45;
 const modalWidth = 60;
@@ -23,7 +23,7 @@ function EventSettingModal(props) {
 			onClose={props.handleClose}
 		>
 			<PopUpLayOutStyle>
-				<ModalNavigationTab />
+				<TabNavigation />
 			</PopUpLayOutStyle>
 		</Modal>
 	);
