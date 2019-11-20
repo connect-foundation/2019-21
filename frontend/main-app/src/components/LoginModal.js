@@ -1,32 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import {Button} from "@material-ui/core";
+import {Button, Modal} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 
-const ModalStyle = styled.div`
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.5);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-`;
-
 const LoginStyle = styled.div`
+	position: relative;
+	top: calc(50% - 150px);
+	left: calc(50% - 150px);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	width: 280px;
-	height: 250px;
+	width: 300px;
+	height: 300px;
 	background-color: white;
-	border: 1px solid #ced4da;
-	border-radius: 8px;
-	z-index: 9;
-	box-shadow: 2px 5px 5px 0px rgba(0, 0, 0, 0.75);
 `;
 
 const LoginImageStyle = styled.img`
@@ -46,7 +33,7 @@ const StyledButton = withStyles({
 
 function LoginModal({onHideModal}) {
 	return (
-		<ModalStyle>
+		<Modal open onClose={onHideModal} >
 			<LoginStyle>
 				<LoginImageStyle src="naver.png" onClick={onHideModal} />
 				<LoginImageStyle src="google.png" onClick={onHideModal} />
@@ -60,7 +47,7 @@ function LoginModal({onHideModal}) {
 					취소
 				</StyledButton>
 			</LoginStyle>
-		</ModalStyle>
+		</Modal>
 	);
 }
 
