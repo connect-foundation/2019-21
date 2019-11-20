@@ -3,15 +3,36 @@ import styled from "styled-components";
 import {TextField} from "@material-ui/core";
 import {MdDelete, MdAdd} from "react-icons/md";
 
+const DeleteItem = styled.div`
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    color: #f1f3f5;
+    &:hover {
+        color: #adb5bd;
+    }
+`;
+
 const RowWrapper = styled.div`
     display: flex;
     flex-direction: row;
 	align-items: center;
 	justify-content: ${props => (props.left ? "flex-start" : "space-around")};
 	width: 100%;
-	min-height: 50px;
+	min-height: 3rem;
 	padding: 0 0 0 1rem;
     box-sizing: border-box;
+    &:hover {
+        ${DeleteItem} {
+            opacity: 1;
+        }
+    }
 `;
 
 const AddItem = styled.div`
@@ -20,10 +41,10 @@ const AddItem = styled.div`
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    width: 32px;
-    height: 32px;
+    width: 2rem;
+    height: 2rem;
     border-radius: 50%;
-    font-size: 24px;
+    font-size: 1.5rem;
     border: 1px solid gray;
     &:hover {
         background-color: #f1f3f5;
@@ -33,41 +54,38 @@ const AddItem = styled.div`
     }
 `;
 
-const Remove = styled.div`
-    opacity: 1;
+const ColumnWrapper = styled.div`
     display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    width: 32px;
-    height: 32px;
-    font-size: 24px;
-    border-radius: 50%;
-    color: #f1f3f5;
-    &:hover {
-        color: #adb5bd;
-    }
+    flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	flex: 1;
+	box-sizing: border-box;
+    max-height: 300px;
+    overflow-y: auto;
 `;
 
-function TextItems({items, handleSelectionItemChange, onRemoveItem, onAddItem}) {
+function TextItems({texts, onTextChange, onDeleteText, onAddText}) {
 	return (
 		<>
-			{items.map((item, index) => (
-				<RowWrapper left>
-					<TextField
-						value={item}
-						margin="dense"
-						variant="outlined"
-						placeholder="항목입력"
-						key={index}
-						onChange={() => handleSelectionItemChange(event, index)}
-					/>
-					<Remove>
-						{(index > 1) && <MdDelete onClick={() => onRemoveItem(index)} />}
-					</Remove>
-				</RowWrapper>))
-			}
-			<AddItem onClick={onAddItem}>
+			<ColumnWrapper>
+				{texts.map((text, index) => (
+					<RowWrapper left>
+						<TextField
+							value={text}
+							margin="dense"
+							variant="outlined"
+							placeholder="항목입력"
+							key={index}
+							onChange={() => onTextChange(event, index)}
+						/>
+						<DeleteItem>
+							{(index > 1) && <MdDelete onClick={() => onDeleteText(index)} />}
+						</DeleteItem>
+					</RowWrapper>))
+				}
+			</ColumnWrapper>
+			<AddItem onClick={onAddText}>
 				<MdAdd />
 			</AddItem>
 		</>
