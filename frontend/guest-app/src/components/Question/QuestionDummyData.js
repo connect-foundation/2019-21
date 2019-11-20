@@ -36,6 +36,26 @@ function DummyData() {
 			date: new Date(),
 			question: "question",
 			isAnonymous: true,
+		}, {
+			userName: "Anonymous",
+			date: new Date(),
+			question: "question",
+			isAnonymous: true,
+		}, {
+			userName: "Anonymous",
+			date: new Date(),
+			question: "question",
+			isAnonymous: true,
+		}, {
+			userName: "Anonymous",
+			date: new Date(),
+			question: "question",
+			isAnonymous: true,
+		}, {
+			userName: "Anonymous",
+			date: new Date(),
+			question: "question",
+			isAnonymous: true,
 		},
 	];
 }

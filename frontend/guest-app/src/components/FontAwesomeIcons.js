@@ -31,3 +31,7 @@ export function EmailIcon(props) {
 export function PollIcon(props) {
 	return <i className="fas fa-poll">{props.children}</i>;
 }
+
+export function EllipsisHorizonIcon(props) {
+	return <i className="fas fa-ellipsis-h">{props.children}</i>;
+}

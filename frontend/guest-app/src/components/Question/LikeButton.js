@@ -38,7 +38,7 @@ export function LikeButton({likeCount, isLikeClicked, like, undoLike}) {
 	);
 }
 
-export function useLikeButtonState(
+export function useLikeButton(
 	initialState = {isLikeClicked: false, likeCount: 0},
 ) {
 	const [likeState, setLikeState] = useState(initialState);
