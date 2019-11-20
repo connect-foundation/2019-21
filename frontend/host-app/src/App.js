@@ -13,7 +13,6 @@ function App() {
 		<div className="App">
 			<Header />
 			<Nav />
-			<Content />
 			{modal && <NewPollModal />}
 			<Content event={event}/>
 		</div>
