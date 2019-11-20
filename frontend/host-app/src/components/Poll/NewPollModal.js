@@ -3,8 +3,9 @@ import styled from "styled-components";
 import {Button, Modal} from "@material-ui/core";
 import PollName from "./PollName";
 import PollType from "./PollType";
-import NItems from "./NItems";
+import MultipleItems from "./MultipleItems";
 import RatingBlock from "./RatingBlock";
+import Duplication from "./Duplication";
 
 const ModalWrapper = styled.div`
 	display: flex;
@@ -30,43 +31,45 @@ const RowWrapper = styled.div`
 function NewPollModal() {
 	// Poll 이름
 	const [pollName, setPollName] = useState("");
-	const handlePollNameChange = event => {
+	const onPollNameChange = event => {
 		setPollName(event.target.value);
 	};
 
 	// Poll 종류
 	const [pollType, setPollType] = useState("nItems");
-	const handlePollTypeChange = event => {
+	const onPollTypeChange = event => {
 		setPollType(event.target.value);
 	};
 
 	// Poll 종류가 N지선다 일때, 항목들의 속성이 text 인지 date 인지 선택
 	const [selectionType, setSelectionType] = useState("text");
-	const handleSelectionTypeChange = event => {
+	const onSelectionTypeChange = event => {
 		setSelectionType(event.target.value);
 	};
 
 	// Poll 종류가 별점 일때
-	const [ratingValue, setRatingValue] = useState(5);
+	const RECOMMENDED_MAX_STARS = 5;
+	const MAX_STARS = 10;
+	const [ratingValue, setRatingValue] = useState(RECOMMENDED_MAX_STARS);
 
 	// Poll 종류가 N지선다 이고 항목들의 속성이 text일때 항목들을 관리하는 부분
-	const [selectionItems, setSelectionItems] = useState(["", ""]);
-	const handleSelectionItemChange = (event, id) => {
-		setSelectionItems(
-			selectionItems.map(
-				(item, index) => (index === id ? event.target.value : item),
+	const [texts, setTexts] = useState(["", ""]);
+	const onTextChange = (event, id) => {
+		setTexts(
+			texts.map(
+				(text, index) => (index === id ? event.target.value : text),
 			),
 		);
 	};
 
-	const onAddItem = () => {
-		setSelectionItems([...selectionItems, ""]);
+	const onAddText = () => {
+		setTexts([...texts, ""]);
 	};
 
-	const onRemoveItem = id => {
-		setSelectionItems(
-			selectionItems.filter(
-				(item, index) => (index !== id),
+	const onDeleteText = id => {
+		setTexts(
+			texts.filter(
+				(text, index) => (index !== id),
 			),
 		);
 	};
@@ -78,60 +81,78 @@ function NewPollModal() {
 	initialDates.push(now);
 	initialDates.push(now);
 
-	const [selectionDates, setSelectionDates] = useState(initialDates);
-	const handleSelectionDateChange = (newDate, id) => {
-		setSelectionDates(
-			selectionDates.map(
+	const [dates, setDates] = useState(initialDates);
+	const onDateChange = (newDate, id) => {
+		setDates(
+			dates.map(
 				(date, index) => (index === id ? newDate : date),
 			),
 		);
 	};
 
 	const onAddDate = () => {
-		setSelectionDates([...selectionDates, Date.now()]);
+		setDates([...dates, Date.now()]);
 	};
 
-	const onRemoveDate = id => {
-		setSelectionDates(
-			selectionDates.filter(
+	const onDeleteDate = id => {
+		setDates(
+			dates.filter(
 				(date, index) => (index !== id),
 			),
 		);
 	};
 
+	// Poll 종류가 N지선다 일때 중복선택 옵션을 체크하는 부분
+	const [allowDuplication, setDuplication] = useState(false);
+	const onDuplicationChange = event => {
+		setDuplication(event.target.checked);
+	};
+
+	// 모달의 스타일 선언
+	const modalStyle = {
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center",
+	};
+
 	return (
 		<Modal
 			open
-			style={{display: "flex", justifyContent: "center", alignItems: "center"}}
+			style={modalStyle}
 		>
 			<ModalWrapper>
 				<h2>투표 만들기</h2>
 				<PollName
 					value={pollName}
-					onChange={handlePollNameChange}
+					onChange={onPollNameChange}
 				/>
 				<PollType
 					pollType={pollType}
-					onChange={handlePollTypeChange}
+					onChange={onPollTypeChange}
 				/>
 				{pollType === "nItems" ?
-					<NItems
-						items={selectionItems}
-						dates={selectionDates}
+					<MultipleItems
+						texts={texts}
+						dates={dates}
 						selectionType={selectionType}
-						onChange={handleSelectionTypeChange}
-						handleSelectionItemChange={handleSelectionItemChange}
-						handleSelectionDateChange={handleSelectionDateChange}
-						onAddItem={onAddItem}
-						onRemoveItem={onRemoveItem}
+						onChange={onSelectionTypeChange}
+						onTextChange={onTextChange}
+						onDateChange={onDateChange}
+						onAddText={onAddText}
+						onDeleteText={onDeleteText}
 						onAddDate={onAddDate}
-						onRemoveDate={onRemoveDate}
+						onDeleteDate={onDeleteDate}
 					/> :
 					<RatingBlock
-						ratingValue={ratingValue}
+						initialValue={ratingValue}
+						maxValue={MAX_STARS}
 						onChange={setRatingValue}
 					/>
 				}
+				{(pollType === "nItems") && <Duplication
+					checked={allowDuplication}
+					onChange={onDuplicationChange}
+				/>}
 				<RowWrapper>
 					<Button
 						variant="contained"
