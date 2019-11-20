@@ -7,6 +7,7 @@ const ColumnStyle = styled.div`
 	display: flex;
 	flex-direction: column;
 	flex: 1;
+	min-width: 20rem;
 	overflow: auto;
 	justify-content: flex-start;
 	align-items: center;

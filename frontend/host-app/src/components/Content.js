@@ -9,9 +9,11 @@ const ContentStyle = styled.div`
 	flex-direction: row;
 	flex: 1;
 	overflow: auto;
-	justify-content: center;
+	justify-content: left;
 	align-items: center;
 	padding: 4px 8px;
+	overflow-x: auto;
+	flex-wrap: nowrap;
 `;
 
 function Content({event}) {

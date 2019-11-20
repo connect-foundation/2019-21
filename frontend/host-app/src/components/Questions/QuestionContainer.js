@@ -1,11 +1,16 @@
 import React from "react";
+import styled from "styled-components";
 import ModerationQuestionCard from "./ModerationQuestionCard.js";
 import LiveQuestionCard from "./LiveQuestionCard";
 import CompleteQuestionCard from "./CompleteQuestionCard";
 
+const QuestionDiv = styled.div`
+	width: 100%;
+`;
+
 function QuestionContainer({datas, type}) {
 	return (
-		<div>
+		<QuestionDiv>
 			{(type === "moderation") && datas.questions.map((question, idx) => (
 				<ModerationQuestionCard {...question} key={idx}/>
 			))}
@@ -18,7 +23,7 @@ function QuestionContainer({datas, type}) {
 			{(type === "completeQuestion") && datas.questions.map((question, idx) => (
 				<CompleteQuestionCard {...question} key={idx}/>
 			))}
-		</div>
+		</QuestionDiv>
 	);
 }
 
