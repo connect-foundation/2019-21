@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Title from "../primitives/Title";
+import Title from "./Title";
 
 const ColumnStyle = styled.div`
 	display: flex;
@@ -19,10 +19,10 @@ const ColumnStyle = styled.div`
 	}
 `;
 
-function Column({title}) {
+function Column({type, state, stateHandler, badgeState}) {
 	return (
 		<ColumnStyle>
-			<Title value={title} />
+			<Title type={type} state={state} stateHandler={stateHandler} badgeState={badgeState}/>
 		</ColumnStyle>
 	);
 }
