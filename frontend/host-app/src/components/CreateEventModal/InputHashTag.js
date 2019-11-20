@@ -3,19 +3,16 @@ import {styled} from "@material-ui/core/styles";
 import {TextField} from "@material-ui/core";
 import uuidv1 from "uuid/v1";
 
-const ENTER_KEY = 13;
+const ENTER_KEY_CODE = 13;
 const CustomTextField = styled(TextField)({
-	width: 400,
+	marginTop: 20,
+	width: 410,
 });
 
 function InputHashTag(props) {
 	const prevHashTagList = props.hashTags;
 	const addHashTag = event => {
-		if (event.keyCode === ENTER_KEY) {
-			if (event.target.value.length > 28) {
-				alert("너무길어");
-				return;
-			}
+		if (event.keyCode === ENTER_KEY_CODE) {
 			const hashTag = {
 				key: uuidv1(),
 				label: event.target.value,
@@ -32,7 +29,6 @@ function InputHashTag(props) {
 			id="eventName"
 			label="Press Enter"
 			color="primary"
-			variant="outlined"
 			onKeyDown={addHashTag}
 		/>
 	);

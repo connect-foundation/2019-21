@@ -4,7 +4,7 @@ import {TextField} from "@material-ui/core";
 
 const CustomTextField = styled(TextField)({
 	marginTop: 20,
-	width: 400,
+	width: 410,
 });
 
 function EndDateField(props) {
@@ -14,7 +14,6 @@ function EndDateField(props) {
 			label="종료날짜"
 			color="primary"
 			value={props.endDate}
-			variant="outlined"
 			readOnly={true}
 		/>
 	);

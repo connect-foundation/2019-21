@@ -51,7 +51,6 @@ function InputStartDate(props) {
 		<CustomContainer>
 			<MuiPickersUtilsProvider utils={DateFnsUtils}>
 				<CustomDateTimePicker
-					variant="inline"
 					label="시작날짜"
 					value={props.startDate}
 					onChange={setStartDate}
