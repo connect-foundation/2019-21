@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import "./App.css";
-import EventForm from "./compounds/EventForm";
-import HostLoginMessage from "./compounds/HostLoginMessage";
-import LoginModal from "./compounds/LoginModal";
+import EventForm from "./components/EventForm";
+import HostLoginMessage from "./components/HostLoginMessage";
+import LoginModal from "./components/LoginModal";
 
 function App() {
 	const MODAL_OPENED = true;
