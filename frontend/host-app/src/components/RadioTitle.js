@@ -16,6 +16,12 @@ const TitleStyle = styled.div`
 	font-weight: bold;
 `;
 
+const RightSide = styled.div`
+	margin-left: 2rem;
+	display: flex;
+	align-items: center;
+`;
+
 const useStyles = makeStyles(theme => ({
 	margin: {
 		margin: theme.spacing(2)},
@@ -40,11 +46,13 @@ function RadioTitle({titleName, state, stateHandler, idx, badgeState}) {
 				className={classes.margin}
 			/>
 			<TitleStyle>{titleName}</TitleStyle>
-			<Radio
-				checked={state[idx] === SELECTED}
-				onClick={stateHandler.bind(this, idx)}
-			/>
-			<Icon className={classes.icon}>delete_outlined_icon</Icon>
+			<RightSide>
+				<Radio
+					checked={state[idx] === SELECTED}
+					onClick={stateHandler.bind(this, idx)}
+				/>
+				<Icon className={classes.icon}>delete_outlined_icon</Icon>
+			</RightSide>
 		</TitleBox>
 	) : (
 		<TitleBox>
