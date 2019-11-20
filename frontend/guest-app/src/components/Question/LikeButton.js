@@ -1,6 +1,7 @@
 import Button from "@material-ui/core/Button";
 import React, {useState} from "react";
 import {UndoLikeConfirmModal, UseUndoLikeConfirmModalState} from "./UndoLikeModal.js";
+import {LikeIcon} from "../FontAwesomeIcons.js";
 
 export function LikeButton({likeCount, isLikeClicked, like, undoLike}) {
 	const modalState = UseUndoLikeConfirmModalState();
@@ -25,7 +26,7 @@ export function LikeButton({likeCount, isLikeClicked, like, undoLike}) {
 			<Button
 				variant="outlined"
 				color={isLikeClicked ? "primary" : "default"}
-				startIcon={<i className="far fa-thumbs-up" />}
+				startIcon={<LikeIcon/>}
 				onClick={onLikeButtonClicked}
 			>
 				{likeCount}
