@@ -9,45 +9,44 @@ const ColumnWrapper = styled.div`
     flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
-	flex: 1;
     padding: 0 0.5rem 0.5rem 1rem;
 	box-sizing: border-box;
-    border: 1px solid #adb5bd;
-    max-height: 380px;
-    overflow-y: auto;
+	border: 1px solid #adb5bd;
+	width: 320px;
+	min-height: 210px;
 `;
 
-function NItems(
+function MultipleItems(
 	{
-		items,
-		dates,
 		selectionType,
 		onChange,
-		handleSelectionItemChange,
-		onAddItem,
-		onRemoveItem,
-		handleSelectionDateChange,
+		texts,
+		onTextChange,
+		onAddText,
+		onDeleteText,
+		dates,
+		onDateChange,
 		onAddDate,
-		onRemoveDate,
+		onDeleteDate,
 	},
 ) {
 	return (
 		<ColumnWrapper>
 			<SelectionType selectionType={selectionType} onChange={onChange} />
 			{(selectionType === "text") && <TextItems
-				items={items}
-				handleSelectionItemChange={handleSelectionItemChange}
-				onRemoveItem={onRemoveItem}
-				onAddItem={onAddItem} />
+				texts={texts}
+				onTextChange={onTextChange}
+				onDeleteText={onDeleteText}
+				onAddText={onAddText} />
 			}
 			{(selectionType === "date") && <DateItems
 				dates={dates}
-				handleSelectionDateChange={handleSelectionDateChange}
-				onRemoveDate={onRemoveDate}
+				onDateChange={onDateChange}
+				onDeleteDate={onDeleteDate}
 				onAddDate={onAddDate} />
 			}
 		</ColumnWrapper>
 	);
 }
 
-export default NItems;
+export default MultipleItems;
