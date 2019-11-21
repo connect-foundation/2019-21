@@ -38,8 +38,7 @@
 [wiki](https://github.com/connect-foundation/2019-21/wiki)
 
 ## ERD
-
--   todo ERD 그림 넣기
+![alt](./docs/diagram.png)
 
 ## 팀원
 
