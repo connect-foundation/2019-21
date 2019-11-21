@@ -35,3 +35,11 @@ export function PollIcon(props) {
 export function EllipsisHorizonIcon(props) {
 	return <i className="fas fa-ellipsis-h">{props.children}</i>;
 }
+
+export function DeleteIcon(props) {
+	return <i className="fas fa-trash-alt">{props.children}</i>;
+}
+
+export function EditIcon(props) {
+	return <i className="fas fa-edit">{props.children}</i>;
+}
