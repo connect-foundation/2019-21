@@ -26,13 +26,13 @@ function Content({event}) {
 	const [questionNumberStatus] = useState([4, 3, 2, 1]);
 	const [pollNumberStatus] = useState(5);
 
-	const [modeartionDatas] = useState({questions: DummyData()
+	const [modeartionDatas, setModerationDatas] = useState({questions: DummyData()
 		.filter(e => e.status === "moderation")});
-	const [newQuestionDatas] = useState({questions: DummyData()
+	const [newQuestionDatas, setNewQuestionDatas] = useState({questions: DummyData()
 		.filter(e => e.status === "newQuestion")});
-	const [popQuestionDatas] = useState({questions: DummyData()
+	const [popQuestionDatas, setPopQuestionDatas] = useState({questions: DummyData()
 		.filter(e => e.status === "popularQuestion")});
-	const [completeQuestionDatas] = useState({questions: DummyData()
+	const [completeQuestionDatas, setCompleteQuestionDatas] = useState({questions: DummyData()
 		.filter(e => e.status === "completeQuestion")});
 
 	const handleRadioState = buttonIndex => {
@@ -45,6 +45,37 @@ function Content({event}) {
 		moderationState === MODERATION_ON ? setModeration(MODERATION_OFF) : setModeration(MODERATION_ON);
 	};
 
+
+	const handleQuestionDatas = (id, from, to) => {
+		const typeMap = {
+			moderation: {
+				data: modeartionDatas,
+				handler: setModerationDatas,
+			},
+			newQuestion: {
+				data: newQuestionDatas,
+				handler: setNewQuestionDatas,
+			},
+			popularQuestion: {
+				data: popQuestionDatas,
+				handler: setPopQuestionDatas,
+			},
+			completeQuestion: {
+				data: completeQuestionDatas,
+				handler: setCompleteQuestionDatas,
+			},
+		};
+
+		const fromObject = typeMap[from];
+		const toObject = typeMap[to];
+
+		fromObject.handler({questions: fromObject.data.questions.filter(e => e.id !== id)});
+		toObject.handler({questions: [
+			...toObject.data.questions, fromObject.data.questions
+				.find(e => e.id === id),
+		]});
+	};
+
 	return event ? (
 		<ContentStyle>
 			<Column
@@ -53,6 +84,7 @@ function Content({event}) {
 				stateHandler={handleModerationState}
 				badgeState={questionNumberStatus}
 				data={modeartionDatas}
+				dataHandler={handleQuestionDatas}
 			/>
 			<Column
 				type="newQuestion"
@@ -60,6 +92,7 @@ function Content({event}) {
 				stateHandler={handleRadioState}
 				badgeState={questionNumberStatus}
 				data={newQuestionDatas}
+				dataHandler={handleQuestionDatas}
 			/>
 			<Column
 				type="popularQuestion"
@@ -67,6 +100,7 @@ function Content({event}) {
 				stateHandler={handleRadioState}
 				badgeState={questionNumberStatus}
 				data={popQuestionDatas}
+				dataHandler={handleQuestionDatas}
 			/>
 			<Column
 				type="completeQuestion"
@@ -74,6 +108,7 @@ function Content({event}) {
 				stateHandler={handleRadioState}
 				badgeState={questionNumberStatus}
 				data={completeQuestionDatas}
+				dataHandler={handleQuestionDatas}
 			/>
 			<Column
 				type="poll"

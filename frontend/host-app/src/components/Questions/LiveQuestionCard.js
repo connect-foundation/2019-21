@@ -22,8 +22,12 @@ function LiveQuestionCard(props) {
 						</QuestionInfo>
 						<QuestionButtons>
 							<Icon className={classes.starButton}>stars</Icon>
-							<Icon className={classes.upwardButton}>arrow_upward</Icon>
-							<Icon className={classes.approveButton}>check_circle_outline</Icon>
+							<Icon className={classes.upwardButton}>publish</Icon>
+							<Icon
+								className={classes.approveButton}
+								onClick={() => props.dataHandler(props.id, props.type, "completeQuestion")}>
+								check_circle_outline
+							</Icon>
 							<Icon className={classes.moreButton}>more_vert</Icon>
 						</QuestionButtons>
 					</QuestionMeta>

@@ -23,7 +23,7 @@ function Header() {
 		<AppBar position="static">
 			<Toolbar variant="dense" className={classes.header}>
 				<Typography variant="h6">
-					Vaggle
+					Vaagle
 				</Typography>
 				<div className={classes.rightSide}>
 					<HeaderConfigAvata/>

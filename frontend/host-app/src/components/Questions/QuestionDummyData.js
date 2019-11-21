@@ -1,18 +1,21 @@
 function DummyData() {
 	return [
 		{
+			id: 0,
 			userName: "오랑캐1",
 			date: new Date(),
 			question: "오늘 마스터 클래스 좋네요",
 			isAnonymous: false,
 			status: "moderation",
 		}, {
+			id: 1,
 			userName: "오랑캐2",
 			date: new Date(),
 			question: "회의실이 부족해요",
 			isAnonymous: false,
 			status: "moderation",
 		}, {
+			id: 2,
 			userName: "오랑캐3",
 			date: new Date(),
 			question:
@@ -20,24 +23,28 @@ function DummyData() {
 			isAnonymous: false,
 			status: "newQuestion",
 		}, {
+			id: 3,
 			userName: "오랑캐4",
 			date: new Date(),
 			question: "짧은 질문입니다",
 			isAnonymous: false,
 			status: "newQuestion",
 		}, {
+			id: 4,
 			userName: "Anonymous",
 			date: new Date(),
 			question: "점심 뭐먹나요",
 			isAnonymous: true,
 			status: "popularQuestion",
 		}, {
+			id: 5,
 			userName: "Anonymous",
 			date: new Date(),
 			question: "해장국이요",
 			isAnonymous: true,
 			status: "popularQuestion",
 		}, {
+			id: 6,
 			userName: "Anonymous",
 			date: new Date(),
 			question: "오늘의 질문을 종료합니다",
