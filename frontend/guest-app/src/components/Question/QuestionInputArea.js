@@ -114,23 +114,33 @@ function QuestionInputGroup({
 	);
 }
 
-function QuestionInputArea({userAvataState, textInputState}) {
+function QuestionInputArea({
+	userAvataState,
+	textInputState,
+	onAskQuestion,
+	onOpen,
+}) {
 	const inputToggle = useToggler(true);
-	const onAskQuestion = () => {
-		inputToggle.toggle();
-	};
 
 	return (
 		<QuestionInputStyle>
 			<Card style={{width: "100%"}}>
 				{inputToggle.state ? (
-					<CardContent onClick={inputToggle.toggle}>
+					<CardContent
+						onClick={() => {
+							inputToggle.toggle();
+							onOpen();
+						}}
+					>
 						<EditIcon>&nbsp;질문하기</EditIcon>
 					</CardContent>
 				) : (
 					<CardContent>
 						<QuestionInputGroup
-							onAskQuestion={onAskQuestion}
+							onAskQuestion={() => {
+								onAskQuestion();
+								inputToggle.toggle();
+							}}
 							onCancel={inputToggle.toggle}
 							userAvataState={userAvataState}
 							textInputState={textInputState}

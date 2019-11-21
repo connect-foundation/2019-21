@@ -10,24 +10,47 @@ import useUserAvata from "./useUserAvata.js";
 
 const Container = styled.div``;
 
+function useQuestions(initialState = DummyData()) {
+	const [state, setState] = useState(initialState);
+	const addQuestion = newQuestion => {
+		setState([newQuestion, ...state]);
+	};
+
+	return {questions: state, addQuestion};
+}
+
 function QuestionContainer(props) {
-	const [datas] = useState({questions: DummyData()});
+	const {questions, addQuestion} = useQuestions();
 	const {tabIdx, selectTabIdx} = useTabGroup();
 	const userAvataState = useUserAvata();
 	const textInputState = useTextInput();
 
+	const onAskQuestion = () => {
+		addQuestion({
+			userName: userAvataState.userName,
+			date: new Date(),
+			question: textInputState.value,
+			isAnonymous: userAvataState.isAnonymous,
+			isShowEditButton: true,
+			isLike: false,
+			likeCount: 0,
+		});
+	};
+
 	return (
 		<Container>
 			<QuestionContainerHeader
-				questionNumber={datas.questions.length}
+				questionNumber={questions.length}
 				tabIdx={tabIdx}
 				onSelectTab={selectTabIdx}
 			/>
 			<QuestionInputArea
 				userAvataState={userAvataState}
 				textInputState={textInputState}
+				onAskQuestion={onAskQuestion}
+				onOpen={() => {}}
 			/>
-			{datas.questions.map((question, idx) => (
+			{questions.map((question, idx) => (
 				<QuestionCard {...question} key={idx} />
 			))}
 		</Container>
