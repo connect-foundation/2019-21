@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
 }
 ));
 
-function RadioTitle({titleName, state, stateHandler, idx, badgeState}) {
+function RadioTitle({titleName, state, stateHandler, idx, badgeState, dataHandler, type}) {
 	const SELECTED = 1;
 	const classes = useStyles();
 
@@ -51,7 +51,12 @@ function RadioTitle({titleName, state, stateHandler, idx, badgeState}) {
 					checked={state[idx] === SELECTED}
 					onClick={stateHandler.bind(this, idx)}
 				/>
-				<Icon className={classes.icon}>delete_outlined_icon</Icon>
+				<Icon
+					className={classes.icon}
+					onClick={() => dataHandler("all", type, "completeQuestion")}
+				>
+					delete_outlined_icon
+				</Icon>
 			</RightSide>
 		</TitleBox>
 	) : (

@@ -24,7 +24,13 @@ const ColumnStyle = styled.div`
 function Column({type, state, stateHandler, badgeState, data, dataHandler}) {
 	return (
 		<ColumnStyle>
-			<Title type={type} state={state} stateHandler={stateHandler} badgeState={badgeState}/>
+			<Title
+				type={type}
+				state={state}
+				stateHandler={stateHandler}
+				badgeState={badgeState}
+				dataHandler={dataHandler}
+			/>
 			<QuestionContainer type={type} datas={data} dataHandler={dataHandler}/>
 		</ColumnStyle>
 	);

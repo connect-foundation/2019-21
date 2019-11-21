@@ -75,8 +75,13 @@ function Content({event}) {
 		const fromObject = typeMap[from];
 		const toObject = typeMap[to];
 
+		if (id === "all") {
+			fromObject.handler({questions: []});
+			return toObject.handler({questions: [...toObject.data.questions, ...fromObject.data.questions]});
+		}
+
 		fromObject.handler({questions: fromObject.data.questions.filter(e => e.id !== id)});
-		toObject.handler({questions: [
+		return toObject.handler({questions: [
 			...toObject.data.questions, fromObject.data.questions
 				.find(e => e.id === id),
 		]});
