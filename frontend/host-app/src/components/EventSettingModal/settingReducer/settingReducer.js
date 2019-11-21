@@ -8,6 +8,40 @@ const initialGeneralState = {
 	eventCode: "A87E",
 };
 
+const initialAdavanceState = {
+	allowReply: true,
+	anonymousReply: false,
+	closeQuestion: false,
+	showPollsNum: true,
+	showRate: false,
+};
+
+const advanceSettingReducer = (state, action) => {
+	switch (action.type) {
+		case "reset": {
+			return {...initialAdavanceState};
+		}
+		case "setAlloReply": {
+			return {...state, allowReply: action.allowReply};
+		}
+		case "setAnonymousReply": {
+			return {...state, allowReply: action.anonymousReply};
+		}
+		case "setCloseQuestion": {
+			return {...state, allowReply: action.closeQuestion};
+		}
+		case "setShowPollsNum": {
+			return {...state, allowReply: action.showPollsNum};
+		}
+		case "setShowRate": {
+			return {...state, allowReply: action.showRate};
+		}
+		default: {
+			throw new Error(`unexpected action.type: ${action.type}`);
+		}
+	}
+};
+
 const generalSettingReducer = (state, action) => {
 	switch (action.type) {
 		case "reset": {
@@ -34,4 +68,9 @@ const generalSettingReducer = (state, action) => {
 	}
 };
 
-export {initialGeneralState, generalSettingReducer};
+export {
+	initialGeneralState,
+	generalSettingReducer,
+	initialAdavanceState,
+	advanceSettingReducer,
+};
