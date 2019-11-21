@@ -21,7 +21,7 @@ const ColumnStyle = styled.div`
 	}
 `;
 
-function Column({type, state, stateHandler, badgeState, data, dataHandler}) {
+function Column({type, state, stateHandler, badgeState, data, dataHandler, handleStar}) {
 	return (
 		<ColumnStyle>
 			<Title
@@ -31,7 +31,7 @@ function Column({type, state, stateHandler, badgeState, data, dataHandler}) {
 				badgeState={badgeState}
 				dataHandler={dataHandler}
 			/>
-			<QuestionContainer type={type} datas={data} dataHandler={dataHandler}/>
+			<QuestionContainer type={type} datas={data} dataHandler={dataHandler} handleStar={handleStar}/>
 		</ColumnStyle>
 	);
 }

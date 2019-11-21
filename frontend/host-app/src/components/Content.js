@@ -45,33 +45,32 @@ function Content({event}) {
 		moderationState === MODERATION_ON ? setModeration(MODERATION_OFF) : setModeration(MODERATION_ON);
 	};
 
+	const typeMap = {
+		moderation: {
+			data: modeartionDatas,
+			handler: setModerationDatas,
+		},
+		newQuestion: {
+			data: newQuestionDatas,
+			handler: setNewQuestionDatas,
+		},
+		popularQuestion: {
+			data: popQuestionDatas,
+			handler: setPopQuestionDatas,
+		},
+		completeQuestion: {
+			data: completeQuestionDatas,
+			handler: setCompleteQuestionDatas,
+		},
+		deleted: {
+			data: {
+				questions: [],
+			},
+			handler: e => typeMap.deleted.data.questions.push(e),
+		},
+	};
 
 	const handleQuestionDatas = (id, from, to) => {
-		const typeMap = {
-			moderation: {
-				data: modeartionDatas,
-				handler: setModerationDatas,
-			},
-			newQuestion: {
-				data: newQuestionDatas,
-				handler: setNewQuestionDatas,
-			},
-			popularQuestion: {
-				data: popQuestionDatas,
-				handler: setPopQuestionDatas,
-			},
-			completeQuestion: {
-				data: completeQuestionDatas,
-				handler: setCompleteQuestionDatas,
-			},
-			deleted: {
-				data: {
-					questions: [],
-				},
-				handler: e => typeMap.deleted.data.questions.push(e),
-			},
-		};
-
 		const fromObject = typeMap[from];
 		const toObject = typeMap[to];
 
@@ -87,6 +86,20 @@ function Content({event}) {
 		]});
 	};
 
+	const handleStar = (id, type) => {
+		const targetObject = typeMap[type];
+
+		targetObject.handler({
+			questions: targetObject.data.questions
+				.map(e => {
+					if (e.id === id) {
+						e.isStared = !e.isStared;
+					}
+					return e;
+				}),
+		});
+	};
+
 	return event ? (
 		<ContentStyle>
 			<Column
@@ -96,6 +109,7 @@ function Content({event}) {
 				badgeState={questionNumberStatus}
 				data={modeartionDatas}
 				dataHandler={handleQuestionDatas}
+				handleStar={handleStar}
 			/>
 			<Column
 				type="newQuestion"
@@ -104,6 +118,7 @@ function Content({event}) {
 				badgeState={questionNumberStatus}
 				data={newQuestionDatas}
 				dataHandler={handleQuestionDatas}
+				handleStar={handleStar}
 			/>
 			<Column
 				type="popularQuestion"
@@ -112,6 +127,7 @@ function Content({event}) {
 				badgeState={questionNumberStatus}
 				data={popQuestionDatas}
 				dataHandler={handleQuestionDatas}
+				handleStar={handleStar}
 			/>
 			<Column
 				type="completeQuestion"
@@ -120,6 +136,7 @@ function Content({event}) {
 				badgeState={questionNumberStatus}
 				data={completeQuestionDatas}
 				dataHandler={handleQuestionDatas}
+				handleStar={handleStar}
 			/>
 			<Column
 				type="poll"

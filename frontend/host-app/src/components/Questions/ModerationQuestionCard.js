@@ -21,7 +21,11 @@ function ModerationQuestionCard(props) {
 							<QuestionDate {...props} />
 						</QuestionInfo>
 						<QuestionButtons>
-							<Icon className={classes.starButton}>stars</Icon>
+							<Icon
+								className={classes.starButton}
+								onClick={() => props.handleStar(props.id, props.type)}>
+								stars
+							</Icon>
 							<Icon
 								className={classes.approveButton}
 								onClick={() => props.dataHandler(props.id, props.type, "newQuestion")}>

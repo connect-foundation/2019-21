@@ -1,6 +1,6 @@
 import {makeStyles} from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
 	starButton: {
 		color: "#9e9e9e",
 		marginLeft: "0.25rem",
@@ -36,6 +36,13 @@ const useStyles = makeStyles({
 			color: "#ef0046",
 		},
 	},
-});
+	staredQuestion: {
+		backgroundColor: "rgb(242,248,255)",
+	},
+	normalQuestion: {
+		backgroundColor: "rgba(255,255,255,100)",
+	},
+}
+));
 
 export default useStyles;

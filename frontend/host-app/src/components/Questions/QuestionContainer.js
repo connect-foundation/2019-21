@@ -8,20 +8,44 @@ const QuestionDiv = styled.div`
 	width: 100%;
 `;
 
-function QuestionContainer({datas, type, dataHandler}) {
+function QuestionContainer({datas, type, dataHandler, handleStar}) {
 	return (
 		<QuestionDiv>
 			{(type === "moderation") && datas.questions.map(question => (
-				<ModerationQuestionCard {...question} id={question.id} dataHandler={dataHandler} type={type}/>
+				<ModerationQuestionCard
+					{...question}
+					id={question.id}
+					dataHandler={dataHandler}
+					type={type}
+					handleStar={handleStar}
+				/>
 			))}
 			{(type === "popularQuestion") && datas.questions.map(question => (
-				<LiveQuestionCard {...question} id={question.id} dataHandler={dataHandler} type={type}/>
+				<LiveQuestionCard
+					{...question}
+					id={question.id}
+					dataHandler={dataHandler}
+					type={type}
+					handleStar={handleStar}
+				/>
 			))}
 			{(type === "newQuestion") && datas.questions.map(question => (
-				<LiveQuestionCard {...question} id={question.id} dataHandler={dataHandler} type={type}/>
+				<LiveQuestionCard
+					{...question}
+					id={question.id}
+					dataHandler={dataHandler}
+					type={type}
+					handleStar={handleStar}
+				/>
 			))}
 			{(type === "completeQuestion") && datas.questions.map(question => (
-				<CompleteQuestionCard {...question} id={question.id} dataHandler={dataHandler} type={type}/>
+				<CompleteQuestionCard
+					{...question}
+					id={question.id}
+					dataHandler={dataHandler}
+					type={type}
+					handleStar={handleStar}
+				/>
 			))}
 		</QuestionDiv>
 	);

@@ -11,7 +11,7 @@ function LiveQuestionCard(props) {
 	const classes = useStyles();
 
 	return (
-		<Card>
+		<Card className={props.isStared ? classes.staredQuestion : classes.normalQuestion}>
 			<CardContent>
 				<QuestionHeader>
 					<QuestionMeta>
@@ -21,7 +21,11 @@ function LiveQuestionCard(props) {
 							<QuestionDate {...props} />
 						</QuestionInfo>
 						<QuestionButtons>
-							<Icon className={classes.starButton}>stars</Icon>
+							<Icon
+								className={classes.starButton}
+								onClick={() => props.handleStar(props.id, props.type)}>
+								stars
+							</Icon>
 							<Icon className={classes.upwardButton}>publish</Icon>
 							<Icon
 								className={classes.approveButton}
