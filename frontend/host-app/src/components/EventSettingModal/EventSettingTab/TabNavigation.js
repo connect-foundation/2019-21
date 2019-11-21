@@ -3,6 +3,7 @@ import {Tab, Box, Tabs} from "@material-ui/core";
 import {styled} from "@material-ui/core/styles";
 import TabContent from "./TabContent";
 import GeneralSetting from "./GeneralSetting/GeneralSetting";
+import AdvanceSetting from "./AdvanceSetting/AdvanceSetting";
 
 const MyContainer = styled(Box)({
 	display: "flex",
@@ -36,17 +37,15 @@ export default function TabNavigation({handleClose}) {
 			>
 				/
 				<CustomTab label="이벤트설정" disabled={true} />
-				<CustomTab label="Item One" {...allyProps(0)} />
-				<CustomTab label="Item Two" {...allyProps(1)} />
-				<CustomTab label="Item Three" {...allyProps(2)} />
+				<CustomTab label="기본설정" {...allyProps(0)} />
+				<CustomTab label="상세설정" {...allyProps(1)} />
 			</Tabs>
 
 			<TabContent value={value} index={1}>
 				<GeneralSetting handleClose={handleClose} />
 			</TabContent>
-
 			<TabContent value={value} index={2}>
-				<div>ㅁㅇㄴㄹㄴㅇㄹ</div>
+				<AdvanceSetting handleClose={handleClose} />
 			</TabContent>
 		</MyContainer>
 	);
