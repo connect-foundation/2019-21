@@ -1,7 +1,10 @@
 import React, {useReducer} from "react";
 import styled from "styled-components";
+import {Typography} from "@material-ui/core";
 import TypeTitle from "./TypeTitle";
 import TabHeader from "../TabHeader";
+import ButtonField from "../ButtonField";
+import SettingSwitch from "./SettingSwitch";
 import {
 	initialAdavanceState,
 	advanceSettingReducer,
@@ -13,68 +16,88 @@ const LayOutStyle = styled.div`
 	background-color: white;
 `;
 
-export default function AdvanceSetting() {
+export default function AdvanceSetting({handleClose}) {
 	const [advanceSettingState, dispatch] = useReducer(
 		advanceSettingReducer,
 		initialAdavanceState,
 	);
 
-	console.log(advanceSettingState, dispatch);
+	const {
+		allowReply,
+		anonymousReply,
+		closeQuestion,
+		showPollsNum,
+		showRate,
+	} = advanceSettingState;
 
-	// const {
-	// 	allowReply,
-	// 	anonymousReply,
-	// 	closeQuestion,
-	// 	showPollsNum,
-	// 	showRate,
-	// } = generalSettingState;
+	const setAlloReply = event => {
+		dispatch({
+			type: "setAlloReply",
+			allowReply: event.target.checked,
+		});
+	};
 
-	// const setAlloReply = event => {
-	// 	dispatch({
-	// 		type: "setAlloReply",
-	// 		eventName: event.target.value,
-	// 	});
-	// };
+	const setAnonymousReply = event => {
+		dispatch({
+			type: "setAnonymousReply",
+			anonymousReply: event.target.checked,
+		});
+	};
 
-	// const setAnonymousReply = event => {
-	// 	dispatch({
-	// 		type: "setAnonymousReply",
-	// 		startDate: event,
-	// 	});
-	// };
+	const setCloseQuestion = event => {
+		dispatch({
+			type: "setCloseQuestion",
+			closeQuestion: event.target.checked,
+		});
+	};
 
-	// const setCloseQuestion = event => {
-	// 	dispatch({
-	// 		type: "setCloseQuestion",
-	// 		endDate: event,
-	// 	});
-	// };
+	const setShowPollsNum = event => {
+		dispatch({
+			type: "setShowPollsNum",
+			showPollsNum: event.target.checked,
+		});
+	};
 
-	// const setShowPollsNum = event => {
-	// 	dispatch({
-	// 		type: "setShowPollsNum",
-	// 		eventCode: event.target.value,
-	// 	});
-	// };
+	const setShowRate = event => {
+		dispatch({
+			type: "setShowRate",
+			showRate: event.target.checked,
+		});
+	};
 
-	// const setShowRate = event => {
-	// 	dispatch({
-	// 		type: "setShowRate",
-	// 		eventCode: event.target.value,
-	// 	});
-	// };
+	const reset = () => {
+		handleClose();
+		dispatch({
+			type: "reset",
+		});
+	};
 
-	// const reset = () => {
-	// 	handleClose();
-	// 	dispatch({
-	// 		type: "reset",
-	// 	});
-	// };
+	const sendData = () => {
+		console.log(advanceSettingState);
+		reset();
+	};
 
 	return (
 		<LayOutStyle>
 			<TabHeader type="feature" />
-			<TypeTitle>질문</TypeTitle>
+			<TypeTitle type="question">질문</TypeTitle>
+			<SettingSwitch state={allowReply} dispatch={setAlloReply}>
+				<Typography>참여자 댓글</Typography>
+			</SettingSwitch>
+			<SettingSwitch state={anonymousReply} dispatch={setAnonymousReply}>
+				<Typography>익명댓글 허용</Typography>
+			</SettingSwitch>
+			<SettingSwitch state={closeQuestion} dispatch={setCloseQuestion}>
+				<Typography>질문닫기</Typography>
+			</SettingSwitch>
+			<TypeTitle type="poll">투표</TypeTitle>
+			<SettingSwitch state={showPollsNum} dispatch={setShowPollsNum}>
+				<Typography>투표수 보기</Typography>
+			</SettingSwitch>
+			<SettingSwitch state={showRate} dispatch={setShowRate}>
+				<Typography>퍼센트로 표시</Typography>
+			</SettingSwitch>
+			<ButtonField submit={sendData} onClose={reset} />
 		</LayOutStyle>
 	);
 }
