@@ -17,6 +17,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 function Header() {
+	const [settingModalOpen, handleOpen, handleClose] = useModal();
 	const classes = useStyles();
 
 	return (

@@ -10,7 +10,8 @@ const CustomTextField = styled(TextField)({
 });
 
 function InputHashTag(props) {
-	const prevHashTagList = props.hashTags;
+	const {hashTags, dispatch} = props;
+	const prevHashTagList = hashTags;
 	const addHashTag = event => {
 		if (event.keyCode === ENTER_KEY_CODE) {
 			const hashTag = {
@@ -19,14 +20,14 @@ function InputHashTag(props) {
 			};
 			const hashTagList = [...prevHashTagList, hashTag];
 
-			props.dispatch(hashTagList);
+			dispatch(hashTagList);
 			event.target.value = "";
 		}
 	};
 
 	return (
 		<CustomTextField
-			id="eventName"
+			id="inputHashTag"
 			label="Press Enter"
 			color="primary"
 			onKeyDown={addHashTag}

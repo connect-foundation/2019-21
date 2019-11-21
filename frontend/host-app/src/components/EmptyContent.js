@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import {Button} from "@material-ui/core";
-import CreateEventModal from "../components/CreateEventModal/CreateEventModal";
+import CreateEventModal from "./CreateEventModal/CreateEventModal";
+import useModal from "../customhook/useModal";
 
 const EmptyContentBox = styled.div`
 	display: flex;
@@ -23,15 +24,12 @@ const EmptyContentDiv = styled.div`
 	margin: auto 0;
 `;
 
+	const [eventModalOpen, handleOpen, handleClose] = useModal();
 
 function EmptyContent() {
 	const [modalOpen, setModalOpen] = React.useState(false);
 	const handleOpen = () => {
 		setModalOpen(true);
-	};
-
-	const handleClose = () => {
-		setModalOpen(false);
 	};
 
 	return (
@@ -46,9 +44,9 @@ function EmptyContent() {
 				>
 					이벤트 만들기
 				</Button>
-				{modalOpen && (
+				{eventModalOpen && (
 					<CreateEventModal
-						open={modalOpen}
+						open={eventModalOpen}
 						handleClose={handleClose}
 					/>
 				)}
