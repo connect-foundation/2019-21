@@ -1,13 +1,19 @@
 import React from "react";
+import styled from "styled-components";
 import "./App.css";
 import NavBar from "../components/NavBar/NavBar.js";
-import Tab from "../components/Tab/Tab.js";
+import TabGroup from "../components/TabGroup/TabGroup.js";
+
+const AppStyle = styled.div`
+	height: 100vh;
+	width: 100vw;
+`;
 
 export default function App() {
 	return (
-		<div>
+		<AppStyle>
 			<NavBar />
-			<Tab />
-		</div>
+			<TabGroup />
+		</AppStyle>
 	);
 }

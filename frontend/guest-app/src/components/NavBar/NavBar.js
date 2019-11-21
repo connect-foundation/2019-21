@@ -7,7 +7,7 @@ import NavBarMenuButton from "./NavBarMenuButton.js";
 
 function NavBar({eventName = "eventName"}) {
 	return (
-		<AppBar position="static">
+		<AppBar>
 			<Toolbar>
 				<NavBarMenuButton />
 				<Box m="0.5rem" />

@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-function useTabBarState() {
+function useTabGroup() {
 	const QUESTION_TAB_IDX = 0;
 	// const VOTE_TAB_IDX = 1;
 	const [tabIdx, setTabIdx] = useState(QUESTION_TAB_IDX);
@@ -14,4 +14,4 @@ function useTabBarState() {
 	};
 }
 
-export default useTabBarState;
+export default useTabGroup;
