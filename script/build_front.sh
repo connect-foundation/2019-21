@@ -1,7 +1,5 @@
-root_path=pwd
-
 public_path="./backend/express/public"
-build_public_path="./backend/build/express/public/"
+build_public_path="./backend/build/express/public"
 
 host_app_build_dir="./frontend/host-app/build"
 main_app_build_dir="./frontend/main-app/build"
@@ -39,16 +37,28 @@ cd ..
 echo "dump react app into backend public dir"
 
 echo "dump host app"
-host_app_build_dest_dir="./backend/build/express/public/host-app"
-cp -r $host_app_build_dir "$public_path/host-app"
-cp -r $host_app_build_dir $host_app_build_dest_dir
+cp -r $host_app_build_dir "$build_public_path"
+rm -rf "$build_public_path/host-app/"
+mv "$build_public_path/build/" "$build_public_path/host-app/"
+
+cp -r $host_app_build_dir "$public_path"
+rm -rf "$public_path/host-app/"
+mv "$public_path/build/" "$public_path/host-app/"
 
 echo "dump guest app"
-guest_app_build_dest_dir="./backend/build/express/public/guest-app"
-cp -r $guest_app_build_dir "$public_path/guest-app"
-cp -r $guest_app_build_dir $guest_app_build_dest_dir
+cp -r $guest_app_build_dir "$build_public_path"
+rm -rf "$build_public_path/guest-app/"
+mv "$build_public_path/build/" "$build_public_path/guest-app/"
+
+cp -r $guest_app_build_dir "$public_path"
+rm -rf "$public_path/guest-app/"
+mv "$public_path/build/" "$public_path/guest-app/"
 
 echo "dump main app"
-main_app_build_dest_dir="./backend/build/express/public/main-app"
-cp -r $main_app_build_dir "$public_path/main-app"
-cp -r $main_app_build_dir $main_app_build_dest_dir
+cp -r $main_app_build_dir "$build_public_path"
+rm -rf "$build_public_path/main-app/"
+mv "$build_public_path/build/" "$build_public_path/main-app/"
+
+cp -r $main_app_build_dir "$public_path"
+rm -rf "$public_path/main-app/"
+mv "$public_path/build/" "$public_path/main-app/"

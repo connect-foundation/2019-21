@@ -24,7 +24,7 @@ const EmptyContentDiv = styled.div`
 	margin: auto 0;
 `;
 
-function Column() {
+function EmptyContent() {
 	const [eventModalOpen, handleOpen, handleClose] = useModal();
 
 	return (
@@ -50,4 +50,4 @@ function Column() {
 	);
 }
 
-export default Column;
+export default EmptyContent;

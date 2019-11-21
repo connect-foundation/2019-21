@@ -2,7 +2,7 @@ import {makeStyles} from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import React from "react";
 
-function HeaderAccountAvatar({userName}) {
+function HeaderAccountAvata({userName}) {
 	const useStyles = makeStyles({
 		headerAvatar: {
 			backgroundColor: "#FFF",
@@ -20,4 +20,4 @@ function HeaderAccountAvatar({userName}) {
 	return <Avatar className={classes.headerAvatar}>{inner}</Avatar>;
 }
 
-export default HeaderAccountAvatar;
+export default HeaderAccountAvata;
