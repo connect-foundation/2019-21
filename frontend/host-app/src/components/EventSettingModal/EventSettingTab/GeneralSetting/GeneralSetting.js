@@ -1,14 +1,16 @@
-import React, {useReducer} from "react";
+import React, { useReducer } from "react";
 import styled from "styled-components";
 import TabHeader from "../TabHeader";
 import InputEventName from "./InputEventName";
 import InputStartDate from "./InputStartDate";
 import EndDateField from "./EndDateField";
 import InputEventCode from "./InputEventCode";
+import InputEventLink from "./InputEventLink";
 import {
 	initialGeneralState,
 	generalSettingReducer,
 } from "../../settingReducer/settingReducer";
+import ButtonField from "../ButtonField";
 
 const PopUpLayOutStyle = styled.div`
 	display: flex;
@@ -22,6 +24,14 @@ export default function GeneralSetting() {
 		generalSettingReducer,
 		initialGeneralState,
 	);
+	const {
+		eventName,
+		startDate,
+		endDate,
+		hashTags,
+		eventLink,
+		eventCode,
+	} = generalSettingState;
 
 	const setEventName = event => {
 		dispatch({
@@ -51,7 +61,18 @@ export default function GeneralSetting() {
 		});
 	};
 
-	console.log(generalSettingState);
+	// const reset = () => {
+	// 	handleClose();
+	// 	dispatchModalState({
+	// 		type: "reset",
+	// 	});
+	// };
+
+	// const sendData = () => {
+	// 	console.log(modalState);
+	// 	reset();
+	// };
+	console.log(hashTags, generalSettingState);
 	// const updateHashTag = hashTagList => {
 	// 	dispatch({
 	// 		type: "updateHashTags",
@@ -61,20 +82,16 @@ export default function GeneralSetting() {
 	return (
 		<PopUpLayOutStyle>
 			<TabHeader type="general" />
-			<InputEventName
-				eventName={generalSettingState.eventName}
-				dispatch={setEventName}
-			/>
+			<InputEventName eventName={eventName} dispatch={setEventName} />
 			<InputStartDate
-				endDate={generalSettingState.endDate}
-				startDate={generalSettingState.startDate}
-				dispatch={{setStartDate, setEndDate}}
+				endDate={endDate}
+				startDate={startDate}
+				dispatch={{ setStartDate, setEndDate }}
 			/>
-			<EndDateField endDate={generalSettingState.endDate} />
-			<InputEventCode
-				eventCode={generalSettingState.eventCode}
-				dispatch={setEventCode}
-			/>
+			<EndDateField endDate={endDate} />
+			<InputEventCode eventCode={eventCode} dispatch={setEventCode} />
+			<InputEventLink eventLink={eventLink} />
+			<ButtonField />
 		</PopUpLayOutStyle>
 	);
 }

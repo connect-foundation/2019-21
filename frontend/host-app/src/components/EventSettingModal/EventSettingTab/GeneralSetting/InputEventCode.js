@@ -1,13 +1,13 @@
 import React from "react";
-import { styled } from "@material-ui/core/styles";
-import { TextField } from "@material-ui/core";
+import {styled} from "@material-ui/core/styles";
+import {TextField} from "@material-ui/core";
 
 const CustomTextField = styled(TextField)({
 	marginTop: 20,
 	width: 400,
 });
 
-function InputEventName(props) {
+function InputEventCode(props) {
 	const eventCode = props.eventCode;
 	const MAX_EVENT_CODE_LEN = 4;
 
@@ -31,4 +31,4 @@ function InputEventName(props) {
 	);
 }
 
-export default InputEventName;
+export default InputEventCode;

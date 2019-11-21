@@ -4,7 +4,7 @@ import {TextField} from "@material-ui/core";
 
 const CustomTextField = styled(TextField)({
 	marginTop: 20,
-	width: 410,
+	width: 400,
 });
 
 function EndDateField(props) {
