@@ -1,0 +1,96 @@
+function DummyData() {
+	return [
+		{
+			userName: "오랑캐1",
+			date: new Date(),
+			question: "question",
+			isAnonymous: false,
+			isShowEditButton: true,
+			isLike: false,
+			likeCount: 10,
+		}, {
+			userName: "오랑캐2",
+			date: new Date(),
+			question: "long question",
+			isAnonymous: false,
+			isShowEditButton: false,
+			isLike: true,
+			likeCount: 11,
+		}, {
+			userName: "오랑캐3",
+			date: new Date(),
+			question:
+				"long question long question long question long question long questionlong questionlong question long questionlong question",
+			isAnonymous: false,
+			isShowEditButton: true,
+			isLike: false,
+			likeCount: 100,
+		}, {
+			userName: "오랑캐3",
+			date: new Date(),
+			question: "question",
+			isAnonymous: true,
+			isShowEditButton: false,
+			isLike: false,
+			likeCount: 12,
+		}, {
+			userName: "Anonymous",
+			date: new Date(),
+			question: "question",
+			isAnonymous: true,
+			isShowEditButton: false,
+			isLike: false,
+			likeCount: 1,
+		}, {
+			userName: "Anonymous",
+			date: new Date(),
+			question: "question",
+			isAnonymous: true,
+			isShowEditButton: true,
+			isLike: false,
+			likeCount: 0,
+		}, {
+			userName: "Anonymous",
+			date: new Date(),
+			question: "question",
+			isAnonymous: true,
+			isShowEditButton: false,
+			isLike: false,
+			likeCount: 1,
+		}, {
+			userName: "Anonymous",
+			date: new Date(),
+			question: "question",
+			isAnonymous: true,
+			isShowEditButton: false,
+			isLike: false,
+			likeCount: 53,
+		}, {
+			userName: "Anonymous",
+			date: new Date(),
+			question: "question",
+			isAnonymous: true,
+			isShowEditButton: false,
+			isLike: false,
+			likeCount: 10,
+		}, {
+			userName: "Anonymous",
+			date: new Date(),
+			question: "question",
+			isAnonymous: true,
+			isShowEditButton: false,
+			isLike: false,
+			likeCount: 4,
+		}, {
+			userName: "Anonymous",
+			date: new Date(),
+			question: "question",
+			isAnonymous: true,
+			isShowEditButton: false,
+			isLike: false,
+			likeCount: 10,
+		},
+	];
+}
+
+export default DummyData;
