@@ -24,13 +24,8 @@ const EmptyContentDiv = styled.div`
 	margin: auto 0;
 `;
 
-	const [eventModalOpen, handleOpen, handleClose] = useModal();
-
 function EmptyContent() {
-	const [modalOpen, setModalOpen] = React.useState(false);
-	const handleOpen = () => {
-		setModalOpen(true);
-	};
+	const [eventModalOpen, handleOpen, handleClose] = useModal();
 
 	return (
 		<EmptyContentBox>

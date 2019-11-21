@@ -7,7 +7,7 @@ import NewPollModal from "./components/Poll/NewPollModal";
 
 function App() {
 	const modal = false;
-	const [event] = useState(false);
+	const [event] = useState(true);
 
 	return (
 		<div className="App">
