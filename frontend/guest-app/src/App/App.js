@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import "./App.css";
 import NavBar from "../components/NavBar/NavBar.js";
-import PollContainer from "../components/Poll/PollContainer";
 import TabGroup from "../components/TabGroup/TabGroup.js";
 
 const AppStyle = styled.div`
