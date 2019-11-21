@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import useModal from "../../../customhook/useModal";
+import ConfirmModal from "./ConfirmModal";
 
 const Container = styled.div`
 	margin-top: auto;
@@ -30,10 +32,18 @@ const CreateTextButton = styled.div`
 `;
 
 function ButtonField({submit, onClose}) {
+	const [confirmModalOpen, handleOpen, handleClose] = useModal();
+
 	return (
 		<Container>
-			<CancelTextButton onClick={onClose}>CANCEL</CancelTextButton>
-			<CreateTextButton onClick={submit}>CREATE EVENT</CreateTextButton>
+			<CancelTextButton onClick={handleOpen}>취소</CancelTextButton>
+			<CreateTextButton onClick={submit}>저장</CreateTextButton>
+			{confirmModalOpen && (
+				<ConfirmModal
+					open={confirmModalOpen}
+					handleClose={handleClose}
+				/>
+			)}
 		</Container>
 	);
 }
