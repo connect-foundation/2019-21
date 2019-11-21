@@ -3,6 +3,8 @@ import styled from "styled-components";
 import TabHeader from "../TabHeader";
 import InputEventName from "./InputEventName";
 import InputStartDate from "./InputStartDate";
+import EndDateField from "./EndDateField";
+import InputEventCode from "./InputEventCode";
 import {
 	initialGeneralState,
 	generalSettingReducer,
@@ -42,6 +44,14 @@ export default function GeneralSetting() {
 		});
 	};
 
+	const setEventCode = event => {
+		dispatch({
+			type: "updateEventCode",
+			eventCode: event.target.value,
+		});
+	};
+
+	console.log(generalSettingState);
 	// const updateHashTag = hashTagList => {
 	// 	dispatch({
 	// 		type: "updateHashTags",
@@ -59,6 +69,11 @@ export default function GeneralSetting() {
 				endDate={generalSettingState.endDate}
 				startDate={generalSettingState.startDate}
 				dispatch={{setStartDate, setEndDate}}
+			/>
+			<EndDateField endDate={generalSettingState.endDate} />
+			<InputEventCode
+				eventCode={generalSettingState.eventCode}
+				dispatch={setEventCode}
 			/>
 		</PopUpLayOutStyle>
 	);
