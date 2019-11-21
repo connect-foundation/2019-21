@@ -64,6 +64,12 @@ function Content({event}) {
 				data: completeQuestionDatas,
 				handler: setCompleteQuestionDatas,
 			},
+			deleted: {
+				data: {
+					questions: [],
+				},
+				handler: e => typeMap.deleted.data.questions.push(e),
+			},
 		};
 
 		const fromObject = typeMap[from];
