@@ -2,17 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import {MdDelete, MdAdd} from "react-icons/md";
 import DateFnsUtils from "@date-io/date-fns";
-import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
+import {DatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 
-const Remove = styled.div`
+const DeleteItem = styled.div`
     opacity: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    width: 32px;
-    height: 32px;
-    font-size: 24px;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
     border-radius: 50%;
     color: #f1f3f5;
     &:hover {
@@ -26,11 +26,11 @@ const RowWrapper = styled.div`
 	align-items: center;
 	justify-content: ${props => (props.left ? "flex-start" : "space-around")};
 	width: 100%;
-	min-height: 50px;
+	min-height: 3rem;
 	padding: 0 0 0 1rem;
     box-sizing: border-box;
     &:hover {
-        ${Remove} {
+        ${DeleteItem} {
             opacity: 1;
         }
     }
@@ -42,10 +42,10 @@ const AddItem = styled.div`
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    width: 32px;
-    height: 32px;
+    width: 2rem;
+    height: 2rem;
     border-radius: 50%;
-    font-size: 24px;
+    font-size: 1.5rem;
     border: 1px solid gray;
     &:hover {
         background-color: #f1f3f5;
@@ -55,26 +55,39 @@ const AddItem = styled.div`
     }
 `;
 
-function DateItems({dates, handleSelectionDateChange, onRemoveDate, onAddDate}) {
+const ColumnWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	flex: 1;
+	box-sizing: border-box;
+    max-height: 300px;
+    overflow-y: auto;
+`;
+
+function DateItems({dates, onDateChange, onDeleteDate, onAddDate}) {
 	return (
 		<>
-			{dates.map((date, index) => (
-				<RowWrapper left>
-					<MuiPickersUtilsProvider utils={DateFnsUtils}>
-						<KeyboardDatePicker
-							variant="inline"
-							format="yyyy/MM/dd"
-							margin="dense"
-							value={date}
-							onChange={newDate => handleSelectionDateChange(newDate, index)}
-						/>
-					</MuiPickersUtilsProvider>
+			<ColumnWrapper>
+				{dates.map((date, index) => (
+					<RowWrapper left>
+						<MuiPickersUtilsProvider utils={DateFnsUtils}>
+							<DatePicker
+								variant="inline"
+								format="yyyy/MM/dd"
+								margin="dense"
+								value={date}
+								onChange={newDate => onDateChange(newDate, index)}
+							/>
+						</MuiPickersUtilsProvider>
 
-					<Remove>
-						{(index > 1) && <MdDelete onClick={() => onRemoveDate(index)} />}
-					</Remove>
-				</RowWrapper>))
-			}
+						<DeleteItem>
+							{(index > 1) && <MdDelete onClick={() => onDeleteDate(index)} />}
+						</DeleteItem>
+					</RowWrapper>))
+				}
+			</ColumnWrapper>
 			<AddItem onClick={onAddDate}>
 				<MdAdd />
 			</AddItem>

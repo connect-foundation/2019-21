@@ -14,12 +14,12 @@ const ColumnWrapper = styled.div`
 	border: 1px solid gray;
 `;
 
-function RatingBlock({ratingValue, onChange}) {
+function RatingBlock({ratingValue, maxValue, onChange}) {
 	return (<ColumnWrapper>별점 최대값을 정해주세요.
 		<div>
 			<Rating
-				max={10}
 				value={ratingValue}
+				max={maxValue}
 				onChange={(event, newValue) => { onChange(newValue); }}
 			/>
 		</div>
