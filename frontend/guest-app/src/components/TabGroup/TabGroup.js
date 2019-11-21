@@ -6,6 +6,7 @@ import {PollTabIcon, QnATabIcon} from "./TabIcons.js";
 import useTabGroup from "./useTabGroup.js";
 import TabBody from "./TabBody.js";
 import QuestionContainer from "../Question/QuestionContainer.js";
+import PollContainer from "../Poll/PollContainer.js";
 
 const TabGroupStyle = styled.div`
 	position: fixed;
@@ -20,13 +21,15 @@ function TabGroup({showQnABadge = true, showPollBadge}) {
 	return (
 		<TabGroupStyle>
 			<Tabs value={tabIdx} onChange={selectTabIdx} variant="fullWidth">
-				<Tab icon={<QnATabIcon showBadge={showQnABadge}/>}/>
-				<Tab icon={<PollTabIcon showBadge={showPollBadge}/>}/>
+				<Tab icon={<QnATabIcon showBadge={showQnABadge} />} />
+				<Tab icon={<PollTabIcon showBadge={showPollBadge} />} />
 			</Tabs>
 			<TabBody hidden={tabIdx !== 0}>
-				<QuestionContainer/>
+				<QuestionContainer />
 			</TabBody>
-			<TabBody hidden={tabIdx !== 1}>vote me</TabBody>
+			<TabBody hidden={tabIdx !== 1}>
+				<PollContainer />
+			</TabBody>
 		</TabGroupStyle>
 	);
 }
