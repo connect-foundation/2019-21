@@ -4,6 +4,7 @@ import QuestionContainer from "../components/Question/QuestionContainer.js";
 import TabPanel from "../components/Tab/TabPanel.js";
 import NavBar from "../components/NavBar/NavBar.js";
 import TabBar from "../components/Tab/TabBar.js";
+import PollContainer from "../components/Poll/PollContainer";
 
 export default function App() {
 	const QUESTION_TAB_IDX = 0;
@@ -23,7 +24,7 @@ export default function App() {
 				<QuestionContainer />
 			</TabPanel>
 			<TabPanel value={tabIdx} index={1}>
-				<div>vote me</div>
+				<PollContainer />
 			</TabPanel>
 		</div>
 	);
