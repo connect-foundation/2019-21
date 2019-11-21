@@ -1,15 +1,18 @@
 import Button from "@material-ui/core/Button";
 import React, {useState} from "react";
-import {UndoLikeConfirmModal, UseUndoLikeConfirmModalState} from "./UndoLikeModal.js";
+import {
+	UndoLikeConfirmModal,
+	UseUndoLikeConfirmModalState,
+} from "./UndoLikeModal.js";
 import {LikeIcon} from "../FontAwesomeIcons.js";
 
-export function LikeButton({likeCount, isLikeClicked, like, undoLike}) {
+export function LikeButton({likeCount, isLikeClicked, onLike, onUndoLike}) {
 	const modalState = UseUndoLikeConfirmModalState();
 	const onLikeButtonClicked = () => {
 		if (isLikeClicked) {
 			modalState.openModal();
 		} else {
-			like();
+			onLike();
 		}
 	};
 
@@ -17,7 +20,7 @@ export function LikeButton({likeCount, isLikeClicked, like, undoLike}) {
 		modalState.closeModal();
 	};
 	const onConfirmClick = () => {
-		undoLike();
+		onUndoLike();
 		modalState.closeModal();
 	};
 
@@ -26,9 +29,14 @@ export function LikeButton({likeCount, isLikeClicked, like, undoLike}) {
 			<Button
 				variant="outlined"
 				color={isLikeClicked ? "primary" : "default"}
-				startIcon={<LikeIcon/>}
 				onClick={onLikeButtonClicked}
+				style={{
+					width: "5rem",
+					display: "flex",
+					justifyContent: "space-between",
+				}}
 			>
+				<LikeIcon />
 				{likeCount}
 			</Button>
 			<UndoLikeConfirmModal
@@ -43,14 +51,14 @@ export function useLikeButton(
 ) {
 	const [likeState, setLikeState] = useState(initialState);
 
-	const like = () =>
+	const onLike = () =>
 		setLikeState({likeCount: likeState.likeCount + 1, isLikeClicked: true});
 
-	const undoLike = () =>
+	const onUndoLike = () =>
 		setLikeState({
 			likeCount: likeState.likeCount - 1,
 			isLikeClicked: false,
 		});
 
-	return {...likeState, like, undoLike};
+	return {...likeState, onLike, onUndoLike};
 }
