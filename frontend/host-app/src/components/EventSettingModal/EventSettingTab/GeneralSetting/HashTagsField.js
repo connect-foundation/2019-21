@@ -7,6 +7,7 @@ import {BookmarkBorderRounded} from "@material-ui/icons";
 const MyPaper = styled(Paper)({
 	marginTop: 10,
 	overflowY: "auto",
+	height: 120,
 	width: 400,
 });
 
@@ -14,18 +15,19 @@ const CustomChip = styled(Chip)({
 	margin: 5,
 });
 
-function HashTagField(props) {
+function HashTagsField(props) {
+	const {hashTags, dispatch} = props;
 	const handleDelete = hashTagToDelete => () => {
-		const deletedHashTagList = props.hashTags.filter(
+		const deletedHashTagList = hashTags.filter(
 			hashTag => hashTag.key !== hashTagToDelete.key,
 		);
 
-		props.dispatch(deletedHashTagList);
+		dispatch(deletedHashTagList);
 	};
 
 	return (
 		<MyPaper>
-			{props.hashTags.map(data => (
+			{hashTags.map(data => (
 				<CustomChip
 					icon={<BookmarkBorderRounded />}
 					color="primary"
@@ -39,4 +41,4 @@ function HashTagField(props) {
 	);
 }
 
-export default HashTagField;
+export default HashTagsField;

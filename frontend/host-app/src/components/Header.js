@@ -5,6 +5,8 @@ import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import HeaderAccountAvatar from "./HeaderAccountAvatar";
 import HeaderConfigAvatar from "./HeaderConfigAvatar";
+import EventSettingModal from "./EventSettingModal/EventSettingModal";
+import useModal from "../customhook/useModal";
 
 const useStyles = makeStyles(() => ({
 	header: {
@@ -17,17 +19,22 @@ const useStyles = makeStyles(() => ({
 }));
 
 function Header() {
+	const [settingModalOpen, handleOpen, handleClose] = useModal();
 	const classes = useStyles();
 
 	return (
 		<AppBar position="static">
 			<Toolbar variant="dense" className={classes.header}>
-				<Typography variant="h6">
-					Vaggle
-				</Typography>
+				<Typography variant="h6">Vaggle</Typography>
 				<div className={classes.rightSide}>
-					<HeaderConfigAvatar/>
-					<HeaderAccountAvatar userName={"홍"}/>
+					<HeaderConfigAvatar onClick={handleOpen} />
+					{settingModalOpen && (
+						<EventSettingModal
+							open={settingModalOpen}
+							handleClose={handleClose}
+						/>
+					)}
+					<HeaderAccountAvatar userName={"홍"} />
 				</div>
 			</Toolbar>
 		</AppBar>

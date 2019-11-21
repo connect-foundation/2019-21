@@ -3,20 +3,19 @@ import {styled} from "@material-ui/core/styles";
 import {TextField} from "@material-ui/core";
 
 const CustomTextField = styled(TextField)({
-	marginTop: 20,
 	width: 400,
 });
 
-function EndDateField(props) {
+function InputEventName(props) {
 	return (
 		<CustomTextField
 			id="eventName"
-			label="종료날짜"
+			label="이벤트 이름"
 			color="primary"
-			value={props.endDate}
-			readOnly={true}
+			value={props.eventName}
+			onChange={props.dispatch}
 		/>
 	);
 }
 
-export default EndDateField;
+export default InputEventName;
