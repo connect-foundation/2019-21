@@ -19,10 +19,8 @@ function allyProps(index) {
 	};
 }
 
-export default function TabNavigation() {
-	const GENERAL = 1;
-	const ADVANCE = 2;
-	const [value, setValue] = React.useState(GENERAL);
+export default function TabNavigation({handleClose}) {
+	const [value, setValue] = React.useState(1);
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
@@ -42,16 +40,14 @@ export default function TabNavigation() {
 				<CustomTab label="Item Two" {...allyProps(1)} />
 				<CustomTab label="Item Three" {...allyProps(2)} />
 			</Tabs>
-			{value === GENERAL && (
-				<TabContent value={value} index={1}>
-					<GeneralSetting />
-				</TabContent>
-			)}
-			{value === ADVANCE && (
-				<TabContent value={value} index={2}>
-					<GeneralSetting />
-				</TabContent>
-			)}
+
+			<TabContent value={value} index={1}>
+				<GeneralSetting handleClose={handleClose} />
+			</TabContent>
+
+			<TabContent value={value} index={2}>
+				<div>ㅁㅇㄴㄹㄴㅇㄹ</div>
+			</TabContent>
 		</MyContainer>
 	);
 }

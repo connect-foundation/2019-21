@@ -29,13 +29,11 @@ const CreateTextButton = styled.div`
 	margin: 1rem;
 `;
 
-function ButtonField({createEvent, onClose}) {
+function ButtonField({submit, onClose}) {
 	return (
 		<Container>
 			<CancelTextButton onClick={onClose}>CANCEL</CancelTextButton>
-			<CreateTextButton onClick={createEvent}>
-				CREATE EVENT
-			</CreateTextButton>
+			<CreateTextButton onClick={submit}>CREATE EVENT</CreateTextButton>
 		</Container>
 	);
 }

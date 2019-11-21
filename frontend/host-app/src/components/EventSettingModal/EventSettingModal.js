@@ -23,7 +23,7 @@ function EventSettingModal(props) {
 			onClose={props.handleClose}
 		>
 			<PopUpLayOutStyle>
-				<TabNavigation />
+				<TabNavigation handleClose={props.handleClose} />
 			</PopUpLayOutStyle>
 		</Modal>
 	);

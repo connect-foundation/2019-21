@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, {useReducer} from "react";
 import styled from "styled-components";
 import TabHeader from "../TabHeader";
 import InputEventName from "./InputEventName";
@@ -6,6 +6,8 @@ import InputStartDate from "./InputStartDate";
 import EndDateField from "./EndDateField";
 import InputEventCode from "./InputEventCode";
 import InputEventLink from "./InputEventLink";
+import InputHashTag from "./InputHashTag";
+import HashTagsField from "./HashTagsField";
 import {
 	initialGeneralState,
 	generalSettingReducer,
@@ -18,7 +20,7 @@ const PopUpLayOutStyle = styled.div`
 	background-color: white;
 `;
 
-export default function GeneralSetting() {
+export default function GeneralSetting({handleClose}) {
 	console.log("general");
 	const [generalSettingState, dispatch] = useReducer(
 		generalSettingReducer,
@@ -61,24 +63,24 @@ export default function GeneralSetting() {
 		});
 	};
 
-	// const reset = () => {
-	// 	handleClose();
-	// 	dispatchModalState({
-	// 		type: "reset",
-	// 	});
-	// };
+	const reset = () => {
+		handleClose();
+		dispatch({
+			type: "reset",
+		});
+	};
 
-	// const sendData = () => {
-	// 	console.log(modalState);
-	// 	reset();
-	// };
-	console.log(hashTags, generalSettingState);
-	// const updateHashTag = hashTagList => {
-	// 	dispatch({
-	// 		type: "updateHashTags",
-	// 		hashTags: hashTagList,
-	// 	});
-	// };
+	const sendData = () => {
+		console.log(generalSettingState);
+		reset();
+	};
+	const updateHashTag = hashTagList => {
+		dispatch({
+			type: "updateHashTags",
+			hashTags: hashTagList,
+		});
+	};
+
 	return (
 		<PopUpLayOutStyle>
 			<TabHeader type="general" />
@@ -86,12 +88,14 @@ export default function GeneralSetting() {
 			<InputStartDate
 				endDate={endDate}
 				startDate={startDate}
-				dispatch={{ setStartDate, setEndDate }}
+				dispatch={{setStartDate, setEndDate}}
 			/>
 			<EndDateField endDate={endDate} />
 			<InputEventCode eventCode={eventCode} dispatch={setEventCode} />
 			<InputEventLink eventLink={eventLink} />
-			<ButtonField />
+			<InputHashTag hashTags={hashTags} dispatch={updateHashTag} />
+			<HashTagsField hashTags={hashTags} dispatch={updateHashTag} />
+			<ButtonField submit={sendData} onClose={reset} />
 		</PopUpLayOutStyle>
 	);
 }
