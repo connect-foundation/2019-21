@@ -1,14 +1,20 @@
-import React from "react";
+import React, {useState} from "react";
 import {Scrollbars} from "react-custom-scrollbars";
+import {Typography} from "@material-ui/core";
 import CommonModal from "../CommonModal.js";
-import QuestionContainer from "../Question/QuestionContainer.js";
+import QuestionCard from "../Question/QuestionCard.js";
+import DummyData from "../Question/QuestionDummyData.js";
 
 function MyQuestionModal({isOpened, onCancelClick}) {
+	const [datas] = useState({questions: DummyData()});
+
 	return (
 		<CommonModal isOpened={isOpened} onCancelClick={onCancelClick}>
-			<p>my question</p>
+			<Typography>My question</Typography>
 			<Scrollbars style={{width: "100%", height: "400px"}}>
-				<QuestionContainer/>
+				{datas.questions.map((question, idx) => (
+					<QuestionCard {...question} key={idx} />
+				))}
 			</Scrollbars>
 		</CommonModal>
 	);
