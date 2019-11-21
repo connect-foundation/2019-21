@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import Title from "./Title";
+import QuestionContainer from "./Questions/QuestionContainer";
 
 const ColumnStyle = styled.div`
 	display: flex;
 	flex-direction: column;
 	flex: 1;
+	min-width: 20rem;
 	overflow: auto;
 	justify-content: flex-start;
 	align-items: center;
@@ -19,10 +21,17 @@ const ColumnStyle = styled.div`
 	}
 `;
 
-function Column({type, state, stateHandler, badgeState}) {
+function Column({type, state, stateHandler, badgeState, data, dataHandler, handleStar}) {
 	return (
 		<ColumnStyle>
-			<Title type={type} state={state} stateHandler={stateHandler} badgeState={badgeState}/>
+			<Title
+				type={type}
+				state={state}
+				stateHandler={stateHandler}
+				badgeState={badgeState}
+				dataHandler={dataHandler}
+			/>
+			<QuestionContainer type={type} datas={data} dataHandler={dataHandler} handleStar={handleStar}/>
 		</ColumnStyle>
 	);
 }

@@ -23,7 +23,8 @@ const EmptyContentDiv = styled.div`
 	margin: auto 0;
 `;
 
-function Column() {
+
+function EmptyContent() {
 	const [modalOpen, setModalOpen] = React.useState(false);
 	const handleOpen = () => {
 		setModalOpen(true);
@@ -56,4 +57,4 @@ function Column() {
 	);
 }
 
-export default Column;
+export default EmptyContent;
