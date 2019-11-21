@@ -1,31 +1,20 @@
-import React, {useState} from "react";
+import React from "react";
+import styled from "styled-components";
 import "./App.css";
-import QuestionContainer from "../components/Question/QuestionContainer.js";
-import TabPanel from "../components/Tab/TabPanel.js";
 import NavBar from "../components/NavBar/NavBar.js";
-import TabBar from "../components/Tab/TabBar.js";
 import PollContainer from "../components/Poll/PollContainer";
+import TabGroup from "../components/TabGroup/TabGroup.js";
+
+const AppStyle = styled.div`
+	height: 100vh;
+	width: 100vw;
+`;
 
 export default function App() {
-	const QUESTION_TAB_IDX = 0;
-	// const VOTE_TAB_IDX = 1;
-	const [tabIdx, setTabIdx] = useState(QUESTION_TAB_IDX);
-
-	const onTabIdxChange = (event, newValue) => {
-		setTabIdx(newValue);
-	};
-
 	return (
-		<div>
+		<AppStyle>
 			<NavBar />
-			<TabBar {...{tabIdx, onTabIdxChange}} />
-
-			<TabPanel value={tabIdx} index={0}>
-				<QuestionContainer />
-			</TabPanel>
-			<TabPanel value={tabIdx} index={1}>
-				<PollContainer />
-			</TabPanel>
-		</div>
+			<TabGroup />
+		</AppStyle>
 	);
 }
