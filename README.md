@@ -14,7 +14,7 @@
 
 </p>
 
-![alt](./logo_image.PNG)
+![alt](./docs/logo_image.PNG)
 
 ## 배포 링크
 
