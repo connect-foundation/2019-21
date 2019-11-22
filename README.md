@@ -18,7 +18,9 @@
 
 ## 배포 링크
 
-[vaagle.com](http://106.10.53.159/)
+* [host-app](http://106.10.53.159/host-app)
+* [guest-app](http://106.10.53.159/guest-app)
+* [main-app](http://106.10.53.159/main-app)
 
 ## 주요 기능
 
