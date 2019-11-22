@@ -15,6 +15,7 @@ function HeaderConfigAvatar({onClick}) {
 		},
 	});
 	const classes = useStyles();
+
 	return (
 		<Avatar onClick={onClick} className={classes.headerAvatar}>
 			<Icon>settings</Icon>
