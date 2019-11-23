@@ -39,7 +39,7 @@ function DeleteQuestionCardMenuButton() {
 	const {isOpened, openModal, closeModal} = useCommonModal();
 
 	return (
-		<div>
+		<>
 			<SideMenuItem
 				icon={<DeleteIcon />}
 				itemText={"질문 삭제"}
@@ -49,7 +49,7 @@ function DeleteQuestionCardMenuButton() {
 				isOpened={isOpened}
 				closeModal={closeModal}
 			/>
-		</div>
+		</>
 	);
 }
 
