@@ -6,6 +6,8 @@ import TextField from "@material-ui/core/TextField";
 import {EditIcon} from "../FontAwesomeIcons.js";
 import UserAvata from "./UserAvata.js";
 import TextInput from "../Modals/EditPriofileModal/TextInput.js";
+import useTextInput from "../Modals/EditPriofileModal/useTextInput.js";
+import useUserAvata from "./useUserAvata.js";
 
 const QuestionInputStyle = styled.div`
 	position: fixed;
@@ -30,7 +32,10 @@ function useToggler(initialState = true) {
 	return {state, toggle, open, close};
 }
 
-function UserNameInput({userName, isAnonymous, setState}) {
+function UserNameInput(props) {
+	const {userName, isAnonymous, setState} = useUserAvata();
+	const {userNameRef} = props;
+
 	const onUserNameChange = e => {
 		const newValue = e.target.value;
 
@@ -45,17 +50,19 @@ function UserNameInput({userName, isAnonymous, setState}) {
 		<div style={{display: "flex", alignItems: "center"}}>
 			<UserAvata userName={userName} isAnonymous={isAnonymous} />
 			<TextInput
-				icon={undefined}
 				value={userName}
 				onChange={onUserNameChange}
 				style={{marginTop: "8px"}}
+				inputRef={userNameRef}
 			/>
 		</div>
 	);
 }
 
 function QuestionTextInput(props) {
-	const {onChange, value, maxTextLength = 160} = props;
+	const {questionRef} = props;
+
+	const {onChange, value, maxTextLength = 160} = useTextInput();
 
 	return (
 		<TextField
@@ -71,6 +78,7 @@ function QuestionTextInput(props) {
 			InputLabelProps={{
 				shrink: true,
 			}}
+			inputRef={questionRef}
 		/>
 	);
 }
@@ -78,74 +86,76 @@ function QuestionTextInput(props) {
 function QuestionInputGroup({
 	onCancel,
 	onAskQuestion,
-	userAvataState,
-	textInputState,
+	userNameRef,
+	questionRef,
 }) {
 	return (
-		<Grid container direction={"column"} id={"QuestionInputGroup"}>
-			<QuestionTextInput {...textInputState} />
-			<Box p={1} />
-			<div
-				style={{
-					display: "flex",
-					justifyContent: "space-between",
-				}}
-			>
-				<UserNameInput {...userAvataState} />
-				<Grid container justify={"flex-end"}>
-					<Button
-						variant="contained"
-						color={"default"}
-						onClick={onCancel}
-					>
-						취소
-					</Button>
-					<Box p={1} />
-					<Button
-						variant="contained"
-						color={"primary"}
-						onClick={onAskQuestion}
-					>
-						질문하기
-					</Button>
-				</Grid>
-			</div>
-		</Grid>
+		<CardContent>
+			<Grid container direction={"column"} id={"QuestionInputGroup"}>
+				<QuestionTextInput questionRef={questionRef} />
+				<Box p={1} />
+				<div
+					style={{
+						display: "flex",
+						justifyContent: "space-between",
+					}}
+				>
+					<UserNameInput userNameRef={userNameRef} />
+					<Grid container justify={"flex-end"}>
+						<Button
+							variant="contained"
+							color={"default"}
+							onClick={onCancel}
+						>
+							취소
+						</Button>
+						<Box p={1} />
+						<Button
+							variant="contained"
+							color={"primary"}
+							onClick={onAskQuestion}
+						>
+							질문하기
+						</Button>
+					</Grid>
+				</div>
+			</Grid>
+		</CardContent>
 	);
 }
 
-function QuestionInputArea({
-	userAvataState,
-	textInputState,
-	onAskQuestion,
-	onOpen,
-}) {
+function SmallQuestionInput({onClick}) {
+	return (
+		<CardContent onClick={onClick}>
+			<EditIcon>&nbsp;질문하기</EditIcon>
+		</CardContent>
+	);
+}
+
+function QuestionInputArea(props) {
+	const {onAskQuestion, onOpen, questionRef, userNameRef} = props;
 	const inputToggle = useToggler(true);
+
+	const onQuestionAreaClick = () => {
+		inputToggle.toggle();
+		onOpen();
+	};
 
 	return (
 		<QuestionInputStyle>
 			<Card style={{width: "100%"}}>
 				{inputToggle.state ? (
-					<CardContent
-						onClick={() => {
-							inputToggle.toggle();
-							onOpen();
-						}}
-					>
-						<EditIcon>&nbsp;질문하기</EditIcon>
-					</CardContent>
+					<SmallQuestionInput onClick={onQuestionAreaClick} />
 				) : (
-					<CardContent>
-						<QuestionInputGroup
-							onAskQuestion={() => {
-								onAskQuestion();
-								inputToggle.toggle();
-							}}
-							onCancel={inputToggle.toggle}
-							userAvataState={userAvataState}
-							textInputState={textInputState}
-						/>
-					</CardContent>
+					<QuestionInputGroup
+						onAskQuestion={() => {
+							onAskQuestion();
+							inputToggle.toggle();
+						}}
+						onCancel={inputToggle.toggle}
+						questionRef={questionRef}
+						userNameRef={userNameRef}
+					/>
 				)}
 			</Card>
 		</QuestionInputStyle>
