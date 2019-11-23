@@ -1,13 +1,29 @@
 import Button from "@material-ui/core/Button";
-import React, {useState} from "react";
-import {
-	UndoLikeConfirmModal,
-	UseUndoLikeConfirmModalState,
-} from "./UndoLikeModal.js";
+import React from "react";
 import {LikeIcon} from "../FontAwesomeIcons.js";
+import useCommonModal from "../useCommonModal.js";
+import UndoLikeConfirmModal from "./UndoLikeModal.js";
 
-export function LikeButton({likeCount, isLikeClicked, onLike, onUndoLike}) {
-	const modalState = UseUndoLikeConfirmModalState();
+function LikeButtonAtom({isLikeClicked, onLikeButtonClicked, likeCount}) {
+	return (
+		<Button
+			variant={isLikeClicked ? "contained" : "outlined"}
+			color={isLikeClicked ? "primary" : "default"}
+			onClick={onLikeButtonClicked}
+			style={{
+				width: "5rem",
+				display: "flex",
+				justifyContent: "space-between",
+			}}
+		>
+			<LikeIcon />
+			{likeCount}
+		</Button>
+	);
+}
+
+function LikeButton({likeCount, isLikeClicked, onLike, onUndoLike}) {
+	const modalState = useCommonModal();
 	const onLikeButtonClicked = () => {
 		if (isLikeClicked) {
 			modalState.openModal();
@@ -25,40 +41,17 @@ export function LikeButton({likeCount, isLikeClicked, onLike, onUndoLike}) {
 	};
 
 	return (
-		<div>
-			<Button
-				variant="outlined"
-				color={isLikeClicked ? "primary" : "default"}
-				onClick={onLikeButtonClicked}
-				style={{
-					width: "5rem",
-					display: "flex",
-					justifyContent: "space-between",
-				}}
-			>
-				<LikeIcon />
-				{likeCount}
-			</Button>
+		<>
+			<LikeButtonAtom
+				onLikeButtonClicked={onLikeButtonClicked}
+				likeCount={likeCount}
+				isLikeClicked={isLikeClicked}
+			/>
 			<UndoLikeConfirmModal
 				{...{onCancelClick, onConfirmClick, ...modalState}}
 			/>
-		</div>
+		</>
 	);
 }
 
-export function useLikeButton(
-	initialState = {isLikeClicked: false, likeCount: 0},
-) {
-	const [likeState, setLikeState] = useState(initialState);
-
-	const onLike = () =>
-		setLikeState({likeCount: likeState.likeCount + 1, isLikeClicked: true});
-
-	const onUndoLike = () =>
-		setLikeState({
-			likeCount: likeState.likeCount - 1,
-			isLikeClicked: false,
-		});
-
-	return {...likeState, onLike, onUndoLike};
-}
+export default LikeButton;

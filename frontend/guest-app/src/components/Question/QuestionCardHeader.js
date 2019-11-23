@@ -2,8 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
 import {Typography} from "@material-ui/core";
-import {LikeButton, useLikeButton} from "./LikeButton.js";
 import UserAvatar from "./UserAvatar.js";
+import LikeButton from "./LikeButton.js";
+import useLikeButton from "./useLikeButton.js";
 
 const QuestionInfo = styled.div`
 	display: flex;
@@ -39,7 +40,7 @@ const QuestionHeaderStyle = styled.div`
 
 function QuestionHeader(props) {
 	const {userName, date, isAnonymous, isLike, likeCount} = props;
-	const likeButtonState = useLikeButton({
+	const likeButton = useLikeButton({
 		isLikeClicked: isLike,
 		likeCount,
 	});
@@ -53,7 +54,7 @@ function QuestionHeader(props) {
 					<QuestionDate date={date} />
 				</QuestionInfo>
 			</Grid>
-			<LikeButton {...likeButtonState} />
+			<LikeButton {...likeButton} />
 		</QuestionHeaderStyle>
 	);
 }
