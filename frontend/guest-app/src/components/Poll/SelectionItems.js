@@ -16,7 +16,6 @@ function SelectionItem(props) {
 	// const {selectionType, nItems, active, totalVoters} = props;
 	const {nItems, totalVoters} = props;
 
-	console.log(nItems);
 	return (
 		<ColumnWrapper>
 			{nItems.map((item, index) => <Item {...item} totalVoters={totalVoters} key={index} />)}
