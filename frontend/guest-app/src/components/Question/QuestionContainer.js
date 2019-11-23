@@ -1,21 +1,9 @@
-import React, {useRef, useState} from "react";
-import styled from "styled-components";
+import React, {useRef} from "react";
 import QuestionCard from "./QuestionCard/QuestionCard.js";
-import DummyData from "./QuestionDummyData.js";
 import QuestionContainerHeader from "./QuestionContainerHeader.js";
 import useTabGroup from "../TabGroup/useTabGroup.js";
 import QuestionInputArea from "./QuestionInputArea.js";
-
-const Container = styled.div``;
-
-function useQuestions(initialState = DummyData()) {
-	const [state, setState] = useState(initialState);
-	const addQuestion = newQuestion => {
-		setState([newQuestion, ...state]);
-	};
-
-	return {questions: state, addQuestion};
-}
+import useQuestions from "./useQuestions.js";
 
 function QuestionContainer() {
 	const {questions, addQuestion} = useQuestions();
@@ -38,7 +26,7 @@ function QuestionContainer() {
 	};
 
 	return (
-		<Container>
+		<>
 			<QuestionContainerHeader
 				questionNumber={questions.length}
 				tabIdx={tabIdx}
@@ -53,7 +41,7 @@ function QuestionContainer() {
 			{questions.map((question, idx) => (
 				<QuestionCard {...question} key={idx} />
 			))}
-		</Container>
+		</>
 	);
 }
 
