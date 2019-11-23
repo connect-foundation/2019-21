@@ -42,11 +42,11 @@ const GraphWrapper = styled.div`
     box-sizing: border-box;
 `;
 
-function Item({name, voters, voted, totalVoters, firstPlace}) {
+function Item({id, name, voters, voted, totalVoters, firstPlace, onVote, active}) {
 	return (
-		<RowWrapper left>
+		<RowWrapper left onClick={() => onVote(id, active)}>
 			<div>{voted && <MdDone />}</div>
-			<div className="selection-name">{`${name}`}</div>
+			<div className="selection-name">{name}</div>
 			<RightEnd><MdPerson />{voters}</RightEnd>
 			<GraphWrapper
 				firstPlace={firstPlace}
