@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
 import {Typography} from "@material-ui/core";
 import {LikeButton, useLikeButton} from "./LikeButton.js";
-import UserAvata from "./UserAvata.js";
+import UserAvatar from "./UserAvatar.js";
 
 const QuestionInfo = styled.div`
 	display: flex;
@@ -47,7 +47,7 @@ function QuestionHeader(props) {
 	return (
 		<QuestionHeaderStyle>
 			<Grid container direction={"row"}>
-				<UserAvata isAnonymous={isAnonymous} userName={userName} />
+				<UserAvatar isAnonymous={isAnonymous} userName={userName} />
 				<QuestionInfo>
 					<QuestionUserName userName={userName} />
 					<QuestionDate date={date} />

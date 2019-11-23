@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import {Grid, Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import UserAvata from "../../Question/UserAvata.js";
+import UserAvatar from "../../Question/UserAvatar.js";
 import CommonModal from "../../CommonModal.js";
 import TextInput from "./TextInput.js";
 import {CompanyIcon, EmailIcon, UserIcon} from "../../FontAwesomeIcons.js";
 import useTextInput from "./useTextInput.js";
 
-function useUserAvataState() {
+function useUserAvatar() {
 	const initialState = {isAnonymous: false, userName: "dummy"};
 	const [state, setState] = useState(initialState);
 
@@ -21,7 +21,7 @@ function useUserAvataState() {
 }
 
 function UserNameInput() {
-	const {userName, isAnonymous, setState} = useUserAvataState();
+	const {userName, isAnonymous, setState} = useUserAvatar();
 
 	const onUserNameChange = e => {
 		const newValue = e.target.value;
@@ -35,7 +35,7 @@ function UserNameInput() {
 
 	return (
 		<Grid container direction={"column"} alignItems={"center"}>
-			<UserAvata userName={userName} isAnonymous={isAnonymous} />
+			<UserAvatar userName={userName} isAnonymous={isAnonymous} />
 
 			<TextInput
 				icon={<UserIcon />}

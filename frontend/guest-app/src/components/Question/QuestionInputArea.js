@@ -4,10 +4,10 @@ import {Box, Button, Card, CardContent} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import {EditIcon} from "../FontAwesomeIcons.js";
-import UserAvata from "./UserAvata.js";
+import UserAvatar from "./UserAvatar.js";
 import TextInput from "../Modals/EditPriofileModal/TextInput.js";
 import useTextInput from "../Modals/EditPriofileModal/useTextInput.js";
-import useUserAvata from "./useUserAvata.js";
+import useUserAvatar from "./useUserAvatar.js";
 
 const QuestionInputStyle = styled.div`
 	position: fixed;
@@ -33,7 +33,7 @@ function useToggler(initialState = true) {
 }
 
 function UserNameInput(props) {
-	const {userName, isAnonymous, setState} = useUserAvata();
+	const {userName, isAnonymous, setState} = useUserAvatar();
 	const {userNameRef} = props;
 
 	const onUserNameChange = e => {
@@ -48,7 +48,7 @@ function UserNameInput(props) {
 
 	return (
 		<div style={{display: "flex", alignItems: "center"}}>
-			<UserAvata userName={userName} isAnonymous={isAnonymous} />
+			<UserAvatar userName={userName} isAnonymous={isAnonymous} />
 			<TextInput
 				value={userName}
 				onChange={onUserNameChange}
