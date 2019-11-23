@@ -11,8 +11,8 @@ import {
 	EditIcon,
 	EllipsisHorizonIcon,
 } from "../FontAwesomeIcons.js";
-import CommonModal from "../CommonModal.js";
-import useCommonModal from "../useCommonModal.js";
+import CommonModal from "../CommonModal/CommonModal.js";
+import useCommonModal from "../CommonModal/useCommonModal.js";
 import SideMenuItem from "../SideMenu/SideMenuItem.js";
 
 const QuestionEditButtonStyle = styled.div`
