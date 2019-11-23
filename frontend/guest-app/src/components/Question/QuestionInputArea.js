@@ -4,10 +4,10 @@ import {Box, Button, Card, CardContent} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import {EditIcon} from "../FontAwesomeIcons.js";
-import UserAvatar from "./UserAvatar.js";
+import UserAvatar from "../UserAvatar/UserAvatar.js";
 import TextInput from "../Modals/EditPriofileModal/TextInput.js";
 import useTextInput from "../Modals/EditPriofileModal/useTextInput.js";
-import useUserAvatar from "./useUserAvatar.js";
+import useUserAvatar from "../UserAvatar/useUserAvatar.js";
 
 const QuestionInputStyle = styled.div`
 	position: fixed;

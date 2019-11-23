@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Grid, Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import UserAvatar from "../../Question/UserAvatar.js";
+import UserAvatar from "../../UserAvatar/UserAvatar.js";
 import CommonModal from "../../CommonModal.js";
 import TextInput from "./TextInput.js";
 import {CompanyIcon, EmailIcon, UserIcon} from "../../FontAwesomeIcons.js";

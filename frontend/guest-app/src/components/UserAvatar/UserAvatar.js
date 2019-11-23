@@ -1,7 +1,8 @@
+import React from "react";
 import {makeStyles} from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
-import React from "react";
 import randomMC from "random-material-color";
+import {UserIcon} from "../FontAwesomeIcons.js";
 
 function NamedAvatar({userName}) {
 	const useStyles = makeStyles({
@@ -21,12 +22,12 @@ function NamedAvatar({userName}) {
 function AnonymousAvatar() {
 	return (
 		<Avatar>
-			<i className="fas fa-user" />
+			<UserIcon />
 		</Avatar>
 	);
 }
 
-function UserAvatar({isAnonymous, userName}) {
+function UserAvatar({isAnonymous = false, userName = "Anonymous"}) {
 	return isAnonymous ? <AnonymousAvatar /> : <NamedAvatar {...{userName}} />;
 }
 
