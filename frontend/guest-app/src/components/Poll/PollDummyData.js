@@ -7,25 +7,25 @@ export default function PollDummyData() {
 			allowDuplication: true,
 			nItems: [
 				{
-					id: 1,
+					id: 0,
 					name: "12월 19일(목)",
 					voters: 55,
 					voted: true,
 					firstPlace: false,
 				}, {
-					id: 2,
+					id: 1,
 					name: "12월 20일(금)",
 					voters: 77,
 					voted: true,
 					firstPlace: true,
 				}, {
-					id: 3,
+					id: 2,
 					name: "12월 21일(토)",
 					voters: 33,
 					voted: false,
 					firstPlace: false,
 				}, {
-					id: 4,
+					id: 3,
 					name: "12월 22일(일)",
 					voters: 22,
 					voted: false,
@@ -33,7 +33,7 @@ export default function PollDummyData() {
 				},
 			],
 			pollDate: new Date(),
-			active: true,
+			active: false,
 			totalVoters: 99,
 		}, {
 			pollName: "대한민국 수도는 어디인가요?",
@@ -42,19 +42,19 @@ export default function PollDummyData() {
 			allowDuplication: false,
 			nItems: [
 				{
-					id: 1,
+					id: 0,
 					name: "부산",
 					voters: 11,
 					voted: false,
 					firstPlace: false,
 				}, {
-					id: 2,
+					id: 1,
 					name: "제주",
 					voters: 22,
 					voted: false,
 					firstPlace: false,
 				}, {
-					id: 3,
+					id: 2,
 					name: "서울",
 					voters: 999,
 					voted: true,
@@ -67,10 +67,18 @@ export default function PollDummyData() {
 		}, {
 			pollName: "마스터 강의 평가",
 			pollType: "rating",
-			maxStars: 10,
-			value: 9,
+			allowDuplication: false,
+			nItems: [
+				{
+					id: 0,
+					voters: 80,
+					voted: false,
+					maxStars: 10,
+					value: 0,
+				},
+			],
 			pollDate: new Date(),
-			active: false,
+			active: true,
 			totalVoters: 80,
 		},
 	];
