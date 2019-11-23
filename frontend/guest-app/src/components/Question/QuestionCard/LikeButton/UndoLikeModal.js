@@ -1,25 +1,10 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import {Box} from "@material-ui/core";
 import CommonModal from "../../../CommonModal/CommonModal.js";
-
-function CancelButton(props) {
-	return (
-		<Button color={"default"} {...props}>
-			취소
-		</Button>
-	);
-}
-
-function ConfirmButton(props) {
-	return (
-		<Button color="secondary" {...props}>
-			확인
-		</Button>
-	);
-}
+import ConfirmButton from "../../../CommonButtons/ConfirmButton.js";
+import CancelButton from "../../../CommonButtons/CancelButton.js";
 
 function UndoLikeConfirmModal({isOpened, onCancelClick, onConfirmClick}) {
 	return (
