@@ -5,49 +5,71 @@ import SelectionItems from "./SelectionItems";
 import RatingBlock from "./RatingBlock";
 
 const ColumnWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
-    box-sizing: border-box;
-    border: 1px solid #dee2e6; /* Gray3 */
-    width: 100%;
-    &+& {
-        margin-top: 1rem;
-    }
+	box-sizing: border-box;
+	border: 1px solid #dee2e6; /* Gray3 */
+	width: 100%;
+	& + & {
+		margin-top: 1rem;
+	}
 `;
 
 const RowWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
+	display: flex;
+	flex-direction: row;
 	align-items: center;
 	justify-content: ${props => (props.left ? "flex-start" : "space-around")};
 	width: 100%;
-    height: 3rem;
-    font-weight: ${props => (props.bold ? "bold" : "normal")};
+	height: 3rem;
+	font-weight: ${props => (props.bold ? "bold" : "normal")};
 	padding: 0.5rem;
-    box-sizing: border-box;
-    ${props =>
+	box-sizing: border-box;
+	${props =>
 		props.small &&
-        css `
-            font-size: 0.8rem;
-            font-weight: normal;
-            height: 1.5rem;
-            padding: 0.25rem 0.5rem;
-        `}
+		css`
+			font-size: 0.8rem;
+			font-weight: normal;
+			height: 1.5rem;
+			padding: 0.25rem 0.5rem;
+		`}
 `;
 
 function PollCard(props) {
-	const {pollName, allowDuplication, pollDate, pollType, totalVoters, active, ...others} = props;
+	const {
+		pollName,
+		allowDuplication,
+		pollDate,
+		pollType,
+		totalVoters,
+		active,
+		...others
+	} = props;
 	const localePollDate = pollDate.toLocaleString();
 
 	return (
 		<ColumnWrapper>
-			<RowWrapper left bold>{pollName}<div>{!active && "(종료됨)"}</div></RowWrapper>
-			<RowWrapper left small>{allowDuplication ? `복수선택 | ${localePollDate}` : `${localePollDate}`}</RowWrapper>
-			{(pollType === "nItems") && <SelectionItems totalVoters={totalVoters} {...others} />}
-			{(pollType === "rating") && <RatingBlock active={active} {...others} />}
-			<RowWrapper left><MdPerson />{`${totalVoters.toLocaleString()} 명 참여`}</RowWrapper>
+			<RowWrapper left bold>
+				{pollName}
+				<div>{!active && "(종료됨)"}</div>
+			</RowWrapper>
+			<RowWrapper left small>
+				{allowDuplication ?
+					`복수선택 | ${localePollDate}` :
+					`${localePollDate}`}
+			</RowWrapper>
+			{pollType === "nItems" && (
+				<SelectionItems totalVoters={totalVoters} {...others} />
+			)}
+			{pollType === "rating" && (
+				<RatingBlock active={active} {...others} />
+			)}
+			<RowWrapper left>
+				<MdPerson />
+				{`${totalVoters.toLocaleString()} 명 참여`}
+			</RowWrapper>
 		</ColumnWrapper>
 	);
 }

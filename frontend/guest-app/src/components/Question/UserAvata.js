@@ -21,7 +21,7 @@ function NamedAvata({userName}) {
 function AnonymousAvata() {
 	return (
 		<Avatar>
-			<i className="fas fa-user"/>
+			<i className="fas fa-user" />
 		</Avatar>
 	);
 }

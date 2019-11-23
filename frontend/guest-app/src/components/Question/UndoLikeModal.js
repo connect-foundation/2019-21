@@ -30,18 +30,18 @@ export function UndoLikeConfirmModal({open, onCancelClick, onConfirmClick}) {
 		<Modal open={open}>
 			<div style={modalStyle} className={classes.paper}>
 				<p id="simple-modal-description">
-          Would you like to undo your like?
+					Would you like to undo your like?
 				</p>
 				<Grid container direction={"row"} justify="flex-end">
 					<Button className={classes.button} onClick={onCancelClick}>
-            Cancel
+						Cancel
 					</Button>
 					<Button
 						color="secondary"
 						className={classes.button}
 						onClick={onConfirmClick}
 					>
-            Confirm
+						Confirm
 					</Button>
 				</Grid>
 			</div>
