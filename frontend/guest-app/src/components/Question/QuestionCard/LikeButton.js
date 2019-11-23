@@ -1,7 +1,7 @@
 import Button from "@material-ui/core/Button";
 import React from "react";
-import {LikeIcon} from "../FontAwesomeIcons.js";
-import useCommonModal from "../CommonModal/useCommonModal.js";
+import {LikeIcon} from "../../FontAwesomeIcons.js";
+import useCommonModal from "../../CommonModal/useCommonModal.js";
 import UndoLikeConfirmModal from "./UndoLikeModal.js";
 
 function LikeButtonAtom({isLikeClicked, onLikeButtonClicked, likeCount}) {

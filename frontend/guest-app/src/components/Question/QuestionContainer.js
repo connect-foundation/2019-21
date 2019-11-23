@@ -1,6 +1,6 @@
 import React, {useRef, useState} from "react";
 import styled from "styled-components";
-import QuestionCard from "./QuestionCard.js";
+import QuestionCard from "./QuestionCard/QuestionCard.js";
 import DummyData from "./QuestionDummyData.js";
 import QuestionContainerHeader from "./QuestionContainerHeader.js";
 import useTabGroup from "../TabGroup/useTabGroup.js";

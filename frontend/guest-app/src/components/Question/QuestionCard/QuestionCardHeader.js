@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
 import {Typography} from "@material-ui/core";
-import UserAvatar from "../UserAvatar/UserAvatar.js";
+import UserAvatar from "../../UserAvatar/UserAvatar.js";
 import LikeButton from "./LikeButton.js";
 import useLikeButton from "./useLikeButton.js";
 

@@ -5,15 +5,15 @@ import List from "@material-ui/core/List";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import {Typography} from "@material-ui/core";
-import useDrawer from "../useDrawer.js";
+import useDrawer from "../../useDrawer.js";
 import {
 	DeleteIcon,
 	EditIcon,
 	EllipsisHorizonIcon,
-} from "../FontAwesomeIcons.js";
-import CommonModal from "../CommonModal/CommonModal.js";
-import useCommonModal from "../CommonModal/useCommonModal.js";
-import SideMenuItem from "../SideMenu/SideMenuItem.js";
+} from "../../FontAwesomeIcons.js";
+import CommonModal from "../../CommonModal/CommonModal.js";
+import useCommonModal from "../../CommonModal/useCommonModal.js";
+import SideMenuItem from "../../SideMenu/SideMenuItem.js";
 
 const QuestionEditButtonStyle = styled.div`
 	float: right;
