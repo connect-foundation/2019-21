@@ -2,11 +2,11 @@ import React, {useRef} from "react";
 import QuestionContainerHeader from "./QuestionContainerHeader.js";
 import useTabGroup from "../TabGroup/useTabGroup.js";
 import QuestionInputArea from "./QuestionInputArea/QuestionInputArea.js";
-import useQuestions from "./useQuestions.js";
+import useQuestionCardList from "./useQuestionCardList.js";
 import QuestionCardList from "./QuestionCardList.js";
 
 function QuestionContainer() {
-	const {questions, addQuestion} = useQuestions();
+	const {questions, addQuestion} = useQuestionCardList();
 	const {tabIdx, selectTabIdx} = useTabGroup();
 	const userNameRef = useRef(null);
 	const questionRef = useRef(null);

@@ -1,7 +1,7 @@
 import {useState} from "react";
 import DummyData from "./QuestionDummyData.js";
 
-function useQuestions(initialState = DummyData()) {
+function useQuestionCardList(initialState = DummyData()) {
 	const [questions, setState] = useState(initialState);
 	const addQuestion = newQuestion => {
 		setState([newQuestion, ...questions]);
@@ -10,4 +10,4 @@ function useQuestions(initialState = DummyData()) {
 	return {questions, addQuestion};
 }
 
-export default useQuestions;
+export default useQuestionCardList;
