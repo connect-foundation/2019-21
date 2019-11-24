@@ -1,6 +1,6 @@
 import React from "react";
 
-function useQuestionInputArea(initialState = true) {
+function useQuestionInputArea(initialState = false) {
 	const [state, setState] = React.useState(initialState);
 	const toggle = () => {
 		setState(!state);

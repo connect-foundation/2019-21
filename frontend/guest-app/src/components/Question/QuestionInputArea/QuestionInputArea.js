@@ -9,35 +9,34 @@ import DisabledQuestionInputArea from "./DisabledQuestionInputArea.js";
 const QuestionInputAreaStyle = styled.div`
 	position: fixed;
 	bottom: 0;
-
 	width: 100%;
 	z-index: 100;
 `;
 
 function QuestionInputArea(props) {
 	const {onAskQuestion, onOpen, questionRef, userNameRef} = props;
-	const inputToggle = useQuestionInputArea(true);
+	const questionInputArea = useQuestionInputArea();
 
 	const onQuestionAreaClick = () => {
-		inputToggle.toggle();
+		questionInputArea.toggle();
 		onOpen();
 	};
 
 	return (
 		<QuestionInputAreaStyle>
 			<Card style={{width: "100%"}}>
-				{inputToggle.state ? (
-					<DisabledQuestionInputArea onClick={onQuestionAreaClick} />
-				) : (
+				{questionInputArea.state ? (
 					<EnabledQuestionInputArea
 						onAskQuestion={() => {
 							onAskQuestion();
-							inputToggle.toggle();
+							questionInputArea.toggle();
 						}}
-						onCancel={inputToggle.toggle}
+						onCancel={questionInputArea.toggle}
 						questionRef={questionRef}
 						userNameRef={userNameRef}
 					/>
+				) : (
+					<DisabledQuestionInputArea onClick={onQuestionAreaClick} />
 				)}
 			</Card>
 		</QuestionInputAreaStyle>
