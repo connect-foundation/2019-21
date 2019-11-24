@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import styled from "styled-components";
+import {MdInsertEmoticon} from "react-icons/md";
 import {Emoji} from "emoji-mart";
 import EmojiPickerModal from "./EmojiPickerModal";
 import useCommonModal from "../useCommonModal";
@@ -26,7 +27,7 @@ function EmojiArea() {
 	return (
 		<RowWrapper left>
 			{emojiList.map(emj => <Emoji emoji={emj} size={16} />)}
-			<Emoji emoji='grinning' size={16} onClick={onOpenModal} />
+			<MdInsertEmoticon size={24} onClick={onOpenModal} />
 			{isEmojiPickerModalOpened && <EmojiPickerModal
 				onClose={onCloseModal}
 				onSelect={onSelect}
