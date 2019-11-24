@@ -2,7 +2,7 @@ import React, {useRef} from "react";
 import QuestionCard from "./QuestionCard/QuestionCard.js";
 import QuestionContainerHeader from "./QuestionContainerHeader.js";
 import useTabGroup from "../TabGroup/useTabGroup.js";
-import QuestionInputArea from "./QuestionInputArea.js";
+import QuestionInputArea from "./QuestionInputArea/QuestionInputArea.js";
 import useQuestions from "./useQuestions.js";
 
 function QuestionContainer() {
