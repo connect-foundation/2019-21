@@ -12,11 +12,7 @@ function useCommonModal(initialState = MODAL_CLOSED) {
 		setIsOpened(MODAL_CLOSED);
 	};
 
-	return {
-		isOpened,
-		openModal,
-		closeModal,
-	};
+	return [isOpened, openModal, closeModal];
 }
 
 export default useCommonModal;
