@@ -1,9 +1,9 @@
 import React, {useRef} from "react";
-import QuestionCard from "./QuestionCard/QuestionCard.js";
 import QuestionContainerHeader from "./QuestionContainerHeader.js";
 import useTabGroup from "../TabGroup/useTabGroup.js";
 import QuestionInputArea from "./QuestionInputArea/QuestionInputArea.js";
 import useQuestions from "./useQuestions.js";
+import QuestionCardList from "./QuestionCardList.js";
 
 function QuestionContainer() {
 	const {questions, addQuestion} = useQuestions();
@@ -38,9 +38,7 @@ function QuestionContainer() {
 				questionRef={questionRef}
 				userNameRef={userNameRef}
 			/>
-			{questions.map((question, idx) => (
-				<QuestionCard {...question} key={idx} />
-			))}
+			<QuestionCardList questions={questions} />
 		</>
 	);
 }
