@@ -33,7 +33,7 @@ export default function PollDummyData() {
 				},
 			],
 			pollDate: new Date(),
-			active: false,
+			active: true,
 			totalVoters: 99,
 		}, {
 			pollName: "대한민국 수도는 어디인가요?",
@@ -78,7 +78,7 @@ export default function PollDummyData() {
 				},
 			],
 			pollDate: new Date(),
-			active: true,
+			active: false,
 			totalVoters: 80,
 		},
 	];
