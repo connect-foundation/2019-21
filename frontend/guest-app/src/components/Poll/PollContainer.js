@@ -28,6 +28,7 @@ const uncheckOtherItems = items => {
 	});
 };
 
+// N지선다형 투표에서 CLICK 으로 인해 상태 변화가 발생한 경우 처리하는 함수
 const updateItems = (items, id, allowDuplication) => {
 	const newItems = [...items];
 
@@ -53,6 +54,7 @@ const updateRatingItem = (items, value, voted) => {
 	return newItems;
 };
 
+// 투표의 참여 총인원수를 계산하는 함수 (복수선택 고려함)
 const updateTotalVoters = (notVoted, totalVoters, items) => {
 	let result = totalVoters;
 
@@ -84,6 +86,10 @@ function reducer(state, action) {
 				totalVoters: updateTotalVoters(notVoted, state.totalVoters, state.nItems),
 			};
 		case "CANCEL_RATING":
+			// 이전 상태도 투표하지 않은 상태라면 서버에 요청을 보내지 않도록 처리하는 루틴
+			if (notVoted && (state.nItems[0].value === 0)) {
+				return state;
+			}
 			return {
 				...state,
 				nItems: updateRatingItem(state.nItems, 0, false),
