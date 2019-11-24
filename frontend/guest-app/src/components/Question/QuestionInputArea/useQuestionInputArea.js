@@ -1,6 +1,6 @@
 import React from "react";
 
-function useToggle(initialState = true) {
+function useQuestionInputArea(initialState = true) {
 	const [state, setState] = React.useState(initialState);
 	const toggle = () => {
 		setState(!state);
@@ -15,4 +15,4 @@ function useToggle(initialState = true) {
 	return {state, toggle, setOn, setOff};
 }
 
-export default useToggle;
+export default useQuestionInputArea;

@@ -2,7 +2,7 @@ import React from "react";
 import {Card} from "@material-ui/core";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import useToggle from "./useToggle.js";
+import useQuestionInputArea from "./useQuestionInputArea.js";
 import EnabledQuestionInputArea from "./EnabledQuestionInputArea.js";
 import DisabledQuestionInputArea from "./DisabledQuestionInputArea.js";
 
@@ -16,7 +16,7 @@ const QuestionInputAreaStyle = styled.div`
 
 function QuestionInputArea(props) {
 	const {onAskQuestion, onOpen, questionRef, userNameRef} = props;
-	const inputToggle = useToggle(true);
+	const inputToggle = useQuestionInputArea(true);
 
 	const onQuestionAreaClick = () => {
 		inputToggle.toggle();
