@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {makeStyles} from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import randomMC from "random-material-color";
@@ -27,8 +28,15 @@ function AnonymousAvatar() {
 	);
 }
 
-function UserAvatar({isAnonymous = false, userName = "Anonymous"}) {
+function UserAvatar(props) {
+	const {isAnonymous = false, userName = "Anonymous"} = props;
+
 	return isAnonymous ? <AnonymousAvatar /> : <NamedAvatar {...{userName}} />;
 }
+
+UserAvatar.propTypes = {
+	userName: PropTypes.string,
+	isAnonymous: PropTypes.bool,
+};
 
 export default UserAvatar;
