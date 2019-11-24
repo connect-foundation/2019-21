@@ -7,8 +7,10 @@
     "build": "yarn build:frontend && yarn build:backend",
     "deploy": "sh script/deploy.sh",
     "deploy:undo": "sh script/deploy_undo.sh",
-    "deploy:auto":"sh script/deploy_demon.sh"
+    "deploy:auto": "sh script/deploy_demon.sh"
   },
-  "dependencies": {},
+  "dependencies": {
+    "emoji-mart": "^2.11.1"
+  },
   "license": "MIT"
 }
