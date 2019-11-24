@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import {Box, Card, CardContent, Divider} from "@material-ui/core";
+import {Box, CardContent, Divider} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import QuestionInput from "./QuestionInput.js";
 import AskButton from "./AskButton.js";
@@ -24,7 +24,7 @@ function EnabledQuestionInputArea(props) {
 	const {onCancel, onAskQuestion, userNameRef, questionRef} = props;
 
 	return (
-		<Card>
+		<>
 			<Divider />
 			<CardContent>
 				<Grid container direction={"column"}>
@@ -45,7 +45,7 @@ function EnabledQuestionInputArea(props) {
 					</FlexedSpaceBetweenDiv>
 				</Grid>
 			</CardContent>
-		</Card>
+		</>
 	);
 }
 
