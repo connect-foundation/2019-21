@@ -11,7 +11,7 @@ function CompleteQuestionCard(props) {
 	const classes = useStyles();
 
 	return (
-		<Card>
+		<Card className={props.isStared ? classes.staredQuestion : classes.normalQuestion}>
 			<CardContent>
 				<QuestionHeader>
 					<QuestionMeta>
