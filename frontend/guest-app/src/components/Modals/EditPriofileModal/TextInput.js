@@ -14,6 +14,14 @@ const useInputStyles = makeStyles(theme => ({
 function TextInput({label, value, icon = null, onChange = () => {}, inputRef}) {
 	const inputStyles = useInputStyles();
 
+	const InputProps = icon ?
+		{
+			startAdornment: (
+				<InputAdornment position="start">{icon}</InputAdornment>
+			),
+		} :
+		undefined;
+
 	return (
 		<TextField
 			className={inputStyles.textField}
@@ -21,17 +29,7 @@ function TextInput({label, value, icon = null, onChange = () => {}, inputRef}) {
 			value={value}
 			margin="normal"
 			onChange={onChange}
-			InputProps={
-				icon ?
-					{
-						startAdornment: (
-							<InputAdornment position="start">
-								{icon}
-							</InputAdornment>
-						),
-					} :
-					undefined
-			}
+			InputProps={InputProps}
 			inputRef={inputRef}
 		/>
 	);
