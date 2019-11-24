@@ -3,9 +3,9 @@ import {Grid, Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import UserAvatar from "../../UserAvatar/UserAvatar.js";
 import CommonModal from "../../CommonModal/CommonModal.js";
-import TextInput from "./TextInput.js";
+import CommonTextInput from "../../CommonTextInput/CommonTextInput.js";
 import {CompanyIcon, EmailIcon, UserIcon} from "../../FontAwesomeIcons.js";
-import useTextInput from "./useTextInput.js";
+import useCommonTextInput from "../../CommonTextInput/useCommonTextInput.js";
 import useUserAvatar from "../../UserAvatar/useUserAvatar.js";
 
 function UserNameInput() {
@@ -25,7 +25,7 @@ function UserNameInput() {
 		<Grid container direction={"column"} alignItems={"center"}>
 			<UserAvatar userName={userName} isAnonymous={isAnonymous} />
 
-			<TextInput
+			<CommonTextInput
 				icon={<UserIcon />}
 				label={"Your name"}
 				value={userName}
@@ -36,10 +36,10 @@ function UserNameInput() {
 }
 
 function CompanyInput({company = ""}) {
-	const textInputState = useTextInput(company);
+	const textInputState = useCommonTextInput(company);
 
 	return (
-		<TextInput
+		<CommonTextInput
 			icon={<CompanyIcon />}
 			label={"Your company"}
 			value={textInputState.value}
@@ -49,10 +49,10 @@ function CompanyInput({company = ""}) {
 }
 
 function EmailInput({email = ""}) {
-	const textInputState = useTextInput(email);
+	const textInputState = useCommonTextInput(email);
 
 	return (
-		<TextInput
+		<CommonTextInput
 			icon={<EmailIcon />}
 			label={"Your email"}
 			value={textInputState.value}

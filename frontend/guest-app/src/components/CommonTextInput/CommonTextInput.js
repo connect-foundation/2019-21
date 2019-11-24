@@ -11,7 +11,7 @@ const useInputStyles = makeStyles(theme => ({
 	},
 }));
 
-function TextInput({label, value, icon = null, onChange = () => {}, inputRef}) {
+function CommonTextInput({label, value, icon = null, onChange = () => {}, inputRef}) {
 	const inputStyles = useInputStyles();
 
 	const InputProps = icon ?
@@ -35,4 +35,4 @@ function TextInput({label, value, icon = null, onChange = () => {}, inputRef}) {
 	);
 }
 
-export default TextInput;
+export default CommonTextInput;

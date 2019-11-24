@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
-import useTextInput from "../../Modals/EditPriofileModal/useTextInput.js";
+import useCommonTextInput from "../../CommonTextInput/useCommonTextInput.js";
 
 function QuestionInput(props) {
 	const {questionRef} = props;
 
-	const {onChange, value, maxTextLength = 160} = useTextInput();
+	const {onChange, value, maxTextLength = 160} = useCommonTextInput();
 
 	return (
 		<TextField

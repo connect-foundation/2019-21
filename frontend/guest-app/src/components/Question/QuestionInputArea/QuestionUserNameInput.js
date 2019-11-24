@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import TextInput from "../../Modals/EditPriofileModal/TextInput.js";
+import CommonTextInput from "../../CommonTextInput/CommonTextInput.js";
 
 function QuestionUserNameInput(props) {
 	const {userNameRef, userName = "", onChange} = props;
 
 	return (
-		<TextInput
+		<CommonTextInput
 			value={userName}
 			onChange={onChange}
 			inputRef={userNameRef}
