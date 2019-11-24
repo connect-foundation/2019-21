@@ -1,12 +1,12 @@
 import React from "react";
 import {Grid, Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import UserAvatar from "../../UserAvatar/UserAvatar.js";
-import CommonModal from "../../CommonModal/CommonModal.js";
-import CommonTextInput from "../../CommonTextInput/CommonTextInput.js";
-import {CompanyIcon, EmailIcon, UserIcon} from "../../FontAwesomeIcons.js";
-import useCommonTextInput from "../../CommonTextInput/useCommonTextInput.js";
-import useUserAvatar from "../../UserAvatar/useUserAvatar.js";
+import UserAvatar from "../UserAvatar/UserAvatar.js";
+import CommonModal from "../CommonModal/CommonModal.js";
+import CommonTextInput from "../CommonTextInput/CommonTextInput.js";
+import {CompanyIcon, EmailIcon, UserIcon} from "../FontAwesomeIcons.js";
+import useCommonTextInput from "../CommonTextInput/useCommonTextInput.js";
+import useUserAvatar from "../UserAvatar/useUserAvatar.js";
 
 function UserNameInput() {
 	const {userName, isAnonymous, setState} = useUserAvatar();
