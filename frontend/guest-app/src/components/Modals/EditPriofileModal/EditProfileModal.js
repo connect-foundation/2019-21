@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Grid, Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import UserAvatar from "../../UserAvatar/UserAvatar.js";
@@ -6,19 +6,7 @@ import CommonModal from "../../CommonModal/CommonModal.js";
 import TextInput from "./TextInput.js";
 import {CompanyIcon, EmailIcon, UserIcon} from "../../FontAwesomeIcons.js";
 import useTextInput from "./useTextInput.js";
-
-function useUserAvatar() {
-	const initialState = {isAnonymous: false, userName: "dummy"};
-	const [state, setState] = useState(initialState);
-
-	return {
-		state,
-		isAnonymous: state.isAnonymous,
-		userName: state.userName,
-		setState: newState => setState(newState),
-		reset: () => setState(initialState),
-	};
-}
+import useUserAvatar from "../../UserAvatar/useUserAvatar.js";
 
 function UserNameInput() {
 	const {userName, isAnonymous, setState} = useUserAvatar();
