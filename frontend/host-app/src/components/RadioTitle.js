@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 ));
 
 function RadioTitle({titleName, state, stateHandler, idx, badgeState, dataHandler, type}) {
-	const SELECTED = 1;
+	const SELECTED = true;
 	const classes = useStyles();
 
 	return idx <= 1 ? (

@@ -42,6 +42,7 @@ function ButtonField({submit, onClose}) {
 				<ConfirmModal
 					open={confirmModalOpen}
 					handleClose={handleClose}
+					reset={onClose}
 				/>
 			)}
 		</Container>

@@ -1,19 +1,29 @@
 import React from "react";
-import {Modal, Button} from "@material-ui/core";
-import styled from "styled-components";
+import {Modal, Button, Grid, Typography} from "@material-ui/core";
+import makeStyles from "@material-ui/core/styles/makeStyles.js";
 
-const modalHeight = 5;
-const modalWidth = 20;
-const PopUpLayOutStyle = styled.div`
-	position: relative;
-	top: calc(50% - ${modalHeight / 2}rem);
-	left: calc(50% - ${modalWidth / 2}rem);
-	width: ${modalWidth}rem;
-	height: ${modalHeight}rem;
-	background-color: white;
-`;
+function getModalStyle() {
+	return {
+		top: `${50}%`,
+		left: `${50}%`,
+		transform: `translate(-${50}%, -${50}%)`,
+	};
+}
 
-function EventSettingModal(props) {
+const useStyles = makeStyles(theme => ({
+	paper: {
+		position: "absolute",
+		width: 400,
+		backgroundColor: theme.palette.background.paper,
+		boxShadow: theme.shadows[5],
+		padding: theme.spacing(2, 4, 3),
+	},
+}));
+
+function ConfirmModal(props) {
+	const classes = useStyles();
+	const [modalStyle] = React.useState(getModalStyle);
+
 	return (
 		<Modal
 			aria-labelledby="confirm-modal-title"
@@ -21,17 +31,17 @@ function EventSettingModal(props) {
 			open={props.open}
 			onClose={props.handleClose}
 		>
-			<PopUpLayOutStyle>
-				<Button
-					variant="contained"
-					color="primary"
-					onClick={props.handleClose}
-				>
-					정말취소
-				</Button>
-			</PopUpLayOutStyle>
+			<div style={modalStyle} className={classes.paper}>
+				<Typography>정말취소?</Typography>
+				<Grid container direction={"row"} justify="flex-end">
+					<Button onClick={props.handleClose}>취소</Button>
+					<Button color="secondary" onClick={props.reset}>
+						버리기
+					</Button>
+				</Grid>
+			</div>
 		</Modal>
 	);
 }
 
-export default EventSettingModal;
+export default ConfirmModal;
