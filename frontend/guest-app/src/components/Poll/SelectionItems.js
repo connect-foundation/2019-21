@@ -14,14 +14,19 @@ const ColumnWrapper = styled.div`
 
 function SelectionItem(props) {
 	// const {selectionType, nItems, active, totalVoters} = props;
-	const {nItems, totalVoters} = props;
+	const {nItems, totalVoters, ...others} = props;
 
-	console.log(nItems);
 	return (
 		<ColumnWrapper>
-			{nItems.map((item, index) => (
-				<Item {...item} totalVoters={totalVoters} key={index} />
-			))}
+				<Item/>
+			{nItems.map((item, index) =>
+				<Item
+					{...item}
+					totalVoters={totalVoters}
+					key={index}
+					{...others}
+				/>)
+			}
 		</ColumnWrapper>
 	);
 }
