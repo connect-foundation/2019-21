@@ -17,8 +17,8 @@ const ModalWrapper = styled.div`
 `;
 
 const RowWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
+	display: flex;
+	flex-direction: row;
 	align-items: center;
 	justify-content: ${props => (props.left ? "flex-start" : "space-around")};
 	width: 100%;
@@ -27,8 +27,7 @@ const RowWrapper = styled.div`
 	box-sizing: border-box;
 `;
 
-
-function NewPollModal() {
+function NewPollModal({open, handleClose}) {
 	// Poll 이름
 	const [pollName, setPollName] = useState("");
 	const onPollNameChange = event => {
@@ -56,8 +55,8 @@ function NewPollModal() {
 	const [texts, setTexts] = useState(["", ""]);
 	const onTextChange = (event, id) => {
 		setTexts(
-			texts.map(
-				(text, index) => (index === id ? event.target.value : text),
+			texts.map((text, index) =>
+				(index === id ? event.target.value : text),
 			),
 		);
 	};
@@ -67,11 +66,7 @@ function NewPollModal() {
 	};
 
 	const onDeleteText = id => {
-		setTexts(
-			texts.filter(
-				(text, index) => (index !== id),
-			),
-		);
+		setTexts(texts.filter((text, index) => index !== id));
 	};
 
 	// Poll 종류가 N지선다 이고 항목들의 속성이 date일때 항목들을 관리하는 부분
@@ -83,11 +78,7 @@ function NewPollModal() {
 
 	const [dates, setDates] = useState(initialDates);
 	const onDateChange = (newDate, id) => {
-		setDates(
-			dates.map(
-				(date, index) => (index === id ? newDate : date),
-			),
-		);
+		setDates(dates.map((date, index) => (index === id ? newDate : date)));
 	};
 
 	const onAddDate = () => {
@@ -95,11 +86,7 @@ function NewPollModal() {
 	};
 
 	const onDeleteDate = id => {
-		setDates(
-			dates.filter(
-				(date, index) => (index !== id),
-			),
-		);
+		setDates(dates.filter((date, index) => index !== id));
 	};
 
 	// Poll 종류가 N지선다 일때 중복선택 옵션을 체크하는 부분
@@ -116,21 +103,12 @@ function NewPollModal() {
 	};
 
 	return (
-		<Modal
-			open
-			style={modalStyle}
-		>
+		<Modal open={open} style={modalStyle} onClose={handleClose}>
 			<ModalWrapper>
 				<h2>투표 만들기</h2>
-				<PollName
-					value={pollName}
-					onChange={onPollNameChange}
-				/>
-				<PollType
-					pollType={pollType}
-					onChange={onPollTypeChange}
-				/>
-				{pollType === "nItems" ?
+				<PollName value={pollName} onChange={onPollNameChange} />
+				<PollType pollType={pollType} onChange={onPollTypeChange} />
+				{pollType === "nItems" ? (
 					<MultipleItems
 						texts={texts}
 						dates={dates}
@@ -142,27 +120,32 @@ function NewPollModal() {
 						onDeleteText={onDeleteText}
 						onAddDate={onAddDate}
 						onDeleteDate={onDeleteDate}
-					/> :
+					/>
+				) : (
 					<RatingBlock
 						ratingValue={ratingValue}
 						maxValue={MAX_STARS}
 						onChange={setRatingValue}
 					/>
-				}
-				{(pollType === "nItems") && <Duplication
-					checked={allowDuplication}
-					onChange={onDuplicationChange}
-				/>}
+				)}
+				{pollType === "nItems" && (
+					<Duplication
+						checked={allowDuplication}
+						onChange={onDuplicationChange}
+					/>
+				)}
 				<RowWrapper>
 					<Button
 						variant="contained"
 						color="primary"
+						onClick={handleClose}
 					>
 						확인
 					</Button>
 					<Button
 						variant="contained"
 						color="secondary"
+						onClick={handleClose}
 					>
 						취소
 					</Button>
