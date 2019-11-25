@@ -21,6 +21,7 @@
     "css-loader": "2.1.1",
     "dotenv": "6.2.0",
     "dotenv-expand": "5.1.0",
+    "emoji-mart": "^2.11.1",
     "eslint": "^6.1.0",
     "eslint-config-naver": "^2.1.0",
     "eslint-config-prettier": "^6.5.0",
