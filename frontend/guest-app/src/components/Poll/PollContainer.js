@@ -4,14 +4,14 @@ import PollCard from "./PollCard";
 import PollDummyData from "./PollDummyData";
 
 const ColumnWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
-    box-sizing: border-box;
-    border: 1px solid #dee2e6; /* Gray3 */
-    padding: 1rem;
-    width: 100%;
+	box-sizing: border-box;
+	border: 1px solid #dee2e6; /* Gray3 */
+	padding: 1rem;
+	width: 100%;
 `;
 
 function PollContainer() {
@@ -21,7 +21,7 @@ function PollContainer() {
 	return (
 		<ColumnWrapper>
 			{pollData.map((poll, index) => (
-				<PollCard {...poll} key={index}/>
+				<PollCard {...poll} key={index} />
 			))}
 		</ColumnWrapper>
 	);

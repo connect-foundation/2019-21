@@ -3,8 +3,8 @@ import Rating from "@material-ui/lab/Rating";
 import styled from "styled-components";
 
 const ColumnWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
 	flex: 1;
@@ -17,17 +17,20 @@ const ColumnWrapper = styled.div`
 function RatingBlock({maxStars, value, active}) {
 	return (
 		<ColumnWrapper>
-			{active ? <Rating
-				value={value}
-				max={maxStars}
-				// onChange={(event, newValue) => { onChange(newValue); }}
-			/> :
+			{active ? (
+				<Rating
+					value={value}
+					max={maxStars}
+					// onChange={(event, newValue) => { onChange(newValue); }}
+				/>
+			) : (
 				<Rating
 					readOnly
 					value={value}
 					max={maxStars}
-				// onChange={(event, newValue) => { onChange(newValue); }}
-				/>}
+					// onChange={(event, newValue) => { onChange(newValue); }}
+				/>
+			)}
 		</ColumnWrapper>
 	);
 }

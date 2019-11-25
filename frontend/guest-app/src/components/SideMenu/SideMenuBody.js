@@ -2,10 +2,10 @@ import React from "react";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import SideMenuItem from "./SideMenuItem.js";
-import EditProfileModal from "../Modals/EditPriofileModal/EditProfileModal.js";
+import EditProfileModal from "../Modals/EditProfileModal.js";
 import useSideMenuStyles from "./UseSideMenuStyles.js";
 import {LogoutIcon, QuestionIcon, UserIcon} from "../FontAwesomeIcons.js";
-import useCommonModal from "../useCommonModal.js";
+import useCommonModal from "../CommonModal/useCommonModal.js";
 import LogOutModal from "../Modals/LogoutModal.js";
 import MyQuestionModal from "../Modals/MyQuestionModal.js";
 
