@@ -4,7 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import HeaderAccountAvatar from "./HeaderAccountAvata.js";
-import HeaderConfigAvatar from "./HeaderConfigAvatar";
+import HeaderConfigAvatar from "./HeaderConfigAvata";
 import EventSettingModal from "./EventSettingModal/EventSettingModal";
 import useModal from "../customhook/useModal";
 
@@ -21,6 +21,7 @@ const useStyles = makeStyles(() => ({
 function Header() {
 	const [settingModalOpen, handleOpen, handleClose] = useModal();
 	const classes = useStyles();
+	const userName = "홍";
 
 	return (
 		<AppBar position="static">
@@ -34,7 +35,7 @@ function Header() {
 							handleClose={handleClose}
 						/>
 					)}
-					<HeaderAccountAvatar userName={"홍"} />
+					<HeaderAccountAvatar userName={userName} />
 				</div>
 			</Toolbar>
 		</AppBar>

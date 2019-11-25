@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {MdInsertEmoticon} from "react-icons/md";
 import {Emoji} from "emoji-mart";
 import EmojiPickerModal from "./EmojiPickerModal";
-import useCommonModal from "../useCommonModal";
+import useCommonModal from "../CommonModal/useCommonModal";
 
 const RowWrapper = styled.div`
     display: flex;

@@ -3,54 +3,55 @@ import styled from "styled-components";
 import {MdDone, MdPerson} from "react-icons/md";
 
 const RowWrapper = styled.div`
-    position: relative;
-    display: flex;
-    flex-direction: row;
+	position: relative;
+	display: flex;
+	flex-direction: row;
 	align-items: center;
 	justify-content: ${props => (props.left ? "flex-start" : "space-around")};
 	width: 100%;
 	height: 3rem;
-    box-sizing: border-box;
-    background-color: #f8f9fa; /* Gray1 */
-    &+& {
-        margin-top: 0.5rem;
-    }
-    .selection-name {
-        margin-left: 1rem;
-        overflow: hidden;
-    }
-    padding-left: 1rem;
+	box-sizing: border-box;
+	background-color: #f8f9fa; /* Gray1 */
+	& + & {
+		margin-top: 0.5rem;
+	}
+	.selection-name {
+		margin-left: 1rem;
+		overflow: hidden;
+	}
+	padding-left: 1rem;
 `;
 
 const RightEnd = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    flex: 1;
-    height: 100%;
-    padding-right: 1rem;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	flex: 1;
+	height: 100%;
+	padding-right: 1rem;
 `;
 
 const GraphWrapper = styled.div`
-    opacity: 0.5;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: ${props => (props.firstPlace ? "yellow" : "#ced4da")}; /* Gray4 */
-    height: 100%;
-    width: ${props => props.ratio};
-    box-sizing: border-box;
+	opacity: 0.5;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: ${props =>
+		(props.firstPlace ? "yellow" : "#ced4da")}; /* Gray4 */
+	height: 100%;
+	width: ${props => props.ratio};
+	box-sizing: border-box;
 `;
 
-function Item({name, voters, voted, totalVoters, firstPlace}) {
+function Item({id, name, voters, voted, totalVoters, firstPlace, onVote, active}) {
 	return (
-		<RowWrapper left>
+		<RowWrapper left onClick={() => onVote(id, active)}>
 			<div>{voted && <MdDone />}</div>
-			<div className="selection-name">{`${name}`}</div>
+			<div className="selection-name">{name}</div>
 			<RightEnd><MdPerson />{voters}</RightEnd>
 			<GraphWrapper
 				firstPlace={firstPlace}
-				ratio={`${voters / totalVoters * 100}%`}
+				ratio={`${(voters / totalVoters) * 100}%`}
 			/>
 		</RowWrapper>
 	);

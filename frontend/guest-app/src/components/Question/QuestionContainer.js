@@ -1,36 +1,24 @@
-import React, {useState} from "react";
-import styled from "styled-components";
-import QuestionCard from "./QuestionCard.js";
-import DummyData from "./QuestionDummyData.js";
+import React, {useRef} from "react";
 import QuestionContainerHeader from "./QuestionContainerHeader.js";
 import useTabGroup from "../TabGroup/useTabGroup.js";
-import QuestionInputArea from "./QuestionInputArea.js";
-import useTextInput from "../Modals/EditPriofileModal/useTextInput.js";
-import useUserAvata from "./useUserAvata.js";
+import QuestionInputArea from "./QuestionInputArea/QuestionInputArea.js";
+import useQuestionCardList from "./useQuestionCardList.js";
+import QuestionCardList from "./QuestionCardList.js";
 
-const Container = styled.div``;
-
-function useQuestions(initialState = DummyData()) {
-	const [state, setState] = useState(initialState);
-	const addQuestion = newQuestion => {
-		setState([newQuestion, ...state]);
-	};
-
-	return {questions: state, addQuestion};
-}
-
-function QuestionContainer(props) {
-	const {questions, addQuestion} = useQuestions();
+function QuestionContainer() {
+	const {questions, addQuestion} = useQuestionCardList();
 	const {tabIdx, selectTabIdx} = useTabGroup();
-	const userAvataState = useUserAvata();
-	const textInputState = useTextInput();
+	const userNameRef = useRef(null);
+	const questionRef = useRef(null);
 
 	const onAskQuestion = () => {
+		const userName = userNameRef.current.value;
+		const question = questionRef.current.value;
+
 		addQuestion({
-			userName: userAvataState.userName,
+			userName,
 			date: new Date(),
-			question: textInputState.value,
-			isAnonymous: userAvataState.isAnonymous,
+			question,
 			isShowEditButton: true,
 			isLike: false,
 			likeCount: 0,
@@ -38,22 +26,20 @@ function QuestionContainer(props) {
 	};
 
 	return (
-		<Container>
+		<>
 			<QuestionContainerHeader
 				questionNumber={questions.length}
 				tabIdx={tabIdx}
 				onSelectTab={selectTabIdx}
 			/>
 			<QuestionInputArea
-				userAvataState={userAvataState}
-				textInputState={textInputState}
 				onAskQuestion={onAskQuestion}
 				onOpen={() => {}}
+				questionRef={questionRef}
+				userNameRef={userNameRef}
 			/>
-			{questions.map((question, idx) => (
-				<QuestionCard {...question} key={idx} />
-			))}
-		</Container>
+			<QuestionCardList questions={questions} />
+		</>
 	);
 }
 

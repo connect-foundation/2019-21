@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-function useTextInput(initialState = "") {
+function useCommonTextInput(initialState = "") {
 	const [value, setValue] = useState(initialState);
 
 	const onChange = e => {
@@ -10,4 +10,4 @@ function useTextInput(initialState = "") {
 	return {value, onChange};
 }
 
-export default useTextInput;
+export default useCommonTextInput;
