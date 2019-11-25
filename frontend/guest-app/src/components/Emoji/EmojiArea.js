@@ -17,7 +17,7 @@ const RowWrapper = styled.div`
 `;
 
 function EmojiArea() {
-	const [isEmojiPickerModalOpened, onOpenModal, onCloseModal] = useCommonModal();
+	const emojiPickerModal = useCommonModal();
 	const initialEmojiList = ["point_up", "santa", "scream"];
 	const [emojiList, setEmojiList] = useState(initialEmojiList);
 	const onSelect = emoji => {
@@ -27,9 +27,9 @@ function EmojiArea() {
 	return (
 		<RowWrapper left>
 			{emojiList.map(emj => <Emoji emoji={emj} size={16} />)}
-			<MdInsertEmoticon size={24} onClick={onOpenModal} />
-			{isEmojiPickerModalOpened && <EmojiPickerModal
-				onClose={onCloseModal}
+			<MdInsertEmoticon size={24} onClick={emojiPickerModal.openModal} />
+			{emojiPickerModal.isOpened && <EmojiPickerModal
+				onClose={emojiPickerModal.closeModal}
 				onSelect={onSelect}
 			/>}
 		</RowWrapper>
