@@ -60,6 +60,7 @@
 		"prettier": "^1.19.1",
 		"sequelize": "^5.21.2",
 		"sequelize-cli": "^5.5.1",
-		"should": "^13.2.3"
+		"should": "^13.2.3",
+		"socket.io": "^2.3.0"
 	}
 }
