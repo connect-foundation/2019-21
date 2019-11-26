@@ -19,6 +19,24 @@ services:
     links:
       - mysql
 
+  socket_io:
+    container_name: ${SOCKET_IO_SERVER_PROD_CONTAINER_NAME_SOCKET}
+    image: ${NODE_IMAGE_NAME}
+    command: yarn pm2-runtime start ./build/socket_io_server/app.js --watch
+    environment:
+      - NODE_ENV=production
+      # container 내부에서 DB container 를 접근하기위해 필요한 환경변수
+      - IS_DOCKER_CONTAINER=true
+    volumes:
+      - ../build:/usr/src/app/build
+    tty: true
+    ports:
+      - ${SOCKET_IO_SERVER_PROD_PORT}:${SOCKET_IO_SERVER_PROD_PORT}
+    networks:
+      - backend
+    links:
+      - mysql
+
   mysql:
     container_name: ${MYSQL_PROD_CONTAINER_NAME}
     image: mysql
