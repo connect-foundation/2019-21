@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-function useUserAvata(initialState = {isAnonymous: false, userName: "dummy"}) {
+function useUserAvatar(initialState = {isAnonymous: false, userName: "dummy"}) {
 	const [state, setState] = useState(initialState);
 
 	return {
@@ -12,4 +12,4 @@ function useUserAvata(initialState = {isAnonymous: false, userName: "dummy"}) {
 	};
 }
 
-export default useUserAvata;
+export default useUserAvatar;

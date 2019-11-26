@@ -16,9 +16,11 @@ const ContentStyle = styled.div`
 	flex-wrap: nowrap;
 `;
 
+const filterQuestion = option => DummyData().filter(e => e.status === option);
+
 function Content({event}) {
-	const SELECTED = 1;
-	const UNSELECTED = 0;
+	const SELECTED = true;
+	const UNSELECTED = false;
 	const MODERATION_ON = true;
 	const MODERATION_OFF = false;
 	const [radioState, setRadioState] = useState([SELECTED, UNSELECTED, UNSELECTED, UNSELECTED]);
@@ -26,17 +28,14 @@ function Content({event}) {
 	const [questionNumberStatus] = useState([4, 3, 2, 1]);
 	const [pollNumberStatus] = useState(5);
 
-	const [modeartionDatas, setModerationDatas] = useState({questions: DummyData()
-		.filter(e => e.status === "moderation")});
-	const [newQuestionDatas, setNewQuestionDatas] = useState({questions: DummyData()
-		.filter(e => e.status === "newQuestion")});
-	const [popQuestionDatas, setPopQuestionDatas] = useState({questions: DummyData()
-		.filter(e => e.status === "popularQuestion")});
-	const [completeQuestionDatas, setCompleteQuestionDatas] = useState({questions: DummyData()
-		.filter(e => e.status === "completeQuestion")});
+	const [modeartionDatas, setModerationDatas] = useState({questions: filterQuestion("moderation")});
+	const [newQuestionDatas, setNewQuestionDatas] = useState({questions: filterQuestion("newQuestion")});
+	const [popQuestionDatas, setPopQuestionDatas] = useState({questions: filterQuestion("popularQuestion")});
+	const [completeQuestionDatas, setCompleteQuestionDatas] = useState({questions: filterQuestion("completeQuestion")});
 
 	const handleRadioState = buttonIndex => {
-		const newState = [0, 0, 0, 0].map((e, idx) => (idx === buttonIndex ? SELECTED : UNSELECTED));
+		const newState = [UNSELECTED, UNSELECTED, UNSELECTED, UNSELECTED]
+			.map((_, idx) => (idx === buttonIndex ? SELECTED : UNSELECTED));
 
 		setRadioState(newState);
 	};
@@ -47,18 +46,26 @@ function Content({event}) {
 
 	const typeMap = {
 		moderation: {
+			state: moderationState,
+			stateHandler: handleModerationState,
 			data: modeartionDatas,
 			handler: setModerationDatas,
 		},
 		newQuestion: {
+			state: radioState,
+			stateHandler: handleRadioState,
 			data: newQuestionDatas,
 			handler: setNewQuestionDatas,
 		},
 		popularQuestion: {
+			state: radioState,
+			stateHandler: handleRadioState,
 			data: popQuestionDatas,
 			handler: setPopQuestionDatas,
 		},
 		completeQuestion: {
+			state: radioState,
+			stateHandler: handleRadioState,
 			data: completeQuestionDatas,
 			handler: setCompleteQuestionDatas,
 		},
@@ -92,9 +99,7 @@ function Content({event}) {
 		targetObject.handler({
 			questions: targetObject.data.questions
 				.map(e => {
-					if (e.id === id) {
-						e.isStared = !e.isStared;
-					}
+					if (e.id === id) { e.isStared = !e.isStared; }
 					return e;
 				}),
 		});
@@ -102,42 +107,16 @@ function Content({event}) {
 
 	return event ? (
 		<ContentStyle>
-			<Column
-				type="moderation"
-				state={moderationState}
-				stateHandler={handleModerationState}
-				badgeState={questionNumberStatus}
-				data={modeartionDatas}
-				dataHandler={handleQuestionDatas}
-				handleStar={handleStar}
-			/>
-			<Column
-				type="newQuestion"
-				state={radioState}
-				stateHandler={handleRadioState}
-				badgeState={questionNumberStatus}
-				data={newQuestionDatas}
-				dataHandler={handleQuestionDatas}
-				handleStar={handleStar}
-			/>
-			<Column
-				type="popularQuestion"
-				state={radioState}
-				stateHandler={handleRadioState}
-				badgeState={questionNumberStatus}
-				data={popQuestionDatas}
-				dataHandler={handleQuestionDatas}
-				handleStar={handleStar}
-			/>
-			<Column
-				type="completeQuestion"
-				state={radioState}
-				stateHandler={handleRadioState}
-				badgeState={questionNumberStatus}
-				data={completeQuestionDatas}
-				dataHandler={handleQuestionDatas}
-				handleStar={handleStar}
-			/>
+			{Object.keys(typeMap).splice(0, Object.keys(typeMap).length - 1)
+				.map(e => (<Column
+					type={e}
+					state={typeMap[e].state}
+					stateHandler={typeMap[e].stateHandler}
+					data={typeMap[e].data}
+					badgeState={questionNumberStatus}
+					dataHandler={handleQuestionDatas}
+					handleStar={handleStar}
+				/>))}
 			<Column
 				type="poll"
 				state={radioState}

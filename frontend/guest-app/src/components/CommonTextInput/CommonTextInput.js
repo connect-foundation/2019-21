@@ -2,13 +2,8 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import makeStyles from "@material-ui/core/styles/makeStyles.js";
-import {UserIcon} from "../../FontAwesomeIcons.js";
 
 const useInputStyles = makeStyles(theme => ({
-	container: {
-		display: "flex",
-		flexWrap: "wrap",
-	},
 	textField: {
 		marginLeft: theme.spacing(1),
 		marginRight: theme.spacing(1),
@@ -16,8 +11,16 @@ const useInputStyles = makeStyles(theme => ({
 	},
 }));
 
-function TextInput({label, value, icon, onChange}) {
+function CommonTextInput({label, value, icon = null, onChange = () => {}, inputRef}) {
 	const inputStyles = useInputStyles();
+
+	const InputProps = icon ?
+		{
+			startAdornment: (
+				<InputAdornment position="start">{icon}</InputAdornment>
+			),
+		} :
+		undefined;
 
 	return (
 		<TextField
@@ -26,15 +29,10 @@ function TextInput({label, value, icon, onChange}) {
 			value={value}
 			margin="normal"
 			onChange={onChange}
-			InputProps={{
-				startAdornment: (
-					<InputAdornment position="start">
-						{icon || <UserIcon />}
-					</InputAdornment>
-				),
-			}}
+			InputProps={InputProps}
+			inputRef={inputRef}
 		/>
 	);
 }
 
-export default TextInput;
+export default CommonTextInput;

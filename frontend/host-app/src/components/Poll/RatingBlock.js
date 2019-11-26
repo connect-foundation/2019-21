@@ -20,7 +20,7 @@ function RatingBlock({ratingValue, maxValue, onChange}) {
 			<Rating
 				value={ratingValue}
 				max={maxValue}
-				onChange={(event, newValue) => { onChange(newValue); }}
+				onChange={(_, newValue) => { onChange(newValue); }}
 			/>
 		</div>
 	</ColumnWrapper>);

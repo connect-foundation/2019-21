@@ -1,27 +1,15 @@
-import React, {useState} from "react";
+import React from "react";
 import {Grid, Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import UserAvata from "../../Question/UserAvata.js";
-import CommonModal from "../../CommonModal.js";
-import TextInput from "./TextInput.js";
-import {CompanyIcon, EmailIcon, UserIcon} from "../../FontAwesomeIcons.js";
-import useTextInput from "./useTextInput.js";
-
-function useUserAvataState() {
-	const initialState = {isAnonymous: false, userName: "dummy"};
-	const [state, setState] = useState(initialState);
-
-	return {
-		state,
-		isAnonymous: state.isAnonymous,
-		userName: state.userName,
-		setState: newState => setState(newState),
-		reset: () => setState(initialState),
-	};
-}
+import UserAvatar from "../UserAvatar/UserAvatar.js";
+import CommonModal from "../CommonModal/CommonModal.js";
+import CommonTextInput from "../CommonTextInput/CommonTextInput.js";
+import {CompanyIcon, EmailIcon, UserIcon} from "../FontAwesomeIcons.js";
+import useCommonTextInput from "../CommonTextInput/useCommonTextInput.js";
+import useUserAvatar from "../UserAvatar/useUserAvatar.js";
 
 function UserNameInput() {
-	const {userName, isAnonymous, setState} = useUserAvataState();
+	const {userName, isAnonymous, setState} = useUserAvatar();
 
 	const onUserNameChange = e => {
 		const newValue = e.target.value;
@@ -35,9 +23,9 @@ function UserNameInput() {
 
 	return (
 		<Grid container direction={"column"} alignItems={"center"}>
-			<UserAvata userName={userName} isAnonymous={isAnonymous} />
+			<UserAvatar userName={userName} isAnonymous={isAnonymous} />
 
-			<TextInput
+			<CommonTextInput
 				icon={<UserIcon />}
 				label={"Your name"}
 				value={userName}
@@ -48,10 +36,10 @@ function UserNameInput() {
 }
 
 function CompanyInput({company = ""}) {
-	const textInputState = useTextInput(company);
+	const textInputState = useCommonTextInput(company);
 
 	return (
-		<TextInput
+		<CommonTextInput
 			icon={<CompanyIcon />}
 			label={"Your company"}
 			value={textInputState.value}
@@ -61,10 +49,10 @@ function CompanyInput({company = ""}) {
 }
 
 function EmailInput({email = ""}) {
-	const textInputState = useTextInput(email);
+	const textInputState = useCommonTextInput(email);
 
 	return (
-		<TextInput
+		<CommonTextInput
 			icon={<EmailIcon />}
 			label={"Your email"}
 			value={textInputState.value}
