@@ -65,6 +65,14 @@ const ColumnWrapper = styled.div`
     overflow-y: auto;
 `;
 
+/**
+ * N지선다형 투표는 항상 2개의 선택지를 가지고 있어야 함
+ * 선택지가 3개 이상인 경우에는 우측에 휴지통 아이콘이 나타나서 삭제할 수 있어야 함
+ * index 값은 0 부터 시작하므로 1 보다 큰 경우 휴지통 아이콘이 나타남 
+ */
+
+const MIN_ITEMS_COUNT = 2;
+
 function TextItems({texts, onTextChange, onDeleteText, onAddText}) {
 	return (
 		<>
@@ -80,7 +88,7 @@ function TextItems({texts, onTextChange, onDeleteText, onAddText}) {
 							onChange={() => onTextChange(event, index)}
 						/>
 						<DeleteItem>
-							{(index > 1) && <MdDelete onClick={() => onDeleteText(index)} />}
+							{(index > (MIN_ITEMS_COUNT - 1)) && <MdDelete onClick={() => onDeleteText(index)} />}
 						</DeleteItem>
 					</RowWrapper>))
 				}

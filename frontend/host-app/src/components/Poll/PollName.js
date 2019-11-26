@@ -13,9 +13,13 @@ const RowWrapper = styled.div`
 	box-sizing: border-box;
 `;
 
+const TitleSpan = styled.span`
+	margin-right: 0.5rem;
+`;
+
 function PollName({value, onChange}) {
 	return (<RowWrapper left>
-		<span>투표 제목 :</span><span>&nbsp;&nbsp;&nbsp;</span>
+		<TitleSpan>투표 제목 :</TitleSpan>
 		<TextField
 			margin="dense"
 			variant="outlined"

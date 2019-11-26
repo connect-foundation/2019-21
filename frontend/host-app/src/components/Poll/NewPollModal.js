@@ -70,11 +70,9 @@ function NewPollModal({open, handleClose}) {
 	};
 
 	// Poll 종류가 N지선다 이고 항목들의 속성이 date일때 항목들을 관리하는 부분
-	const initialDates = [];
 	const now = Date.now();
+	const initialDates = [now, now];
 
-	initialDates.push(now);
-	initialDates.push(now);
 
 	const [dates, setDates] = useState(initialDates);
 	const onDateChange = (newDate, id) => {
