@@ -4,6 +4,9 @@ import EventQuery from "../DB/queries/event";
 import loadConfig from "./config/configLoader.js";
 import applyStaticAppServing from "./middleware/applyStaticAppServing.js";
 import morgan from "morgan";
+import io from "socket.io";
+import http from "http";
+
 
 config();
 
@@ -27,6 +30,7 @@ app.get("/test/:code", async (req, res, next) => {
 	} catch (e) {
 		return next(e);
 	}
+
 });
 
 app.listen(port, () => {

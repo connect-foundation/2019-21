@@ -4,6 +4,9 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App/App.js";
 import * as serviceWorker from "./libs/serviceWorker.js";
+import {initSocketIo} from "./socket.io-Client-wrapper";
+
+initSocketIo("");
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
