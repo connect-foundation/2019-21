@@ -1,0 +1,15 @@
+type Query {
+	hello: Hello
+	world: World
+}
+
+type Hello {
+	name: String
+	value: Int
+}
+
+type World {
+	name:String
+	value:Int
+	size:Int
+}
