@@ -3,6 +3,7 @@ import express from "express";
 import http from "http";
 import io from "socket.io";
 import configLoader from "./config/configLoader.js";
+const queries = require("../DB/queries/event");
 
 dotenv.config();
 const { port } = configLoader();
@@ -65,7 +66,6 @@ const questionCreateHandler = async (data, emit) => {
 		emit({status: "error", e});
 	}
 };
-
 
 
 socketServer.on("connection", socket => {

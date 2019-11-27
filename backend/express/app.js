@@ -5,7 +5,9 @@ import loadConfig from "./config/configLoader.js";
 import applyStaticAppServing from "./middleware/applyStaticAppServing.js";
 import morgan from "morgan";
 import io from "socket.io";
+
 import http from "http";
+import getSequelizeData from "./utils";
 
 
 config();
@@ -25,12 +27,11 @@ app.get("/test/:code", async (req, res, next) => {
 	try {
 		const eventQuery = new EventQuery();
 		const questions = await eventQuery.getQuestionsInEvent(req.params.code);
-
+		console.log(getSequelizeData(questions)[0].Questions);
 		return res.json(questions);
 	} catch (e) {
 		return next(e);
 	}
-
 });
 
 app.listen(port, () => {

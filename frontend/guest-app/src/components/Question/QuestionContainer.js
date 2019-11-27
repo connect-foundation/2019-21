@@ -33,7 +33,6 @@ function QuestionContainer() {
 
 		addQuestion(newQuestion);
 		socketClient.emit("question/create", newQuestion);
-
 	};
 
 	return (
