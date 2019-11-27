@@ -20,7 +20,7 @@ services:
       - mysql
 
   socket_io:
-    container_name: ${SOCKET_IO_SERVER_PROD_CONTAINER_NAME_SOCKET}
+    container_name: ${SOCKET_IO_SERVER_PROD_CONTAINER_NAME}
     image: ${NODE_IMAGE_NAME}
     command: yarn pm2-runtime start ./build/socket_io_server/app.js --watch
     environment:
