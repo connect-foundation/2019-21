@@ -4,7 +4,7 @@ import useTabGroup from "../TabGroup/useTabGroup.js";
 import QuestionInputArea from "./QuestionInputArea/QuestionInputArea.js";
 import useQuestionCardList from "./useQuestionCardList.js";
 import QuestionCardList from "./QuestionCardList.js";
-import {socketClient, useSocket} from "../../socket.io-Client-wrapper";
+import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
 
 function QuestionContainer() {
 	const {questions, addQuestion} = useQuestionCardList();

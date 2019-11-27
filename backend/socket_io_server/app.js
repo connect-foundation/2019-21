@@ -3,26 +3,19 @@ import express from "express";
 import http from "http";
 import io from "socket.io";
 import configLoader from "./config/configLoader.js";
+import socketHandlers from "./socketHandler";
 const queries = require("../DB/queries/event");
 
+
 dotenv.config();
+
 const { port } = configLoader();
-
 const app = express();
-
 const httpServer = http.createServer(app).listen(port, () => {
 	console.log(`start server at ${port} with ${process.env.NODE_ENV} mode`);
 });
 
 const socketServer = io(httpServer);
-
-function delay_DB_job() {
-	return new Promise(resolve =>
-		setTimeout(() => {
-			resolve();
-		}, 1000)
-	);
-}
 
 function BindSocketListener(socket, server) {
 	return (eventName, handler) => {
@@ -36,57 +29,31 @@ function BindSocketListener(socket, server) {
 	};
 }
 
-const handler = async (data, emit) => {
-	try {
-		console.log(data);
-
-		await delay_DB_job();
-
-		console.log("delayed");
-		data.recvDate = new Date();
-		// data.n += 1;
-		emit(data);
-	} catch (e) {
-		console.log(e);
-		emit({status: "error", e});
-	}
-};
-
-const questionCreateHandler = async (data, emit) => {
-	try {
-		console.log(data);
-
-		await delay_DB_job();
-
-		console.log("delayed");
-
-		emit(data);
-	} catch (e) {
-		console.log(e);
-		emit({status: "error", e});
-	}
-};
-
-
 socketServer.on("connection", socket => {
-	console.log("소켓 IO 연결");
+	const id = socket.id;
+	console.log(`id ${id} connected `);
+
 	const addSocketListener = BindSocketListener(socket, socketServer);
 
-	addSocketListener("EMIT", handler);
-	addSocketListener("question/create", questionCreateHandler);
+	socketHandlers.forEach(({ eventName, handler }) => {
+		console.log(`apply handler at ${eventName} event`);
+		addSocketListener(eventName, handler);
+	});
 });
 
-
-const nameSpaceServer = socketServer.of("/nameSpace");
+const nameSpaceServer = socketServer.of(/.*/);
 
 nameSpaceServer.on("connection", socket => {
-	console.log("네임스페이스 접속");
+	const nameSpace = socket.nsp.name;
+	const id = socket.id;
+
+	console.log(`id ${id} connected to nameSpace ${nameSpace}`);
 
 	const addSocketListener = BindSocketListener(socket, nameSpaceServer);
 
-	addSocketListener("ROOM", (data, emit) => {
-		console.log(data);
-		emit(data);
+	socketHandlers.forEach(({ eventName, handler }) => {
+		console.log(`apply handler at ${eventName} event`);
+		addSocketListener(eventName, handler);
 	});
 });
 

@@ -4,9 +4,18 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App/App.js";
 import * as serviceWorker from "./libs/serviceWorker.js";
-import {initSocketIo} from "./socket.io-Client-wrapper";
+import {initSocketIoClientWrapper} from "./libs/socket.io-Client-wrapper.js";
+import configLoader from "./config/configLoader.js";
 
-initSocketIo("");
+const config = configLoader();
+
+const webSocketNameSpace = "defaultRoom";
+
+initSocketIoClientWrapper(
+	config.websocketHost,
+	config.websocketPort,
+	webSocketNameSpace,
+);
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
