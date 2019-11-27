@@ -2,25 +2,31 @@ import io from "socket.io-client";
 import {useEffect} from "react";
 
 
+function getSocket(URL) {
+	const socket = io(URL);
+
+	socket.on("connect", () => {
+		console.log(
+			`socket.io client connect to ${URL} as ${process.env.NODE_ENV} mode`
+		);
+	});
+
+	return socket;
+}
+
+
+function combineURL(host, port, nameSpace) {
+	return nameSpace ? `${host}:${port}/${nameSpace}` : `${host}:${port}`;
+}
+
 export function initSocketIoClientWrapper(
 	host = "http://127.0.0.1",
 	port = 4001,
-	nameSpace = ""
+	nameSpace = undefined
 ) {
-	function getSocket(url, nameSpace) {
-		const fullPath = nameSpace === "" ? `${url}` : `${url}/${nameSpace}`;
-		const socket = io(fullPath);
+	const url = combineURL(host, port, nameSpace);
 
-		socket.on("connect", () => {
-			console.log(
-				`socket.io client connect to ${fullPath} as ${process.env.NODE_ENV} mode`
-			);
-		});
-
-		return socket;
-	}
-
-	socketClient = getSocket(URL, nameSpace);
+	socketClient = getSocket(url);
 
 	emitSocketEvent = (eventName, func) => () => {
 		socketClient.emit(eventName, func());
@@ -32,8 +38,6 @@ export function initSocketIoClientWrapper(
 			socketClient.on(eventName, handler);
 		}, deps);
 	};
-
-
 }
 
 export let socketClient = () => {
