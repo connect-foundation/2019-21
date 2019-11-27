@@ -4,7 +4,7 @@ start=$SECONDS
 #args
 source_dir="./"
 out_dirs="./build/"
-ignore_dirs='node_modules,app,server/public,spec,webpack,build,doc,script'
+ignore_dirs='node_modules,express/public,spec,build,script,docker'
 
 echo "run babel"
 npx babel $source_dir --out-dir $out_dirs --ignore $ignore_dirs --verbose --source-maps

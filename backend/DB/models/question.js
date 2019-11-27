@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false,
                 type: DataTypes.DATE,
             },
+            isStared: {
+                type: DataTypes.BOOLEAN,
+            },
             updatedAt: {
                 allowNull: false,
                 type: DataTypes.DATE,

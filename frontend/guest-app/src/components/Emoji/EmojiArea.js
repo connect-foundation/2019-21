@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import styled from "styled-components";
-import {MdInsertEmoticon} from "react-icons/md";
+import IconButton from "@material-ui/core/IconButton";
+import InsertEmoticonOutlinedIcon from "@material-ui/icons/InsertEmoticonOutlined";
 import {Emoji} from "emoji-mart";
 import EmojiPickerModal from "./EmojiPickerModal";
 import useCommonModal from "../CommonModal/useCommonModal";
@@ -28,7 +29,9 @@ function EmojiArea() {
 	return (
 		<RowWrapper left>
 			{emojiList.map(emj => <Emoji emoji={emj} size={16} />)}
-			<MdInsertEmoticon size={24} onClick={emojiPickerModal.openModal} />
+			<IconButton onClick={emojiPickerModal.openModal}>
+        		<InsertEmoticonOutlinedIcon />
+      		</IconButton>
 			{emojiPickerModal.isOpened && <EmojiPickerModal
 				onClose={emojiPickerModal.closeModal}
 				onSelect={onSelect}
