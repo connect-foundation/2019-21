@@ -51,6 +51,7 @@
 		"eslint-plugin-import": "^2.18.2",
 		"express": "^4.17.1",
 		"faker": "^4.1.0",
+		"glob": "^7.1.6",
 		"mocha": "^6.2.2",
 		"moment": "^2.24.0",
 		"morgan": "^1.9.1",
