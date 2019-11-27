@@ -26,9 +26,10 @@ function QuestionUserName({userName}) {
 }
 
 function QuestionDate({date}) {
+	console.log(date);
 	return (
 		<Typography color={"textSecondary"} variant={"body1"}>
-			{`${date.getFullYear()}.${date.getMonth()}.${date.getDay()}`}
+			{date.toLocaleString()}
 		</Typography>
 	);
 }
