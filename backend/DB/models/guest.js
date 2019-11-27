@@ -18,6 +18,9 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false,
                 type: DataTypes.DATE,
             },
+            isAnonymous: {
+                type: DataTypes.BOOLEAN,
+            },
             updatedAt: {
                 allowNull: false,
                 type: DataTypes.DATE,
