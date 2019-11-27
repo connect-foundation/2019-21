@@ -15,6 +15,7 @@ function makeQuestionDummy(number = 100) {
         const EventId = faker.random.number({ min: 1, max: 200 });
         const GuestId = faker.random.number({ min: 1, max: 200 });
         const QuestionId = null;
+        const isStared = false;
 
         bulkQuestion.push({
             content,
@@ -24,6 +25,7 @@ function makeQuestionDummy(number = 100) {
             EventId,
             GuestId,
             QuestionId,
+            isStared,
         });
     }
     return bulkQuestion;
@@ -79,6 +81,7 @@ function makeGuestDummy(number = 200) {
         const createdAt = faker.date.past(1);
         const updatedAt = createdAt;
         const EventId = faker.random.number({ min: 1, max: 200 });
+        const isAnonymous = false;
 
         bulkGuest.push({
             name,
@@ -86,6 +89,7 @@ function makeGuestDummy(number = 200) {
             updatedAt,
             EventId,
             guestSid,
+            isAnonymous,
         });
     }
     return bulkGuest;

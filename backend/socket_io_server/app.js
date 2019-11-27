@@ -4,6 +4,8 @@ import http from "http";
 import io from "socket.io";
 import configLoader from "./config/configLoader.js";
 import socketHandlers from "./socketHandler";
+const queries = require("../DB/queries/event");
+
 
 dotenv.config();
 
@@ -29,7 +31,6 @@ function BindSocketListener(socket, server) {
 
 socketServer.on("connection", socket => {
 	const id = socket.id;
-
 	console.log(`id ${id} connected `);
 
 	const addSocketListener = BindSocketListener(socket, socketServer);
