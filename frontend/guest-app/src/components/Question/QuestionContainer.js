@@ -21,6 +21,8 @@ function QuestionContainer() {
 		const question = questionRef.current.value;
 
 		const newQuestion = {
+			eventId: 2,
+			guestid: 148,
 			userName,
 			date: new Date(),
 			question,
@@ -28,10 +30,8 @@ function QuestionContainer() {
 			isLike: false,
 			likeCount: 0,
 		};
-
 		socketClient.emit("question/create", newQuestion);
 	};
-
 	return (
 		<>
 			<QuestionContainerHeader

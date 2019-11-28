@@ -9,5 +9,8 @@
     "deploy:undo": "sh script/deploy_undo.sh",
     "deploy:auto": "sh script/deploy_demon.sh"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "uuid": "^3.3.3"
+  }
 }
