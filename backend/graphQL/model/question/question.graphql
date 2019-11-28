@@ -1,7 +1,10 @@
-type Emoji{
-    
+type Emoji {
+	id: Int!
+	emojiName: String!
+	count: Int!
+	questionId: Int!
+	guestId: ID!
 }
-
 type Question {
 	id: Int!
 	eventId: Int!
@@ -12,8 +15,8 @@ type Question {
 	isAnonymous: Boolean!
 	state: String!
 	isStared: Boolean!
-    isLike:Boolean!
-    likeCount:Int!
-    emoji:
-    reply:[Question]!
+	isLike: Boolean!
+	likeCount: Int!
+	Emojis: [Emoji]!
+	replies: [Question]!
 }

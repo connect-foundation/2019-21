@@ -8,7 +8,7 @@ const EVENT_NUM = 5;
 const GUEST_NUM = 200;
 
 function makeQuestionDummy(number = 100) {
-	const bulkQuestion=[];
+	const bulkQuestion = [];
 
 	for (let i = 0; i < number; ++i) {
 		const content = faker.lorem.sentence();
