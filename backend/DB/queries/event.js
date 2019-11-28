@@ -21,8 +21,7 @@ module.exports = class EventQuery {
 			include: [
 				{
 					model: models.Like,
-				},
-				{
+				}, {
 					model: models.Emoji,
 				},
 			],
@@ -36,14 +35,14 @@ module.exports = class EventQuery {
 		}).map(x => {
 			x.isLike = x.Likes.filter(b => b.GuestId === guestId) > 0;
 			return x;
-		}).map(x => {
+		})
+		.map(x => {
 			x.Likes = undefined;
 			return x;
-		}).map(x => {
+		})
+		.map(x => {
 			x.Emojis.map(emoji => {
-				emoji.didIPicked = emoji.EmojiQuestions.GuestId === guestId;
-
-				emoji.EmojiQuestions = undefined;
+				emoji.didIPicked = emoji.GuestId === guestId;
 
 				return emoji;
 			});
