@@ -2,7 +2,7 @@ import query from "../../../DB/queries/event";
 
 async function DBquery(eventCode, guestId) {
 	const dbQueryValue = await query.getQuestionsInEvent(eventCode, guestId);
-	console.log(dbQueryValue);
+	// console.log(dbQueryValue);
 	return dbQueryValue;
 }
 
