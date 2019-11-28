@@ -1,6 +1,7 @@
-function DBquery(eventCode) {
+function DBquery(eventCode, guestId) {
 
 	// some DB job like.... dbQueryValue = selectQuestionData(eventCode, guestId)
+	// data from sequelize should be as below
 
 	const dbQueryValue = [
 		{
@@ -15,7 +16,16 @@ function DBquery(eventCode) {
 			isStared: true,
 			isLike: true,
 			likeCount: Number,
-			Emojis: null,
+			emojis: [
+				{
+					id: 0,
+					emojiName: "point_up",
+					count: 2,
+					questionId: 1,
+					guestId: 0,
+					didIPicked: false,
+				},
+			],
 			replies: null,
 		}, {
 			id: 1,
@@ -29,7 +39,16 @@ function DBquery(eventCode) {
 			isStared: true,
 			likeCount: Number,
 			isLike: true,
-			Emojis: null,
+			emojis: [
+				{
+					id: 0,
+					emojiName: "point_up",
+					count: 2,
+					questionId: 1,
+					guestId: 0,
+					didIPicked: false,
+				},
+			],
 			replies: null,
 		},
 	];
