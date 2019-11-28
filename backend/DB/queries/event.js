@@ -15,14 +15,18 @@ module.exports = class EventQuery {
 	}
 
 	static async getQuestionsInEvent(code, guestId) {
-		const event = await models.Event.findOne({where: {code}});
+		const event = await models.Event.findOne({ where: { code } });
 		const questions = await models.Question.findAll({
-			where: {EventId: event.id},
+			where: { EventId: event.id },
 			include: [
 				{
 					model: models.Like,
-				}, {
+				},
+				{
 					model: models.Emoji,
+				},
+				{
+					model: models.Guest,
 				},
 			],
 		});
@@ -32,21 +36,28 @@ module.exports = class EventQuery {
 		res.map(x => {
 			x.likeCount = x.Likes.length;
 			return x;
-		}).map(x => {
-			x.isLike = x.Likes.filter(b => b.GuestId === guestId) > 0;
-			return x;
 		})
-		.map(x => {
-			x.Likes = undefined;
-			return x;
-		})
-		.map(x => {
-			x.Emojis.map(emoji => {
-				emoji.didIPicked = emoji.GuestId === guestId;
+			.map(x => {
+				x.isLike = x.Likes.filter(b => b.GuestId === guestId) > 0;
+				return x;
+			})
+			.map(x => {
+				x.Likes = undefined;
+				return x;
+			})
+			.map(x => {
+				x.Emojis.map(emoji => {
+					emoji.didIPicked = emoji.GuestId === guestId;
 
-				return emoji;
+					return emoji;
+				});
+
+				return x
+			})
+			.map(x => {
+				x.guestName = x.Guest.name;
+				return x;
 			});
-		});
 
 		return res;
 	}
