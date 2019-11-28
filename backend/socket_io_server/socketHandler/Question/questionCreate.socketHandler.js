@@ -1,17 +1,18 @@
-import {delay_DB_job} from "../../util.js";
+import { delay_DB_job } from "../../util.js";
+import { createQuestion } from "../../../DB/queries/question";
 
 const questionCreateSocketHandler = async (data, emit) => {
 	try {
-		console.log(data);
+		const { eventId, question, guestId } = data;
 
-		await delay_DB_job();
+		await createQuestion(eventId, question, guestId);
 
 		console.log("delayed");
 
 		emit(data);
 	} catch (e) {
 		console.log(e);
-		emit({status: "error", e});
+		emit({ status: "error", e });
 	}
 };
 
