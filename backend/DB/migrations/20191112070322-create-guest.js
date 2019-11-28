@@ -10,6 +10,9 @@ module.exports = {
 		name: {
 			type: Sequelize.STRING(100),
 		},
+		isAnonymous: {
+			type: Sequelize.BOOLEAN,
+		},
 		guestSid: {
 			type: Sequelize.STRING(100),
 		},

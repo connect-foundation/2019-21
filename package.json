@@ -4,13 +4,13 @@
   "scripts": {
     "build:frontend": "sh script/build_front.sh",
     "build:backend": "sh script/build_backend.sh",
-    "build": "yarn build:frontend && yarn build:backend",
+    "build": " yarn build:backend && yarn build:frontend",
     "deploy": "sh script/deploy.sh",
     "deploy:undo": "sh script/deploy_undo.sh",
     "deploy:auto": "sh script/deploy_demon.sh"
   },
+  "license": "MIT",
   "dependencies": {
-    "emoji-mart": "^2.11.1"
-  },
-  "license": "MIT"
+    "uuid": "^3.3.3"
+  }
 }
