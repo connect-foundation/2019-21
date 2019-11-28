@@ -20,3 +20,7 @@ type Question {
 	Emojis: [Emoji]!
 	replies: [Question]!
 }
+
+type Query: {
+    questions(eventCode:ID!): [Question]!,
+},
