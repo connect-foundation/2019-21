@@ -9,15 +9,20 @@ import QuestionCardList from "./QuestionCardList.js";
 import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
 
 const EXCHANGE_RATES = gql`
-	{
-		questions(eventCode: "u0xn", guestId: 148) {
-			content
-			id
-			Emojis {
-				EmojiName
-			}
-		}
-	}
+{
+  questions(eventCode:"u0xn", guestId:148) {
+  content
+  id
+  likeCount
+  isLike
+  GuestId
+  createdAt
+    
+  Emojis {
+    EmojiName
+  }
+ }
+}
 `;
 
 function Inner(props) {
@@ -28,14 +33,9 @@ function Inner(props) {
 	const userNameRef = useRef(null);
 	const questionRef = useRef(null);
 
-	useSocket(
-		"question/create",
-		req => {
-			console.log(req);
-			addQuestion(req);
-		},
-		[questions],
-	);
+	useSocket("question/create", req => {
+		addQuestion(req);
+	});
 
 	const onAskQuestion = () => {
 		const userName = userNameRef.current.value;
@@ -56,6 +56,9 @@ function Inner(props) {
 		socketClient.emit("question/create", newQuestion);
 	};
 
+	if (loading) return <p>Loading...</p>;
+	if (error) return <p>Error :(</p>;
+	console.log(data);
 	return (
 		<>
 			<QuestionContainerHeader

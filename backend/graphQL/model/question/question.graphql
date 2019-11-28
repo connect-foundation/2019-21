@@ -12,7 +12,7 @@ type Question {
 	EventId: Int!
 	guestName: String!
 	GuestId: ID!
-	date: String!
+	createdAt: String!
 	content: String!
 	isAnonymous: Boolean!
 	state: String!
