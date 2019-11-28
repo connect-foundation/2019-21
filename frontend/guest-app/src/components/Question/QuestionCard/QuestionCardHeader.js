@@ -29,7 +29,6 @@ function QuestionDate({date}) {
 	console.log(date);
 	return (
 		<Typography color={"textSecondary"} variant={"body1"}>
-			{date.toLocaleString()}
 		</Typography>
 	);
 }
@@ -49,10 +48,10 @@ function QuestionHeader(props) {
 	return (
 		<QuestionHeaderStyle>
 			<Grid container direction={"row"}>
-				<UserAvatar isAnonymous={isAnonymous} userName={userName} />
+				<UserAvatar />
 				<QuestionInfo>
-					<QuestionUserName userName={userName} />
-					<QuestionDate date={date} />
+					<QuestionUserName />
+					<QuestionDate />
 				</QuestionInfo>
 			</Grid>
 			<LikeButton {...likeButton} />

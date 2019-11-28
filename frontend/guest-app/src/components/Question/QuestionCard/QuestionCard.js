@@ -6,14 +6,14 @@ import QuestionBody from "./QuestionCardBody.js";
 import EmojiArea from "../../Emoji/EmojiArea.js";
 
 function QuestionCard(props) {
-	const {isShowEditButton = false, question} = props;
+	const {isShowEditButton = false, content} = props;
 
 	return (
 		<Card>
 			<CardContent>
 				<QuestionHeader {...props} />
 				<QuestionBody
-					question={question}
+					question={content}
 					isMyQuestion={isShowEditButton}
 				/>
 				<EmojiArea />

@@ -1,15 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import React from "react";
-import styled from "styled-components";
-import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from '@apollo/react-hooks';
+import ApolloClient from "apollo-boost";
+import {ApolloProvider} from "@apollo/react-hooks";
 import "./App.css";
 import NavBar from "../components/NavBar/NavBar.js";
 import TabGroup from "../components/TabGroup/TabGroup.js";
 
 const apolloClient = new ApolloClient({
-	uri: 'http://localhost:8000/graphql',
+	uri: "http://localhost:8000/graphql",
 });
 
 const AppStyle = styled.div`
