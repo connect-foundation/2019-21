@@ -13,7 +13,43 @@ services:
       - ../build:/usr/src/app/build
     tty: true
     ports:
-      - 80:3000
+      - 80:${EXPRESS_PROD_PORT}
+    networks:
+      - backend
+    links:
+      - mysql
+
+  socket_io:
+    container_name: ${SOCKET_IO_SERVER_PROD_CONTAINER_NAME}
+    image: ${NODE_IMAGE_NAME}
+    command: yarn pm2-runtime start ./build/socket_io_server/app.js --watch
+    environment:
+      - NODE_ENV=production
+      # container 내부에서 DB container 를 접근하기위해 필요한 환경변수
+      - IS_DOCKER_CONTAINER=true
+    volumes:
+      - ../build:/usr/src/app/build
+    tty: true
+    ports:
+      - ${SOCKET_IO_SERVER_PROD_PORT}:${SOCKET_IO_SERVER_PROD_PORT}
+    networks:
+      - backend
+    links:
+      - mysql
+
+  graphQL_yoga:
+    container_name: ${GRAPHQL_YOGA_SERVER_PROD_CONTAINER_NAME}
+    image: ${NODE_IMAGE_NAME}
+    command: yarn pm2-runtime start ./build/graphQL/app.js --watch
+    environment:
+      - NODE_ENV=production
+      # container 내부에서 DB container 를 접근하기위해 필요한 환경변수
+      - IS_DOCKER_CONTAINER=true
+    volumes:
+      - ../build:/usr/src/app/build
+    tty: true
+    ports:
+      - ${GRAPHQL_YOGA_SERVER_PROD_PORT}:${GRAPHQL_YOGA_SERVER_PROD_PORT}
     networks:
       - backend
     links:

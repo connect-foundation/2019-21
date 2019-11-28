@@ -1,9 +1,11 @@
 import React, {useState} from "react";
 import styled from "styled-components";
-import {MdInsertEmoticon} from "react-icons/md";
-import {Emoji} from "emoji-mart";
+import IconButton from "@material-ui/core/IconButton";
+import InsertEmoticonOutlinedIcon from "@material-ui/icons/InsertEmoticonOutlined";
+import EmojiInstance from "./EmojiInstance";
 import EmojiPickerModal from "./EmojiPickerModal";
 import useCommonModal from "../CommonModal/useCommonModal";
+import EmojiDummyData from "./EmojiDummyData";
 
 const RowWrapper = styled.div`
     display: flex;
@@ -11,24 +13,56 @@ const RowWrapper = styled.div`
 	align-items: center;
 	justify-content: ${props => (props.left ? "flex-start" : "space-around")};
 	width: 100%;
-    min-height: 2rem;
 	padding: 0.5rem;
 	flex-wrap: wrap;
-    box-sizing: border-box;
+	box-sizing: border-box;
+	button {
+		outline: none;
+	}
 `;
+
+const updateEmoji = emoji => {
+	if (emoji.voted && emoji.count === 1) {
+		return null;
+	}
+
+	const newEmoji = {...emoji};
+
+	if (newEmoji.voted) {
+		newEmoji.voted = false;
+		newEmoji.count--;
+	} else {
+		newEmoji.voted = true;
+		newEmoji.count++;
+	}
+
+	return newEmoji;
+};
 
 function EmojiArea() {
 	const emojiPickerModal = useCommonModal();
-	const initialEmojiList = ["point_up", "santa", "scream"];
+	const initialEmojiList = EmojiDummyData();
 	const [emojiList, setEmojiList] = useState(initialEmojiList);
 	const onSelect = emoji => {
-		setEmojiList(emojiList.concat(emoji));
+		const newEmoji = {
+			name: emoji,
+			count: 1,
+			voted: true,
+		};
+
+		setEmojiList(emojiList.concat(newEmoji));
+	};
+	const onVote = id => {
+		const result = emojiList.map(emoji => (emoji.id === id ? updateEmoji(emoji) : emoji));
+		setEmojiList(result.filter(n => n != null));
 	};
 
 	return (
 		<RowWrapper left>
-			{emojiList.map(emj => <Emoji emoji={emj} size={16} />)}
-			<MdInsertEmoticon size={24} onClick={emojiPickerModal.openModal} />
+			{emojiList.map((emj, index) => <EmojiInstance {...emj} onVote={onVote} key={index} />)}
+			<IconButton size="medium" onClick={emojiPickerModal.openModal}>
+				<InsertEmoticonOutlinedIcon />
+			</IconButton>
 			{emojiPickerModal.isOpened && <EmojiPickerModal
 				onClose={emojiPickerModal.closeModal}
 				onSelect={onSelect}

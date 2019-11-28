@@ -4,6 +4,7 @@ import useTabGroup from "../TabGroup/useTabGroup.js";
 import QuestionInputArea from "./QuestionInputArea/QuestionInputArea.js";
 import useQuestionCardList from "./useQuestionCardList.js";
 import QuestionCardList from "./QuestionCardList.js";
+import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
 
 function QuestionContainer() {
 	const {questions, addQuestion} = useQuestionCardList();
@@ -11,18 +12,27 @@ function QuestionContainer() {
 	const userNameRef = useRef(null);
 	const questionRef = useRef(null);
 
+	useSocket("question/create", req => {
+		console.log(req);
+		addQuestion(req);
+	});
+
 	const onAskQuestion = () => {
 		const userName = userNameRef.current.value;
 		const question = questionRef.current.value;
 
-		addQuestion({
+
+		const newQuestion = {
 			userName,
 			date: new Date(),
 			question,
 			isShowEditButton: true,
 			isLike: false,
 			likeCount: 0,
-		});
+		};
+
+		addQuestion(newQuestion);
+		socketClient.emit("question/create", newQuestion);
 	};
 
 	return (
