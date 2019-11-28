@@ -9,21 +9,24 @@ import QuestionCardList from "./QuestionCardList.js";
 import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
 
 const EXCHANGE_RATES = gql`
-  { questions(eventCode:"u0xn", guestId:148) {
-	content
-	id
-	Emojis {
-      EmojiName
-	}
-}
+{
+  questions(eventCode:"u0xn", guestId:148) {
+  content
+  id
+  likeCount
+  isLike
+  GuestId
+  createdAt
+    
+  Emojis {
+    EmojiName
   }
+ }
+}
 `;
 
 function QuestionContainer() {
 	const { loading, error, data } = useQuery(EXCHANGE_RATES);
-
-	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error :(</p>;
 
 	const {questions, addQuestion} = useQuestionCardList(data);
 	const {tabIdx, selectTabIdx} = useTabGroup();
@@ -31,14 +34,12 @@ function QuestionContainer() {
 	const questionRef = useRef(null);
 
 	useSocket("question/create", req => {
-		console.log(req);
 		addQuestion(req);
 	});
 
 	const onAskQuestion = () => {
 		const userName = userNameRef.current.value;
 		const question = questionRef.current.value;
-
 
 		const newQuestion = {
 			userName,
@@ -53,6 +54,9 @@ function QuestionContainer() {
 		socketClient.emit("question/create", newQuestion);
 	};
 
+	if (loading) return <p>Loading...</p>;
+	if (error) return <p>Error :(</p>;
+	console.log(data);
 	return (
 		<>
 			<QuestionContainerHeader
