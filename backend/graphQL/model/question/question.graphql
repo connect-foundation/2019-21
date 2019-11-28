@@ -4,6 +4,7 @@ type Emoji {
 	count: Int!
 	questionId: Int!
 	guestId: ID!
+	didIPicked: Boolean!
 }
 
 type Question {

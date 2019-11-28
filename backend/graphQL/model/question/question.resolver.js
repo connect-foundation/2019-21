@@ -1,6 +1,6 @@
 function DBquery(eventCode) {
 
-	// some DB job like.... dbQueryValue = selectQuestionData(eventCode)
+	// some DB job like.... dbQueryValue = selectQuestionData(eventCode, guestId)
 
 	const dbQueryValue = [
 		{
@@ -13,6 +13,7 @@ function DBquery(eventCode) {
 			isAnonymous: false,
 			state: "alive",
 			isStared: true,
+			isLike: true,
 			likeCount: Number,
 			Emojis: null,
 			replies: null,
@@ -27,6 +28,7 @@ function DBquery(eventCode) {
 			state: "alive",
 			isStared: true,
 			likeCount: Number,
+			isLike: true,
 			Emojis: null,
 			replies: null,
 		},
@@ -35,13 +37,13 @@ function DBquery(eventCode) {
 	return dbQueryValue;
 }
 
-async function questionResolver(eventCode) {
-	return DBquery(eventCode);
+async function questionResolver(eventCode, guestId) {
+	return DBquery(eventCode, guestId);
 }
 
 // noinspection JSUnusedGlobalSymbols
 export default {
 	Query: {
-		questions: (_, {eventCode}) => questionResolver(eventCode),
+		questions: (_, {eventCode}, {guestId}) => questionResolver(eventCode, guestId),
 	},
 };
