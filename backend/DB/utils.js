@@ -356,7 +356,6 @@ module.exports = {
 	makeReplyDummy,
 	makeEmojiQuestionDummy,
 	makeLikeDummy,
-	makeEmojiReplyDummy,
 	makeEventHashTagDummy,
 	makeSelectionDummy,
 	makeCandadateDummy,
