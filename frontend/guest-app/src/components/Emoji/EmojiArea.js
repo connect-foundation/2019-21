@@ -16,6 +16,9 @@ const RowWrapper = styled.div`
 	padding: 0.5rem;
 	flex-wrap: wrap;
 	box-sizing: border-box;
+	button {
+		outline: none;
+	}
 `;
 
 const updateEmoji = emoji => {
