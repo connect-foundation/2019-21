@@ -35,7 +35,7 @@ app.get("/test/:code", async (req, res, next) => {
 });
 
 app.listen(port, () => {
-	console.log(`start server at ${port} with ${process.env.NODE_ENV} mode`);
+	console.log(`start express server at ${port} with ${process.env.NODE_ENV} mode`);
 	console.log(`public path = ${publicPath}`);
 });
 
