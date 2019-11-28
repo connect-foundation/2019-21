@@ -1,0 +1,19 @@
+type Emoji{
+    
+}
+
+type Question {
+	id: Int!
+	eventId: Int!
+	guestName: String!
+	guestUuid: ID!
+	date: String!
+	content: String!
+	isAnonymous: Boolean!
+	state: String!
+	isStared: Boolean!
+    isLike:Boolean!
+    likeCount:Int!
+    emoji:
+    reply:[Question]!
+}
