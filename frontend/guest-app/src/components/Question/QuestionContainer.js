@@ -9,20 +9,20 @@ import QuestionCardList from "./QuestionCardList.js";
 import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
 
 const EXCHANGE_RATES = gql`
-{
-  questions(eventCode:"u0xn", guestId:148) {
-  content
-  id
-  likeCount
-  isLike
-  GuestId
-  createdAt
-    
-  Emojis {
-    EmojiName
-  }
- }
-}
+	{
+		questions(eventCode: "u0xn", guestId: 148) {
+			content
+			id
+			likeCount
+			isLike
+			GuestId
+			createdAt
+
+			Emojis {
+				EmojiName
+			}
+		}
+	}
 `;
 
 function Inner(props) {
@@ -56,8 +56,6 @@ function Inner(props) {
 		socketClient.emit("question/create", newQuestion);
 	};
 
-	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error :(</p>;
 	console.log(data);
 	return (
 		<>
