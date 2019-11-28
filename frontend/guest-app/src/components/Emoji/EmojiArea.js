@@ -39,12 +39,17 @@ const updateEmoji = emoji => {
 	return newEmoji;
 };
 
+const addIndex = (list) => {
+	return list.map((item, index) => ({...item, id:index}));
+};
+
 function EmojiArea() {
 	const emojiPickerModal = useCommonModal();
 	const initialEmojiList = EmojiDummyData();
 	const [emojiList, setEmojiList] = useState(initialEmojiList);
 	const onSelect = emoji => {
 		const newEmoji = {
+			id: emojiList.length,
 			name: emoji,
 			count: 1,
 			voted: true,
@@ -53,8 +58,10 @@ function EmojiArea() {
 		setEmojiList(emojiList.concat(newEmoji));
 	};
 	const onVote = id => {
-		const result = emojiList.map(emoji => (emoji.id === id ? updateEmoji(emoji) : emoji));
-		setEmojiList(result.filter(n => n != null));
+		let result = emojiList.map(emoji => (emoji.id === id ? updateEmoji(emoji) : emoji));
+		result = result.filter(n => n != null);
+		result = addIndex(result);
+		setEmojiList(result);
 	};
 
 	return (

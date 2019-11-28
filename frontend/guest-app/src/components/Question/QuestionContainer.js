@@ -13,7 +13,6 @@ function QuestionContainer() {
 	const questionRef = useRef(null);
 
 	useSocket("question/create", req => {
-		console.log(req);
 		addQuestion(req);
 	});
 
