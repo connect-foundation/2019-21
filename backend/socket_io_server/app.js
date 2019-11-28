@@ -12,7 +12,7 @@ dotenv.config();
 const { port } = configLoader();
 const app = express();
 const httpServer = http.createServer(app).listen(port, () => {
-	console.log(`start server at ${port} with ${process.env.NODE_ENV} mode`);
+	console.log(`start socket.io server at ${port} with ${process.env.NODE_ENV} mode`);
 });
 
 const socketServer = io(httpServer);
