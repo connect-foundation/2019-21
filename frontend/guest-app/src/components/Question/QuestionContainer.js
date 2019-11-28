@@ -43,8 +43,10 @@ function Inner(props) {
 
 		const newQuestion = {
 			userName,
+			eventId: 2,
+			guestId: 148,
 			date: new Date(),
-			question,
+			content: question,
 			isShowEditButton: true,
 			isLike: false,
 			likeCount: 0,
@@ -78,11 +80,9 @@ function QuestionContainer() {
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
 
-	const q = data.questions;
-
 	return (
 		<>
-			<Inner data={q} />
+			<Inner data={data.questions} />
 		</>
 	);
 }
