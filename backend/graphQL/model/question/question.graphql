@@ -5,6 +5,7 @@ type Emoji {
 	questionId: Int!
 	guestId: ID!
 }
+
 type Question {
 	id: Int!
 	eventId: Int!
@@ -17,10 +18,10 @@ type Question {
 	isStared: Boolean!
 	isLike: Boolean!
 	likeCount: Int!
-	Emojis: [Emoji]!
+	emojis: [Emoji]!
 	replies: [Question]!
 }
 
-type Query: {
+type Query {
     questions(eventCode:ID!): [Question]!,
 },
