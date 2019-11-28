@@ -29,6 +29,7 @@ function QuestionDate({date}) {
 	console.log(date);
 	return (
 		<Typography color={"textSecondary"} variant={"body1"}>
+			{date}
 		</Typography>
 	);
 }
@@ -39,7 +40,8 @@ const QuestionHeaderStyle = styled.div`
 `;
 
 function QuestionHeader(props) {
-	const {userName, date, isAnonymous, isLike, likeCount} = props;
+	const {guestName, createdAt, isAnonymous, isLike, likeCount} = props;
+	console.log(props);
 	const likeButton = useLikeButton({
 		isLikeClicked: isLike,
 		likeCount,
@@ -48,10 +50,10 @@ function QuestionHeader(props) {
 	return (
 		<QuestionHeaderStyle>
 			<Grid container direction={"row"}>
-				<UserAvatar />
+				<UserAvatar userName={guestName} />
 				<QuestionInfo>
-					<QuestionUserName />
-					<QuestionDate />
+					<QuestionUserName userName={guestName} />
+					<QuestionDate date={createdAt} />
 				</QuestionInfo>
 			</Grid>
 			<LikeButton {...likeButton} />
