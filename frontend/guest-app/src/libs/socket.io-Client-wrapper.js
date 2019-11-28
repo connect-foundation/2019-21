@@ -1,6 +1,4 @@
 import io from "socket.io-client";
-import {useEffect} from "react";
-
 
 function getSocket(URL) {
 	const socket = io(URL);
@@ -13,7 +11,6 @@ function getSocket(URL) {
 
 	return socket;
 }
-
 
 function combineURL(host, port, nameSpace) {
 	return nameSpace ? `${host}:${port}/${nameSpace}` : `${host}:${port}`;
@@ -33,10 +30,9 @@ export function initSocketIoClientWrapper(
 	};
 
 	useSocket = (eventName = "EMIT", handler = () => {
-	}, deps = []) => {
-		useEffect(() => {
-			socketClient.on(eventName, handler);
-		}, deps);
+	},) => {
+		socketClient.off(eventName)
+		socketClient.on(eventName, handler);
 	};
 }
 

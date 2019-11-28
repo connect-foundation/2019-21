@@ -13,14 +13,12 @@ function QuestionContainer() {
 	const questionRef = useRef(null);
 
 	useSocket("question/create", req => {
-		console.log(req);
 		addQuestion(req);
 	});
 
 	const onAskQuestion = () => {
 		const userName = userNameRef.current.value;
 		const question = questionRef.current.value;
-
 
 		const newQuestion = {
 			userName,
@@ -31,7 +29,6 @@ function QuestionContainer() {
 			likeCount: 0,
 		};
 
-		addQuestion(newQuestion);
 		socketClient.emit("question/create", newQuestion);
 	};
 
