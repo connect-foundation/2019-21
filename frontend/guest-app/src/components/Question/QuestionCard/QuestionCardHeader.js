@@ -26,7 +26,6 @@ function QuestionUserName({userName}) {
 }
 
 function QuestionDate({date}) {
-	console.log(date);
 	return (
 		<Typography color={"textSecondary"} variant={"body1"}>
 			{date}
@@ -41,7 +40,6 @@ const QuestionHeaderStyle = styled.div`
 
 function QuestionHeader(props) {
 	const {guestName, createdAt, isAnonymous, isLike, likeCount} = props;
-	console.log(props);
 	const likeButton = useLikeButton({
 		isLikeClicked: isLike,
 		likeCount,
