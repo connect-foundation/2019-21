@@ -1,6 +1,7 @@
-const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
+import passport from "passport";
+import { Strategy } from "passport-google-oauth20";
 
+const GoogleStrategy = Strategy;
 export default (function() {
 	function extractProfile(profile) {
 		let imageUrl = "";
@@ -17,9 +18,9 @@ export default (function() {
 	passport.use(
 		new GoogleStrategy(
 			{
-				clientID: process.env.OAUTH2_CLIENT_ID,
-				clientSecret: process.env.OAUTH2_CLIENT_SECRET,
-				callbackURL: process.env.OAUTH2_CALLBACK,
+				clientID: process.env.OAUTH2_CLIENT_DEV_ID,
+				clientSecret: process.env.OAUTH2_CLIENT_DEV_SECRET,
+				callbackURL: process.env.OAUTH2_DEV_CALLBACK,
 				accessType: "offline",
 			},
 			(accessToken, refreshToken, profile, cb) => {
