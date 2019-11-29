@@ -39,9 +39,7 @@ const updateEmoji = emoji => {
 	return newEmoji;
 };
 
-const addIndex = (list) => {
-	return list.map((item, index) => ({...item, id:index}));
-};
+const addIndex = list => list.map((item, index) => ({...item, id: index}));
 
 function EmojiArea() {
 	const emojiPickerModal = useCommonModal();
@@ -59,6 +57,7 @@ function EmojiArea() {
 	};
 	const onVote = id => {
 		let result = emojiList.map(emoji => (emoji.id === id ? updateEmoji(emoji) : emoji));
+
 		result = result.filter(n => n != null);
 		result = addIndex(result);
 		setEmojiList(result);

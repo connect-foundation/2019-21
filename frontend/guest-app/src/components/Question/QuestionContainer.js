@@ -36,7 +36,7 @@ function QuestionContainer() {
 		if (data) {
 			setState(data.questions);
 		}
-	}, [data]);
+	}, [data, setState]);
 
 	useSocket("question/create", req => {
 		addQuestion(req);

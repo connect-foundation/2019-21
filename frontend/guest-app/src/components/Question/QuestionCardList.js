@@ -7,9 +7,7 @@ function QuestionCardList(props) {
 
 	return (
 		<>
-			{questions.map((question, idx) => {
-				return <QuestionCard {...question} key={idx} />;
-			})}
+			{questions.map((question, idx) => <QuestionCard {...question} key={idx} />)}
 		</>
 	);
 }
