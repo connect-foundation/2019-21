@@ -1,14 +1,13 @@
 import {config} from "dotenv";
 import express from "express";
-import EventQuery from "../DB/queries/event";
+import session from "express-session";
+import passport from "passport";
 import loadConfig from "./config/configLoader.js";
 import applyStaticAppServing from "./middleware/applyStaticAppServing.js";
 import morgan from "morgan";
-import io from "socket.io";
-
-import http from "http";
-import getSequelizeData from "./utils";
-
+import * as auth from "./auth/passport";
+import connect_memjs from "connect-memjs";
+import authRouter from "./routes/auth";
 
 config();
 
@@ -16,11 +15,16 @@ const {port, publicPath} = loadConfig();
 
 const app = express();
 
+app.use(session(sessionConfig));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(morgan("dev"));
+app.use("/auth", authRouter);
 
 applyStaticAppServing(app, publicPath);
 
 app.get("/", async (req, res) => {
+	console.log(req.session);
 	res.send("ok");
 });
 app.get("/test/:code", async (req, res, next) => {
@@ -36,7 +40,9 @@ app.get("/test/:code", async (req, res, next) => {
 });
 
 app.listen(port, () => {
-	console.log(`start express server at ${port} with ${process.env.NODE_ENV} mode`);
+	console.log(
+		`start express server at ${port} with ${process.env.NODE_ENV} mode`
+	);
 	console.log(`public path = ${publicPath}`);
 });
 
