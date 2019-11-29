@@ -22,7 +22,6 @@ function UserInfoInput(props) {
 	return (
 		<>
 			<UserAvatar isAnonymous={isAnonymous} userName={userName} />
-			<Box p={1} />
 			<QuestionUserNameInput
 				userName={userName}
 				userNameRef={userNameRef}
