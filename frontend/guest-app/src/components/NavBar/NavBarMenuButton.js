@@ -7,7 +7,7 @@ function NavBarMenuButton() {
 	const navBarState = useSideNavMenu();
 
 	return (
-		<div>
+		<>
 			<IconButton
 				edge="start"
 				color="inherit"
@@ -19,7 +19,7 @@ function NavBarMenuButton() {
 				isOpen={navBarState.isOpen}
 				toggleNavMenu={navBarState.toggleNavMenu}
 			/>
-		</div>
+		</>
 	);
 }
 
