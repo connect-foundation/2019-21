@@ -5,7 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import NavBarMenuButton from "./NavBarMenuButton.js";
 
-function NavBar({eventName = "eventName"}) {
+function NavBar({eventName = "이벤트 이름"}) {
 	return (
 		<AppBar>
 			<Toolbar>

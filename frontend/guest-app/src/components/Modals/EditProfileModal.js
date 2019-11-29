@@ -29,7 +29,7 @@ function UserNameInput() {
 
 			<CommonTextInput
 				icon={<PersonIcon />}
-				label={"Your name"}
+				label={"이름"}
 				value={userName}
 				onChange={onUserNameChange}
 			/>
@@ -43,7 +43,7 @@ function CompanyInput({company = ""}) {
 	return (
 		<CommonTextInput
 			icon={<BusinessIcon />}
-			label={"Your company"}
+			label={"회사"}
 			value={textInputState.value}
 			onChange={textInputState.onChange}
 		/>
@@ -56,7 +56,7 @@ function EmailInput({email = ""}) {
 	return (
 		<CommonTextInput
 			icon={<EmailIcon />}
-			label={"Your email"}
+			label={"이메일"}
 			value={textInputState.value}
 			onChange={textInputState.onChange}
 		/>
@@ -75,7 +75,7 @@ function EditProfileModal({isOpened = false, onCancelClick, onSave}) {
 	return (
 		<CommonModal isOpened={isOpened} onCancelClick={onCancelClick}>
 			<Typography variant={"h6"} color={"textSecondary"}>
-				Edit my profile
+				내 프로필 변경
 			</Typography>
 
 			<Grid container direction={"column"} alignItems={"center"}>

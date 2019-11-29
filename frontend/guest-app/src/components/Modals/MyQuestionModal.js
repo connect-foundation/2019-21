@@ -10,7 +10,7 @@ function MyQuestionModal({isOpened, onCancelClick}) {
 
 	return (
 		<CommonModal isOpened={isOpened} onCancelClick={onCancelClick}>
-			<Typography>My question</Typography>
+			<Typography>내 질문들</Typography>
 			<Scrollbars style={{width: "100%", height: "400px"}}>
 				<QuestionCardList questions={datas.questions} />
 			</Scrollbars>

@@ -18,7 +18,7 @@ function EditProfileButton() {
 		<div>
 			<SideMenuItem
 				icon={<PersonIcon />}
-				itemText={"edit my profile"}
+				itemText={"내 프로필 변경"}
 				onClick={modalState.openModal}
 			/>
 			<EditProfileModal
@@ -36,7 +36,7 @@ function MyQuestionButton() {
 		<div>
 			<SideMenuItem
 				icon={<QuestionAnswerIcon />}
-				itemText={"my questions"}
+				itemText={"내 질문들"}
 				onClick={modalState.openModal}
 			/>
 			<MyQuestionModal
@@ -54,7 +54,7 @@ function LogoutButton() {
 		<div>
 			<SideMenuItem
 				icon={<ExitToAppIcon />}
-				itemText={"logout"}
+				itemText={"로그아웃"}
 				onClick={modalState.openModal}
 			/>
 			<LogOutModal

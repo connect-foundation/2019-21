@@ -14,7 +14,7 @@ function QuestionContainerHeader({questionNumber, tabIdx, onSelectTab}) {
 					disabled
 					icon={
 						<Typography color={"textSecondary"}>
-							{questionNumber} 질문
+							총 {questionNumber} 질문
 						</Typography>
 					}
 					style={{

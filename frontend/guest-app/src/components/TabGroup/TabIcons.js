@@ -22,7 +22,7 @@ export function PollTabIcon({showBadge}) {
 	return (
 		<Badge {...props}>
 			<PollIcon style={style} />
-			Poll
+			투표
 		</Badge>
 	);
 }
