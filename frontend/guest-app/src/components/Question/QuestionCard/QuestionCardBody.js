@@ -5,12 +5,10 @@ import List from "@material-ui/core/List";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import {Typography} from "@material-ui/core";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import useDrawer from "../../useDrawer.js";
-import {
-	DeleteIcon,
-	EditIcon,
-	EllipsisHorizonIcon,
-} from "../../FontAwesomeIcons.js";
 import CommonModal from "../../CommonModal/CommonModal.js";
 import useCommonModal from "../../CommonModal/useCommonModal.js";
 import SideMenuItem from "../../SideMenu/SideMenuItem.js";
@@ -28,7 +26,7 @@ function DeleteQuestionCardModal({isOpened, closeModal, onCancel, onDelete}) {
 			<Grid container direction={"row"} justify="flex-end">
 				<Button onClick={onCancel || closeModal}>취소</Button>
 				<Button color="secondary" onClick={onDelete}>
-					삭제
+          삭제
 				</Button>
 			</Grid>
 		</CommonModal>
@@ -41,7 +39,7 @@ function DeleteQuestionCardMenuButton() {
 	return (
 		<>
 			<SideMenuItem
-				icon={<DeleteIcon />}
+				icon={<DeleteIcon/>}
 				itemText={"질문 삭제"}
 				onClick={openModal}
 			/>
@@ -58,11 +56,11 @@ function QuestionCardDrawer({isOpen, toggleDrawer}) {
 		<Drawer open={isOpen} anchor={"bottom"} onClose={toggleDrawer}>
 			<List>
 				<SideMenuItem
-					icon={<EditIcon />}
+					icon={<EditIcon/>}
 					itemText={"질문 수정"}
 					onClick={toggleDrawer}
 				/>
-				<DeleteQuestionCardMenuButton onClick={toggleDrawer} />
+				<DeleteQuestionCardMenuButton onClick={toggleDrawer}/>
 			</List>
 		</Drawer>
 	);
@@ -75,7 +73,7 @@ function QuestionEditButton() {
 		<span>
 			<QuestionEditButtonStyle onClick={toggleDrawer}>
 				<Typography color={"textSecondary"}>
-					<EllipsisHorizonIcon />
+					<MoreHorizIcon/>
 				</Typography>
 			</QuestionEditButtonStyle>
 			<QuestionCardDrawer {...{isOpen, toggleDrawer}} />
@@ -87,7 +85,7 @@ function QuestionBody({question, isMyQuestion}) {
 	return (
 		<span>
 			{question}
-			{isMyQuestion && <QuestionEditButton />}
+			{isMyQuestion && <QuestionEditButton/>}
 		</span>
 	);
 }

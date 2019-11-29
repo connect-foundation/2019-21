@@ -1,7 +1,8 @@
-import Button from "@material-ui/core/Button";
 import React from "react";
-import {LikeIcon} from "../../../FontAwesomeIcons.js";
+import Button from "@material-ui/core/Button";
+import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import useCommonModal from "../../../CommonModal/useCommonModal.js";
+
 import UndoLikeConfirmModal from "./UndoLikeModal.js";
 
 function LikeButtonAtom({isLikeClicked, onLikeButtonClicked, likeCount}) {
@@ -16,7 +17,7 @@ function LikeButtonAtom({isLikeClicked, onLikeButtonClicked, likeCount}) {
 				justifyContent: "space-between",
 			}}
 		>
-			<LikeIcon />
+			<ThumbUpIcon />
 			{likeCount}
 		</Button>
 	);

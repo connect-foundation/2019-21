@@ -1,10 +1,12 @@
 import React from "react";
 import {Grid, Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import BusinessIcon from "@material-ui/icons/Business";
+import EmailIcon from "@material-ui/icons/Email";
+import PersonIcon from "@material-ui/icons/Person";
 import UserAvatar from "../UserAvatar/UserAvatar.js";
 import CommonModal from "../CommonModal/CommonModal.js";
 import CommonTextInput from "../CommonTextInput/CommonTextInput.js";
-import {CompanyIcon, EmailIcon, UserIcon} from "../FontAwesomeIcons.js";
 import useCommonTextInput from "../CommonTextInput/useCommonTextInput.js";
 import useUserAvatar from "../UserAvatar/useUserAvatar.js";
 
@@ -26,7 +28,7 @@ function UserNameInput() {
 			<UserAvatar userName={userName} isAnonymous={isAnonymous} />
 
 			<CommonTextInput
-				icon={<UserIcon />}
+				icon={<PersonIcon />}
 				label={"Your name"}
 				value={userName}
 				onChange={onUserNameChange}
@@ -40,7 +42,7 @@ function CompanyInput({company = ""}) {
 
 	return (
 		<CommonTextInput
-			icon={<CompanyIcon />}
+			icon={<BusinessIcon />}
 			label={"Your company"}
 			value={textInputState.value}
 			onChange={textInputState.onChange}

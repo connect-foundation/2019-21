@@ -1,10 +1,12 @@
 import React from "react";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import PersonIcon from "@material-ui/icons/Person";
+import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer";
 import SideMenuItem from "./SideMenuItem.js";
 import EditProfileModal from "../Modals/EditProfileModal.js";
 import useSideMenuStyles from "./UseSideMenuStyles.js";
-import {LogoutIcon, QuestionIcon, UserIcon} from "../FontAwesomeIcons.js";
 import useCommonModal from "../CommonModal/useCommonModal.js";
 import LogOutModal from "../Modals/LogoutModal.js";
 import MyQuestionModal from "../Modals/MyQuestionModal.js";
@@ -15,7 +17,7 @@ function EditProfileButton() {
 	return (
 		<div>
 			<SideMenuItem
-				icon={<UserIcon />}
+				icon={<PersonIcon />}
 				itemText={"edit my profile"}
 				onClick={modalState.openModal}
 			/>
@@ -33,7 +35,7 @@ function MyQuestionButton() {
 	return (
 		<div>
 			<SideMenuItem
-				icon={<QuestionIcon />}
+				icon={<QuestionAnswerIcon />}
 				itemText={"my questions"}
 				onClick={modalState.openModal}
 			/>
@@ -51,7 +53,7 @@ function LogoutButton() {
 	return (
 		<div>
 			<SideMenuItem
-				icon={<LogoutIcon />}
+				icon={<ExitToAppIcon />}
 				itemText={"logout"}
 				onClick={modalState.openModal}
 			/>

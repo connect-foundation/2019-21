@@ -2,16 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import {CardContent} from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
-import {EditIcon} from "../../FontAwesomeIcons.js";
+import EditIcon from "@material-ui/icons/Edit";
 
 function DisabledQuestionInputArea(props) {
 	const {onClick} = props;
 
 	return (
 		<>
-			<Divider />
+			<Divider/>
 			<CardContent onClick={onClick}>
-				<EditIcon>&nbsp;질문하기</EditIcon>
+				<EditIcon style={{marginRight: "8px"}}/>
+        질문하기
 			</CardContent>
 		</>
 	);

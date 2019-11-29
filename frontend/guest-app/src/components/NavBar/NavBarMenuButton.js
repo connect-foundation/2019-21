@@ -1,6 +1,6 @@
 import React from "react";
 import IconButton from "@material-ui/core/IconButton";
-import {MenuIcon} from "../FontAwesomeIcons.js";
+import MenuIcon from "@material-ui/icons/Menu";
 import {SideMenu, useSideNavMenu} from "../SideMenu/SideMenu.js";
 
 function NavBarMenuButton() {

@@ -3,7 +3,7 @@ function DummyData() {
 		{
 			userName: "오랑캐1",
 			date: new Date(),
-			question: "question",
+			content: "content",
 			isAnonymous: false,
 			isShowEditButton: true,
 			isLike: false,
@@ -11,7 +11,7 @@ function DummyData() {
 		}, {
 			userName: "오랑캐2",
 			date: new Date(),
-			question: "long question",
+			content: "long content",
 			isAnonymous: false,
 			isShowEditButton: false,
 			isLike: true,
@@ -19,8 +19,8 @@ function DummyData() {
 		}, {
 			userName: "오랑캐3",
 			date: new Date(),
-			question:
-				"long question long question long question long question long questionlong questionlong question long questionlong question",
+			content:
+				"long content long content long content long content long contentlong contentlong content long contentlong content",
 			isAnonymous: false,
 			isShowEditButton: true,
 			isLike: false,
@@ -28,7 +28,7 @@ function DummyData() {
 		}, {
 			userName: "오랑캐3",
 			date: new Date(),
-			question: "question",
+			content: "content",
 			isAnonymous: true,
 			isShowEditButton: false,
 			isLike: false,
@@ -36,7 +36,7 @@ function DummyData() {
 		}, {
 			userName: "Anonymous",
 			date: new Date(),
-			question: "question",
+			content: "content",
 			isAnonymous: true,
 			isShowEditButton: false,
 			isLike: false,
@@ -44,7 +44,7 @@ function DummyData() {
 		}, {
 			userName: "Anonymous",
 			date: new Date(),
-			question: "question",
+			content: "content",
 			isAnonymous: true,
 			isShowEditButton: true,
 			isLike: false,
@@ -52,7 +52,7 @@ function DummyData() {
 		}, {
 			userName: "Anonymous",
 			date: new Date(),
-			question: "question",
+			content: "content",
 			isAnonymous: true,
 			isShowEditButton: false,
 			isLike: false,
@@ -60,7 +60,7 @@ function DummyData() {
 		}, {
 			userName: "Anonymous",
 			date: new Date(),
-			question: "question",
+			content: "content",
 			isAnonymous: true,
 			isShowEditButton: false,
 			isLike: false,
@@ -68,7 +68,7 @@ function DummyData() {
 		}, {
 			userName: "Anonymous",
 			date: new Date(),
-			question: "question",
+			content: "content",
 			isAnonymous: true,
 			isShowEditButton: false,
 			isLike: false,
@@ -76,7 +76,7 @@ function DummyData() {
 		}, {
 			userName: "Anonymous",
 			date: new Date(),
-			question: "question",
+			content: "content",
 			isAnonymous: true,
 			isShowEditButton: false,
 			isLike: false,
@@ -84,7 +84,7 @@ function DummyData() {
 		}, {
 			userName: "Anonymous",
 			date: new Date(),
-			question: "question",
+			content: "content",
 			isAnonymous: true,
 			isShowEditButton: false,
 			isLike: false,

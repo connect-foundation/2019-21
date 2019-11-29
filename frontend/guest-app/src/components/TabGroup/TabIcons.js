@@ -1,16 +1,23 @@
 import React from "react";
 import Badge from "@material-ui/core/Badge/Badge.js";
-import {PollIcon, QuestionIcon} from "../FontAwesomeIcons.js";
+import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer";
+import PollIcon from "@material-ui/icons/Poll";
 
 export function QnATabIcon({showBadge}) {
 	if (showBadge) {
 		return (
 			<Badge color="error" variant="dot">
-				<QuestionIcon>&nbsp;Q&A</QuestionIcon>
+				<QuestionAnswerIcon />
+				Q&A
 			</Badge>
 		);
 	} else {
-		return <QuestionIcon>&nbsp;Q&A</QuestionIcon>;
+		return (
+			<span>
+				<QuestionAnswerIcon />
+				Q&A
+			</span>
+		);
 	}
 }
 
@@ -18,10 +25,16 @@ export function PollTabIcon({showBadge}) {
 	if (showBadge) {
 		return (
 			<Badge color="error" variant="dot">
-				<PollIcon>&nbsp;Poll</PollIcon>
+				<PollIcon />
+				Poll
 			</Badge>
 		);
 	} else {
-		return <PollIcon>&nbsp;Poll</PollIcon>;
+		return (
+			<span>
+				<PollIcon />
+				Poll
+			</span>
+		);
 	}
 }
