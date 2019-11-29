@@ -7,7 +7,7 @@ function useQuestionCardList(initialState = DummyData()) {
 		setState([newQuestion, ...questions]);
 	};
 
-	return {questions, addQuestion};
+	return {questions, addQuestion, setState};
 }
 
 export default useQuestionCardList;

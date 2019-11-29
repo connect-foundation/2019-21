@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import {gql} from "apollo-boost";
 import QuestionContainerHeader from "./QuestionContainerHeader.js";
@@ -9,29 +9,34 @@ import QuestionCardList from "./QuestionCardList.js";
 import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
 
 const EXCHANGE_RATES = gql`
-    {
-        questions(eventCode: "u0xn", guestId: 148) {
-            content
-            id
-            likeCount
-            isLike
-            GuestId
-            createdAt
-            guestName
-            Emojis {
-                EmojiName
-            }
-        }
-    }
+	{
+		questions(eventCode: "u0xn", guestId: 148) {
+			content
+			id
+			likeCount
+			isLike
+			GuestId
+			createdAt
+			guestName
+			Emojis {
+				EmojiName
+			}
+		}
+	}
 `;
 
-function Inner(props) {
-	const {data = undefined} = props;
-
-	const {questions, addQuestion} = useQuestionCardList(data);
+function QuestionContainer() {
+	const {loading, error, data} = useQuery(EXCHANGE_RATES);
+	const {questions, addQuestion, setState} = useQuestionCardList(data);
 	const {tabIdx, selectTabIdx} = useTabGroup();
 	const userNameRef = useRef(null);
 	const questionRef = useRef(null);
+
+	useEffect(() => {
+		if (data) {
+			setState(data.questions);
+		}
+	}, [data]);
 
 	useSocket("question/create", req => {
 		addQuestion(req);
@@ -52,11 +57,16 @@ function Inner(props) {
 			likeCount: 0,
 		};
 
-		// addQuestion(newQuestion);
 		socketClient.emit("question/create", newQuestion);
 	};
 
-	console.log(data);
+	if (loading) {
+		console.log("loading");
+	}
+	if (error) {
+		console.log("error");
+	}
+
 	return (
 		<>
 			<QuestionContainerHeader
@@ -66,25 +76,11 @@ function Inner(props) {
 			/>
 			<QuestionInputArea
 				onAskQuestion={onAskQuestion}
-				onOpen={() => {
-				}}
+				onOpen={() => {}}
 				questionRef={questionRef}
 				userNameRef={userNameRef}
 			/>
-			<QuestionCardList questions={questions}/>
-		</>
-	);
-}
-
-function QuestionContainer() {
-	const {loading, error, data} = useQuery(EXCHANGE_RATES);
-
-	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error :(</p>;
-
-	return (
-		<>
-			<Inner data={data.questions}/>
+			<QuestionCardList questions={questions} />
 		</>
 	);
 }
