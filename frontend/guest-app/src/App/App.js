@@ -5,9 +5,11 @@ import {ApolloProvider} from "@apollo/react-hooks";
 import "./App.css";
 import NavBar from "../components/NavBar/NavBar.js";
 import TabGroup from "../components/TabGroup/TabGroup.js";
+import configLoader from "../config/configLoader.js";
 
+const config = configLoader();
 const apolloClient = new ApolloClient({
-	uri: "http://localhost:8000/graphql",
+	uri: config.apolloURI,
 });
 
 const AppStyle = styled.div`
