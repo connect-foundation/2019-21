@@ -14,6 +14,9 @@ module.exports = {
 			type: Sequelize.STRING(20),
 			allowNull: false,
 		},
+		isStared: {
+			type: Sequelize.BOOLEAN,
+		},
 		createdAt: {
 			allowNull: false,
 			type: Sequelize.DATE,

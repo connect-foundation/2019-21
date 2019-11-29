@@ -1,4 +1,3 @@
-
 module.exports = (sequelize, DataTypes) => {
 	const Emoji = sequelize.define(
 		"Emoji",
@@ -9,12 +8,6 @@ module.exports = (sequelize, DataTypes) => {
 				primaryKey: true,
 				type: DataTypes.INTEGER,
 			},
-			name: {
-				type: DataTypes.STRING(100),
-			},
-			url: {
-				type: DataTypes.STRING(1000),
-			},
 			createdAt: {
 				allowNull: false,
 				type: DataTypes.DATE,
@@ -23,12 +16,21 @@ module.exports = (sequelize, DataTypes) => {
 				allowNull: false,
 				type: DataTypes.DATE,
 			},
+			EmojiName: {
+				type: DataTypes.STRING,
+				primaryKey: true,
+			},
+			QuestionId: {
+				type: DataTypes.INTEGER,
+				primaryKey: true,
+			},
+			GuestId: {
+				type: DataTypes.INTEGER,
+				primaryKey: true,
+			},
 		},
-		{},
+		{}
 	);
 
-	Emoji.associate = function(models) {
-		Emoji.belongsToMany(models.Question, {through: "EmojiQuestions"});
-	};
 	return Emoji;
 };

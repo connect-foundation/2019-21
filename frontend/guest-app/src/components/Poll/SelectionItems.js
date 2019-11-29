@@ -18,7 +18,6 @@ function SelectionItem(props) {
 
 	return (
 		<ColumnWrapper>
-				<Item/>
 			{nItems.map((item, index) =>
 				<Item
 					{...item}

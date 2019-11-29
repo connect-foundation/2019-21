@@ -13,14 +13,12 @@ cd ./frontend
 echo 'build main-app'
 cd ./main-app
 yarn install
-yarn lint:fix
 yarn build
 cd ..
 
 echo "build guest-app"
 cd ./guest-app
 yarn install
-yarn lint:fix
 yarn build
 
 cd ..
@@ -28,7 +26,6 @@ cd ..
 echo "build host-app"
 cd ./host-app
 yarn install
-yarn lint:fix
 yarn build
 cd ..
 
