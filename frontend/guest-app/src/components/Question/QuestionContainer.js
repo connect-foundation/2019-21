@@ -1,7 +1,7 @@
 import React, {useEffect, useReducer, useRef} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import {gql} from "apollo-boost";
-import QuestionContainerHeader from "./QuestionContainerHeader.js";
+import QuestionContainerTabBar from "./QuestionContainerTabBar.js";
 import useTabs from "../materialUIHooks/useTabs.js";
 import QuestionInputArea from "./QuestionInputArea/QuestionInputArea.js";
 import QuestionCardList from "./QuestionCard/QuestionCardList.js";
@@ -74,7 +74,7 @@ function QuestionContainer() {
 
 	return (
 		<>
-			<QuestionContainerHeader
+			<QuestionContainerTabBar
 				questionNumber={questions.length}
 				tabIdx={tabIdx}
 				onSelectTab={onContainerSelectTab}

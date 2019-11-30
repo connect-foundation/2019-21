@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
 
-function QuestionContainerHeader(props) {
+function QuestionContainerTabBar(props) {
 	const {questionNumber, tabIdx, onSelectTab} = props;
 
 	return (
@@ -35,15 +35,15 @@ function QuestionContainerHeader(props) {
 	);
 }
 
-QuestionContainerHeader.propTypes = {
+QuestionContainerTabBar.propTypes = {
 	questionNumber: PropTypes.number,
 	tabIdx: PropTypes.number,
 	onSelectTab: PropTypes.func,
 };
 
-QuestionContainerHeader.defaultProps = {
+QuestionContainerTabBar.defaultProps = {
 	questionNumber: 0,
 	tabIdx: 1,
 };
 
-export default QuestionContainerHeader;
+export default QuestionContainerTabBar;
