@@ -8,7 +8,7 @@ import {Typography} from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import useDrawer from "../../materialUIHooks/useDrawer.js";
+import useDrawer from "../../../materialUIHooks/useDrawer.js";
 import CommonModal from "../../CommonComponent/CommonModal/CommonModal.js";
 import useCommonModal from "../../CommonComponent/CommonModal/useCommonModal.js";
 import SideMenuItem from "../../SideMenu/SideMenuItem.js";

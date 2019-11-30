@@ -3,7 +3,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import styled from "styled-components";
 import {PollTabIcon, QnATabIcon} from "./TabIcons.js";
-import useTabs from "../materialUIHooks/useTabs.js";
+import useTabs from "../../materialUIHooks/useTabs.js";
 import TabBody from "./TabBody.js";
 import QuestionContainer from "../Question/QuestionContainer.js";
 import PollContainer from "../Poll/PollContainer.js";

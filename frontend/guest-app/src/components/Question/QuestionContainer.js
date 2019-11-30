@@ -2,7 +2,7 @@ import React, {useEffect, useReducer, useRef} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import {gql} from "apollo-boost";
 import QuestionContainerTabBar from "./QuestionContainerTabBar.js";
-import useTabs from "../materialUIHooks/useTabs.js";
+import useTabs from "../../materialUIHooks/useTabs.js";
 import QuestionInputArea from "./QuestionInputArea/QuestionInputArea.js";
 import QuestionCardList from "./QuestionCard/QuestionCardList.js";
 import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
