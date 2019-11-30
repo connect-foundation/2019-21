@@ -3,8 +3,8 @@ import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
 import {Typography} from "@material-ui/core";
 import UserAvatar from "../../UserAvatar/UserAvatar.js";
-import LikeButton from "./LikeButton/LikeButton.js";
-import useLikeButton from "./LikeButton/useLikeButton.js";
+import LikeButton from "../../LikeButton/LikeButton.js";
+import useLikeButton from "../../LikeButton/useLikeButton.js";
 
 const QuestionInfo = styled.div`
 	display: flex;
