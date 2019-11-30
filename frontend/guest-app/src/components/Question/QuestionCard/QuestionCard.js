@@ -10,7 +10,7 @@ function QuestionCard(props) {
 
 	return (
 		<Card style={{margin: "0.5rem"}}>
-			<CardContent style={{padding: "1rem"}}>
+			<CardContent style={{paddingTop: "1rem", paddingBottom: "0"}}>
 				<QuestionHeader {...props} />
 				<QuestionBody
 					question={content}
