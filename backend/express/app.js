@@ -4,9 +4,11 @@ import passport from "passport";
 import loadConfig from "./config/configLoader.js";
 import applyStaticAppServing from "./middleware/applyStaticAppServing.js";
 import morgan from "morgan";
+import { getEventsByHost } from "../DB/queries/event";
 import * as google from "./authentication/google";
 import * as jwt from "./authentication/jwt";
 import authRouter from "./routes/auth";
+import cors from "cors";
 
 config();
 
@@ -16,6 +18,7 @@ applyStaticAppServing(app, publicPath);
 
 app.use(passport.initialize());
 app.use(morgan("dev"));
+app.use(cors());
 
 app.use("/auth", authRouter);
 
@@ -23,7 +26,9 @@ app.get(
 	"/",
 	passport.authenticate("jwt", { session: false }),
 	async (req, res) => {
-		res.send("ok");
+		const result = await getEventsByHost(req.user.id);
+		console.log(result);
+		res.json({ events: result });
 	}
 );
 
