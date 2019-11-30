@@ -28,9 +28,9 @@ export default (function() {
 					const { id, displayName, image, email } = extractProfile(
 						profile
 					);
-					let user = await findHostById(id);
-					if (!user) user = await createHost(id, displayName, email);
-					return cb(null, user);
+					let host = await findHostById(id);
+					if (!host) host = await createHost(id, displayName, email);
+					return cb(null, host);
 				} catch (error) {
 					console.error(error);
 				}
