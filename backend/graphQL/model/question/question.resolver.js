@@ -47,6 +47,7 @@ async function questionResolver(eventCode, guestId) {
 	const event = await query.getIdByCode(eventCode);
 	let res = await getQuestionsByEventId(event.id, guestId);
 
+	res = res.map(x => x.get({ plain: true }));
 	res = addLikeCount(res);
 	res = addIsLike(res, guestId);
 	res = removeLikes(res);
