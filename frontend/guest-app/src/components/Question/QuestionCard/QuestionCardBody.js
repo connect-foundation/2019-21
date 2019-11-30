@@ -9,8 +9,8 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import useDrawer from "../../useDrawer.js";
-import CommonModal from "../../CommonModal/CommonModal.js";
-import useCommonModal from "../../CommonModal/useCommonModal.js";
+import CommonModal from "../../CommonComponent/CommonModal/CommonModal.js";
+import useCommonModal from "../../CommonComponent/CommonModal/useCommonModal.js";
 import SideMenuItem from "../../SideMenu/SideMenuItem.js";
 
 const QuestionEditButtonStyle = styled.div`

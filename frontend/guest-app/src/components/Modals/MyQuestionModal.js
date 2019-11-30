@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Scrollbars} from "react-custom-scrollbars";
 import {Typography} from "@material-ui/core";
-import CommonModal from "../CommonModal/CommonModal.js";
+import CommonModal from "../CommonComponent/CommonModal/CommonModal.js";
 import DummyData from "../Question/QuestionDummyData.js";
 import QuestionCardList from "../Question/QuestionCardList.js";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import {Grid} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import CommonModal from "../CommonModal/CommonModal.js";
+import CommonModal from "../CommonComponent/CommonModal/CommonModal.js";
 
 function LogOutModal({isOpened = false, onCancelClick, onLogout}) {
 	return (

@@ -7,7 +7,7 @@ import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer";
 import SideMenuItem from "./SideMenuItem.js";
 import EditProfileModal from "../Modals/EditProfileModal.js";
 import useSideMenuStyles from "./UseSideMenuStyles.js";
-import useCommonModal from "../CommonModal/useCommonModal.js";
+import useCommonModal from "../CommonComponent/CommonModal/useCommonModal.js";
 import LogOutModal from "../Modals/LogoutModal.js";
 import MyQuestionModal from "../Modals/MyQuestionModal.js";
 

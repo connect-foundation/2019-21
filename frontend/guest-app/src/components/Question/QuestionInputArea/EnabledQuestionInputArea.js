@@ -5,7 +5,7 @@ import {Box, CardContent, Divider} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import QuestionInput from "./QuestionInput.js";
 import AskButton from "./AskButton.js";
-import CancelButton from "../../CommonButtons/CancelButton.js";
+import CancelButton from "../../CommonComponent/CommonButtons/CancelButton.js";
 import UserInfoInput from "./UserInfoInput.js";
 
 const FlexedCenterDiv = styled.div`

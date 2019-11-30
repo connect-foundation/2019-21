@@ -4,7 +4,7 @@ import IconButton from "@material-ui/core/IconButton";
 import InsertEmoticonOutlinedIcon from "@material-ui/icons/InsertEmoticonOutlined";
 import EmojiInstance from "./EmojiInstance";
 import EmojiPickerModal from "./EmojiPickerModal";
-import useCommonModal from "../CommonModal/useCommonModal";
+import useCommonModal from "../CommonComponent/CommonModal/useCommonModal";
 import EmojiDummyData from "./EmojiDummyData";
 
 const RowWrapper = styled.div`

@@ -5,9 +5,9 @@ import BusinessIcon from "@material-ui/icons/Business";
 import EmailIcon from "@material-ui/icons/Email";
 import PersonIcon from "@material-ui/icons/Person";
 import UserAvatar from "../UserAvatar/UserAvatar.js";
-import CommonModal from "../CommonModal/CommonModal.js";
-import CommonTextInput from "../CommonTextInput/CommonTextInput.js";
-import useCommonTextInput from "../CommonTextInput/useCommonTextInput.js";
+import CommonModal from "../CommonComponent/CommonModal/CommonModal.js";
+import CommonTextInput from "../CommonComponent/CommonTextInput/CommonTextInput.js";
+import useCommonTextInput from "../CommonComponent/CommonTextInput/useCommonTextInput.js";
 import useUserAvatar from "../UserAvatar/useUserAvatar.js";
 
 function UserNameInput() {
