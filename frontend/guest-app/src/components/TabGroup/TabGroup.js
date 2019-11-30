@@ -15,8 +15,11 @@ const TabGroupStyle = styled.div`
 	z-index: 1;
 `;
 
+const QUESTION_TAB_IDX = 0;
+const POLL_TAB_IDX = 1;
+
 function TabGroup({showQnABadge = true, showPollBadge}) {
-	const {tabIdx, selectTabIdx} = useTabs(0);
+	const {tabIdx, selectTabIdx} = useTabs(QUESTION_TAB_IDX);
 
 	return (
 		<TabGroupStyle>
@@ -24,10 +27,10 @@ function TabGroup({showQnABadge = true, showPollBadge}) {
 				<Tab icon={<QnATabIcon showBadge={showQnABadge} />} />
 				<Tab icon={<PollTabIcon showBadge={showPollBadge} />} />
 			</Tabs>
-			<TabBody hidden={tabIdx !== 0}>
+			<TabBody hidden={tabIdx !== QUESTION_TAB_IDX}>
 				<QuestionContainer />
 			</TabBody>
-			<TabBody hidden={tabIdx !== 1}>
+			<TabBody hidden={tabIdx !== POLL_TAB_IDX}>
 				<PollContainer />
 			</TabBody>
 		</TabGroupStyle>

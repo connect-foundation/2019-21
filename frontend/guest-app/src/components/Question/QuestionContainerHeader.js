@@ -6,6 +6,9 @@ import Tabs from "@material-ui/core/Tabs";
 import gray from "@material-ui/core/colors/grey.js";
 import PropTypes from "prop-types";
 
+const RECENT_TAB_IDX = 1;
+const POPULAR_TAB_IDX = 2;
+
 function QuestionContainerHeader(props) {
 	const {questionNumber, tabIdx, onSelectTab} = props;
 
@@ -13,8 +16,8 @@ function QuestionContainerHeader(props) {
 		<Paper style={{backgroundColor: gray[300]}}>
 			<Tabs value={tabIdx} onChange={onSelectTab}>
 				<Box p={1} />
-				<Tab label={"최근순"} selected={tabIdx === 1} />
-				<Tab label={"인기순"} selected={tabIdx === 2} />
+				<Tab label={"최근순"} selected={tabIdx === RECENT_TAB_IDX} />
+				<Tab label={"인기순"} selected={tabIdx === POPULAR_TAB_IDX} />
 				<Tab
 					disabled
 					icon={

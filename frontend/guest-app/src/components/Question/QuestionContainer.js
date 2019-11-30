@@ -25,10 +25,13 @@ const EXCHANGE_RATES = gql`
 	}
 `;
 
+const RECENT_TAB_IDX = 1;
+const POPULAR_TAB_IDX = 2;
+
 function QuestionContainer() {
 	const {data} = useQuery(EXCHANGE_RATES);
 	const [questions, dispatch] = useReducer(QuestionReducer, []);
-	const {tabIdx, selectTabIdx} = useTabs(1);
+	const {tabIdx, selectTabIdx} = useTabs(RECENT_TAB_IDX);
 	const userNameRef = useRef(null);
 	const questionRef = useRef(null);
 
@@ -58,11 +61,11 @@ function QuestionContainer() {
 	};
 
 	const onContainerSelectTab = (event, newValue) => {
-		if (newValue === 1) {
+		if (newValue === RECENT_TAB_IDX) {
 			dispatch({type: "sortByRecent"});
 		}
 
-		if (newValue === 2) {
+		if (newValue === POPULAR_TAB_IDX) {
 			dispatch({type: "sortByLikeCount"});
 		}
 
