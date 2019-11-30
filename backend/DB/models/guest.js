@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.DATE,
 			},
 		},
-		{}
+		{},
 	);
 
 	Guest.associate = function(models) {

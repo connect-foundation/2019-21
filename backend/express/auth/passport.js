@@ -4,6 +4,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 export default (function() {
 	function extractProfile(profile) {
 		let imageUrl = "";
+
 		if (profile.photos && profile.photos.length) {
 			imageUrl = profile.photos[0].value;
 		}
@@ -26,8 +27,8 @@ export default (function() {
 				// Extract the minimal profile information we need from the profile object
 				// provided by Google
 				cb(null, extractProfile(profile));
-			}
-		)
+			},
+		),
 	);
 
 	passport.serializeUser((user, cb) => {

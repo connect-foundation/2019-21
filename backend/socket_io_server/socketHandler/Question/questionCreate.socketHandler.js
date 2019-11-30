@@ -1,9 +1,9 @@
-import { createQuestion } from "../../../DB/queries/question";
+import {createQuestion} from "../../../DB/queries/question";
 
 const questionCreateSocketHandler = async (data, emit) => {
 	try {
 		console.log(data);
-		const { eventId, content, guestId } = data;
+		const {eventId, content, guestId} = data;
 
 		await createQuestion(eventId, content, guestId);
 
@@ -12,7 +12,7 @@ const questionCreateSocketHandler = async (data, emit) => {
 		emit(data);
 	} catch (e) {
 		console.log(e);
-		emit({ status: "error", e });
+		emit({status: "error", e});
 	}
 };
 

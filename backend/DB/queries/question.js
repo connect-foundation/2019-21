@@ -10,8 +10,9 @@ async function createQuestion(eventId, text, guestId) {
 		QuestionId: null,
 	});
 
-	const status = !result ? false : true;
+	const status = !!result;
+
 	return status;
 }
 
-export { createQuestion };
+export {createQuestion};

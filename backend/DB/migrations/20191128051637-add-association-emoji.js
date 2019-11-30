@@ -12,7 +12,7 @@ module.exports = {
 					},
 					onUpdate: "CASCADE",
 					onDelete: "CASCADE",
-				}
+				},
 			)
 			.then(() =>
 				queryInterface.addColumn(
@@ -26,19 +26,19 @@ module.exports = {
 						},
 						onUpdate: "CASCADE",
 						onDelete: "CASCADE",
-					}
-				)
+					},
+				),
 			),
 	down: (queryInterface, Sequelize) =>
 		queryInterface
 			.removeColumn(
 				"Emojis",
-				"QuestionId" // name of Source model
+				"QuestionId", // name of Source model
 			)
 			.then(() =>
 				queryInterface.removeColumn(
 					"Emojis", // name of the Target model
-					"GuestId" // key we want to remove
-				)
+					"GuestId", // key we want to remove
+				),
 			),
 };
