@@ -1,12 +1,12 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useReducer, useRef} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import {gql} from "apollo-boost";
 import QuestionContainerHeader from "./QuestionContainerHeader.js";
 import useTabGroup from "../TabGroup/useTabGroup.js";
 import QuestionInputArea from "./QuestionInputArea/QuestionInputArea.js";
-import useQuestionCardList from "./useQuestionCardList.js";
 import QuestionCardList from "./QuestionCardList.js";
 import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
+import QuestionReducer from "./QuestionReducer.js";
 
 const EXCHANGE_RATES = gql`
 	{
@@ -26,38 +26,29 @@ const EXCHANGE_RATES = gql`
 `;
 
 function QuestionContainer() {
-	const {loading, error, data} = useQuery(EXCHANGE_RATES);
-	const {
-		questions,
-		addQuestion,
-		setState,
-		sortByRecent,
-		sortByLikeCount,
-	} = useQuestionCardList(data);
+	const {data} = useQuery(EXCHANGE_RATES);
+	const [questions, dispatch] = useReducer(QuestionReducer, []);
 	const {tabIdx, selectTabIdx} = useTabGroup();
 	const userNameRef = useRef(null);
 	const questionRef = useRef(null);
 
 	useEffect(() => {
 		if (data) {
-			setState(data.questions);
+			dispatch({type: "load", data: data.questions});
 		}
-	}, [data, setState]);
+	}, [data]);
 
 	useSocket("question/create", req => {
-		addQuestion(req);
+		dispatch({type: "addNewQuestion", data: req});
 	});
 
 	const onAskQuestion = () => {
-		const userName = userNameRef.current.value;
-		const question = questionRef.current.value;
-
 		const newQuestion = {
-			userName,
+			userName: userNameRef.current.value,
 			eventId: 2,
 			guestId: 148,
 			date: new Date(),
-			content: question,
+			content: questionRef.current.value,
 			isShowEditButton: true,
 			isLike: false,
 			likeCount: 0,
@@ -66,19 +57,12 @@ function QuestionContainer() {
 		socketClient.emit("question/create", newQuestion);
 	};
 
-	if (loading) {
-		console.log("loading");
-	}
-	if (error) {
-		console.log("error");
-	}
-
 	const onContainerSelectTab = (event, newValue) => {
 		if (newValue === 0) {
-			sortByRecent();
+			dispatch({type: "sortByRecent"});
 		}
 		if (newValue === 1) {
-			sortByLikeCount();
+			dispatch({type: "sortByLikeCount"});
 		}
 
 		selectTabIdx(event, newValue);
