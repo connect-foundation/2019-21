@@ -8,10 +8,10 @@ const QuestionReducer = (state, action) => {
 		load: () => [...action.data.sort(compareByDate)],
 		addNewQuestion: () => [...state, action.data],
 		sortByRecent: () => [...state.sort(compareByDate)],
-		sortByLikeCount: () => [...state.sort(compareByLikeCount)]
+		sortByLikeCount: () => [...state.sort(compareByLikeCount)],
 	};
 
-	if (!(action.type in actionTable)){
+	if (!(action.type in actionTable)) {
 		throw new Error(`unexpected action.type: ${action.type}`);
 	}
 
