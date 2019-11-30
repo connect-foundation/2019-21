@@ -1,14 +1,59 @@
 import query from "../../../DB/queries/event";
+import { getQuestionsByEventId } from "../../../DB/queries/question.js";
 
-async function DBquery(eventCode, guestId) {
-	const dbQueryValue = await query.getQuestionsInEvent(eventCode, guestId);
+const addLikeCount = data => {
+	data.forEach(x => {
+		x.likeCount = x.Likes.length;
+	});
 
-	// console.log(dbQueryValue);
-	return dbQueryValue;
-}
+	return data;
+};
+
+const addIsLike = (data, guestId) => {
+	data.forEach(x => {
+		x.isLike = x.Likes.filter(b => b.GuestId === guestId) > 0;
+	});
+
+	return data;
+};
+
+const removeLikes = data => {
+	data.forEach(x => {
+		x.Likes = undefined;
+	});
+
+	return data;
+};
+
+const addGuestName = data => {
+	data.forEach(x => {
+		x.guestName = x.Guest.name;
+	});
+
+	return data;
+};
+
+const addDidIPicked = (data, guestId) => {
+	data.forEach(x => {
+		x.Emojis.forEach(emoji => {
+			emoji.didIPicked = emoji.GuestId === guestId;
+		});
+	});
+
+	return data;
+};
 
 async function questionResolver(eventCode, guestId) {
-	return DBquery(eventCode, guestId);
+	const event = await query.getIdByCode(eventCode);
+	let res = await getQuestionsByEventId(event.id, guestId);
+
+	res = addLikeCount(res);
+	res = addIsLike(res, guestId);
+	res = removeLikes(res);
+	res = addGuestName(res);
+	res = addDidIPicked(res, guestId);
+
+	return res;
 }
 
 // noinspection JSUnusedGlobalSymbols
