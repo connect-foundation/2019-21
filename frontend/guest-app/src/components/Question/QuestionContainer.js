@@ -6,7 +6,7 @@ import useTabs from "../materialUIHooks/useTabs.js";
 import QuestionInputArea from "./QuestionInputArea/QuestionInputArea.js";
 import QuestionCardList from "./QuestionCard/QuestionCardList.js";
 import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
-import QuestionReducer from "./QuestionReducer.js";
+import QuestionsReducer from "./QuestionsReducer.js";
 
 const EXCHANGE_RATES = gql`
 	{
@@ -30,7 +30,7 @@ const POPULAR_TAB_IDX = 2;
 
 function QuestionContainer() {
 	const {data} = useQuery(EXCHANGE_RATES);
-	const [questions, dispatch] = useReducer(QuestionReducer, []);
+	const [questions, dispatch] = useReducer(QuestionsReducer, []);
 	const {tabIdx, selectTabIdx} = useTabs(RECENT_TAB_IDX);
 	const userNameRef = useRef(null);
 	const questionRef = useRef(null);

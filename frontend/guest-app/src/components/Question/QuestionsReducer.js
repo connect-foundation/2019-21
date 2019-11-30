@@ -2,7 +2,7 @@ const compareByDate = (a, b) => a.createdAt.localeCompare(b.createdAt);
 
 const compareByLikeCount = (a, b) => b.likeCount - a.likeCount;
 
-const QuestionReducer = (state, action) => {
+const QuestionsReducer = (state, action) => {
 	const actionTable = {
 		reset: () => [],
 		load: () => [...action.data.sort(compareByDate)],
@@ -18,4 +18,4 @@ const QuestionReducer = (state, action) => {
 	return actionTable[action.type]();
 };
 
-export default QuestionReducer;
+export default QuestionsReducer;
