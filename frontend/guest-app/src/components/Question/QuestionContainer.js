@@ -28,7 +28,7 @@ const EXCHANGE_RATES = gql`
 function QuestionContainer() {
 	const {data} = useQuery(EXCHANGE_RATES);
 	const [questions, dispatch] = useReducer(QuestionReducer, []);
-	const {tabIdx, selectTabIdx} = useTabGroup();
+	const {tabIdx, selectTabIdx} = useTabGroup(1);
 	const userNameRef = useRef(null);
 	const questionRef = useRef(null);
 
@@ -58,10 +58,11 @@ function QuestionContainer() {
 	};
 
 	const onContainerSelectTab = (event, newValue) => {
-		if (newValue === 0) {
+		if (newValue === 1) {
 			dispatch({type: "sortByRecent"});
 		}
-		if (newValue === 1) {
+
+		if (newValue === 2) {
 			dispatch({type: "sortByLikeCount"});
 		}
 

@@ -1,18 +1,20 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
-import {Typography} from "@material-ui/core";
+import {Box, Typography} from "@material-ui/core";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
+import gray from "@material-ui/core/colors/grey.js";
 import PropTypes from "prop-types";
 
 function QuestionContainerHeader(props) {
 	const {questionNumber, tabIdx, onSelectTab} = props;
 
 	return (
-		<Paper>
+		<Paper style={{backgroundColor: gray[300]}}>
 			<Tabs value={tabIdx} onChange={onSelectTab}>
-				<Tab label={"최근순"} />
-				<Tab label={"인기순"} />
+				<Box p={1} />
+				<Tab label={"최근순"} selected={tabIdx === 1} />
+				<Tab label={"인기순"} selected={tabIdx === 2} />
 				<Tab
 					disabled
 					icon={
@@ -38,7 +40,7 @@ QuestionContainerHeader.propTypes = {
 
 QuestionContainerHeader.defaultProps = {
 	questionNumber: 0,
-	tabIdx: 0,
+	tabIdx: 1,
 };
 
 export default QuestionContainerHeader;
