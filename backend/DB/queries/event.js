@@ -4,7 +4,7 @@ module.exports = class EventQuery {
 	constructor() {}
 
 	static async getIdByCode(code) {
-		const event = await models.Event.findAll({
+		const event = await models.Event.findOne({
 			where: {
 				code,
 			},
