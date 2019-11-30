@@ -28,7 +28,7 @@ function QuestionUserName({userName}) {
 function QuestionDate({date}) {
 	return (
 		<Typography color={"textSecondary"} variant={"body1"}>
-			{new Date(date).toLocaleString()}
+			{new Date(parseInt(date, 10)).toLocaleString()}
 		</Typography>
 	);
 }
