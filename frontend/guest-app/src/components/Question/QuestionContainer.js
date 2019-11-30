@@ -47,7 +47,7 @@ function QuestionContainer() {
 			userName: userNameRef.current.value,
 			eventId: 2,
 			guestId: 148,
-			date: new Date(),
+			createdAt: new Date(),
 			content: questionRef.current.value,
 			isShowEditButton: true,
 			isLike: false,
