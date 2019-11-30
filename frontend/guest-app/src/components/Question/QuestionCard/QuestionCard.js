@@ -9,8 +9,8 @@ function QuestionCard(props) {
 	const {isShowEditButton = false, content} = props;
 
 	return (
-		<Card>
-			<CardContent>
+		<Card style={{margin: "0.5rem"}}>
+			<CardContent style={{padding: "1rem"}}>
 				<QuestionHeader {...props} />
 				<QuestionBody
 					question={content}
