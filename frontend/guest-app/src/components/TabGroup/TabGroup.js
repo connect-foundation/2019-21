@@ -3,7 +3,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import styled from "styled-components";
 import {PollTabIcon, QnATabIcon} from "./TabIcons.js";
-import useTabGroup from "./useTabGroup.js";
+import useTabs from "./useTabs.js";
 import TabBody from "./TabBody.js";
 import QuestionContainer from "../Question/QuestionContainer.js";
 import PollContainer from "../Poll/PollContainer.js";
@@ -16,7 +16,7 @@ const TabGroupStyle = styled.div`
 `;
 
 function TabGroup({showQnABadge = true, showPollBadge}) {
-	const {tabIdx, selectTabIdx} = useTabGroup();
+	const {tabIdx, selectTabIdx} = useTabs(0);
 
 	return (
 		<TabGroupStyle>
