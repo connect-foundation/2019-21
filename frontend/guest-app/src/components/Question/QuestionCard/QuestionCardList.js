@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import gray from "@material-ui/core/colors/grey.js";
-import QuestionCard from "./QuestionCard/QuestionCard.js";
+import QuestionCard from "./QuestionCard.js";
 
 const style = {
 	backgroundColor: gray[300],

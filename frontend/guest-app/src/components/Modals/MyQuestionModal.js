@@ -3,7 +3,7 @@ import {Scrollbars} from "react-custom-scrollbars";
 import {Typography} from "@material-ui/core";
 import CommonModal from "../CommonComponent/CommonModal/CommonModal.js";
 import DummyData from "../Question/QuestionDummyData.js";
-import QuestionCardList from "../Question/QuestionCardList.js";
+import QuestionCardList from "../Question/QuestionCard/QuestionCardList.js";
 
 function MyQuestionModal({isOpened, onCancelClick}) {
 	const [datas] = useState({questions: DummyData()});

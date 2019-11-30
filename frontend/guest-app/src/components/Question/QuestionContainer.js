@@ -4,7 +4,7 @@ import {gql} from "apollo-boost";
 import QuestionContainerHeader from "./QuestionContainerHeader.js";
 import useTabs from "../materialUIHooks/useTabs.js";
 import QuestionInputArea from "./QuestionInputArea/QuestionInputArea.js";
-import QuestionCardList from "./QuestionCardList.js";
+import QuestionCardList from "./QuestionCard/QuestionCardList.js";
 import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
 import QuestionReducer from "./QuestionReducer.js";
 
