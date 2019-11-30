@@ -1,6 +1,6 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
-import {Box, Typography} from "@material-ui/core";
+import {Typography} from "@material-ui/core";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import gray from "@material-ui/core/colors/grey.js";
@@ -15,7 +15,7 @@ function QuestionContainerHeader(props) {
 	return (
 		<Paper style={{backgroundColor: gray[300]}}>
 			<Tabs value={tabIdx} onChange={onSelectTab}>
-				<Box p={1} />
+				<Tab disabled style={{minWidth: "1rem"}} />
 				<Tab label={"최근순"} selected={tabIdx === RECENT_TAB_IDX} />
 				<Tab label={"인기순"} selected={tabIdx === POPULAR_TAB_IDX} />
 				<Tab
