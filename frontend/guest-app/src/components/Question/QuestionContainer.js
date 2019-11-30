@@ -27,7 +27,13 @@ const EXCHANGE_RATES = gql`
 
 function QuestionContainer() {
 	const {loading, error, data} = useQuery(EXCHANGE_RATES);
-	const {questions, addQuestion, setState} = useQuestionCardList(data);
+	const {
+		questions,
+		addQuestion,
+		setState,
+		sortByRecent,
+		sortByLikeCount,
+	} = useQuestionCardList(data);
 	const {tabIdx, selectTabIdx} = useTabGroup();
 	const userNameRef = useRef(null);
 	const questionRef = useRef(null);
@@ -67,12 +73,23 @@ function QuestionContainer() {
 		console.log("error");
 	}
 
+	const onContainerSelectTab = (event, newValue) => {
+		if (newValue === 0) {
+			sortByRecent();
+		}
+		if (newValue === 1) {
+			sortByLikeCount();
+		}
+
+		selectTabIdx(event, newValue);
+	};
+
 	return (
 		<>
 			<QuestionContainerHeader
 				questionNumber={questions.length}
 				tabIdx={tabIdx}
-				onSelectTab={selectTabIdx}
+				onSelectTab={onContainerSelectTab}
 			/>
 			<QuestionInputArea
 				onAskQuestion={onAskQuestion}
