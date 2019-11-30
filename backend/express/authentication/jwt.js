@@ -14,7 +14,7 @@ export default (function() {
 	passport.use(
 		new passportJwt.Strategy(jwtOptions, async (payload, cb) => {
 			try {
-				const host = findHostById(payload.sub);
+				const host = await findHostById(payload.sub);
 				if (host) {
 					return cb(null, host, payload);
 				}
