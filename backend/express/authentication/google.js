@@ -29,7 +29,8 @@ export default (function() {
 						profile
 					);
 					let host = await findHostById(id);
-					if (!host) host = await createHost(id, displayName, email);
+					if (!host)
+						host = await createHost(id, displayName, image, email);
 					return cb(null, host);
 				} catch (error) {
 					console.error(error);

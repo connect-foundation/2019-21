@@ -6,11 +6,12 @@ async function findHostById(oAuthid) {
 	return result;
 }
 
-async function createHost(oAuthid, name, email) {
+async function createHost(oAuthid, name, image, email) {
 	const host = await models.Host.create({
 		oauthId: oAuthid,
 		name: name,
 		email: email,
+		image: image,
 		emailFeedBack: 0,
 	});
 	const result = host ? host.dataValues : false;
