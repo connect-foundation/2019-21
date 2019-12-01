@@ -1,0 +1,29 @@
+type Event {
+	id: Int!
+	code: String!
+	moderationOption: Boolean!
+	replyOption: Boolean!
+	createdAt: String!
+	updatedAt: String!
+	endAt: String!
+	HostId: ID!
+}
+
+type Host {
+	id: Int!
+	oauthId: ID!
+	name: String!
+	email: String!
+	emailFeedBack: Boolean!
+	image: String!
+}
+
+type InitData {
+	events: [Event]!
+	host: Host!
+}
+
+type Query {
+	events: [Event]!
+	init: InitData!
+}

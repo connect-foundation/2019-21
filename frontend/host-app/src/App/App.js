@@ -1,49 +1,35 @@
 import React, { useState, useEffect } from "react";
+import { useQuery } from "@apollo/react-hooks";
 import "./App.css";
 import Header from "../components/Header";
 import Nav from "../components/Nav";
 import Content from "../components/Content";
 import NewPollModal from "../components/Poll/NewPollModal";
-import { useCookies } from "react-cookie";
 import { HostProvider } from "../libs/hostContext";
-import axios from "axios";
-const API = "http://localhost:3001/";
-const cookieName = "vaagle";
+import { getEventsByHost } from "../libs/gql";
 
 function App() {
 	const modal = false;
-	const [event, setEvent] = useState(true);
-	const [hostInfo, setHostInfo] = useState(null);
-	const [loading, setLoading] = useState(true);
-	const [cookies, setCookie] = useCookies([cookieName]);
-
-	useEffect(() => {
-		const fetchData = async () => {
-			const result = await axios(API, {
-				headers: { Authorization: `Bearer ${cookies[cookieName]}` },
-			});
-			const eventNum = result.data.events.length;
-			const host = result.data.host;
-			setEvent(eventNum);
-			setHostInfo(host);
-			setLoading(false);
-		};
-		fetchData();
-	}, []);
-	console.log(cookies);
+	const { data, loading, error } = useQuery(getEventsByHost());
+	console.log("render-test");
 	if (loading) {
 		return <p>loading...</p>;
+	} else if (error) {
+		return <p>error-page...</p>;
+	} else {
+		const hostInfo = data.init.host;
+		const event = data.init.events.length;
+		return (
+			<HostProvider value={hostInfo}>
+				<div className="App">
+					<Header />
+					<Nav />
+					{modal && <NewPollModal />}
+					<Content event={event} />
+				</div>
+			</HostProvider>
+		);
 	}
-	return (
-		<HostProvider value={hostInfo}>
-			<div className="App">
-				<Header />
-				<Nav />
-				{modal && <NewPollModal />}
-				<Content event={event} />
-			</div>
-		</HostProvider>
-	);
 }
 
 export default App;
