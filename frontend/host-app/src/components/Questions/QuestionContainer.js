@@ -27,25 +27,29 @@ function QuestionContainer({datas, type, dataHandler, handleStar}) {
 					/>
 				))}
 			{type === "popularQuestion" &&
-				datas.questions.map(question => (
-					<LiveQuestionCard
-						{...question}
-						id={question.id}
-						dataHandler={dataHandler}
-						type={type}
-						handleStar={handleStar}
-					/>
-				))}
+				datas.questions
+					.sort((a, b) => a.likeCount < b.likeCount ? 1 : a.likeCount > b.likeCount ? -1 : 0)
+					.map(question => (
+						<LiveQuestionCard
+							{...question}
+							id={question.id}
+							dataHandler={dataHandler}
+							type={type}
+							handleStar={handleStar}
+						/>
+					))}
 			{type === "newQuestion" &&
-				datas.questions.map(question => (
-					<LiveQuestionCard
-						{...question}
-						id={question.id}
-						dataHandler={dataHandler}
-						type={type}
-						handleStar={handleStar}
-					/>
-				))}
+				datas.questions
+					.sort((a, b) => a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0)
+					.map(question => (
+						<LiveQuestionCard
+							{...question}
+							id={question.id}
+							dataHandler={dataHandler}
+							type={type}
+							handleStar={handleStar}
+						/>
+					))}
 			{type === "completeQuestion" &&
 				datas.questions.map(question => (
 					<CompleteQuestionCard

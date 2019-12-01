@@ -46,13 +46,16 @@ function Inner({data, event}) {
 	const MODERATION_OFF = false;
 	const [radioState, setRadioState] = useState([SELECTED, UNSELECTED, UNSELECTED, UNSELECTED]);
 	const [moderationState, setModeration] = useState(MODERATION_OFF);
-	const [questionNumberStatus] = useState([4, 3, 2, 1]);
-	const [pollNumberStatus] = useState(5);
-
-	const [modeartionDatas, setModerationDatas] = useState({questions: filterQuestion("moderation",data)});
-	const [newQuestionDatas, setNewQuestionDatas] = useState({questions: filterQuestion("active",data).sort((a, b) => a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0)});
-	const [popQuestionDatas, setPopQuestionDatas] = useState({questions: filterQuestion("active",data).sort((a, b) => a.likeCount < b.likeCount ? 1 : a.likeCount > b.likeCount ? -1 : 0)});
-	const [completeQuestionDatas, setCompleteQuestionDatas] = useState({questions: filterQuestion("completeQuestion",data)});
+	const [modeartionDatas, setModerationDatas] = useState({questions: filterQuestion("moderation", data)});
+	const [newQuestionDatas, setNewQuestionDatas] = useState({questions: filterQuestion("active", data)});
+	const [completeQuestionDatas, setCompleteQuestionDatas] = useState({questions: filterQuestion("completeQuestion", data)});
+	const [questionNumberStatus] = useState([
+		modeartionDatas.questions.length,
+		newQuestionDatas.questions.length,
+		newQuestionDatas.questions.length,
+		completeQuestionDatas.questions.length
+	]);
+	const [pollNumberStatus] = useState(0);
 
 	useSocket("question/create", req => {
 		console.log(req);
@@ -86,8 +89,8 @@ function Inner({data, event}) {
 		popularQuestion: {
 			state: radioState,
 			stateHandler: handleRadioState,
-			data: popQuestionDatas,
-			handler: setPopQuestionDatas,
+			data: newQuestionDatas,
+			handler: setNewQuestionDatas,
 		},
 		completeQuestion: {
 			state: radioState,
