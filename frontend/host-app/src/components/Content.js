@@ -39,7 +39,6 @@ const EXCHANGE_RATES = gql`
 const filterQuestion = (option, data) => data.filter(e => e.state === option);
 
 function Inner({data, event}) {
-	console.log(data);
 	const SELECTED = true;
 	const UNSELECTED = false;
 	const MODERATION_ON = true;
@@ -58,8 +57,19 @@ function Inner({data, event}) {
 	const [pollNumberStatus] = useState(0);
 
 	useSocket("question/create", req => {
-		console.log(req);
-		console.log("question add");
+		// DB 와 sequelize 이름이 달라 error 발생해서 임시조치
+		const tempData = {
+			Emojis: [],
+			GuestId: req.guestId,
+			content: req.content,
+			createdAt: req.date,
+			guestName: req.userName,
+			id: Math.floor(Math.random() * 9999999), //id sequelize 로부터 받아와야 함
+			isLike: false,
+			likeCount: 0,
+			state: "active",
+		};
+		setNewQuestionDatas({questions: [...(newQuestionDatas.questions), tempData]});
 	});
 
 	const handleRadioState = buttonIndex => {
