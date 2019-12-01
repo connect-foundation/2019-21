@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Column from "./Column";
 import EmptyContent from "./EmptyContent";
 import DummyData from "./Questions/QuestionDummyData";
-import {useSocket} from "../libs/socket.io-Client-wrapper";
+import {socketClient, useSocket} from "../libs/socket.io-Client-wrapper";
 
 const ContentStyle = styled.div`
 	display: flex;
@@ -38,8 +38,9 @@ const EXCHANGE_RATES = gql`
 
 const filterQuestion = option => DummyData().filter(e => e.status === option);
 
-function Content({event}) {
 
+function Inner({data, event}){
+	console.log(data);
 	const SELECTED = true;
 	const UNSELECTED = false;
 	const MODERATION_ON = true;
@@ -154,6 +155,19 @@ function Content({event}) {
 		<ContentStyle>
 			<EmptyContent/>
 		</ContentStyle>
+	);
+}
+
+function Content({event}) {
+	const {loading, error, data} = useQuery(EXCHANGE_RATES);
+
+	if (loading) return <p>Loading...</p>;
+	if (error) return <p>Error :(</p>;
+
+	return (
+		<>
+			<Inner data={data.questions} event={event}/>
+		</>
 	);
 }
 
