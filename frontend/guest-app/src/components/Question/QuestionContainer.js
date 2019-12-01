@@ -1,6 +1,8 @@
 import React, {useEffect, useReducer, useRef} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import {gql} from "apollo-boost";
+import Box from "@material-ui/core/Box";
+import gray from "@material-ui/core/colors/grey.js";
 import QuestionContainerTabBar from "./QuestionContainerTabBar.js";
 import useTabs from "../../materialUIHooks/useTabs.js";
 import QuestionInputArea from "./QuestionInputArea/QuestionInputArea.js";
@@ -9,20 +11,20 @@ import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
 import QuestionsReducer from "./QuestionsReducer.js";
 
 const EXCHANGE_RATES = gql`
-	{
-		questions(eventCode: "u0xn", guestId: 148) {
-			content
-			id
-			likeCount
-			isLike
-			GuestId
-			createdAt
-			guestName
-			Emojis {
-				EmojiName
-			}
-		}
-	}
+    {
+        questions(eventCode: "u0xn", guestId: 148) {
+            content
+            id
+            likeCount
+            isLike
+            GuestId
+            createdAt
+            guestName
+            Emojis {
+                EmojiName
+            }
+        }
+    }
 `;
 
 const RECENT_TAB_IDX = 1;
@@ -72,6 +74,10 @@ function QuestionContainer() {
 		selectTabIdx(event, newValue);
 	};
 
+	const style = {
+		backgroundColor: gray[300],
+	};
+
 	return (
 		<>
 			<QuestionContainerTabBar
@@ -81,11 +87,15 @@ function QuestionContainer() {
 			/>
 			<QuestionInputArea
 				onAskQuestion={onAskQuestion}
-				onOpen={() => {}}
+				onOpen={() => {
+				}}
 				questionRef={questionRef}
 				userNameRef={userNameRef}
 			/>
-			<QuestionCardList questions={questions} />
+			<QuestionCardList questions={questions}/>
+			<Box p={12} style={style}>
+
+			</Box>
 		</>
 	);
 }
