@@ -25,7 +25,7 @@ function CompleteQuestionCard(props) {
 						</QuestionButtons>
 					</QuestionMeta>
 				</QuestionHeader>
-				<QuestionBody>{props.question}</QuestionBody>
+				<QuestionBody>{props.content}</QuestionBody>
 			</CardContent>
 		</Card>
 	);
