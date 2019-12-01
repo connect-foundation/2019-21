@@ -26,9 +26,10 @@ app.get(
 	"/",
 	passport.authenticate("jwt", { session: false }),
 	async (req, res) => {
-		const result = await getEventsByHost(req.user.id);
+		let result = await getEventsByHost(req.user.id);
+		result = { events: result, host: req.user };
 		console.log(result);
-		res.json({ events: result });
+		res.json({ ...result });
 	}
 );
 
