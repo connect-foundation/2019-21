@@ -4,7 +4,6 @@ import {gql} from "apollo-boost";
 import styled from "styled-components";
 import Column from "./Column";
 import EmptyContent from "./EmptyContent";
-import DummyData from "./Questions/QuestionDummyData";
 import {socketClient, useSocket} from "../libs/socket.io-Client-wrapper";
 
 const ContentStyle = styled.div`
@@ -27,6 +26,7 @@ const EXCHANGE_RATES = gql`
             likeCount
             isLike
             GuestId
+            state
             createdAt
             guestName
             Emojis {
@@ -36,10 +36,9 @@ const EXCHANGE_RATES = gql`
     }
 `;
 
-const filterQuestion = option => DummyData().filter(e => e.status === option);
+const filterQuestion = (option, data) => data.filter(e => e.state === option);
 
-
-function Inner({data, event}){
+function Inner({data, event}) {
 	console.log(data);
 	const SELECTED = true;
 	const UNSELECTED = false;
@@ -50,10 +49,10 @@ function Inner({data, event}){
 	const [questionNumberStatus] = useState([4, 3, 2, 1]);
 	const [pollNumberStatus] = useState(5);
 
-	const [modeartionDatas, setModerationDatas] = useState({questions: filterQuestion("moderation")});
-	const [newQuestionDatas, setNewQuestionDatas] = useState({questions: filterQuestion("newQuestion")});
-	const [popQuestionDatas, setPopQuestionDatas] = useState({questions: filterQuestion("popularQuestion")});
-	const [completeQuestionDatas, setCompleteQuestionDatas] = useState({questions: filterQuestion("completeQuestion")});
+	const [modeartionDatas, setModerationDatas] = useState({questions: filterQuestion("moderation",data)});
+	const [newQuestionDatas, setNewQuestionDatas] = useState({questions: filterQuestion("active",data).sort((a, b) => a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0)});
+	const [popQuestionDatas, setPopQuestionDatas] = useState({questions: filterQuestion("active",data).sort((a, b) => a.likeCount < b.likeCount ? 1 : a.likeCount > b.likeCount ? -1 : 0)});
+	const [completeQuestionDatas, setCompleteQuestionDatas] = useState({questions: filterQuestion("completeQuestion",data)});
 
 	useSocket("question/create", req => {
 		console.log(req);

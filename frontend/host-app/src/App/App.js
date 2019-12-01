@@ -16,7 +16,7 @@ const apolloClient = new ApolloClient({
 
 function App() {
 	const modal = false;
-	const [event] = useState(true);
+	const [event] = useState(false);
 
 	return (
 		<ApolloProvider client={apolloClient}>
