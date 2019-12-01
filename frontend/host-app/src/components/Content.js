@@ -1,8 +1,11 @@
 import React, {useState} from "react";
+import {useQuery} from "@apollo/react-hooks";
+import {gql} from "apollo-boost";
 import styled from "styled-components";
 import Column from "./Column";
 import EmptyContent from "./EmptyContent";
 import DummyData from "./Questions/QuestionDummyData";
+import {useSocket} from "../libs/socket.io-Client-wrapper";
 
 const ContentStyle = styled.div`
 	display: flex;
@@ -16,9 +19,27 @@ const ContentStyle = styled.div`
 	flex-wrap: nowrap;
 `;
 
+const EXCHANGE_RATES = gql`
+    {
+        questions(eventCode: "u0xn", guestId: 148) {
+            content
+            id
+            likeCount
+            isLike
+            GuestId
+            createdAt
+            guestName
+            Emojis {
+                EmojiName
+            }
+        }
+    }
+`;
+
 const filterQuestion = option => DummyData().filter(e => e.status === option);
 
 function Content({event}) {
+
 	const SELECTED = true;
 	const UNSELECTED = false;
 	const MODERATION_ON = true;
@@ -32,6 +53,11 @@ function Content({event}) {
 	const [newQuestionDatas, setNewQuestionDatas] = useState({questions: filterQuestion("newQuestion")});
 	const [popQuestionDatas, setPopQuestionDatas] = useState({questions: filterQuestion("popularQuestion")});
 	const [completeQuestionDatas, setCompleteQuestionDatas] = useState({questions: filterQuestion("completeQuestion")});
+
+	useSocket("question/create", req => {
+		console.log(req);
+		console.log("question add");
+	});
 
 	const handleRadioState = buttonIndex => {
 		const newState = [UNSELECTED, UNSELECTED, UNSELECTED, UNSELECTED]

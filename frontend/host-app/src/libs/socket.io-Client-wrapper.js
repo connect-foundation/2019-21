@@ -34,7 +34,7 @@ export function initSocketIoClientWrapper(
 
 	useSocket = (eventName = "EMIT", handler = () => {
 	},) => {
-		socketClient.off(eventName)
+		socketClient.off(eventName);
 		socketClient.on(eventName, handler);
 	};
 }
