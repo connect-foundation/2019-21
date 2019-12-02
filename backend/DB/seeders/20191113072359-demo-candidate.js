@@ -1,9 +1,8 @@
-import { makeCandadateDummy } from "../utils";
+import {makeCandidateDummy} from "../utils";
 
 module.exports = {
 	up: (queryInterface, Sequelize) =>
-		queryInterface.bulkInsert("Candidates", makeCandadateDummy(), {}),
-
+		queryInterface.bulkInsert("Candidates", makeCandidateDummy(), {}),
 	down: (queryInterface, Sequelize) =>
 		queryInterface.bulkDelete("Candidates", null, {}),
 };

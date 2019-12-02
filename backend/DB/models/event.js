@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
 				primaryKey: true,
 				type: DataTypes.INTEGER,
 			},
-			code: {
+			eventCode: {
 				type: DataTypes.STRING(10),
 			},
 			moderationOption: {
