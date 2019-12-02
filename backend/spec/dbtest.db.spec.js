@@ -1,17 +1,18 @@
-const should = require("should");
-const httpMocks = require("node-mocks-http");
-const Sequelize = require("sequelize");
-const queries = require("../DB/queries/event");
+// const should = require("should");
+// const httpMocks = require("node-mocks-http");
+// const Sequelize = require("sequelize");
 
-const req = httpMocks.createRequest();
-const res = httpMocks.createResponse();
-const models = require("../DB/models");
+// const req = httpMocks.createRequest();
+// const res = httpMocks.createResponse();
+// const models = require("../DB/models");
 
 // middleware 테스트 해야 한다면 아래와 같이 mockhttp 사용
 // const test1 = await SOME_MIDDLE_WARE.index(req, res);
 
+import { getQuestionsInEvent } from "../DB/queries/event.js";
+
 async function eventQuestionChecker(eventCode) {
-	const questions = await queries.prototype.getQuestionsInEvent(eventCode);
+	const questions = await getQuestionsInEvent(eventCode);
 	const parsedQuestion = JSON.parse(JSON.stringify(questions));
 
 	return parsedQuestion[0].Questions.map(elem => elem.id);
@@ -44,4 +45,3 @@ describe("DB_TEST", () => {
 		new Set(compare).should.be.eql(new Set([172, 228]));
 	});
 });
-

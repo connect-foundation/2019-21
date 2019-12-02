@@ -190,9 +190,9 @@ function makeEventDummy(number = EVENT_NUM) {
 		while (filter[alphaNum]) {
 			alphaNum = faker.random.alphaNumeric(4);
 		}
-		const code = alphaNum;
+		const eventCode = alphaNum;
 
-		filter[code] = 1;
+		filter[eventCode] = 1;
 		const moderationOption = faker.random.boolean();
 		const replyOption = faker.random.boolean();
 		const createdAt = faker.date.past(10);
@@ -204,7 +204,7 @@ function makeEventDummy(number = EVENT_NUM) {
 		const HostId = faker.random.number({ min: 1, max: 100 });
 
 		bulkEvent.push({
-			code,
+			eventCode,
 			moderationOption,
 			replyOption,
 			createdAt,

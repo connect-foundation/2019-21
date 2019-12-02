@@ -1,5 +1,5 @@
-import query from "../../../DB/queries/event";
-import { getQuestionsByEventId } from "../../../DB/queries/question.js";
+import {getQuestionsByEventId} from "../../../DB/queries/question.js";
+import {getEventIdByEventCode} from "../../../DB/queries/event.js";
 
 const addLikeCount = data => {
 	data.forEach(x => {
@@ -44,10 +44,10 @@ const addDidIPicked = (data, guestId) => {
 };
 
 async function questionResolver(eventCode, guestId) {
-	const event = await query.getIdByCode(eventCode);
+	const event = await getEventIdByEventCode(eventCode);
 	let res = await getQuestionsByEventId(event.id, guestId);
 
-	res = res.map(x => x.get({ plain: true }));
+	res = res.map(x => x.get({plain: true}));
 	res = addLikeCount(res);
 	res = addIsLike(res, guestId);
 	res = removeLikes(res);
@@ -60,6 +60,7 @@ async function questionResolver(eventCode, guestId) {
 // noinspection JSUnusedGlobalSymbols
 export default {
 	Query: {
-		questions: (_, {eventCode}, {guestId}) => questionResolver(eventCode, guestId),
+		questions: (_, {eventCode}, {guestId}) =>
+			questionResolver(eventCode, guestId),
 	},
 };

@@ -1,5 +1,5 @@
-import query from "../../../DB/queries/event";
-import {findHostById} from "../../../DB/queries/host";
+import { findHostById } from "../../../DB/queries/host";
+import { getEventsByHostId } from "../../../DB/queries/event.js";
 
 export default {
 	Query: {
@@ -10,9 +10,10 @@ export default {
 			// 	// 에러처리
 			// }
 			// const host = ctx.user;
-
-			return await query.getEventsByHostId(27);
+			return getEventsByHostId(27);
 		},
+
+
 		init: async (_, {}, ctx) => {
 			// const payload = ctx.auth;
 
@@ -20,8 +21,9 @@ export default {
 			// 	// 에러처리
 			// }
 			// const host = ctx.user;
-			const events = await query.getEventsByHostId(27);
+			const events = await getEventsByHostId(27);
 			const host = await findHostById("Claude_Kunze");
+
 			return { events, host };
 		},
 	},
