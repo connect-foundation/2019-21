@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
 	);
 
 	Hashtag.associate = function(models) {
-		Hashtag.hasOne(models.Event);
+		Hashtag.belongsTo(models.Event);
 	};
 	return Hashtag;
 };
