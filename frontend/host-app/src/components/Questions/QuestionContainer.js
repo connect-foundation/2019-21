@@ -11,6 +11,10 @@ const QuestionDiv = styled.div`
 	width: 100%;
 `;
 
+const compareByCreateAt = (a, b) => (a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0);
+
+const compareByLikeCount = (a, b) => (a.likeCount < b.likeCount ? 1 : a.likeCount > b.likeCount ? -1 : 0);
+
 function QuestionContainer({datas, type, dataHandler, handleStar}) {
 	const [createPollModalOpen, handleOpen, handleClose] = useModal();
 
@@ -28,7 +32,7 @@ function QuestionContainer({datas, type, dataHandler, handleStar}) {
 				))}
 			{type === "popularQuestion" &&
 				datas.questions
-					.sort((a, b) => a.likeCount < b.likeCount ? 1 : a.likeCount > b.likeCount ? -1 : 0)
+					.sort(compareByLikeCount)
 					.map(question => (
 						<LiveQuestionCard
 							{...question}
@@ -40,7 +44,7 @@ function QuestionContainer({datas, type, dataHandler, handleStar}) {
 					))}
 			{type === "newQuestion" &&
 				datas.questions
-					.sort((a, b) => a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0)
+					.sort(compareByCreateAt)
 					.map(question => (
 						<LiveQuestionCard
 							{...question}
