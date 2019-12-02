@@ -3,6 +3,14 @@ import models from "../models";
 module.exports = class EventQuery {
 	constructor() {}
 
+	static async getEventsByHost(hostId) {
+		const events = await models.Event.findAll({
+			where: { id: hostId },
+		});
+
+		return events;
+	}
+
 	static async getIdByCode(code) {
 		const event = await models.Event.findOne({
 			where: {
