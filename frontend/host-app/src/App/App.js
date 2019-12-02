@@ -1,6 +1,5 @@
-import React, {useState} from "react";
-import ApolloClient from "apollo-boost";
-import {ApolloProvider, useQuery} from "@apollo/react-hooks";
+import React from "react";
+import {useQuery} from "@apollo/react-hooks";
 import "./App.css";
 import Header from "../components/Header";
 import Nav from "../components/Nav";
@@ -12,7 +11,6 @@ import { getEventsByHost } from "../libs/gql";
 function App() {
 	const modal = false;
 	const { data, loading, error } = useQuery(getEventsByHost());
-	console.log("render-test");
 	if (loading) {
 		return <p>loading...</p>;
 	} else if (error) {
