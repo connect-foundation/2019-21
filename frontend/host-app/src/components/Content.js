@@ -1,8 +1,10 @@
 import React, {useState} from "react";
+import {useQuery} from "@apollo/react-hooks";
+import {gql} from "apollo-boost";
 import styled from "styled-components";
 import Column from "./Column";
 import EmptyContent from "./EmptyContent";
-import DummyData from "./Questions/QuestionDummyData";
+import {socketClient, useSocket} from "../libs/socket.io-Client-wrapper";
 
 const ContentStyle = styled.div`
 	display: flex;
@@ -16,22 +18,59 @@ const ContentStyle = styled.div`
 	flex-wrap: nowrap;
 `;
 
-const filterQuestion = option => DummyData().filter(e => e.status === option);
+const EXCHANGE_RATES = gql`
+    {
+        questions(eventCode: "u0xn", guestId: 148) {
+            content
+            id
+            likeCount
+            isLike
+            GuestId
+            state
+            createdAt
+            guestName
+            Emojis {
+                EmojiName
+            }
+        }
+    }
+`;
 
-function Content({event}) {
+const filterQuestion = (option, data) => data.filter(e => e.state === option);
+
+function Inner({data, event}) {
 	const SELECTED = true;
 	const UNSELECTED = false;
 	const MODERATION_ON = true;
 	const MODERATION_OFF = false;
 	const [radioState, setRadioState] = useState([SELECTED, UNSELECTED, UNSELECTED, UNSELECTED]);
 	const [moderationState, setModeration] = useState(MODERATION_OFF);
-	const [questionNumberStatus] = useState([4, 3, 2, 1]);
-	const [pollNumberStatus] = useState(5);
+	const [modeartionDatas, setModerationDatas] = useState({questions: filterQuestion("moderation", data)});
+	const [newQuestionDatas, setNewQuestionDatas] = useState({questions: filterQuestion("active", data)});
+	const [completeQuestionDatas, setCompleteQuestionDatas] = useState({questions: filterQuestion("completeQuestion", data)});
+	const [questionNumberStatus] = useState([
+		modeartionDatas.questions.length,
+		newQuestionDatas.questions.length,
+		newQuestionDatas.questions.length,
+		completeQuestionDatas.questions.length
+	]);
+	const [pollNumberStatus] = useState(0);
 
-	const [modeartionDatas, setModerationDatas] = useState({questions: filterQuestion("moderation")});
-	const [newQuestionDatas, setNewQuestionDatas] = useState({questions: filterQuestion("newQuestion")});
-	const [popQuestionDatas, setPopQuestionDatas] = useState({questions: filterQuestion("popularQuestion")});
-	const [completeQuestionDatas, setCompleteQuestionDatas] = useState({questions: filterQuestion("completeQuestion")});
+	useSocket("question/create", req => {
+		// DB 와 sequelize 이름이 달라 error 발생해서 임시조치
+		const tempData = {
+			Emojis: [],
+			GuestId: req.guestId,
+			content: req.content,
+			createdAt: req.date,
+			guestName: req.userName,
+			id: Math.floor(Math.random() * 9999999), //id sequelize 로부터 받아와야 함
+			isLike: false,
+			likeCount: 0,
+			state: "active",
+		};
+		setNewQuestionDatas({questions: [...(newQuestionDatas.questions), tempData]});
+	});
 
 	const handleRadioState = buttonIndex => {
 		const newState = [UNSELECTED, UNSELECTED, UNSELECTED, UNSELECTED]
@@ -60,8 +99,8 @@ function Content({event}) {
 		popularQuestion: {
 			state: radioState,
 			stateHandler: handleRadioState,
-			data: popQuestionDatas,
-			handler: setPopQuestionDatas,
+			data: newQuestionDatas,
+			handler: setNewQuestionDatas,
 		},
 		completeQuestion: {
 			state: radioState,
@@ -128,6 +167,19 @@ function Content({event}) {
 		<ContentStyle>
 			<EmptyContent/>
 		</ContentStyle>
+	);
+}
+
+function Content({event}) {
+	const {loading, error, data} = useQuery(EXCHANGE_RATES);
+
+	if (loading) return <p>Loading...</p>;
+	if (error) return <p>Error :(</p>;
+
+	return (
+		<>
+			<Inner data={data.questions} event={event}/>
+		</>
 	);
 }
 

@@ -1,14 +1,14 @@
 import {Typography} from "@material-ui/core";
 import React from "react";
 
-function QuestionUserName({userName}) {
+function QuestionUserName({guestName}) {
 	return (
 		<Typography
 			color={"textPrimary"}
 			variant={"subtitle2"}
 			style={{fontWeight: "bold"}}
 		>
-			{userName}
+			{guestName}
 		</Typography>
 	);
 }

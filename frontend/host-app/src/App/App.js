@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useQuery } from "@apollo/react-hooks";
+import React, {useState} from "react";
+import ApolloClient from "apollo-boost";
+import {ApolloProvider, useQuery} from "@apollo/react-hooks";
 import "./App.css";
 import Header from "../components/Header";
 import Nav from "../components/Nav";
@@ -7,6 +8,13 @@ import Content from "../components/Content";
 import NewPollModal from "../components/Poll/NewPollModal";
 import { HostProvider } from "../libs/hostContext";
 import { getEventsByHost } from "../libs/gql";
+import configLoader from "../config/configLoader.js";
+
+const config = configLoader();
+const apolloClient = new ApolloClient({
+	uri: config.apolloURI,
+});
+
 
 function App() {
 	const modal = false;
