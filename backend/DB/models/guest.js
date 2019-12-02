@@ -26,13 +26,13 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.DATE,
 			},
 		},
-		{},
+		{}
 	);
 
 	Guest.associate = function(models) {
 		Guest.belongsTo(models.Event);
 		Guest.hasMany(models.Question);
-		Guest.hasMany(models.Voter);
+		Guest.belongsToMany(models.Candidate, { through: "Votes" });
 		Guest.hasMany(models.Like);
 		Guest.hasMany(models.Emoji);
 	};
