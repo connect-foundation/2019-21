@@ -8,12 +8,12 @@ import passport from "passport";
 import * as jwt from "./authentication/jwt";
 import cors from "cors";
 
-// const saveContext = async (resolve, root, args, context, info) => {
-// 	context.user = context.request.user;
-// 	context.auth = context.request.authInfo;
-// 	const result = await resolve(root, args, context, info);
-// 	return result;
-// };
+const saveContext = async (resolve, root, args, context, info) => {
+	context.user = context.request.user;
+	context.auth = context.request.authInfo;
+	const result = await resolve(root, args, context, info);
+	return result;
+};
 
 const server = new GraphQLServer({
 	typeDefs,

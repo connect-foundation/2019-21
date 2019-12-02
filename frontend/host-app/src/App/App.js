@@ -8,13 +8,6 @@ import Content from "../components/Content";
 import NewPollModal from "../components/Poll/NewPollModal";
 import { HostProvider } from "../libs/hostContext";
 import { getEventsByHost } from "../libs/gql";
-import configLoader from "../config/configLoader.js";
-
-const config = configLoader();
-const apolloClient = new ApolloClient({
-	uri: config.apolloURI,
-});
-
 
 function App() {
 	const modal = false;
