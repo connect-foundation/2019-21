@@ -26,7 +26,7 @@ router.get(
 	(req, res) => {
 		const accessToken = generateAccessToken(req.user.oauthId);
 		res.cookie("vaagle", accessToken);
-		res.redirect("http://localhost:3002/");
+		res.redirect("http://localhost:5001/");
 	}
 );
 module.exports = router;
