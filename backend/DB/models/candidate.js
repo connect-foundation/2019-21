@@ -1,4 +1,3 @@
-
 module.exports = (sequelize, DataTypes) => {
 	const Candidate = sequelize.define(
 		"Candidate",
@@ -24,12 +23,12 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.DATE,
 			},
 		},
-		{},
+		{}
 	);
 
 	Candidate.associate = function(models) {
 		Candidate.belongsTo(models.Poll);
-		Candidate.belongsToMany(models.Voter, {through: "Selections"});
+		Candidate.belongsToMany(models.Guest, {through: "Votes"});
 	};
 	return Candidate;
 };

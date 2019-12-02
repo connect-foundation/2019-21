@@ -1,11 +1,13 @@
-import { Sequelize } from "sequelize";
 import faker from "faker";
 import moment from "moment";
+import pollDummyData from "./pollDummyData.js";
 
 faker.seed(1234);
 
 const EVENT_NUM = 5;
 const GUEST_NUM = 200;
+const POLL_NUM = 100;
+//const POLL_TYPE_NUM = 2; // 0: N지선다(text), 1: N지선다(date), 2: 별점매기기
 
 function makeQuestionDummy(number = 100) {
 	const bulkQuestion = [];
@@ -15,8 +17,8 @@ function makeQuestionDummy(number = 100) {
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
 		const state = "active";
-		const EventId = faker.random.number({ min: 1, max: EVENT_NUM });
-		const GuestId = faker.random.number({ min: 1, max: GUEST_NUM });
+		const EventId = faker.random.number({min: 1, max: EVENT_NUM});
+		const GuestId = faker.random.number({min: 1, max: GUEST_NUM});
 		const QuestionId = null;
 		const isStared = false;
 
@@ -38,8 +40,8 @@ function makeEmojiDummy(number = 50) {
 	const bulkEmoji = [];
 
 	for (let i = 0; i < number; ++i) {
-		const QuestionId = faker.random.number({ min: 1, max: 100 });
-		const GuestId = faker.random.number({ min: 1, max: GUEST_NUM });
+		const QuestionId = faker.random.number({min: 1, max: 100});
+		const GuestId = faker.random.number({min: 1, max: GUEST_NUM});
 		const EmojiName = "point_up";
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
@@ -88,7 +90,7 @@ function makeGuestDummy(number = GUEST_NUM) {
 		const guestSid = faker.random.uuid();
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
-		const EventId = faker.random.number({ min: 1, max: EVENT_NUM });
+		const EventId = faker.random.number({min: 1, max: EVENT_NUM});
 		const isAnonymous = false;
 
 		bulkGuest.push({
@@ -111,9 +113,9 @@ function makeReplyDummy(number = 200) {
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
 		const state = "active";
-		const EventId = faker.random.number({ min: 1, max: EVENT_NUM });
-		const GuestId = faker.random.number({ min: 1, max: GUEST_NUM });
-		const QuestionId = faker.random.number({ min: 1, max: 100 });
+		const EventId = faker.random.number({min: 1, max: EVENT_NUM});
+		const GuestId = faker.random.number({min: 1, max: GUEST_NUM});
+		const QuestionId = faker.random.number({min: 1, max: 100});
 
 		bulkQuestion.push({
 			content,
@@ -128,16 +130,17 @@ function makeReplyDummy(number = 200) {
 	return bulkQuestion;
 }
 
-function makePollDummy(number = 200) {
+function makePollDummy(number = POLL_NUM) {
 	const bulkPoll = [];
 
-	for (let i = 0; i < number; ++i) {
+	for (let i = 1; i <= number; ++i) {
 		const name = faker.lorem.sentence();
-		const pollType = faker.random.number(1);
+		// 0: N지선다(text), 1: N지선다(date), 2: 별점매기기
+		const pollType = i % 3;
 		const duplicateOption = faker.random.boolean();
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
-		const EventId = faker.random.number({ min: 1, max: EVENT_NUM });
+		const EventId = faker.random.number({min: 1, max: EVENT_NUM});
 
 		bulkPoll.push({
 			name,
@@ -159,22 +162,23 @@ function makeHashTagDummy(number = 100) {
 		const name = faker.hacker.ingverb();
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
-		const EventId = faker.random.number({ min: 1, max: EVENT_NUM });
+		const EventId = faker.random.number({min: 1, max: EVENT_NUM});
 
-		bulkHashTag.push({ name, createdAt, updatedAt, EventId });
+		bulkHashTag.push({name, createdAt, updatedAt, EventId});
 	}
 	return bulkHashTag;
 }
 
-function makeVoterDummy(number = 100) {
+function makeVoteDummy(number = 100) {
 	const bulkVoter = [];
 
 	for (let i = 0; i < number; ++i) {
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
 		const GuestId = faker.random.number({ min: 1, max: GUEST_NUM });
+		const CandidateId = faker.random.number({ min: 1, max: 10 });
 
-		bulkVoter.push({ createdAt, updatedAt, GuestId });
+		bulkVoter.push({ createdAt, updatedAt, GuestId, CandidateId });
 	}
 
 	return bulkVoter;
@@ -190,21 +194,21 @@ function makeEventDummy(number = EVENT_NUM) {
 		while (filter[alphaNum]) {
 			alphaNum = faker.random.alphaNumeric(4);
 		}
-		const code = alphaNum;
+		const eventCode = alphaNum;
 
-		filter[code] = 1;
+		filter[eventCode] = 1;
 		const moderationOption = faker.random.boolean();
 		const replyOption = faker.random.boolean();
 		const createdAt = faker.date.past(10);
 		const updatedAt = createdAt;
 		const startAt = createdAt;
 		const endAt = moment(createdAt)
-			.add(faker.random.number({ min: 1, max: 24 }), "h")
+			.add(faker.random.number({min: 1, max: 24}), "h")
 			.toDate();
-		const HostId = faker.random.number({ min: 1, max: 100 });
+		const HostId = faker.random.number({min: 1, max: 100});
 
 		bulkEvent.push({
-			code,
+			eventCode,
 			moderationOption,
 			replyOption,
 			createdAt,
@@ -223,31 +227,56 @@ function makeLikeDummy(number = 100) {
 	for (let i = 0; i < number; ++i) {
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
-		const feeling = faker.random.number({ min: 0, max: 1 });
-		const GuestId = faker.random.number({ min: 1, max: GUEST_NUM });
-		const QuestionId = faker.random.number({ min: 1, max: 100 });
+		const feeling = faker.random.number({min: 0, max: 1});
+		const GuestId = faker.random.number({min: 1, max: GUEST_NUM});
+		const QuestionId = faker.random.number({min: 1, max: 100});
 
-		bulkLike.push({ createdAt, updatedAt, feeling, GuestId, QuestionId });
+		bulkLike.push({createdAt, updatedAt, feeling, GuestId, QuestionId});
 	}
 	return bulkLike;
 }
 
-function makeCandadateDummy() {
-	const dummy = require("./dummy");
+function makeCandadateDummy(number = POLL_NUM) {
+	// const dummy = require("./dummy");
 	const bulkCandidate = [];
-
-	dummy.forEach(elem => {
-		if (elem.pollType === 0) {
+	const numberOfCandidates = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; // index: 0 ~ 9
+	for (let index = 1; index <= POLL_NUM; index++) {
+		// 0: N지선다(text), 1: N지선다(date), 2: 별점매기기
+		if (index % 3 === 0) {
+			const LIMIT =
+				numberOfCandidates[faker.random.number({ min: 0, max: 9 })];
 			for (
 				let candadateNumber = 1;
-				candadateNumber <= 5;
+				candadateNumber <= LIMIT;
 				candadateNumber++
 			) {
 				const number = candadateNumber;
 				const content = faker.lorem.sentence();
 				const createdAt = faker.date.past(1);
 				const updatedAt = createdAt;
-				const PollId = elem.id;
+				const PollId = index;
+
+				bulkCandidate.push({
+					number,
+					content,
+					createdAt,
+					updatedAt,
+					PollId,
+				});
+			}
+		} else if (index % 3 === 1) {
+			const LIMIT =
+				numberOfCandidates[faker.random.number({ min: 0, max: 9 })];
+			for (
+				let candadateNumber = 1;
+				candadateNumber <= LIMIT;
+				candadateNumber++
+			) {
+				const number = candadateNumber;
+				const content = faker.date.between("1900-01-01", "2999-12-31");
+				const createdAt = faker.date.past(1);
+				const updatedAt = createdAt;
+				const PollId = index;
 
 				bulkCandidate.push({
 					number,
@@ -258,16 +287,17 @@ function makeCandadateDummy() {
 				});
 			}
 		} else {
+			const LIMIT = faker.random.number({ min: 2, max: 10 });
 			for (
 				let candadateNumber = 1;
-				candadateNumber <= 2;
+				candadateNumber <= LIMIT;
 				candadateNumber++
 			) {
 				const number = candadateNumber;
-				const content = candadateNumber === 1 ? "O" : "X";
+				const content = candadateNumber.toString();
 				const createdAt = faker.date.past(1);
 				const updatedAt = createdAt;
-				const PollId = elem.id;
+				const PollId = index;
 
 				bulkCandidate.push({
 					number,
@@ -278,7 +308,7 @@ function makeCandadateDummy() {
 				});
 			}
 		}
-	});
+	}
 	return bulkCandidate;
 }
 
@@ -289,9 +319,9 @@ function makeSelectionDummy(number = 100) {
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
 		const VoterId = i + 1;
-		const CandidateId = faker.random.number({ min: 1, max: 694 });
+		const CandidateId = faker.random.number({min: 1, max: 694});
 
-		bulkSelection.push({ createdAt, updatedAt, VoterId, CandidateId });
+		bulkSelection.push({createdAt, updatedAt, VoterId, CandidateId});
 	}
 	return bulkSelection;
 }
@@ -302,9 +332,9 @@ function makeEmojiQuestionDummy(number = 100) {
 	for (let i = 0; i < number; ++i) {
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
-		const GuestId = faker.random.number({ min: 1, max: GUEST_NUM });
-		const QuestionId = faker.random.number({ min: 1, max: 100 });
-		const EmojiId = faker.random.number({ min: 1, max: 50 });
+		const GuestId = faker.random.number({min: 1, max: GUEST_NUM});
+		const QuestionId = faker.random.number({min: 1, max: 100});
+		const EmojiId = faker.random.number({min: 1, max: 50});
 
 		bulkEmojiQuestion.push({
 			createdAt,
@@ -318,28 +348,7 @@ function makeEmojiQuestionDummy(number = 100) {
 	return bulkEmojiQuestion;
 }
 
-function applyAllConstraint(queryInterface, tableName, constraints) {
-	constraints.forEach(({ attributes, options }) => {
-		queryInterface.addConstraint(tableName, attributes, options);
-	});
-}
-
-async function loadSequelize(config) {
-	const sequelize = new Sequelize(
-		config.scheme,
-		config.user,
-		config.password,
-		config
-	);
-
-	await sequelize.authenticate();
-
-	return sequelize;
-}
-
 module.exports = {
-	applyAllConstraint,
-	loadSequelize,
 	makeHostDummy,
 	makeEventDummy,
 	makeGuestDummy,
@@ -347,10 +356,10 @@ module.exports = {
 	makeHashTagDummy,
 	makeQuestionDummy,
 	makeEmojiDummy,
-	makeVoterDummy,
+	makeVoteDummy,
 	makeReplyDummy,
 	makeEmojiQuestionDummy,
 	makeLikeDummy,
 	makeSelectionDummy,
-	makeCandadateDummy,
+	makeCandidateDummy,
 };
