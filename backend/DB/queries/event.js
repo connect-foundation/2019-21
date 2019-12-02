@@ -49,7 +49,7 @@ export async function getEventIdByEventCode(eventCode) {
 	return event;
 }
 
-export async function getQuestionsInEvent(eventCode, guestId) {
+export async function getQuestionsByEventCodeAndGuestId(eventCode, guestId) {
 	const event = await models.Event.findOne({where: {eventCode}});
 	const questions = await models.Question.findAll({
 		where: {EventId: event.id},
