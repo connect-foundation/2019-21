@@ -38,23 +38,6 @@ function Inner({data, event}) {
 	]);
 	const [pollNumberStatus] = useState(0);
 
-	useSocket("question/create", req => {
-		// DB 와 sequelize 이름이 달라 error 발생해서 임시조치
-		const tempData = {
-			Emojis: [],
-			GuestId: req.guestId,
-			content: req.content,
-			createdAt: req.date,
-			guestName: req.userName,
-			id: Math.floor(Math.random() * 9999999), //id sequelize 로부터 받아와야 함
-			isLike: false,
-			likeCount: 0,
-			state: "active",
-		};
-
-		setNewQuestionDatas({questions: [...(newQuestionDatas.questions), tempData]});
-	});
-
 	const handleRadioState = buttonIndex => {
 		const newState = [UNSELECTED, UNSELECTED, UNSELECTED, UNSELECTED]
 			.map((_, idx) => (idx === buttonIndex ? SELECTED : UNSELECTED));
@@ -97,7 +80,35 @@ function Inner({data, event}) {
 			},
 			handler: e => typeMap.deleted.data.questions.push(e),
 		},
+		active: {
+			data: newQuestionDatas,
+			handler: setNewQuestionDatas,
+		},
 	};
+
+	useSocket("question/create", req => {
+		// DB 와 sequelize 이름이 달라 error 발생해서 임시조치
+		const tempData = {
+			Emojis: [],
+			GuestId: req.guestId,
+			content: req.content,
+			createdAt: req.date,
+			guestName: req.userName,
+			id: Math.floor(Math.random() * 9999999), //id sequelize 로부터 받아와야 함
+			isLike: false,
+			likeCount: 0,
+			state: "active",
+		};
+
+		setNewQuestionDatas({questions: [...(newQuestionDatas.questions), tempData]});
+	});
+
+	useSocket("question/toggleStar", req => {
+		const targetColumn = typeMap[req.state];
+		const newData = targetColumn.data.questions.map(e => ((e.id === req.id) ? req : e));
+
+		targetColumn.handler({questions: [...newData]});
+	});
 
 	const handleQuestionDatas = (id, from, to) => {
 		const fromObject = typeMap[from];
@@ -118,18 +129,19 @@ function Inner({data, event}) {
 	const handleStar = (id, type) => {
 		const targetObject = typeMap[type];
 
-		targetObject.handler({
-			questions: targetObject.data.questions
-				.map(e => {
-					if (e.id === id) { e.isStared = !e.isStared; }
-					return e;
-				}),
+		targetObject.data.questions.some(e => {
+			if (e.id === id) {
+				e.isStared = !e.isStared;
+				socketClient.emit("question/toggleStar", e);
+				return true;
+			}
+			return false;
 		});
 	};
 
 	return event ? (
 		<ContentStyle>
-			{Object.keys(typeMap).splice(0, Object.keys(typeMap).length - 1)
+			{Object.keys(typeMap).splice(0, Object.keys(typeMap).length - 2)
 				.map(e => (<Column
 					type={e}
 					state={typeMap[e].state}

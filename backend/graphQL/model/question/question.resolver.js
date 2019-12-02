@@ -46,7 +46,7 @@ const addDidIPicked = (data, guestId) => {
 async function questionResolver(eventCode, guestId) {
 	const event = await query.getIdByCode(eventCode);
 	let res = await getQuestionsByEventId(event.id, guestId);
-	console.log(res);
+
 	res = res.map(x => x.get({ plain: true }));
 	res = addLikeCount(res);
 	res = addIsLike(res, guestId);
