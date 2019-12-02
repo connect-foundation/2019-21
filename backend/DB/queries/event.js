@@ -1,17 +1,39 @@
 import models from "../models";
 
 module.exports = class EventQuery {
-	constructor() {}
-
-	static async createEvent(eventCode, hostId) {
-		const event = await models.Event.findOrCreate({
-			where: { code: eventCode },
+	static async createEvent({
+		eventCode,
+		HostId,
+		moderationOption = false,
+		replyOption = false,
+		startAt = new Date(),
+		endAt = new Date(),
+	}) {
+		return models.Event.findOrCreate({
+			where: {code: eventCode},
+			defaults: {
+				moderationOption,
+				replyOption,
+				startAt,
+				endAt,
+				HostId,
+			},
 		});
 	}
 
-	static async getEventsByHost(hostId) {
+	static async updateEventById(
+		eventId,
+		{code, moderationOption, replyOption, startAt, endAt},
+	) {
+		return models.Event.update(
+			{code, moderationOption, replyOption, startAt, endAt},
+			{where: {id: eventId}},
+		);
+	}
+
+	static async getEventsByHostId(hostId) {
 		const events = await models.Event.findAll({
-			where: { HostId: hostId },
+			where: {HostId: hostId},
 		});
 
 		return events;

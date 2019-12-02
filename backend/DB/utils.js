@@ -195,6 +195,7 @@ function makeEventDummy(number = EVENT_NUM) {
 		const replyOption = faker.random.boolean();
 		const createdAt = faker.date.past(10);
 		const updatedAt = createdAt;
+		const startAt = createdAt
 		const endAt = moment(createdAt)
 			.add(faker.random.number({min: 1, max: 24}), "h")
 			.toDate();
@@ -208,6 +209,7 @@ function makeEventDummy(number = EVENT_NUM) {
 			updatedAt,
 			endAt,
 			HostId,
+			startAt
 		});
 	}
 	return bulkEvent;

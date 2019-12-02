@@ -16,6 +16,10 @@ module.exports = {
 		replyOption: {
 			type: Sequelize.BOOLEAN,
 		},
+		startAt: {
+			allowNull: false,
+			type: Sequelize.DATE,
+		},
 		createdAt: {
 			allowNull: false,
 			type: Sequelize.DATE,
