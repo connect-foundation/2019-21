@@ -18,22 +18,22 @@ const saveContext = async (resolve, root, args, context, info) => {
 const server = new GraphQLServer({
 	typeDefs,
 	resolvers,
-	middlewares: [saveContext],
-	context: req => {
-		return { ...req };
-	},
+	// middlewares: [saveContext],
+	// context: req => {
+	// 	return { ...req };
+	// },
 });
 
 server.express.use(cors());
 server.express.use(morgan("dev"));
-server.express.use(cookieParser());
-server.express.use(passport.initialize());
-server.express.use(
-	passport.authenticate("jwt", { session: false }),
-	(req, res, next) => {
-		next();
-	}
-);
+// server.express.use(cookieParser());
+// server.express.use(passport.initialize());
+// server.express.use(
+// 	passport.authenticate("jwt", { session: false }),
+// 	(req, res, next) => {
+// 		next();
+// 	}
+// );
 
 server.start(config, ({ port }) => {
 	console.log(`graphQL yoga Server is running on localhost:${port}`);

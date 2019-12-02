@@ -1,4 +1,3 @@
-
 module.exports = (sequelize, DataTypes) => {
 	const Event = sequelize.define(
 		"Event",
@@ -14,15 +13,21 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			moderationOption: {
 				type: DataTypes.BOOLEAN,
+				defaultValue: false,
 			},
 			replyOption: {
 				type: DataTypes.BOOLEAN,
+				defaultValue: false,
 			},
 			createdAt: {
 				allowNull: false,
 				type: DataTypes.DATE,
 			},
 			updatedAt: {
+				allowNull: false,
+				type: DataTypes.DATE,
+			},
+			startAt: {
 				allowNull: false,
 				type: DataTypes.DATE,
 			},
