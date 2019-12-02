@@ -28,6 +28,7 @@
     "pretty": "sh script/pretty.sh",
     "docker:build": "sh ./script/build-docker-image.sh",
     "docker:build:force": "rm -rf docker/cached && sh ./script/build-docker-image.sh",
+    "docker:volumes:remove": "rm -rf docker/volumes",
     "deploy": "docker-compose -f docker/docker-product.yml up -d",
     "deploy:watch": "docker-compose -f docker/docker-product.yml up",
     "deploy:express:monitor": "docker exec -it express yarn pm2 monit",
