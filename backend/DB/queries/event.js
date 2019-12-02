@@ -3,8 +3,22 @@ import models from "../models";
 module.exports = class EventQuery {
 	constructor() {}
 
+	static async createEvent(eventCode, hostId) {
+		const event = await models.Event.findOrCreate({
+			where: { code: eventCode },
+		});
+	}
+
+	static async getEventsByHost(hostId) {
+		const events = await models.Event.findAll({
+			where: { HostId: hostId },
+		});
+
+		return events;
+	}
+
 	static async getIdByCode(code) {
-		const event = await models.Event.findAll({
+		const event = await models.Event.findOne({
 			where: {
 				code,
 			},
@@ -15,17 +29,15 @@ module.exports = class EventQuery {
 	}
 
 	static async getQuestionsInEvent(code, guestId) {
-		const event = await models.Event.findOne({ where: { code } });
+		const event = await models.Event.findOne({where: {code}});
 		const questions = await models.Question.findAll({
-			where: { EventId: event.id },
+			where: {EventId: event.id},
 			include: [
 				{
 					model: models.Like,
-				},
-				{
+				}, {
 					model: models.Emoji,
-				},
-				{
+				}, {
 					model: models.Guest,
 				},
 			],
@@ -52,7 +64,7 @@ module.exports = class EventQuery {
 					return emoji;
 				});
 
-				return x
+				return x;
 			})
 			.map(x => {
 				x.guestName = x.Guest.name;

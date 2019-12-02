@@ -4,9 +4,9 @@ import React from "react";
 import useSideMenuStyles from "./UseSideMenuStyles.js";
 
 function SideMenuHeader({
-	eventName = "event name ",
-	eventTerm = "event term ",
-	eventCode = "event code ",
+	eventName = "이벤트 이름",
+	eventTerm = "이벤트 기간",
+	eventCode = "이벤트 코드",
 }) {
 	const classes = useSideMenuStyles();
 

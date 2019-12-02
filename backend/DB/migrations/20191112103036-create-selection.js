@@ -2,6 +2,12 @@
 
 module.exports = {
 	up: (queryInterface, Sequelize) => queryInterface.createTable("Selections", {
+		id: {
+			allowNull: false,
+			autoIncrement: true,
+			primaryKey: true,
+			type: Sequelize.INTEGER,
+		},
 		createdAt: {
 			allowNull: false,
 			type: Sequelize.DATE,
@@ -22,6 +28,6 @@ module.exports = {
 
 	down: (queryInterface, Sequelize) =>
 	// remove table
-		queryInterface.dropTable("Seletions")
+		queryInterface.dropTable("Selections")
 	,
 };

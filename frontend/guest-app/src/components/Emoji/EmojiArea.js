@@ -4,7 +4,7 @@ import IconButton from "@material-ui/core/IconButton";
 import InsertEmoticonOutlinedIcon from "@material-ui/icons/InsertEmoticonOutlined";
 import EmojiInstance from "./EmojiInstance";
 import EmojiPickerModal from "./EmojiPickerModal";
-import useCommonModal from "../CommonModal/useCommonModal";
+import useCommonModal from "../CommonComponent/CommonModal/useCommonModal";
 import EmojiDummyData from "./EmojiDummyData";
 
 const RowWrapper = styled.div`
@@ -39,9 +39,7 @@ const updateEmoji = emoji => {
 	return newEmoji;
 };
 
-const addIndex = (list) => {
-	return list.map((item, index) => ({...item, id:index}));
-};
+const addIndex = list => list.map((item, index) => ({...item, id: index}));
 
 function EmojiArea() {
 	const emojiPickerModal = useCommonModal();
@@ -59,6 +57,7 @@ function EmojiArea() {
 	};
 	const onVote = id => {
 		let result = emojiList.map(emoji => (emoji.id === id ? updateEmoji(emoji) : emoji));
+
 		result = result.filter(n => n != null);
 		result = addIndex(result);
 		setEmojiList(result);

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {makeStyles} from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import randomMC from "random-material-color";
-import {UserIcon} from "../FontAwesomeIcons.js";
+import PersonIcon from "@material-ui/icons/Person";
 
 function NamedAvatar({userName}) {
 	const useStyles = makeStyles({
@@ -23,7 +23,7 @@ function NamedAvatar({userName}) {
 function AnonymousAvatar() {
 	return (
 		<Avatar>
-			<UserIcon />
+			<PersonIcon />
 		</Avatar>
 	);
 }

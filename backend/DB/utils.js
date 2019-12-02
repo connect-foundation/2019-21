@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize";
+import {Sequelize} from "sequelize";
 import faker from "faker";
 import moment from "moment";
 
@@ -15,8 +15,8 @@ function makeQuestionDummy(number = 100) {
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
 		const state = "active";
-		const EventId = faker.random.number({ min: 1, max: EVENT_NUM });
-		const GuestId = faker.random.number({ min: 1, max: GUEST_NUM });
+		const EventId = faker.random.number({min: 1, max: EVENT_NUM});
+		const GuestId = faker.random.number({min: 1, max: GUEST_NUM});
 		const QuestionId = null;
 		const isStared = false;
 
@@ -37,8 +37,8 @@ function makeEmojiDummy(number = 50) {
 	const bulkEmoji = [];
 
 	for (let i = 0; i < number; ++i) {
-		const QuestionId = faker.random.number({ min: 1, max: 100 });
-		const GuestId = faker.random.number({ min: 1, max: GUEST_NUM });
+		const QuestionId = faker.random.number({min: 1, max: 100});
+		const GuestId = faker.random.number({min: 1, max: GUEST_NUM});
 		const EmojiName = "point_up";
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
@@ -61,6 +61,7 @@ function makeHostDummy(number = 100) {
 		const oauthId = faker.internet.userName();
 		const email = faker.internet.email();
 		const name = faker.name.firstName();
+		const image = faker.image.imageUrl();
 		const emailFeedBack = faker.random.boolean();
 		const createdAt = faker.date.past(10);
 		const updatedAt = createdAt;
@@ -70,6 +71,7 @@ function makeHostDummy(number = 100) {
 			email,
 			name,
 			emailFeedBack,
+			image,
 			createdAt,
 			updatedAt,
 		});
@@ -85,7 +87,7 @@ function makeGuestDummy(number = GUEST_NUM) {
 		const guestSid = faker.random.uuid();
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
-		const EventId = faker.random.number({ min: 1, max: EVENT_NUM });
+		const EventId = faker.random.number({min: 1, max: EVENT_NUM});
 		const isAnonymous = false;
 
 		bulkGuest.push({
@@ -108,9 +110,9 @@ function makeReplyDummy(number = 200) {
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
 		const state = "active";
-		const EventId = faker.random.number({ min: 1, max: EVENT_NUM });
-		const GuestId = faker.random.number({ min: 1, max: GUEST_NUM });
-		const QuestionId = faker.random.number({ min: 1, max: 100 });
+		const EventId = faker.random.number({min: 1, max: EVENT_NUM});
+		const GuestId = faker.random.number({min: 1, max: GUEST_NUM});
+		const QuestionId = faker.random.number({min: 1, max: 100});
 
 		bulkQuestion.push({
 			content,
@@ -134,7 +136,7 @@ function makePollDummy(number = 200) {
 		const duplicateOption = faker.random.boolean();
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
-		const EventId = faker.random.number({ min: 1, max: EVENT_NUM });
+		const EventId = faker.random.number({min: 1, max: EVENT_NUM});
 
 		bulkPoll.push({
 			name,
@@ -157,7 +159,7 @@ function makeHashTagDummy(number = 100) {
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
 
-		bulkHashTag.push({ name, createdAt, updatedAt });
+		bulkHashTag.push({name, createdAt, updatedAt});
 	}
 	return bulkHashTag;
 }
@@ -168,9 +170,9 @@ function makeVoterDummy(number = 100) {
 	for (let i = 0; i < number; ++i) {
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
-		const GuestId = faker.random.number({ min: 1, max: GUEST_NUM });
+		const GuestId = faker.random.number({min: 1, max: GUEST_NUM});
 
-		bulkVoter.push({ createdAt, updatedAt, GuestId });
+		bulkVoter.push({createdAt, updatedAt, GuestId});
 	}
 
 	return bulkVoter;
@@ -194,9 +196,9 @@ function makeEventDummy(number = EVENT_NUM) {
 		const createdAt = faker.date.past(10);
 		const updatedAt = createdAt;
 		const endAt = moment(createdAt)
-			.add(faker.random.number({ min: 1, max: 24 }), "h")
+			.add(faker.random.number({min: 1, max: 24}), "h")
 			.toDate();
-		const HostId = faker.random.number({ min: 1, max: 100 });
+		const HostId = faker.random.number({min: 1, max: 100});
 
 		bulkEvent.push({
 			code,
@@ -217,10 +219,11 @@ function makeLikeDummy(number = 100) {
 	for (let i = 0; i < number; ++i) {
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
-		const feeling = faker.random.number({ min: 0, max: 1 });
-		const GuestId = faker.random.number({ min: 1, max: GUEST_NUM });
-		const QuestionId = faker.random.number({ min: 1, max: 100 });
-		bulkLike.push({ createdAt, updatedAt, feeling, GuestId, QuestionId });
+		const feeling = faker.random.number({min: 0, max: 1});
+		const GuestId = faker.random.number({min: 1, max: GUEST_NUM});
+		const QuestionId = faker.random.number({min: 1, max: 100});
+
+		bulkLike.push({createdAt, updatedAt, feeling, GuestId, QuestionId});
 	}
 	return bulkLike;
 }
@@ -282,9 +285,9 @@ function makeEventHashTagDummy(number = 100) {
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
 		const HashtagId = i + 1;
-		const EventId = faker.random.number({ min: 1, max: EVENT_NUM });
+		const EventId = faker.random.number({min: 1, max: EVENT_NUM});
 
-		bulkEventHashtag.push({ createdAt, updatedAt, HashtagId, EventId });
+		bulkEventHashtag.push({createdAt, updatedAt, HashtagId, EventId});
 	}
 	return bulkEventHashtag;
 }
@@ -296,9 +299,9 @@ function makeSelectionDummy(number = 100) {
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
 		const VoterId = i + 1;
-		const CandidateId = faker.random.number({ min: 1, max: 694 });
+		const CandidateId = faker.random.number({min: 1, max: 694});
 
-		bulkSelection.push({ createdAt, updatedAt, VoterId, CandidateId });
+		bulkSelection.push({createdAt, updatedAt, VoterId, CandidateId});
 	}
 	return bulkSelection;
 }
@@ -309,9 +312,9 @@ function makeEmojiQuestionDummy(number = 100) {
 	for (let i = 0; i < number; ++i) {
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
-		const GuestId = faker.random.number({ min: 1, max: GUEST_NUM });
-		const QuestionId = faker.random.number({ min: 1, max: 100 });
-		const EmojiId = faker.random.number({ min: 1, max: 50 });
+		const GuestId = faker.random.number({min: 1, max: GUEST_NUM});
+		const QuestionId = faker.random.number({min: 1, max: 100});
+		const EmojiId = faker.random.number({min: 1, max: 50});
 
 		bulkEmojiQuestion.push({
 			createdAt,
@@ -326,7 +329,7 @@ function makeEmojiQuestionDummy(number = 100) {
 }
 
 function applyAllConstraint(queryInterface, tableName, constraints) {
-	constraints.forEach(({ attributes, options }) => {
+	constraints.forEach(({attributes, options}) => {
 		queryInterface.addConstraint(tableName, attributes, options);
 	});
 }
@@ -336,7 +339,7 @@ async function loadSequelize(config) {
 		config.scheme,
 		config.user,
 		config.password,
-		config
+		config,
 	);
 
 	await sequelize.authenticate();
