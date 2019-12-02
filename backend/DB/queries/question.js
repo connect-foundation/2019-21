@@ -1,18 +1,15 @@
 import models from "../models";
 
-export async function createQuestion(eventId, text, guestId) {
+export async function createQuestion(EventId, content, GuestId) {
 	const result = await models.Question.create({
-		content: text,
-		EventId: eventId,
-		GuestId: guestId,
+		content,
+		EventId,
+		GuestId,
 		state: "active",
-		isStared: 0,
 		QuestionId: null,
 	});
 
-	const status = !!result;
-
-	return status;
+	return result;
 }
 
 export async function getQuestionsByEventId(eventId) {
