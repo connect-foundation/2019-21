@@ -1,5 +1,5 @@
 import React from "react";
-import useQuery from "@apollo/react-hooks";
+import {useQuery} from "@apollo/react-hooks";
 import "./App.css";
 import Header from "../components/Header";
 import Nav from "../components/Nav";
