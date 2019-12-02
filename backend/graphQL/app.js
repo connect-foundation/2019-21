@@ -1,4 +1,4 @@
-import { GraphQLServer } from "graphql-yoga";
+import {GraphQLServer} from "graphql-yoga";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import resolvers from "./resolvers.js";
@@ -22,6 +22,7 @@ const server = new GraphQLServer({
 	// context: req => {
 	// return { ...req };
 	// },
+
 });
 
 server.express.use(cors());
@@ -35,6 +36,6 @@ server.express.use(cookieParser());
 // 	}
 // );
 
-server.start(config, ({ port }) => {
+server.start(config, ({port}) => {
 	console.log(`graphQL yoga Server is running on localhost:${port}`);
 });
