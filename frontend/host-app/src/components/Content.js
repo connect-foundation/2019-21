@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {useQuery} from "@apollo/react-hooks";
-import {gql} from "apollo-boost";
 import styled from "styled-components";
 import Column from "./Column";
 import EmptyContent from "./EmptyContent";
 import {socketClient, useSocket} from "../libs/socket.io-Client-wrapper";
+import {getQuestionsByEventCodeAndGuestId} from "../libs/gql";
 
 const ContentStyle = styled.div`
 	display: flex;
@@ -16,24 +16,6 @@ const ContentStyle = styled.div`
 	padding: 4px 8px;
 	overflow-x: auto;
 	flex-wrap: nowrap;
-`;
-
-const EXCHANGE_RATES = gql`
-    {
-        questions(eventCode: "u0xn", guestId: 148) {
-            content
-            id
-            likeCount
-            isLike
-            GuestId
-            state
-            createdAt
-            guestName
-            Emojis {
-                EmojiName
-            }
-        }
-    }
 `;
 
 const filterQuestion = (option, data) => data.filter(e => e.state === option);
@@ -69,6 +51,7 @@ function Inner({data, event}) {
 			likeCount: 0,
 			state: "active",
 		};
+
 		setNewQuestionDatas({questions: [...(newQuestionDatas.questions), tempData]});
 	});
 
@@ -171,7 +154,7 @@ function Inner({data, event}) {
 }
 
 function Content({event}) {
-	const {loading, error, data} = useQuery(EXCHANGE_RATES);
+	const {loading, error, data} = useQuery(getQuestionsByEventCodeAndGuestId());
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
