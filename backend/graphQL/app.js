@@ -19,7 +19,7 @@ import { findHostById } from "../DB/queries/host";
 				}
 */
 
-const saveContext = async (resolve, root, args, context, info) => {
+const authenticate = async (resolve, root, args, context, info) => {
 	let audience = "anonymous";
 	audience = context.payload && context.payload.aud;
 	let authority = { sub: null, info: null };
@@ -40,7 +40,7 @@ const saveContext = async (resolve, root, args, context, info) => {
 const server = new GraphQLServer({
 	typeDefs,
 	resolvers,
-	middlewares: [saveContext],
+	middlewares: [authenticate],
 	context: ({ request }) => {
 		const token = request.headers.authorization || "";
 		console.log(token);
