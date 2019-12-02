@@ -166,15 +166,16 @@ function makeHashTagDummy(number = 100) {
 	return bulkHashTag;
 }
 
-function makeVoterDummy(number = 100) {
+function makeVoteDummy(number = 100) {
 	const bulkVoter = [];
 
 	for (let i = 0; i < number; ++i) {
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
 		const GuestId = faker.random.number({ min: 1, max: GUEST_NUM });
+		const CandidateId = faker.random.number({ min: 1, max: 10 });
 
-		bulkVoter.push({ createdAt, updatedAt, GuestId });
+		bulkVoter.push({ createdAt, updatedAt, GuestId, CandidateId });
 	}
 
 	return bulkVoter;
@@ -347,7 +348,7 @@ module.exports = {
 	makeHashTagDummy,
 	makeQuestionDummy,
 	makeEmojiDummy,
-	makeVoterDummy,
+	makeVoteDummy,
 	makeReplyDummy,
 	makeEmojiQuestionDummy,
 	makeLikeDummy,
