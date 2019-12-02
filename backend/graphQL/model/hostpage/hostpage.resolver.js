@@ -1,4 +1,5 @@
 import query from "../../../DB/queries/event";
+import {findHostById} from "../../../DB/queries/host";
 
 export default {
 	Query: {
@@ -20,7 +21,7 @@ export default {
 			// }
 			// const host = ctx.user;
 			const events = await query.getEventsByHostId(27);
-
+			const host = await findHostById("Claude_Kunze");
 			return { events, host };
 		},
 	},
