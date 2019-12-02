@@ -1,16 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CommonTextInput from "../../CommonTextInput/CommonTextInput.js";
+import TextField from "@material-ui/core/TextField";
+
+const style = {
+	marginTop: "8px",
+	marginLeft: "8px",
+	marginRight: "8px",
+	width: "100%",
+};
 
 function QuestionUserNameInput(props) {
 	const {userNameRef, userName = "", onChange} = props;
 
 	return (
-		<CommonTextInput
+		<TextField
 			value={userName}
+			margin="normal"
 			onChange={onChange}
 			inputRef={userNameRef}
-			style={{marginTop: "8px"}}
+			style={style}
 		/>
 	);
 }

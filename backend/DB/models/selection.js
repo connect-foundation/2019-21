@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-	const Like = sequelize.define(
-		"Like",
+	return sequelize.define(
+		"Selections",
 		{
 			id: {
 				allowNull: false,
@@ -16,17 +16,15 @@ module.exports = (sequelize, DataTypes) => {
 				allowNull: false,
 				type: DataTypes.DATE,
 			},
-			feeling: {
-				allowNull: false,
-				type: DataTypes.INTEGER, // 0 좋아요, 1 싫어요
+			VoterId: {
+				type: DataTypes.INTEGER,
+				primaryKey: true,
+			},
+			CandidateId: {
+				type: DataTypes.INTEGER,
+				primaryKey: true,
 			},
 		},
 		{},
 	);
-
-	Like.associate = function(models) {
-		Like.belongsTo(models.Question);
-		Like.belongsTo(models.Guest);
-	};
-	return Like;
 };

@@ -53,6 +53,6 @@ module.exports = {
 		))
 		.then(() => queryInterface.removeColumn(
 			"Questions", // name of the Target model
-			"ReplyId", // key we want to remove
+			"QuestionId", // key we want to remove
 		)),
 };

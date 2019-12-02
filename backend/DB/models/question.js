@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.DATE,
 			},
 		},
-		{}
+		{},
 	);
 
 	Question.associate = function(models) {

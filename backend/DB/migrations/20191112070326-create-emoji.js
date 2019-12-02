@@ -23,5 +23,5 @@ module.exports = {
 
 	down: (queryInterface, Sequelize) =>
 		// remove table
-		queryInterface.dropTable("Emoji"),
+		queryInterface.dropTable("Emojis"),
 };

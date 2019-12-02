@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {Box} from "@material-ui/core";
 import useUserAvatar from "../../UserAvatar/useUserAvatar.js";
 import UserAvatar from "../../UserAvatar/UserAvatar.js";
 import QuestionUserNameInput from "./QuestionUserNameInput.js";
@@ -22,7 +21,6 @@ function UserInfoInput(props) {
 	return (
 		<>
 			<UserAvatar isAnonymous={isAnonymous} userName={userName} />
-			<Box p={1} />
 			<QuestionUserNameInput
 				userName={userName}
 				userNameRef={userNameRef}

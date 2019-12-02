@@ -4,12 +4,13 @@ import http from "http";
 import io from "socket.io";
 import configLoader from "./config/configLoader.js";
 import socketHandlers from "./socketHandler";
+
 const queries = require("../DB/queries/event");
 
 
 dotenv.config();
 
-const { port } = configLoader();
+const {port} = configLoader();
 const app = express();
 const httpServer = http.createServer(app).listen(port, () => {
 	console.log(`start socket.io server at ${port} with ${process.env.NODE_ENV} mode`);
@@ -31,11 +32,12 @@ function BindSocketListener(socket, server) {
 
 socketServer.on("connection", socket => {
 	const id = socket.id;
+
 	console.log(`id ${id} connected `);
 
 	const addSocketListener = BindSocketListener(socket, socketServer);
 
-	socketHandlers.forEach(({ eventName, handler }) => {
+	socketHandlers.forEach(({eventName, handler}) => {
 		console.log(`apply handler at ${eventName} event`);
 		addSocketListener(eventName, handler);
 	});
@@ -51,7 +53,7 @@ nameSpaceServer.on("connection", socket => {
 
 	const addSocketListener = BindSocketListener(socket, nameSpaceServer);
 
-	socketHandlers.forEach(({ eventName, handler }) => {
+	socketHandlers.forEach(({eventName, handler}) => {
 		console.log(`apply handler at ${eventName} event`);
 		addSocketListener(eventName, handler);
 	});

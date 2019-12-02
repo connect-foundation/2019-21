@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
 				primaryKey: true,
 			},
 		},
-		{}
+		{},
 	);
 
 	return Emoji;

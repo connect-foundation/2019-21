@@ -1,4 +1,4 @@
-import { config } from "dotenv";
+import {config} from "dotenv";
 import express from "express";
 import EventQuery from "../DB/queries/event";
 import loadConfig from "./config/configLoader.js";
@@ -12,7 +12,7 @@ import getSequelizeData from "./utils";
 
 config();
 
-const { port, publicPath } = loadConfig();
+const {port, publicPath} = loadConfig();
 
 const app = express();
 
@@ -27,6 +27,7 @@ app.get("/test/:code", async (req, res, next) => {
 	try {
 		const eventQuery = new EventQuery();
 		const questions = await eventQuery.getQuestionsInEvent(req.params.code);
+
 		console.log(getSequelizeData(questions)[0].Questions);
 		return res.json(questions);
 	} catch (e) {

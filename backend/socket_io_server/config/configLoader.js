@@ -1,4 +1,4 @@
-import { config } from "dotenv";
+import {config} from "dotenv";
 import devConfig from "./socket.dev.config.js";
 import prodConfig from "./socket.prod.config.js";
 import testConfig from "./socket.test.config.js";
@@ -7,6 +7,7 @@ config();
 
 function loadConfig() {
 	let config = {};
+
 	if (process.env.NODE_ENV === "production") {
 		config = prodConfig;
 	} else if (process.env.NODE_ENV === "test") {
