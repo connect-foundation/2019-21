@@ -236,7 +236,7 @@ function makeLikeDummy(number = 100) {
 	return bulkLike;
 }
 
-function makeCandadateDummy(number = POLL_NUM) {
+function makeCandidateDummy(number = POLL_NUM) {
 	// const dummy = require("./dummy");
 	const bulkCandidate = [];
 	const numberOfCandidates = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; // index: 0 ~ 9
