@@ -6,7 +6,7 @@ import {
 	updateGuestById,
 } from "../DB/queries/guest.js";
 
-describe("hashtag query api", () => {
+describe("guest query api", () => {
 	let newId = null;
 	let res = null;
 
@@ -14,15 +14,15 @@ describe("hashtag query api", () => {
 		const EventId = 3;
 		const name = "sdfsdf";
 
-		res = await createGuest({EventId, name});
+		res = await createGuest(name, EventId);
 
-		newId = res.dataValues.id;
+		newId = res.id;
 	});
 
 	it("should able to update guest", async () => {
 		const name = "sdfsdf";
 
-		res = await updateGuestById({id: newId, name});
+		res = await updateGuestById({ id: newId, name });
 	});
 
 	it("should able to get guest by Id", async () => {
