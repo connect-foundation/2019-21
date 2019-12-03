@@ -30,12 +30,8 @@ function Inner({data, event}) {
 	const [modeartionDatas, setModerationDatas] = useState({questions: filterQuestion("moderation", data)});
 	const [newQuestionDatas, setNewQuestionDatas] = useState({questions: filterQuestion("active", data)});
 	const [completeQuestionDatas, setCompleteQuestionDatas] = useState({questions: filterQuestion("completeQuestion", data)});
-	const [questionNumberStatus] = useState([
-		modeartionDatas.questions.length,
-		newQuestionDatas.questions.length,
-		newQuestionDatas.questions.length,
-		completeQuestionDatas.questions.length,
-	]);
+	const [questionNumber, setQuestionNumber] = useState([modeartionDatas.questions.length,newQuestionDatas.questions.length,newQuestionDatas.questions.length,completeQuestionDatas.questions.length]
+	);
 	const [pollNumberStatus] = useState(0);
 
 	const handleRadioState = buttonIndex => {
@@ -94,7 +90,7 @@ function Inner({data, event}) {
 			content: req.content,
 			createdAt: req.date,
 			guestName: req.userName,
-			id: Math.floor(Math.random() * 9999999), //id sequelize 로부터 받아와야 함
+			id: Math.floor(Math.random() * 9999999), // id sequelize 로부터 받아와야 함
 			isLike: false,
 			likeCount: 0,
 			state: "active",
@@ -115,15 +111,21 @@ function Inner({data, event}) {
 		const toObject = typeMap[req.to];
 
 		if (req.id === "all") {
+			const newCompleteData = [...toObject.data.questions, ...fromObject.data.questions];
+
 			fromObject.handler({questions: []});
-			return toObject.handler({questions: [...toObject.data.questions, ...fromObject.data.questions]});
+			toObject.handler({questions: newCompleteData});
+			return setQuestionNumber([modeartionDatas.questions.length, 0, 0, newCompleteData.length]);
 		}
 
 		fromObject.handler({questions: fromObject.data.questions.filter(e => e.id !== req.id)});
-		return toObject.handler({questions: [
+		toObject.handler({questions: [
 			...toObject.data.questions, fromObject.data.questions
 				.find(e => e.id === req.id),
 		]});
+
+		return setQuestionNumber([modeartionDatas.questions.length,newQuestionDatas.questions.length,newQuestionDatas.questions.length,completeQuestionDatas.questions.length]);
+		// bug: state 가 한박자 늦게 update. 아직 handler 로 인한 state 변화가 update 되지 않았기 때문으로 추정함.
 	});
 
 	const handleQuestionDatas = (id, from, to) => socketClient.emit("question/move", {id, from, to});
@@ -149,7 +151,7 @@ function Inner({data, event}) {
 					state={typeMap[e].state}
 					stateHandler={typeMap[e].stateHandler}
 					data={typeMap[e].data}
-					badgeState={questionNumberStatus}
+					badgeState={questionNumber}
 					dataHandler={handleQuestionDatas}
 					handleStar={handleStar}
 				/>))}
