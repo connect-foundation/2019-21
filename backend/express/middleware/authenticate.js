@@ -13,6 +13,7 @@ export default function authenticate() {
 				req.cookies[cookieName],
 				tokenArgs.secret
 			);
+			console.log(payload);
 			const { aud, sub } = payload;
 			switch (aud) {
 				case "host":
@@ -31,7 +32,7 @@ export default function authenticate() {
 					break;
 			}
 		} catch (e) {
-			res.redirect(routePage.main);
+			next();
 		}
 	};
 }

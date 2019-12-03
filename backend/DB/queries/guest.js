@@ -9,14 +9,15 @@ async function findGuestBySid(guestSid) {
 }
 
 async function createGuest(name, eventId) {
-	const result = await models.Guest.create(
-		{ name, EventId: eventId, guestSid: uuidv1() },
-		{ default: { isAnonymous: 0 } }
-	);
+	const guest = await models.Guest.create({
+		name,
+		EventId: eventId,
+		guestSid: uuidv1(),
+		isAnonymous: 1,
+	});
 
-	const status = !!result;
-
-	return status;
+	const result = guest ? guest.dataValues : false;
+	return result;
 }
 
 export { createGuest, findGuestBySid };
