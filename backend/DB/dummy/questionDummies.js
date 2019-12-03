@@ -13,7 +13,7 @@ export default function makeQuestionDummy(number = 100) {
 		const state = "active";
 		const EventId = faker.random.number({ min: 1, max: EVENT_NUM });
 		const GuestId = faker.random.number({ min: 1, max: GUEST_NUM });
-		const QuestionId = 0;
+		const QuestionId = null;
 		const isStared = false;
 
 		bulkQuestion.push({
