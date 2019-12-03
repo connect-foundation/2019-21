@@ -7,8 +7,7 @@ const customEmojis = [
 		keywords: ["github"],
 		imageUrl:
 			"https://github.githubassets.com/images/icons/emoji/octocat.png",
-	},
-	{
+	}, {
 		name: "Speed_metal",
 		short_names: ["speed_metal"],
 		text: "",
@@ -16,8 +15,7 @@ const customEmojis = [
 		keywords: ["metal"],
 		imageUrl:
 			"https://emojis.slackmojis.com/emojis/images/1574902442/7217/speed_metal.gif?1574902442",
-	},
-	{
+	}, {
 		name: "Christmas_parrot",
 		short_names: ["christmas_parrot"],
 		text: "",
@@ -25,8 +23,7 @@ const customEmojis = [
 		keywords: ["parrot"],
 		imageUrl:
 			"https://emojis.slackmojis.com/emojis/images/1495224255/2288/christmas_parrot.gif?1495224255",
-	},
-	{
+	}, {
 		name: "Meow_party",
 		short_names: ["meow_party"],
 		text: "",
