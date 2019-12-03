@@ -1,0 +1,30 @@
+import faker from "faker";
+import config from "./initialConfig";
+
+const { INIT_SEED, EVENT_NUM, GUEST_NUM, POLL_NUM } = config;
+faker.seed(INIT_SEED);
+
+export default function makePollDummy(number = POLL_NUM) {
+	const bulkPoll = [];
+
+	for (let i = 1; i <= number; ++i) {
+		const name = faker.lorem.sentence();
+		// 0: N지선다(text), 1: N지선다(date), 2: 별점매기기
+		const pollType = i % 3;
+		const duplicateOption = faker.random.boolean();
+		const createdAt = faker.date.past(1);
+		const updatedAt = createdAt;
+		const EventId = faker.random.number({ min: 1, max: EVENT_NUM });
+
+		bulkPoll.push({
+			name,
+			pollType,
+			duplicateOption,
+			createdAt,
+			updatedAt,
+			EventId,
+		});
+	}
+
+	return bulkPoll;
+}

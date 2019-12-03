@@ -1,4 +1,4 @@
-import {makeCandidateDummy} from "../utils";
+import makeCandidateDummy from "../dummy/candidateDummies";
 
 module.exports = {
 	up: (queryInterface, Sequelize) =>

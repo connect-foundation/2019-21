@@ -1,4 +1,4 @@
-import {makeVoteDummy} from "../utils";
+import makeVoteDummy from "../dummy/voteDummies";
 
 module.exports = {
 	up: (queryInterface, Sequelize) =>
