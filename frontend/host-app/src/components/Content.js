@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import styled from "styled-components";
 import Column from "./Column";
-import EmptyContent from "./EmptyContent";
 import {socketClient, useSocket} from "../libs/socket.io-Client-wrapper";
 import {getQuestionsByEventCodeAndGuestId} from "../libs/gql";
 
@@ -142,7 +141,7 @@ function Inner({data, event}) {
 		});
 	};
 
-	return event ? (
+	return (
 		<ContentStyle>
 			{Object.keys(typeMap).splice(0, Object.keys(typeMap).length - 2)
 				.map(e => (<Column
@@ -160,10 +159,6 @@ function Inner({data, event}) {
 				stateHandler={handleRadioState}
 				badgeState={pollNumberStatus}
 			/>
-		</ContentStyle>
-	) : (
-		<ContentStyle>
-			<EmptyContent/>
 		</ContentStyle>
 	);
 }

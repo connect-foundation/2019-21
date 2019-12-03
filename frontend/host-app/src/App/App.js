@@ -5,8 +5,9 @@ import Header from "../components/Header";
 import Nav from "../components/Nav";
 import Content from "../components/Content";
 import NewPollModal from "../components/Poll/NewPollModal";
-import {HostProvider} from "../libs/hostContext";
-import {getEventsByHost} from "../libs/gql";
+import { HostProvider } from "../libs/hostContext";
+import { getEventsByHost } from "../libs/gql";
+import EmptyContent from "../components/EmptyContent";
 
 function App() {
 	const modal = false;
@@ -26,7 +27,7 @@ function App() {
 					<Header />
 					<Nav />
 					{modal && <NewPollModal />}
-					<Content event={event} />
+					{event ? <Content event={event} /> : <EmptyContent/>}
 				</div>
 			</HostProvider>
 		);
