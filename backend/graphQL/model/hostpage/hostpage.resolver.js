@@ -7,8 +7,7 @@ export default {
 			if (authority.sub === "host") {
 				const host = authority.info;
 				const events = await getEventsByHostId(host.id);
-
-				return {events, host};
+				return { events, host };
 			}
 
 			throw new Error("AuthenticationError");
