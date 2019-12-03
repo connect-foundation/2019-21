@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			content: {
 				type: DataTypes.STRING(500),
+				defaultValue: "",
 			},
 			state: {
 				type: DataTypes.STRING(20),
@@ -21,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			isStared: {
 				type: DataTypes.BOOLEAN,
+				defaultValue: false,
 			},
 			updatedAt: {
 				allowNull: false,
