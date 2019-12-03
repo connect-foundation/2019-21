@@ -29,8 +29,7 @@ function Inner({data, event}) {
 	const [modeartionDatas, setModerationDatas] = useState({questions: filterQuestion("moderation", data)});
 	const [newQuestionDatas, setNewQuestionDatas] = useState({questions: filterQuestion("active", data)});
 	const [completeQuestionDatas, setCompleteQuestionDatas] = useState({questions: filterQuestion("completeQuestion", data)});
-	const [questionNumber, setQuestionNumber] = useState([modeartionDatas.questions.length,newQuestionDatas.questions.length,newQuestionDatas.questions.length,completeQuestionDatas.questions.length]
-	);
+	const [questionNumberStatus] = useState([modeartionDatas.questions.length, newQuestionDatas.questions.length, newQuestionDatas.questions.length, completeQuestionDatas.questions.length]);
 	const [pollNumberStatus] = useState(0);
 
 	const handleRadioState = buttonIndex => {

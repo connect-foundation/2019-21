@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Button, Modal } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
+import {Button, Modal} from "@material-ui/core";
+import {withStyles} from "@material-ui/core/styles";
 
 const LoginStyle = styled.div`
 	position: relative;
@@ -31,7 +31,7 @@ const StyledButton = withStyles({
 	},
 })(Button);
 
-function LoginModal({ onHideModal, googleLogin }) {
+function LoginModal({onHideModal, googleLogin}) {
 	return (
 		<Modal open onClose={onHideModal}>
 			<LoginStyle>

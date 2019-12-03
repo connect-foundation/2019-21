@@ -11,7 +11,8 @@ import EmptyContent from "../components/EmptyContent";
 
 function App() {
 	const modal = false;
-	const { data, loading, error } = useQuery(getEventsByHost());
+	const {data, loading, error} = useQuery(getEventsByHost());
+
 	if (loading) {
 		return <p>loading...</p>;
 	} else if (error) {
@@ -19,6 +20,7 @@ function App() {
 	} else {
 		const hostInfo = data.init.host;
 		const event = data.init.events.length;
+
 		return (
 			<HostProvider value={hostInfo}>
 				<div className="App">

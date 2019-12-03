@@ -1,12 +1,12 @@
 import { gql } from "apollo-boost";
 
-function getEventsByHost(hostId) {
+function getEventsByHost() {
 	return gql`
 		query {
 			init {
 				events {
 					id
-					code
+					eventCode
 				}
 				host {
 					oauthId

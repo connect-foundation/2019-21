@@ -1,28 +1,16 @@
-import query from "../../../DB/queries/event";
 import {findHostById} from "../../../DB/queries/host";
+import {getEventsByHostId} from "../../../DB/queries/event.js";
 
 export default {
 	Query: {
-		events: async (_, {}, ctx) => {
-			// const payload = ctx.auth;
+		init: async (_, {}, authority) => {
+			if (authority.sub === "host") {
+				const host = authority.info;
+				const events = await getEventsByHostId(host.id);
+				return { events, host };
+			}
 
-			// if (payload.aud !== "host") {
-			// 	// 에러처리
-			// }
-			// const host = ctx.user;
-
-			return await query.getEventsByHostId(27);
-		},
-		init: async (_, {}, ctx) => {
-			// const payload = ctx.auth;
-
-			// if (payload.aud !== "host") {
-			// 	// 에러처리
-			// }
-			// const host = ctx.user;
-			const events = await query.getEventsByHostId(27);
-			const host = await findHostById("Claude_Kunze");
-			return { events, host };
+			throw new Error("AuthenticationError");
 		},
 	},
 };
