@@ -6,10 +6,10 @@ export default {
 		init: async (_, {}, authority) => {
 			if (authority.sub === "host") {
 				const host = authority.info;
-        const events = await getEventsByHostId(host.id);
+				const events = await getEventsByHostId(host.id);
 				return { events, host };
 			}
-      
+
 			throw new Error("AuthenticationError");
 		},
 	},
