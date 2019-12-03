@@ -10,14 +10,14 @@ export default function makeEmojiDummy(number = 50) {
 	for (let i = 0; i < number; ++i) {
 		const QuestionId = faker.random.number({ min: 1, max: 100 });
 		const GuestId = faker.random.number({ min: 1, max: GUEST_NUM });
-		const EmojiName = "point_up";
+		const name = "point_up";
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
 
 		bulkEmoji.push({
 			QuestionId,
 			GuestId,
-			EmojiName,
+			name,
 			createdAt,
 			updatedAt,
 		});
