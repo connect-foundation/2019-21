@@ -1,4 +1,4 @@
-import {config} from "dotenv";
+import { config } from "dotenv";
 
 config();
 
@@ -15,6 +15,11 @@ const configSetting = {
 		clientID: process.env.OAUTH2_CLIENT_DEV_ID,
 		clientSecret: process.env.OAUTH2_CLIENT_DEV_SECRET,
 		callbackURL: process.env.OAUTH2_DEV_CALLBACK,
+	},
+	routePage: {
+		main: process.env.MAIN_PAGE,
+		host: process.env.HOST_PAGE,
+		guest: process.env.GUEST_PAGE,
 	},
 };
 

@@ -1,6 +1,6 @@
 import express from "express";
 import passport from "passport";
-import {generateAccessToken} from "../authentication/token";
+import { generateAccessToken } from "../authentication/token";
 
 const router = express.Router();
 const hostPage = "http://localhost:5001/";
@@ -12,7 +12,7 @@ router.get(
 		session: false,
 		scope: ["email", "profile"],
 		prompt: "select_account",
-	}),
+	})
 );
 
 router.get("/guest/:eventCode", (req, res, next) => {
@@ -32,9 +32,11 @@ router.get(
 	}),
 	(req, res) => {
 		const accessToken = generateAccessToken(req.user.oauthId);
-
-		res.cookie("vaagle", accessToken);
+		var farFuture = new Date(
+			new Date().getTime() + 1000 * 60 * 60 * 24 * 365 * 10
+		);
+		res.cookie("vaagle", accessToken, { expires: farFuture });
 		res.redirect(hostPage);
-	},
+	}
 );
 module.exports = router;
