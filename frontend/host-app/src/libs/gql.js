@@ -20,4 +20,24 @@ function getEventsByHost() {
 	`;
 }
 
-export { getEventsByHost };
+function getQuestionsByEventCodeAndGuestId(eventCode,guestId){
+	return gql`
+    {
+        questions(eventCode: "u0xn", guestId: 148) {
+            content
+            id
+            likeCount
+            isLike
+            GuestId
+            state
+            createdAt
+            guestName
+            Emojis {
+                EmojiName
+            }
+        }
+    }
+`;
+}
+
+export { getEventsByHost, getQuestionsByEventCodeAndGuestId };

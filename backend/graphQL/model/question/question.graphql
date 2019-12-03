@@ -9,6 +9,7 @@ type Emoji {
 
 type Question {
 	id: Int!
+	QuestionId: Int
 	EventId: Int!
 	guestName: String!
 	GuestId: ID!
@@ -16,7 +17,7 @@ type Question {
 	content: String!
 	isAnonymous: Boolean!
 	state: String!
-	isStared: Boolean!
+	isStared: Boolean
 	isLike: Boolean!
 	likeCount: Int!
 	Emojis: [Emoji]!
