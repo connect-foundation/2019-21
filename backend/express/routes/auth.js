@@ -3,6 +3,8 @@ import passport from "passport";
 import { generateAccessToken } from "../authentication/token";
 
 const router = express.Router();
+const hostPage = "http://localhost:5001/";
+const guestPage = "http://localhost:5002";
 
 router.get(
 	"/login",
@@ -12,6 +14,11 @@ router.get(
 		prompt: "select_account",
 	})
 );
+
+router.get("/guest/:eventCode", function(req, res, next) {
+	console.log(req.params);
+	res.send("ok");
+});
 
 router.get("/logout", function(req, res, next) {
 	req.logOut();
@@ -26,7 +33,7 @@ router.get(
 	(req, res) => {
 		const accessToken = generateAccessToken(req.user.oauthId);
 		res.cookie("vaagle", accessToken);
-		res.redirect("http://localhost:5001/");
+		res.redirect(hostPage);
 	}
 );
 module.exports = router;

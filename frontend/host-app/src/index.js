@@ -22,7 +22,11 @@ initSocketIoClientWrapper(
 
 const cookieName = "vaagle";
 const uri = "http://127.0.0.1:8000/graphql";
-const token = Cookies.get(cookieName);
+const token =
+	Cookies.get(cookieName) ||
+	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzUyOTQxMTUsImV4cCI6MTU3Nzg4NjExNSwiYXVkIjoiaG9zdCIsImlzcyI6IlZhYWdsZSIsInN1YiI6Ikl2YS5BZGFtczk3In0.eD78CdyqQ6NEsfuJtVtJjVhK4tDvkZq9oQBFSgWDKXo";
+
+console.log(token);
 
 const client = creaetApolloClient(uri, token);
 
