@@ -31,6 +31,7 @@ describe("event query api", () => {
 		const eventCode = "1cfs";
 		const guestId = 1;
 
+		throw Error("not implement")
 		await getQuestionsByEventCodeAndGuestId(eventCode, guestId);
 	});
 

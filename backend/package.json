@@ -11,6 +11,7 @@
     "test": "./node_modules/.bin/mocha ./spec --recursive",
     "test:DB": "./node_modules/.bin/mocha ./spec -name '*.db.spec.js' --recursive --watch",
     "test:watch": "./node_modules/.bin/mocha ./spec --recursive --watch",
+    "test:only": "./node_modules/.bin/mocha --watch",
     "build": "sh script/build.sh",
     "build:clean": "rm -rf ./build",
     "start": "concurrently \"yarn start:socket\"  \"yarn start:express\" \"yarn start:yoga\" \"yarn start:DB\" ",
@@ -75,5 +76,8 @@
     "should": "^13.2.3",
     "socket.io": "^2.3.0",
     "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "graphql-request": "^1.8.2"
   }
 }
