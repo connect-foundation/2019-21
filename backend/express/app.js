@@ -1,4 +1,4 @@
-import { config } from "dotenv";
+import {config} from "dotenv";
 import express from "express";
 import passport from "passport";
 import cors from "cors";
@@ -7,16 +7,15 @@ import morgan from "morgan";
 import loadConfig from "./config/configLoader.js";
 import applyStaticAppServing from "./middleware/applyStaticAppServing.js";
 import authenticate from "./middleware/authenticate";
-import { generateAccessToken } from "./authentication/token";
-import { createGuest } from "../DB/queries/guest";
-import { getEventIdByEventCode } from "../DB/queries/event";
-import { getTokenExpired } from "./utils";
-import * as google from "./authentication/google";
+import {generateAccessToken} from "./authentication/token";
+import {createGuest} from "../DB/queries/guest";
+import {getEventIdByEventCode} from "../DB/queries/event";
+import {getTokenExpired} from "./utils";
 import authRouter from "./routes/auth";
 
 config();
 
-const { port, publicPath, routePage } = loadConfig();
+const {port, publicPath, routePage} = loadConfig();
 const app = express();
 
 applyStaticAppServing(app, publicPath);
@@ -36,10 +35,12 @@ app.get("/:path", authenticate(), async (req, res, next) => {
 		const path = req.params.path;
 		const eventCode = Buffer.from(path, "base64").toString();
 		let eventId = await getEventIdByEventCode(eventCode);
+
 		eventId = eventId.dataValues.id;
 		const guest = await createGuest(" ", eventId);
 		const accessToken = generateAccessToken(guest.guestSid, "guest");
-		res.cookie("vaagle", accessToken, { expires: getTokenExpired(1) });
+
+		res.cookie("vaagle", accessToken, {expires: getTokenExpired(1)});
 		res.redirect(routePage.guest);
 	} catch (e) {
 		res.redirect(routePage.main);
@@ -48,7 +49,7 @@ app.get("/:path", authenticate(), async (req, res, next) => {
 
 app.listen(port, () => {
 	console.log(
-		`start express server at ${port} with ${process.env.NODE_ENV} mode`
+		`start express server at ${port} with ${process.env.NODE_ENV} mode`,
 	);
 	console.log(`public path = ${publicPath}`);
 });
