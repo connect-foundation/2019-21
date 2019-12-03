@@ -1,8 +1,8 @@
-import { GraphQLClient } from "graphql-request";
+import {GraphQLClient} from "graphql-request";
 
 describe("graphql api", () => {
 	const endpoint = "http://localhost:8000/graphql";
-	const client = new GraphQLClient(endpoint, { headers: {} });
+	const client = new GraphQLClient(endpoint, {headers: {}});
 
 	it("able query hello", async () => {
 		const query = `
@@ -14,6 +14,7 @@ describe("graphql api", () => {
 		}`;
 		const variables = undefined;
 		const res = await client.request(query, variables);
+
 		console.log(res);
 	});
 
@@ -50,6 +51,7 @@ describe("graphql api", () => {
 			eventCode: "u0xn",
 		};
 		const res = await client.request(queryQuestions, variables);
+
 		console.log(res);
 	});
 });

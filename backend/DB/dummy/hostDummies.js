@@ -1,7 +1,7 @@
 import faker from "faker";
 import config from "./initialConfig";
 
-const { INIT_SEED, EVENT_NUM, GUEST_NUM, POLL_NUM } = config;
+const {INIT_SEED} = config;
 
 faker.seed(INIT_SEED);
 

@@ -1,5 +1,5 @@
-import models from "../models";
 import uuidv1 from "uuid/v1";
+import models from "../models";
 
 const Guest = models.Guest;
 

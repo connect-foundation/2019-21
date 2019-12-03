@@ -1,9 +1,9 @@
-import {config} from "dotenv";
+import dotenv from "dotenv";
 import devConfig from "./socket.dev.config.js";
 import prodConfig from "./socket.prod.config.js";
 import testConfig from "./socket.test.config.js";
 
-config();
+dotenv.config();
 
 function loadConfig() {
 	let config = {};

@@ -6,17 +6,17 @@ import testConfig from "./express.test.config.js";
 config();
 
 function loadConfig() {
-	let config = {};
+	let configs = {};
 
 	if (process.env.NODE_ENV === "production") {
-		config = prodConfig;
+		configs = prodConfig;
 	} else if (process.env.NODE_ENV === "test") {
-		config = testConfig;
+		configs = testConfig;
 	} else {
-		config = devConfig;
+		configs = devConfig;
 	}
 
-	return config;
+	return configs;
 }
 
 export default loadConfig;

@@ -13,7 +13,7 @@ describe("emoji query api", () => {
 		const GuestId = 1;
 		const QuestionId = 40;
 		const name = "234234";
-		const res = await createEmoji({ GuestId, name, QuestionId });
+		const res = await createEmoji({GuestId, name, QuestionId});
 
 		newId = res.dataValues.id;
 		// console.log(res.length);
@@ -23,7 +23,7 @@ describe("emoji query api", () => {
 		const GuestId = 1;
 		const QuestionId = 40;
 		const name = "234234";
-		const res = await deleteEmojiBy({ GuestId, name, QuestionId });
+		const res = await deleteEmojiBy({GuestId, name, QuestionId});
 		// console.log(res.length);
 	});
 
@@ -31,7 +31,8 @@ describe("emoji query api", () => {
 		const GuestId = 1;
 		const QuestionId = 49;
 		const name = "234234";
-		res = await createEmoji({ GuestId, name, QuestionId });
+
+		res = await createEmoji({GuestId, name, QuestionId});
 		res = await deleteEmojiById(res.dataValues.id);
 		// console.log(newId)
 	});
@@ -40,14 +41,14 @@ describe("emoji query api", () => {
 		const GuestId = 34;
 		const name = "point_up";
 		const QuestionId = 33;
-		const res = await getDidIPicked({ name, GuestId, QuestionId });
+		const res = await getDidIPicked({name, GuestId, QuestionId});
 		// console.log(res);
 	});
 
 	it("should able to get emojiCount By question, name", async () => {
 		const QuestionId = 34;
 		const name = "point_up";
-		const res = await getEmojiCountBy({ name, QuestionId });
+		const res = await getEmojiCountBy({name, QuestionId});
 		// console.log(res);
 	});
 });

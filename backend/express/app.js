@@ -7,7 +7,7 @@ import morgan from "morgan";
 import loadConfig from "./config/configLoader.js";
 import applyStaticAppServing from "./middleware/applyStaticAppServing.js";
 import authenticate from "./middleware/authenticate";
-import {generateAccessToken} from "./authentication/token";
+import generateAccessToken from "./authentication/token";
 import {createGuest} from "../DB/queries/guest";
 import {getEventIdByEventCode} from "../DB/queries/event";
 import {getTokenExpired} from "./utils";

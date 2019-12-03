@@ -1,9 +1,4 @@
-function DBquery() {}
-
-async function queryHello(root, args) {
-	const {name} = args;
-
-	console.log(args);
+async function queryHello() {
 	return {name: "hello", value: 12313};
 }
 
