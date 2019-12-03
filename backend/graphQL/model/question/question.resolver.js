@@ -1,5 +1,7 @@
-import {getQuestionsByEventId} from "../../../DB/queries/question.js";
-import {getEventIdByEventCode} from "../../../DB/queries/event.js";
+import {
+	getEventIdByEventCode,
+	getQuestionsByEventCodeAndGuestId,
+} from "../../../DB/queries/event.js";
 
 const addLikeCount = data => {
 	data.forEach(x => {
@@ -33,10 +35,11 @@ const addGuestName = data => {
 	return data;
 };
 
-const addIsAnonymous = data => data.map(x => {
-	x.isAnonymous = x.Guest.isAnonymous;
-	return x;
-});
+const addIsAnonymous = data =>
+	data.map(x => {
+		x.isAnonymous = x.Guest.isAnonymous;
+		return x;
+	});
 
 const addDidIPicked = (data, guestId) => {
 	data.forEach(x => {
@@ -48,29 +51,35 @@ const addDidIPicked = (data, guestId) => {
 	return data;
 };
 
-const addReplies = (data, guestId) => data.map(x => {
-	x.replies = x.Questions.map(r => {
-		let reply = r;
+const addReplies = (data, guestId) =>
+	data.map(x => {
+		x.replies = x.Questions.map(r => {
+			let reply = r;
 
-		console.log(r);
-		reply = addLikeCount(reply);
-		reply = addDidILiked(reply, guestId);
-		reply = removeLikes(reply);
-		reply = addGuestName(reply);
-		reply = addDidIPicked(reply, guestId);
-		reply = addIsAnonymous(reply);
-		return reply;
+			console.log(r);
+			reply = addLikeCount(reply);
+			reply = addDidILiked(reply, guestId);
+			reply = removeLikes(reply);
+			reply = addGuestName(reply);
+			reply = addDidIPicked(reply, guestId);
+			reply = addIsAnonymous(reply);
+			return reply;
+		});
+
+		return x;
 	});
-
-	return x;
-});
 
 async function questionResolver(eventCode, guestId) {
 	const event = await getEventIdByEventCode(eventCode);
-	// const guest = await getGuestById(guestId);
-	let res = await getQuestionsByEventId(event.id, guestId);
 
-	res = res.map(x => x.get({plain: true}));
+	// const questions = await getQuestionReplyByEventId(event.dataValues.id);
+
+
+	let res = await getQuestionsByEventCodeAndGuestId(eventCode, guestId);
+	// console.log(res[0]);
+	// console.log(b);
+	res = res.map(x => x.get({ plain: true }));
+	console.log(res[0]);
 	res = addLikeCount(res);
 	res = addDidILiked(res, guestId);
 	res = removeLikes(res);
@@ -78,9 +87,8 @@ async function questionResolver(eventCode, guestId) {
 	res = addDidIPicked(res, guestId);
 	res = addIsAnonymous(res);
 
-	res = addReplies(res, guestId);
+	// res = addReplies(res, guestId);
 
-	console.log(res[0]);
 
 	return res;
 }
@@ -88,7 +96,7 @@ async function questionResolver(eventCode, guestId) {
 // noinspection JSUnusedGlobalSymbols
 export default {
 	Query: {
-		questions: (_, {eventCode}, {guestId}) =>
+		questions: (_, { eventCode }, { guestId }) =>
 			questionResolver(eventCode, guestId),
 	},
 };

@@ -26,32 +26,30 @@ describe("graphql api", () => {
 		){
 			questions(eventCode: $eventCode, GuestId: $GuestId) {
 				content
-				id
 				likeCount
 				didILiked
 				GuestId
 				createdAt
 				guestName
 				Emojis {
-				 	EmojiName
+				 	name
 				}
 				isStared
 				state
 				isAnonymous
-				replies {
-					id
-					content
-				}		
+				
 			}
 		}
 		`;
 
+
+
 		const variables = {
-			GuestId: 148,
-			eventCode: "u0xn",
+			GuestId: 22,
+			eventCode: "u959",
 		};
 		const res = await client.request(queryQuestions, variables);
 
-		console.log(res);
+		// console.log(res);
 	});
 });
