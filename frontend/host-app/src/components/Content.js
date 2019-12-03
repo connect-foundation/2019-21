@@ -34,7 +34,7 @@ function Inner({data, event}) {
 		modeartionDatas.questions.length,
 		newQuestionDatas.questions.length,
 		newQuestionDatas.questions.length,
-		completeQuestionDatas.questions.length
+		completeQuestionDatas.questions.length,
 	]);
 	const [pollNumberStatus] = useState(0);
 
@@ -110,21 +110,23 @@ function Inner({data, event}) {
 		targetColumn.handler({questions: [...newData]});
 	});
 
-	const handleQuestionDatas = (id, from, to) => {
-		const fromObject = typeMap[from];
-		const toObject = typeMap[to];
+	useSocket("question/move", req => {
+		const fromObject = typeMap[req.from];
+		const toObject = typeMap[req.to];
 
-		if (id === "all") {
+		if (req.id === "all") {
 			fromObject.handler({questions: []});
 			return toObject.handler({questions: [...toObject.data.questions, ...fromObject.data.questions]});
 		}
 
-		fromObject.handler({questions: fromObject.data.questions.filter(e => e.id !== id)});
+		fromObject.handler({questions: fromObject.data.questions.filter(e => e.id !== req.id)});
 		return toObject.handler({questions: [
 			...toObject.data.questions, fromObject.data.questions
-				.find(e => e.id === id),
+				.find(e => e.id === req.id),
 		]});
-	};
+	});
+
+	const handleQuestionDatas = (id, from, to) => socketClient.emit("question/move", {id, from, to});
 
 	const handleStar = (id, type) => {
 		const targetObject = typeMap[type];
