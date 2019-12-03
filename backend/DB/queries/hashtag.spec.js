@@ -10,8 +10,8 @@ async function TestHashTagDBQuery() {
 	const EventId = 3;
 	const name = "sdfsdf";
 
-	console.log("herhe")
-	res = await createHashtag({ EventId, name });
+	console.log("herhe");
+	res = await createHashtag({EventId, name});
 	console.log(res);
 
 	const id = res.dataValues.id;
@@ -23,6 +23,6 @@ async function TestHashTagDBQuery() {
 	console.log(res);
 
 	res = await getHashtagByEventId(EventId);
-	res = await res.map(x => x.get({ plain: true }));
+	res = await res.map(x => x.get({plain: true}));
 	console.log(res);
 }

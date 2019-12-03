@@ -1,7 +1,6 @@
-
 module.exports = (sequelize, DataTypes) => {
-	const Voter = sequelize.define(
-		"Voter",
+	const Vote = sequelize.define(
+		"Vote",
 		{
 			id: {
 				allowNull: false,
@@ -21,9 +20,9 @@ module.exports = (sequelize, DataTypes) => {
 		{},
 	);
 
-	Voter.associate = function(models) {
-		Voter.belongsTo(models.Guest);
-		Voter.belongsToMany(models.Candidate, {through: "Selections"});
+	Vote.associate = function(models) {
+		Vote.belongsTo(models.Guest);
+		Vote.belongsTo(models.Candidate);
 	};
-	return Voter;
+	return Vote;
 };

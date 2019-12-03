@@ -39,7 +39,7 @@ const QuestionHeaderStyle = styled.div`
 `;
 
 function QuestionHeader(props) {
-	const {guestName, createdAt, isAnonymous, isLike, likeCount} = props;
+	const {guestName, createdAt, isLike, likeCount} = props;
 	const likeButton = useLikeButton({
 		isLikeClicked: isLike,
 		likeCount,

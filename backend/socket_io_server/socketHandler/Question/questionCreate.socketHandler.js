@@ -3,9 +3,9 @@ import {createQuestion} from "../../../DB/queries/question";
 const questionCreateSocketHandler = async (data, emit) => {
 	try {
 		console.log(data);
-		const {eventId, content, guestId} = data;
+		const {EventId, content, GuestId} = data;
 
-		await createQuestion(eventId, content, guestId);
+		await createQuestion(EventId, content, GuestId);
 
 		console.log("delayed");
 
