@@ -1,5 +1,7 @@
+import Sequelize from "sequelize";
 import models from "../models";
 
+const Op = Sequelize.Op;
 const Question = models.Question;
 
 export async function createQuestion(
@@ -20,7 +22,13 @@ export async function createQuestion(
 
 export async function getQuestionsByEventId(EventId) {
 	return Question.findAll({
-		where: {EventId},
+		where: {EventId, QuestionId: null},
+	});
+}
+
+export async function getQuestionReplyByEventId(EventId) {
+	return Question.findAll({
+		where: {EventId, QuestionId: {[Op.ne]: null}},
 	});
 }
 
