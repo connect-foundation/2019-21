@@ -16,6 +16,7 @@ export default function makeReplyDummy(number = 200) {
 		const EventId = faker.random.number({min: 1, max: EVENT_NUM});
 		const GuestId = faker.random.number({min: 1, max: GUEST_NUM});
 		const QuestionId = faker.random.number({min: 1, max: 100});
+		const isStared = false;
 
 		bulkQuestion.push({
 			content,
@@ -25,6 +26,7 @@ export default function makeReplyDummy(number = 200) {
 			EventId,
 			GuestId,
 			QuestionId,
+			isStared,
 		});
 	}
 	return bulkQuestion;
