@@ -1,6 +1,6 @@
 import passport from "passport";
 import passportJwt from "passport-jwt";
-import { findHostById } from "../../DB/queries/host";
+import {findHostById} from "../../DB/queries/host";
 
 export default (function() {
 	const tokenArgs = {
@@ -14,15 +14,17 @@ export default (function() {
 		issuer: tokenArgs.issuer,
 		audience: tokenArgs.audience,
 	};
+
 	passport.use(
 		new passportJwt.Strategy(jwtOptions, async (payload, cb) => {
 			try {
 				const host = await findHostById(payload.sub);
+
 				if (host) {
 					return cb(null, host, payload);
 				}
 				return cb();
 			} catch (error) {}
-		})
+		}),
 	);
 })();

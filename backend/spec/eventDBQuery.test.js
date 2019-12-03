@@ -12,7 +12,7 @@ describe("event query api", () => {
 		const content = "test content";
 		const GuestId = 1;
 
-		await createEvent({ eventCode, content, GuestId });
+		await createEvent({eventCode, content, GuestId});
 	});
 
 	it("be able to getEventIdByEventCode", async () => {
