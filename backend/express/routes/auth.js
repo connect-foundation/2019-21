@@ -1,10 +1,12 @@
 import express from "express";
 import passport from "passport";
-import {generateAccessToken} from "../authentication/token";
+import { getTokenExpired } from "../utils";
+import { generateAccessToken } from "../authentication/token";
+import loadConfig from "../config/configLoader";
+
+const { routePage } = loadConfig();
 
 const router = express.Router();
-const hostPage = "http://localhost:5001/";
-const guestPage = "http://localhost:5002";
 
 router.get(
 	"/login",
@@ -12,13 +14,8 @@ router.get(
 		session: false,
 		scope: ["email", "profile"],
 		prompt: "select_account",
-	}),
+	})
 );
-
-router.get("/guest/:eventCode", (req, res, next) => {
-	console.log(req.params);
-	res.send("ok");
-});
 
 router.get("/logout", (req, res, next) => {
 	req.logOut();
@@ -31,10 +28,9 @@ router.get(
 		session: false,
 	}),
 	(req, res) => {
-		const accessToken = generateAccessToken(req.user.oauthId);
-
-		res.cookie("vaagle", accessToken);
-		res.redirect(hostPage);
-	},
+		const accessToken = generateAccessToken(req.user.oauthId, "host");
+		res.cookie("vaagle", accessToken, { expires: getTokenExpired(1) });
+		res.redirect(routePage.host);
+	}
 );
 module.exports = router;

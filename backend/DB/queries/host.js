@@ -1,7 +1,7 @@
 import models from "../models";
 
-async function findHostById(oAuthid) {
-	const host = await models.Host.findOne({where: {oauthId: oAuthid}});
+async function findHostByAuthId(oAuthid) {
+	const host = await models.Host.findOne({ where: { oauthId: oAuthid } });
 	const result = host ? host.dataValues : false;
 
 	return result;
@@ -20,4 +20,4 @@ async function createHost(oAuthid, name, image, email) {
 	return result;
 }
 
-export {createHost, findHostById};
+export { createHost, findHostByAuthId };

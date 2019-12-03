@@ -1,18 +1,22 @@
-import {config} from "dotenv";
+import { config } from "dotenv";
 import express from "express";
 import passport from "passport";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import morgan from "morgan";
 import loadConfig from "./config/configLoader.js";
 import applyStaticAppServing from "./middleware/applyStaticAppServing.js";
-import morgan from "morgan";
-import {getEventsByHost} from "../DB/queries/event";
+import authenticate from "./middleware/authenticate";
+import { generateAccessToken } from "./authentication/token";
+import { createGuest } from "../DB/queries/guest";
+import { getEventIdByEventCode } from "../DB/queries/event";
+import { getTokenExpired } from "./utils";
 import * as google from "./authentication/google";
-import * as jwt from "./authentication/jwt";
 import authRouter from "./routes/auth";
-import cors from "cors";
 
 config();
 
-const {port, publicPath} = loadConfig();
+const { port, publicPath, routePage } = loadConfig();
 const app = express();
 
 applyStaticAppServing(app, publicPath);
@@ -20,24 +24,31 @@ applyStaticAppServing(app, publicPath);
 app.use(passport.initialize());
 app.use(morgan("dev"));
 app.use(cors());
+app.use(cookieParser());
 
 app.use("/auth", authRouter);
 
-app.get(
-	"/",
-	passport.authenticate("jwt", {session: false}),
-	async (req, res) => {
-		let result = await getEventsByHost(req.user.id);
-
-		result = {events: result, host: req.user};
-		console.log(result);
-		res.json({...result});
-	},
-);
+app.get("/", authenticate(), (req, res, next) => {
+	res.redirect(routePage.main);
+});
+app.get("/:path", authenticate(), async (req, res, next) => {
+	try {
+		const path = req.params.path;
+		const eventCode = Buffer.from(path, "base64").toString();
+		let eventId = await getEventIdByEventCode(eventCode);
+		eventId = eventId.dataValues.id;
+		const guest = await createGuest(" ", eventId);
+		const accessToken = generateAccessToken(guest.guestSid, "guest");
+		res.cookie("vaagle", accessToken, { expires: getTokenExpired(1) });
+		res.redirect(routePage.guest);
+	} catch (e) {
+		res.redirect(routePage.main);
+	}
+});
 
 app.listen(port, () => {
 	console.log(
-		`start express server at ${port} with ${process.env.NODE_ENV} mode`,
+		`start express server at ${port} with ${process.env.NODE_ENV} mode`
 	);
 	console.log(`public path = ${publicPath}`);
 });
