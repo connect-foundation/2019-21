@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.DATE,
 			},
 		},
-		{}
+		{},
 	);
 
 	Candidate.associate = function(models) {

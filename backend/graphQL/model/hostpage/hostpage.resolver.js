@@ -1,5 +1,5 @@
-import { findHostById } from "../../../DB/queries/host";
-import { getEventsByHostId } from "../../../DB/queries/event.js";
+import {findHostById} from "../../../DB/queries/host";
+import {getEventsByHostId} from "../../../DB/queries/event.js";
 
 export default {
 	Query: {

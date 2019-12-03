@@ -48,12 +48,7 @@ function Inner({data, event}) {
 	const [modeartionDatas, setModerationDatas] = useState({questions: filterQuestion("moderation", data)});
 	const [newQuestionDatas, setNewQuestionDatas] = useState({questions: filterQuestion("active", data)});
 	const [completeQuestionDatas, setCompleteQuestionDatas] = useState({questions: filterQuestion("completeQuestion", data)});
-	const [questionNumberStatus] = useState([
-		modeartionDatas.questions.length,
-		newQuestionDatas.questions.length,
-		newQuestionDatas.questions.length,
-		completeQuestionDatas.questions.length
-	]);
+	const [questionNumberStatus] = useState([modeartionDatas.questions.length, newQuestionDatas.questions.length, newQuestionDatas.questions.length, completeQuestionDatas.questions.length]);
 	const [pollNumberStatus] = useState(0);
 
 	useSocket("question/create", req => {
@@ -64,11 +59,12 @@ function Inner({data, event}) {
 			content: req.content,
 			createdAt: req.date,
 			guestName: req.userName,
-			id: Math.floor(Math.random() * 9999999), //id sequelize 로부터 받아와야 함
+			id: Math.floor(Math.random() * 9999999), // id sequelize 로부터 받아와야 함
 			isLike: false,
 			likeCount: 0,
 			state: "active",
 		};
+
 		setNewQuestionDatas({questions: [...(newQuestionDatas.questions), tempData]});
 	});
 

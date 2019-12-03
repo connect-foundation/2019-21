@@ -1,10 +1,11 @@
-import { makeStyles } from "@material-ui/core";
+import {makeStyles} from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
-import React, { useContext } from "react";
-import { HostContext } from "../libs/hostContext";
+import React, {useContext} from "react";
+import {HostContext} from "../libs/hostContext";
 
-function HeaderAccountAvata({ userName }) {
+function HeaderAccountAvata({userName}) {
 	const host = useContext(HostContext);
+
 	console.log(host);
 	const useStyles = makeStyles({
 		headerAvatar: {
