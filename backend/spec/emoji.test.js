@@ -11,7 +11,7 @@ describe("emoji query api", () => {
 
 	it("should able to create emoji", async () => {
 		const GuestId = 1;
-		const QuestionId = 409;
+		const QuestionId = 40;
 		const name = "234234";
 		const res = await createEmoji({ GuestId, name, QuestionId });
 
@@ -21,7 +21,7 @@ describe("emoji query api", () => {
 
 	it("should able to delete emoji by  GuestId, name, QuestionId ", async () => {
 		const GuestId = 1;
-		const QuestionId = 409;
+		const QuestionId = 40;
 		const name = "234234";
 		const res = await deleteEmojiBy({ GuestId, name, QuestionId });
 		// console.log(res.length);
@@ -29,7 +29,7 @@ describe("emoji query api", () => {
 
 	it("should able to get emoji by QuestionId", async () => {
 		const GuestId = 1;
-		const QuestionId = 409;
+		const QuestionId = 49;
 		const name = "234234";
 		res = await createEmoji({ GuestId, name, QuestionId });
 		res = await deleteEmojiById(res.dataValues.id);
