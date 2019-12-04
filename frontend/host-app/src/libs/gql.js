@@ -23,18 +23,16 @@ function getEventsByHost() {
 function getQuestionsByEventCodeAndGuestId(eventCode,guestId){
 	return gql`
     {
-        questions(eventCode: "u0xn", guestId: 148) {
+        questions(eventCode: "u0xn", GuestId: 148) {
             content
             id
-            likeCount
-            isLike
+            didILiked
+			isStared
             GuestId
             state
             createdAt
             guestName
-            Emojis {
-                EmojiName
-            }
+			isStared
         }
     }
 `;
