@@ -1,8 +1,14 @@
-import {getEventsByHostId, updateEventById} from "../../../DB/queries/event.js";
+import {getEventsByHostId, updateEventById, getEventOptionByEventId} from "../../../DB/queries/event.js";
 
 const moderationResolver = async (eventId, moderationOption) => {
 	const updatedEvent = await updateEventById(eventId, {moderationOption});
 	return updatedEvent[0];
+};
+
+const getEventOptionResolver = async eventId => {
+	const evnetOption = await getEventOptionByEventId(eventId);
+
+	return evnetOption;
 };
 
 export default {
@@ -17,6 +23,7 @@ export default {
 
 			throw new Error("AuthenticationError");
 		},
+		getEventOption: async (_, {eventId}) => getEventOptionResolver(eventId),
 	},
 	Mutation: {
 		moderation: (_, {eventId, moderationOption}) => moderationResolver(eventId, moderationOption),

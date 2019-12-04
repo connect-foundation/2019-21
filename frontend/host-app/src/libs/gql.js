@@ -34,6 +34,11 @@ function getQuestionsByEventCodeAndGuestId(eventCode,guestId){
             guestName
 			isStared
         }
+        getEventOption(eventId: 2){
+        moderationOption
+        replyOption
+    }
+        
     }
 `;
 }

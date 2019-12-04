@@ -19,12 +19,12 @@ const ContentStyle = styled.div`
 
 const filterQuestion = (option, data) => data.filter(e => e.state === option);
 
-function Inner({data, event}) {
+function Inner({data, event ,option}) {
 	const SELECTED = true;
 	const UNSELECTED = false;
 
 	const [radioState, setRadioState] = useState([SELECTED, UNSELECTED, UNSELECTED, UNSELECTED]);
-	const [moderationState, setModeration] = useState(false); // get from DB
+	const [moderationState, setModeration] = useState(option.moderationOption); // get from DB
 	const [modeartionDatas, setModerationDatas] = useState({questions: filterQuestion("moderation", data)});
 	const [newQuestionDatas, setNewQuestionDatas] = useState({questions: filterQuestion("active", data)});
 	const [completeQuestionDatas, setCompleteQuestionDatas] = useState({questions: filterQuestion("completeQuestion", data)});
@@ -172,7 +172,7 @@ function Content({event}) {
 
 	return (
 		<>
-			<Inner data={data.questions} event={event}/>
+			<Inner data={data.questions} event={event} option={data.getEventOption}/>
 		</>
 	);
 }
