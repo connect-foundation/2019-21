@@ -1,8 +1,4 @@
-import {
-	getQuestionLikeCount,
-	getQuestionsByEventCodeAndGuestId,
-	raw_getQuestionsByEventCodeAndGuestId,
-} from "../../DB/queries/event.js";
+import {getQuestionLikeCount} from "../../DB/queries/event.js";
 import {
 	createQuestion,
 	deleteQuestionById,
@@ -40,7 +36,7 @@ describe("questions query api", () => {
 	}).timeout(1000);
 
 	it("should able to get question EventCodeAndGuestId", async () => {
-		let res = await getQuestionsByEventCodeAndGuestId("u959", 22);
+		let res = await getQuestionsByEventId("u959", 22);
 
 		QueryExpectMoreThanOne(res);
 		res = res.map(x => x.get({plain: true}));
@@ -58,14 +54,6 @@ describe("questions query api", () => {
 		// console.log(res.slice(0, 2));
 		// console.log(res.length);
 	});
-
-	it("should able to get question reply by event id raw raw", async () => {
-		const res = await raw_getQuestionsByEventCodeAndGuestId("u959", 22);
-
-		QueryExpectMoreThanOne(res);
-		// console.log(res.slice(0,20))
-		console.log(res.length);
-	}).timeout(1000);
 
 	it("should able to get by event id", async () => {
 		const eventId = 2;
