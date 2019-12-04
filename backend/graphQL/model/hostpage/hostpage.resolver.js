@@ -1,9 +1,8 @@
-import {getEventsByHostId} from "../../../DB/queries/event.js";
+import {getEventsByHostId, updateEventById} from "../../../DB/queries/event.js";
 
-const moderationResolver = eventCode => {
-	const updatedEvent = {}; // query that update moderation Option
-
-	return {updatedEvent};
+const moderationResolver = async (eventId, moderationOption) => {
+	const updatedEvent = await updateEventById(eventId, {moderationOption});
+	return updatedEvent[0];
 };
 
 export default {
@@ -20,6 +19,6 @@ export default {
 		},
 	},
 	Mutation: {
-		moderation: (_, {eventCode}) => moderationResolver(eventCode),
+		moderation: (_, {eventId, moderationOption}) => moderationResolver(eventId, moderationOption),
 	},
 };

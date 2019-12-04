@@ -23,7 +23,7 @@ function getEventsByHost() {
 function getQuestionsByEventCodeAndGuestId(eventCode,guestId){
 	return gql`
     {
-        questions(eventCode: "u0xn", GuestId: 148) {
+        questions(eventCode: "6hmt", GuestId: 148) {
             content
             id
             didILiked

@@ -29,5 +29,5 @@ type Query {
 }
 
 type Mutation{
-    moderation(eventCode:String!): Event!
+    moderation(eventId:Int!, moderationOption:Boolean!): Int!
 }
