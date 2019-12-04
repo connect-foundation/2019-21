@@ -28,6 +28,7 @@ export default function makeEventDummy(number = EVENT_NUM) {
 			.add(faker.random.number({min: 1, max: 24}), "h")
 			.toDate();
 		const HostId = faker.random.number({min: 1, max: 100});
+		const eventName = faker.address.city();
 
 		bulkEvent.push({
 			eventCode,
@@ -38,6 +39,7 @@ export default function makeEventDummy(number = EVENT_NUM) {
 			endAt,
 			HostId,
 			startAt,
+			eventName,
 		});
 	}
 	return bulkEvent;
