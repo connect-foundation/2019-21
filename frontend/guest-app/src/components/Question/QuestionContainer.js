@@ -12,7 +12,7 @@ import QuestionsReducer from "./QuestionsReducer.js";
 
 const EXCHANGE_RATES = gql`
     {
-        questions(eventCode: "6hmt", GuestId: 148) {
+        questions(eventCode: "u959", GuestId: 148) {
             content
             id
             didILiked

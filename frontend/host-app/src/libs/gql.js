@@ -23,7 +23,7 @@ function getEventsByHost() {
 function getQuestionsByEventCodeAndGuestId(eventCode,guestId){
 	return gql`
     {
-        questions(eventCode: "6hmt", GuestId: 148) {
+        questions(eventCode: "u959", GuestId: 148) {
             content
             id
             didILiked
@@ -38,4 +38,12 @@ function getQuestionsByEventCodeAndGuestId(eventCode,guestId){
 `;
 }
 
-export { getEventsByHost, getQuestionsByEventCodeAndGuestId };
+function setModerationOptionById(eventId,moderationOption){
+	return gql`
+	mutation{
+  		moderation(eventId: 1, moderationOption: ${moderationOption})
+	}
+`;
+}
+
+export { getEventsByHost, getQuestionsByEventCodeAndGuestId, setModerationOptionById };

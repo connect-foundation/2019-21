@@ -22,15 +22,15 @@ const filterQuestion = (option, data) => data.filter(e => e.state === option);
 function Inner({data, event}) {
 	const SELECTED = true;
 	const UNSELECTED = false;
-	const MODERATION_ON = true;
-	const MODERATION_OFF = false;
+
 	const [radioState, setRadioState] = useState([SELECTED, UNSELECTED, UNSELECTED, UNSELECTED]);
-	const [moderationState, setModeration] = useState(MODERATION_OFF);
+	const [moderationState, setModeration] = useState(false); // get from DB
 	const [modeartionDatas, setModerationDatas] = useState({questions: filterQuestion("moderation", data)});
 	const [newQuestionDatas, setNewQuestionDatas] = useState({questions: filterQuestion("active", data)});
 	const [completeQuestionDatas, setCompleteQuestionDatas] = useState({questions: filterQuestion("completeQuestion", data)});
 	const [questionNumber, setQuestionNumber] = useState([modeartionDatas.questions.length, newQuestionDatas.questions.length, newQuestionDatas.questions.length, completeQuestionDatas.questions.length]);
 	const [pollNumberStatus] = useState(0);
+
 	const handleRadioState = buttonIndex => {
 		const newState = [UNSELECTED, UNSELECTED, UNSELECTED, UNSELECTED]
 			.map((_, idx) => (idx === buttonIndex ? SELECTED : UNSELECTED));
@@ -38,14 +38,10 @@ function Inner({data, event}) {
 		setRadioState(newState);
 	};
 
-	const handleModerationState = () => {
-		moderationState === MODERATION_ON ? setModeration(MODERATION_OFF) : setModeration(MODERATION_ON);
-	};
-
 	const typeMap = {
 		moderation: {
 			state: moderationState,
-			stateHandler: handleModerationState,
+			stateHandler: setModeration,
 			data: modeartionDatas,
 			handler: setModerationDatas,
 		},
