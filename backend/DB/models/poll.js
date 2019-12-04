@@ -1,4 +1,3 @@
-
 module.exports = (sequelize, DataTypes) => {
 	const Poll = sequelize.define(
 		"Poll",
@@ -15,8 +14,11 @@ module.exports = (sequelize, DataTypes) => {
 			pollType: {
 				type: DataTypes.INTEGER,
 			},
-			duplicateOption: {
+			allowDuplication: {
 				type: DataTypes.BOOLEAN,
+			},
+			state: {
+				type: DataTypes.STRING(10),
 			},
 			createdAt: {
 				allowNull: false,
@@ -27,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.DATE,
 			},
 		},
-		{},
+		{}
 	);
 
 	Poll.associate = function(models) {
