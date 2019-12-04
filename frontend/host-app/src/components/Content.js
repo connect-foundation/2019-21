@@ -31,7 +31,6 @@ function Inner({data, event}) {
 	const [completeQuestionDatas, setCompleteQuestionDatas] = useState({questions: filterQuestion("completeQuestion", data)});
 	const [questionNumber, setQuestionNumber] = useState([modeartionDatas.questions.length, newQuestionDatas.questions.length, newQuestionDatas.questions.length, completeQuestionDatas.questions.length]);
 	const [pollNumberStatus] = useState(0);
-
 	const handleRadioState = buttonIndex => {
 		const newState = [UNSELECTED, UNSELECTED, UNSELECTED, UNSELECTED]
 			.map((_, idx) => (idx === buttonIndex ? SELECTED : UNSELECTED));

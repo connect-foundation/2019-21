@@ -27,3 +27,7 @@ type Query {
 	events: [Event]!
 	init: InitData!
 }
+
+type Mutation{
+    moderation(eventCode:String!): Event!
+}
