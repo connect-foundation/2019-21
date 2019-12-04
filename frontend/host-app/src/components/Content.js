@@ -86,10 +86,16 @@ function Inner({data, event}) {
 			id: Math.floor(Math.random() * 9999999), // id sequelize 로부터 받아와야 함
 			isLike: false,
 			likeCount: 0,
-			state: "active",
+			state: req.status,
 		};
 
-		setNewQuestionDatas({questions: [...(newQuestionDatas.questions), tempData]});
+		switch (req.status) {
+			case "moderation" :
+				return setModerationDatas({questions: [...(modeartionDatas.questions), tempData]});
+			case "active" :
+				return setNewQuestionDatas({questions: [...(newQuestionDatas.questions), tempData]});
+			default: return "err";
+		}
 	});
 
 	useSocket("question/toggleStar", req => {
