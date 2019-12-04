@@ -3,7 +3,7 @@ import {
 	deleteEmojiBy,
 	deleteEmojiById,
 	getDidIPicked, getEmojiCountBy,
-} from "../DB/queries/emoji.js";
+} from "../../DB/queries/emoji.js";
 
 describe("emoji query api", () => {
 	let newId = null;

@@ -2,7 +2,7 @@ import {
 	getQuestionLikeCount,
 	getQuestionsByEventCodeAndGuestId,
 	raw_getQuestionsByEventCodeAndGuestId,
-} from "../DB/queries/event.js";
+} from "../../DB/queries/event.js";
 import {
 	createQuestion,
 	deleteQuestionById,
@@ -10,7 +10,7 @@ import {
 	getQuestionReplyByEventId,
 	getQuestionsByEventId,
 	updateQuestionById,
-} from "../DB/queries/question.js";
+} from "../../DB/queries/question.js";
 
 // import mocha from "mocha";
 //

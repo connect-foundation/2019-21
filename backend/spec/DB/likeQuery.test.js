@@ -5,7 +5,7 @@ import {
 	getLikeCountByQuestion,
 	getLikesByGuestId,
 	getLikesByQuestionId,
-} from "../DB/queries/like.js";
+} from "../../DB/queries/like.js";
 
 describe("like query api", () => {
 	let newId = null;
