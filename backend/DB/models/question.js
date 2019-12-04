@@ -28,6 +28,11 @@ module.exports = (sequelize, DataTypes) => {
 				allowNull: false,
 				type: DataTypes.DATE,
 			},
+			likeCount: {
+				allowNull: false,
+				type: DataTypes.INTEGER,
+				defaultValue: 0,
+			},
 		},
 		{},
 	);
