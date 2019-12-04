@@ -1,0 +1,25 @@
+type Candidate {
+	id: Int
+	number: Int!
+	content: String!
+	voters: Int
+	voted: Boolean
+	firstPlace: Boolean
+}
+
+type Poll {
+	id: Int!
+	pollName: String!
+	pollType: String!
+	selectionType: String!
+	allowDuplication: Boolean!
+	pollDate: String!
+	active: Boolean!
+	totalVoters: Int!
+	createdAt: String!
+	nItems: [Candidate]!
+}
+
+type Query {
+	polls(eventCode: ID!, guestId: ID!): [Poll]!
+}

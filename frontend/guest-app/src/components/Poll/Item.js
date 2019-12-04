@@ -37,18 +37,30 @@ const GraphWrapper = styled.div`
 	top: 0;
 	left: 0;
 	background-color: ${props =>
-		(props.firstPlace ? "yellow" : "#ced4da")}; /* Gray4 */
+		props.firstPlace ? "yellow" : "#ced4da"}; /* Gray4 */
 	height: 100%;
 	width: ${props => props.ratio};
 	box-sizing: border-box;
 `;
 
-function Item({id, name, voters, voted, totalVoters, firstPlace, onVote, active}) {
+function Item({
+	id,
+	content,
+	voters,
+	voted,
+	totalVoters,
+	firstPlace,
+	onVote,
+	active,
+}) {
 	return (
 		<RowWrapper left onClick={() => onVote(id, active)}>
 			<div>{voted && <MdDone />}</div>
-			<div className="selection-name">{name}</div>
-			<RightEnd><MdPerson />{voters}</RightEnd>
+			<div className="selection-name">{content}</div>
+			<RightEnd>
+				<MdPerson />
+				{voters}
+			</RightEnd>
 			<GraphWrapper
 				firstPlace={firstPlace}
 				ratio={`${(voters / totalVoters) * 100}%`}
