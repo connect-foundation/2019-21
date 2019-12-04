@@ -3,10 +3,8 @@ import Avatar from "@material-ui/core/Avatar";
 import React, {useContext} from "react";
 import {HostContext} from "../libs/hostContext";
 
-function HeaderAccountAvata({userName}) {
-	const host = useContext(HostContext);
-
-	console.log(host);
+function HeaderAccountAvata() {
+	const {hostInfo} = useContext(HostContext);
 	const useStyles = makeStyles({
 		headerAvatar: {
 			backgroundColor: "#FFF",
@@ -24,11 +22,10 @@ function HeaderAccountAvata({userName}) {
 		},
 	});
 	const classes = useStyles();
-	const inner = userName.slice(0, 1);
 
 	return (
 		<Avatar className={classes.headerAvatar}>
-			<img className={classes.avatarImage} src={host.image}></img>
+			<img className={classes.avatarImage} src={hostInfo.image}></img>
 		</Avatar>
 	);
 }

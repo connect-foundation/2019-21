@@ -1,13 +1,16 @@
-import React, {useReducer} from "react";
+import React, {useReducer, useContext} from "react";
 import {Modal} from "@material-ui/core";
 import styled from "styled-components";
 import InputEventName from "./InputEventName";
 import InputStartDate from "./InputStartDate";
+import {useMutation} from "@apollo/react-hooks";
 import InputHashTag from "./InputHashTag";
 import EndDateField from "./EndDateField";
 import HashTagsField from "./HashTagsField";
 import ButtonField from "./ButtonField";
 import {eventModalReducer, initialModalState} from "./eventModalReducer";
+import {createEvent} from "../../libs/gql";
+import {HostContext} from "../../libs/hostContext";
 
 const modalHeight = 37;
 const modalWidth = 28.125;
@@ -38,10 +41,20 @@ const Header = styled.div`
 `;
 
 function CreateEventModal({open, handleClose}) {
+	const {hostInfo, events, setEvents} = useContext(HostContext);
 	const [modalState, dispatchModalState] = useReducer(
 		eventModalReducer,
 		initialModalState,
 	);
+	const [sendToServer, {data}] = useMutation(createEvent(), {
+		variables: {
+			info: {
+				HostId: hostInfo.id,
+				startAt: modalState.startDate,
+				endAt: modalState.endDate,
+			},
+		},
+	});
 
 	const setEventName = event => {
 		dispatchModalState({
@@ -79,7 +92,9 @@ function CreateEventModal({open, handleClose}) {
 	};
 
 	const sendData = () => {
-		console.log(modalState);
+		sendToServer().then(res => {
+			setEvents([...events, res.data.createEvent]);
+		});
 		reset();
 	};
 
