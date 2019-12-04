@@ -2,8 +2,9 @@ import makeLikeDummy from "../dummy/likeDummies";
 
 module.exports = {
 	up: (queryInterface, Sequelize) =>
-		queryInterface.bulkInsert("Likes", makeLikeDummy(), {}),
-
+		makeLikeDummy().then(data =>
+			queryInterface.bulkInsert("Likes", data, {}),
+		),
 	down: (queryInterface, Sequelize) =>
 		queryInterface.bulkDelete("Likes", null, {}),
 };
