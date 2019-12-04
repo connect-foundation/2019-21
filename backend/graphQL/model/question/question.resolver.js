@@ -76,10 +76,10 @@ async function questionResolver(eventCode, guestId) {
 
 
 	let res = await getQuestionsByEventCodeAndGuestId(eventCode, guestId);
+
 	// console.log(res[0]);
 	// console.log(b);
-	res = res.map(x => x.get({ plain: true }));
-	console.log(res[0]);
+	res = res.map(x => x.get({plain: true}));
 	res = addLikeCount(res);
 	res = addDidILiked(res, guestId);
 	res = removeLikes(res);
@@ -96,7 +96,7 @@ async function questionResolver(eventCode, guestId) {
 // noinspection JSUnusedGlobalSymbols
 export default {
 	Query: {
-		questions: (_, { eventCode }, { guestId }) =>
+		questions: (_, {eventCode, guestId}) =>
 			questionResolver(eventCode, guestId),
 	},
 };
