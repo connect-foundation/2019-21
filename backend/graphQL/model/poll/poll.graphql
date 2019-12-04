@@ -13,6 +13,7 @@ type Poll {
 	pollType: String!
 	selectionType: String!
 	allowDuplication: Boolean!
+	state: String!
 	pollDate: String!
 	active: Boolean!
 	totalVoters: Int!

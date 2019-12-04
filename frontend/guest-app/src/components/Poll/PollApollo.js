@@ -5,12 +5,13 @@ import PollContainer from "./PollContainer";
 
 const POLL_QUERY = gql`
 	{
-		polls(eventCode: "u0xn", guestId: 148) {
+		polls(eventCode: "sd3k", guestId: 148) {
 			id
 			pollName
 			pollType
 			selectionType
 			allowDuplication
+			state
 			active
 			totalVoters
 			pollDate

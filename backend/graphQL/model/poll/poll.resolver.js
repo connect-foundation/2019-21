@@ -78,7 +78,6 @@ const setPollTypes = polls => {
 				console.error(`unknown pollType ${poll.pollType}`);
 				break;
 		}
-		poll.allowDuplication = poll.duplicateOption;
 		poll.active = false;
 		poll.pollDate = poll.createdAt;
 		poll.pollName = poll.name;
