@@ -7,17 +7,17 @@ const questionCreateSocketHandler = async (data, emit) => {
 
 		// Dummy Event Id:2
 		const currentModerationOption = globalOption.getOption(2).moderationOption;
+		const eventId = 2; // EventId
+		const guestId = 127; // GuestId
 
 		if (currentModerationOption) {
 			const moderationData = data;
-			const EventId = 2;
-			const GuestId = 127;
 
 			moderationData.status = "moderation";
-			await createQuestion(EventId, content, GuestId, "moderation");
+			await createQuestion(eventId, content, guestId, "moderation");
 			emit(moderationData);
 		} else {
-			await createQuestion(EventId , content, GuestId);
+			await createQuestion(eventId , content, guestId);
 			emit(data);
 		}
 	} catch (e) {

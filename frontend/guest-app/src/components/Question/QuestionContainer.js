@@ -56,6 +56,7 @@ function QuestionContainer() {
 			isShowEditButton: true,
 			isLike: false,
 			likeCount: 0,
+			status: "active",
 		};
 
 		socketClient.emit("question/create", newQuestion);
