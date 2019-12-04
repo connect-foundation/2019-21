@@ -26,13 +26,12 @@ export async function getLikesByQuestionId(QuestionId) {
 		where: {QuestionId},
 	});
 }
-
 export async function getLikeCountByQuestion(QuestionId) {
 	return Like.count({
 		where: {QuestionId},
 	});
 }
 
-export async function getDidILiked({QuestionId, GuestId}) {
+export async function getDidILikes({QuestionId, GuestId}) {
 	return Like.findOne({where: {QuestionId, GuestId}});
 }

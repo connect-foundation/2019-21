@@ -29,8 +29,10 @@ module.exports = (sequelize, DataTypes) => {
 				primaryKey: true,
 			},
 		},
-		{},
 	);
 
+	Emoji.associate = function(models) {
+		Emoji.belongsTo(models.Event);
+	};
 	return Emoji;
 };

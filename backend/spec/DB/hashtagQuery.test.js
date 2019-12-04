@@ -3,7 +3,7 @@ import {
 	deleteHashTagById,
 	updateHashtagById,
 	getHashtagByEventId,
-} from "../DB/queries/hashtag.js";
+} from "../../DB/queries/hashtag.js";
 
 describe("hashtag query api", () => {
 	let res = null;

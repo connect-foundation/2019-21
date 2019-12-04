@@ -16,6 +16,7 @@ export default function makeQuestionDummy(number = 100) {
 		const GuestId = faker.random.number({min: 1, max: GUEST_NUM});
 		const QuestionId = null;
 		const isStared = false;
+		const likeCount = 0;
 
 		bulkQuestion.push({
 			content,
@@ -26,6 +27,7 @@ export default function makeQuestionDummy(number = 100) {
 			GuestId,
 			QuestionId,
 			isStared,
+			likeCount,
 		});
 	}
 	return bulkQuestion;
