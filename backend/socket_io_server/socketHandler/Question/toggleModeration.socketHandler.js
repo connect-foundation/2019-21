@@ -1,13 +1,14 @@
 import {updateEventById} from "../../../DB/queries/event";
+import globalOption from "../../globalOption";
 
 const toggleModerationSocketHandler = async (data, emit) => {
 	try {
 		const currentState = data.state;
-		const updatedEvent = await updateEventById(data.eventId, {moderationOption: currentState});
+		const currentOption = globalOption.getOption(2); // dummy event Id
 
-		console.log(currentState);
-		console.log(updatedEvent[0]);
-
+		await updateEventById(data.eventId, {moderationOption: currentState});
+		currentOption.moderationOption = currentState;
+		globalOption.setOption(2, currentOption);
 		emit({eventId: data.eventId, state: currentState});
 	} catch (e) {
 		console.log(e);

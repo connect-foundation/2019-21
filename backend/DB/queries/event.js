@@ -50,6 +50,17 @@ export async function getEventIdByEventCode(eventCode) {
 	return event;
 }
 
+export async function getEventOptionByEventId(id) {
+	const event = await models.Event.findOne({
+		where: {
+			id,
+		},
+		attributes: ["moderationOption", "replyOption"],
+	});
+
+	return event;
+}
+
 export async function getQuestionLikeCount(EventId = 2, limit, offset) {
 	return models.Question.findAll({
 		attributes: ["id", [models.sequelize.fn("count", "*"), "likeCount"]],
