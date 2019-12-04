@@ -43,7 +43,7 @@ function InputStartDate(props) {
 		addedDate = moment(addedDate)
 			.add(minuate, "m")
 			.toDate();
-		setEndDate(addedDate);
+		setEndDate(moment(addedDate));
 		handleLastTimeChange(inputTime);
 	};
 
@@ -53,6 +53,7 @@ function InputStartDate(props) {
 				<CustomDateTimePicker
 					label="시작날짜"
 					value={props.startDate}
+					format={"yyyy년 MM월 dd일 HH시 mm분"}
 					onChange={setStartDate}
 				/>
 				<CustomTimePicker

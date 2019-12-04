@@ -1,4 +1,4 @@
-const initialModalState = {
+const initialEventInfo = {
 	eventName: "",
 	startDate: new Date(),
 	endDate: new Date(),
@@ -8,7 +8,7 @@ const initialModalState = {
 const eventModalReducer = (state, action) => {
 	switch (action.type) {
 		case "reset": {
-			return {...initialModalState};
+			return {...initialEventInfo};
 		}
 		case "setEventName": {
 			return {...state, eventName: action.eventName};
@@ -28,4 +28,4 @@ const eventModalReducer = (state, action) => {
 	}
 };
 
-export {eventModalReducer, initialModalState};
+export {eventModalReducer, initialEventInfo};
