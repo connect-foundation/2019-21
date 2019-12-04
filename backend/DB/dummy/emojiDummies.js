@@ -6,13 +6,13 @@ const {INIT_SEED, GUEST_NUM} = config;
 
 faker.seed(INIT_SEED);
 
-export default async function makeEmojiDummy(number = 50) {
+export default async function makeEmojiDummy(number = 500) {
 	const bulkEmoji = [];
 
 	for (let i = 0; i < number; ++i) {
 		const QuestionId = faker.random.number({min: 1, max: 100});
 		const GuestId = faker.random.number({min: 1, max: GUEST_NUM});
-		const name = "point_up";
+		const name = faker.random.arrayElement(["one", "two", "three", "four"]);
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
 
