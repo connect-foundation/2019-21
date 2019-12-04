@@ -25,6 +25,14 @@ module.exports = (sequelize, DataTypes) => {
 				allowNull: false,
 				type: DataTypes.DATE,
 			},
+			email: {
+				type: DataTypes.STRING(100),
+				defaultValue: null,
+			},
+			company: {
+				type: DataTypes.STRING(100),
+				defaultValue: null,
+			},
 		},
 		{},
 	);

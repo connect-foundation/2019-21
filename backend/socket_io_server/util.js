@@ -1,4 +1,4 @@
-export function delay_DB_job() {
+export default function verySlowJob() {
 	return new Promise(resolve =>
 		setTimeout(() => {
 			resolve();

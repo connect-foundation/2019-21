@@ -1,3 +1,4 @@
+import Sequelize from "sequelize";
 import models from "../models";
 
 export async function createEvent({
@@ -49,10 +50,34 @@ export async function getEventIdByEventCode(eventCode) {
 	return event;
 }
 
-export async function getQuestionsByEventCodeAndGuestId(eventCode, guestId) {
-	const event = await models.Event.findOne({where: {eventCode}});
-	const questions = await models.Question.findAll({
-		where: {EventId: event.id},
+export async function getQuestionLikeCount(EventId = 2, limit, offset) {
+	return models.Question.findAll({
+		attributes: ["id", [models.sequelize.fn("count", "*"), "likeCount"]],
+		where: {EventId, QuestionId: null},
+		include: [
+			{
+				model: models.Like,
+				attributes: [],
+			},
+		],
+		group: "id",
+		offset,
+		limit,
+	});
+}
+
+export async function getQuestionsByEventCodeAndGuestId(
+	eventCode,
+	guestId,
+	limit = 1,
+	offset,
+) {
+	// const event = await models.Event.findOne({where: {eventCode}});
+	// const EventId = event.dataValues.id
+	const EventId = 2;
+
+	return models.Question.findAll({
+		where: {EventId, QuestionId: null},
 		include: [
 			{
 				model: models.Like,
@@ -62,35 +87,42 @@ export async function getQuestionsByEventCodeAndGuestId(eventCode, guestId) {
 				model: models.Guest,
 			},
 		],
+		offset,
+		limit,
+	});
+}
+
+export async function raw_getQuestionsByEventCodeAndGuestId(
+	eventCode,
+	guestId,
+	limit = 100,
+	offset = 0,
+) {
+	// const event = await models.Event.findOne({where: {eventCode}});
+	// const EventId = event.dataValues.id
+	const EventId = 2;
+
+	const query = `
+	select *, Emojis.name, Emojis.GuestId 
+	from Questions 
+		inner join Emojis on Questions.id = Emojis.QuestionId
+	where EventId = :EventId and Questions.QuestionId is null
+-- 	order by Emojis.QuestionId DESC
+	
+-- 	limit :limit offset :offset
+	
+-- 	group by Emojis.QuestionId
+`;
+	// console.log(event.dataValues.id)
+	const [questions] = await models.sequelize.query(query, {
+		replacements: {
+			EventId,
+			limit,
+			offset,
+			type: Sequelize.QueryTypes.SELECT,
+			raw: true,
+		},
 	});
 
-	const res = JSON.parse(JSON.stringify(questions));
-
-	res.map(x => {
-		x.likeCount = x.Likes.length;
-		return x;
-	})
-		.map(x => {
-			x.isLike = x.Likes.filter(b => b.GuestId === guestId) > 0;
-			return x;
-		})
-		.map(x => {
-			x.Likes = undefined;
-			return x;
-		})
-		.map(x => {
-			x.Emojis.map(emoji => {
-				emoji.didIPicked = emoji.GuestId === guestId;
-
-				return emoji;
-			});
-
-			return x;
-		})
-		.map(x => {
-			x.guestName = x.Guest.name;
-			return x;
-		});
-
-	return res;
+	return questions;
 }

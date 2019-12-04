@@ -1,10 +1,16 @@
-import {delay_DB_job} from "../util.js";
+function verySlowJob() {
+	return new Promise(resolve =>
+		setTimeout(() => {
+			resolve();
+		}, 1000),
+	);
+}
 
 const helloHandler = async (data, emit) => {
 	try {
 		console.log(data);
 
-		await delay_DB_job();
+		await verySlowJob();
 
 		console.log("delayed");
 

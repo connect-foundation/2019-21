@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
 				allowNull: false,
 				type: DataTypes.DATE,
 			},
-			EmojiName: {
-				type: DataTypes.STRING,
+			name: {
+				type: DataTypes.STRING(100),
 				primaryKey: true,
 			},
 			QuestionId: {

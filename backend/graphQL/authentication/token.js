@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-function generateAccessToken(hostOauthId) {
+export default function generateAccessToken(hostOauthId) {
 	const tokenArgs = {
 		secret: process.env.AUTH_TOKEN_SECRET,
 		issuer: process.env.AUTH_TOKEN_ISSUER,
@@ -16,5 +16,3 @@ function generateAccessToken(hostOauthId) {
 
 	return token;
 }
-
-export {generateAccessToken};
