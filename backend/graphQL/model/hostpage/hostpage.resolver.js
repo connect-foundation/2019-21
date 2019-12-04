@@ -1,5 +1,10 @@
+import faker from "faker";
 import { findHostById } from "../../../DB/queries/host";
-import { getEventsByHostId } from "../../../DB/queries/event.js";
+import {
+	getEventsByHostId,
+	findEventByEventCode,
+	createEvent,
+} from "../../../DB/queries/event.js";
 
 export default {
 	Query: {
@@ -12,8 +17,26 @@ export default {
 
 			throw new Error("AuthenticationError");
 		},
-    },
-    Mutation:{
-        createEvent()
-    }
+	},
+	Mutation: {
+		createEvent: async (_, { info }, authority) => {
+			if (authority.sub === "host") {
+				let eventCode = faker.random.alphaNumeric(4);
+				let event = await findEventByEventCode(eventCode);
+				while (event) {
+					eventCode = faker.random.alphaNumeric(4);
+					event = await findEventByEventCode(eventCode);
+				}
+				event = await createEvent({
+					eventCode: eventCode,
+					HostId: authority.info.id,
+					startAt: info.startAt,
+					endAt: info.endAt,
+				});
+				event = event[0].dataValues;
+				return { ...event };
+			}
+			throw new Error("AuthenticationError");
+		},
+	},
 };
