@@ -53,48 +53,18 @@ export async function getEventIdByEventCode(eventCode) {
 	return event;
 }
 
-export async function getQuestionsByEventCodeAndGuestId(eventCode, guestId) {
-	const event = await models.Event.findOne({where: {eventCode}});
-	const questions = await models.Question.findAll({
-		where: {EventId: event.id},
+export async function getQuestionLikeCount(EventId = 2, limit, offset) {
+	return models.Question.findAll({
+		attributes: ["id", [models.sequelize.fn("count", "*"), "likeCount"]],
+		where: {EventId, QuestionId: null},
 		include: [
 			{
 				model: models.Like,
-			}, {
-				model: models.Emoji,
-			}, {
-				model: models.Guest,
+				attributes: [],
 			},
 		],
+		group: "id",
+		offset,
+		limit,
 	});
-
-	const res = JSON.parse(JSON.stringify(questions));
-
-	res.map(x => {
-		x.likeCount = x.Likes.length;
-		return x;
-	})
-		.map(x => {
-			x.isLike = x.Likes.filter(b => b.GuestId === guestId) > 0;
-			return x;
-		})
-		.map(x => {
-			x.Likes = undefined;
-			return x;
-		})
-		.map(x => {
-			x.Emojis.map(emoji => {
-				emoji.didIPicked = emoji.GuestId === guestId;
-
-				return emoji;
-			});
-
-			return x;
-		})
-		.map(x => {
-			x.guestName = x.Guest.name;
-			return x;
-		});
-
-	return res;
 }

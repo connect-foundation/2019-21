@@ -2,9 +2,8 @@ import {
 	createEvent,
 	getEventIdByEventCode,
 	getEventsByHostId,
-	getQuestionsByEventCodeAndGuestId,
 	updateEventById,
-} from "../DB/queries/event.js";
+} from "../../DB/queries/event.js";
 
 describe("event query api", () => {
 	it("be able to createQuestion", async () => {
@@ -25,13 +24,6 @@ describe("event query api", () => {
 		const hostId = 1;
 
 		await getEventsByHostId(hostId);
-	});
-
-	it("be able to getQuestionsByEventCodeAndGuestId", async () => {
-		const eventCode = "1cfs";
-		const guestId = 1;
-
-		await getQuestionsByEventCodeAndGuestId(eventCode, guestId);
 	});
 
 	it("be able to updateEventById", async () => {

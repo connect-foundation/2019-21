@@ -1,10 +1,10 @@
 import express from "express";
 import passport from "passport";
-import { getTokenExpired } from "../utils";
-import { generateAccessToken } from "../authentication/token";
+import {getTokenExpired} from "../utils";
+import generateAccessToken from "../authentication/token";
 import loadConfig from "../config/configLoader";
 
-const { routePage } = loadConfig();
+const {routePage} = loadConfig();
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router.get(
 		session: false,
 		scope: ["email", "profile"],
 		prompt: "select_account",
-	})
+	}),
 );
 
 router.get("/logout", (req, res, next) => {
@@ -29,8 +29,9 @@ router.get(
 	}),
 	(req, res) => {
 		const accessToken = generateAccessToken(req.user.oauthId, "host");
-		res.cookie("vaagle", accessToken, { expires: getTokenExpired(1) });
+
+		res.cookie("vaagle", accessToken, {expires: getTokenExpired(1)});
 		res.redirect(routePage.host);
-	}
+	},
 );
 module.exports = router;

@@ -7,19 +7,19 @@ import {
 
 export default {
 	Query: {
-		init: async (_, {param}, authority) => {
+		init: async (_, { param }, authority) => {
 			if (authority.sub === "host") {
 				const host = authority.info;
 				const events = await getEventsByHostId(host.id);
 
-				return {events, host};
+				return { events, host };
 			}
 
 			throw new Error("AuthenticationError");
 		},
 	},
 	Mutation: {
-		createEvent: async (_, {info}, authority) => {
+		createEvent: async (_, { info }, authority) => {
 			if (authority.sub === "host") {
 				let eventCode = faker.random.alphaNumeric(4);
 				let event = await findEventByEventCode(eventCode);
@@ -35,7 +35,7 @@ export default {
 					endAt: info.endAt,
 				});
 				event = event[0].dataValues;
-				return {...event};
+				return { ...event };
 			}
 			throw new Error("AuthenticationError");
 		},

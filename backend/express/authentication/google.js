@@ -1,7 +1,7 @@
 import passport from "passport";
-import { Strategy } from "passport-google-oauth20";
+import {Strategy} from "passport-google-oauth20";
 import loadConfig from "../config/configLoader";
-import { createHost, findHostByAuthId } from "../../DB/queries/host";
+import {createHost, findHostByAuthId} from "../../DB/queries/host";
 
 const GoogleStrategy = Strategy;
 
@@ -20,26 +20,22 @@ function extractProfile(profile) {
 }
 
 export default (function() {
-	const { oAuthArgs } = loadConfig();
+	const {oAuthArgs} = loadConfig();
 
-	passport.use(
-		new GoogleStrategy(
-			{ ...oAuthArgs },
-			async (accessToken, refreshToken, profile, cb) => {
-				try {
-					const { id, displayName, image, email } = extractProfile(
-						profile
-					);
-					let host = await findHostByAuthId(id);
+	const verify = async (accessToken, refreshToken, profile, cb) => {
+		try {
+			const {id, displayName, image, email} = extractProfile(profile);
+			let host = await findHostByAuthId(id);
 
-					if (!host) {
-						host = await createHost(id, displayName, image, email);
-					}
-					return cb(null, host);
-				} catch (error) {
-					console.error(error);
-				}
+			if (!host) {
+				host = await createHost(id, displayName, image, email);
 			}
-		)
-	);
+			return cb(null, host);
+		} catch (error) {
+			console.error(error);
+			return null;
+		}
+	};
+
+	passport.use(new GoogleStrategy({...oAuthArgs}, verify));
 })();

@@ -6,7 +6,7 @@ import {PollTabIcon, QnATabIcon} from "./TabIcons.js";
 import useTabs from "../../materialUIHooks/useTabs.js";
 import TabBody from "./TabBody.js";
 import QuestionContainer from "../Question/QuestionContainer.js";
-import PollContainer from "../Poll/PollContainer.js";
+import PollApollo from "../Poll/PollApollo.js";
 
 const TabGroupStyle = styled.div`
 	position: fixed;
@@ -31,7 +31,7 @@ function TabGroup({showQnABadge = true, showPollBadge}) {
 				<QuestionContainer />
 			</TabBody>
 			<TabBody hidden={tabIdx !== POLL_TAB_IDX}>
-				<PollContainer />
+				<PollApollo />
 			</TabBody>
 		</TabGroupStyle>
 	);

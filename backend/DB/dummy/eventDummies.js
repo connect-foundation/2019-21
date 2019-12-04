@@ -2,7 +2,8 @@ import faker from "faker";
 import moment from "moment";
 import config from "./initialConfig";
 
-const { INIT_SEED, EVENT_NUM, GUEST_NUM, POLL_NUM } = config;
+const {INIT_SEED, EVENT_NUM} = config;
+
 faker.seed(INIT_SEED);
 
 export default function makeEventDummy(number = EVENT_NUM) {
@@ -24,9 +25,10 @@ export default function makeEventDummy(number = EVENT_NUM) {
 		const updatedAt = createdAt;
 		const startAt = createdAt;
 		const endAt = moment(createdAt)
-			.add(faker.random.number({ min: 1, max: 24 }), "h")
+			.add(faker.random.number({min: 1, max: 24}), "h")
 			.toDate();
-		const HostId = faker.random.number({ min: 1, max: 100 });
+		const HostId = faker.random.number({min: 1, max: 100});
+		const eventName = faker.address.city();
 
 		bulkEvent.push({
 			eventCode,
@@ -37,6 +39,7 @@ export default function makeEventDummy(number = EVENT_NUM) {
 			endAt,
 			HostId,
 			startAt,
+			eventName,
 		});
 	}
 	return bulkEvent;

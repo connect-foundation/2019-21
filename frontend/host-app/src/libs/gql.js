@@ -54,5 +54,4 @@ function getQuestionsByEventCodeAndGuestId() {
 		}
 	`;
 }
-
 export { getEventsByHost, getQuestionsByEventCodeAndGuestId, createEvent };
