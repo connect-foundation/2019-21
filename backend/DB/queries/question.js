@@ -21,8 +21,8 @@ export async function createQuestion(
 }
 
 export async function getQuestionsByEventId(EventId) {
-	return Question.findAll({
-		where: {EventId, QuestionId: null},
+	return models.Question.findAll({
+		where: {EventId},
 	});
 }
 
