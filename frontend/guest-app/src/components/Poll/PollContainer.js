@@ -1,7 +1,7 @@
 import React, {useReducer} from "react";
 import styled from "styled-components";
 import PollCard from "./PollCard";
-import PollDummyData from "./PollDummyData";
+// import PollDummyData from "./PollDummyData";
 
 const ColumnWrapper = styled.div`
 	display: flex;
@@ -13,10 +13,6 @@ const ColumnWrapper = styled.div`
 	padding: 1rem;
 	width: 100%;
 `;
-
-const initialPollData = PollDummyData();
-const activePollData = initialPollData.filter(poll => poll.active)[0];
-const closedPollData = initialPollData.filter(poll => poll.active === false);
 
 // 복수선택이 아닌 투표의 경우, 다른 선택된 항목을 uncheck 하는 함수
 const uncheckOtherItems = items => {
@@ -76,31 +72,53 @@ function reducer(state, action) {
 		case "VOTE":
 			return {
 				...state,
-				nItems: updateItems(state.nItems, action.id, state.allowDuplication),
-				totalVoters: updateTotalVoters(notVoted, state.totalVoters, state.nItems),
+				nItems: updateItems(
+					state.nItems,
+					action.id,
+					state.allowDuplication,
+				),
+				totalVoters: updateTotalVoters(
+					notVoted,
+					state.totalVoters,
+					state.nItems,
+				),
 			};
 		case "RATE":
 			return {
 				...state,
 				nItems: updateRatingItem(state.nItems, action.value, true),
-				totalVoters: updateTotalVoters(notVoted, state.totalVoters, state.nItems),
+				totalVoters: updateTotalVoters(
+					notVoted,
+					state.totalVoters,
+					state.nItems,
+				),
 			};
 		case "CANCEL_RATING":
 			// 이전 상태도 투표하지 않은 상태라면 서버에 요청을 보내지 않도록 처리하는 루틴
-			if (notVoted && (state.nItems[0].value === 0)) {
+			if (notVoted && state.nItems[0].value === 0) {
 				return state;
 			}
 			return {
 				...state,
 				nItems: updateRatingItem(state.nItems, 0, false),
-				totalVoters: updateTotalVoters(notVoted, state.totalVoters, state.nItems),
+				totalVoters: updateTotalVoters(
+					notVoted,
+					state.totalVoters,
+					state.nItems,
+				),
 			};
 		default:
 			throw new Error("Unhandled action.");
 	}
 }
 
-function PollContainer() {
+function PollContainer({data}) {
+	const initialPollData = data;
+	const activePollData = initialPollData.filter(poll => poll.active)[0];
+	const closedPollData = initialPollData.filter(
+		poll => poll.active === false,
+	);
+
 	const [pollData, dispatch] = useReducer(reducer, activePollData);
 
 	const onVote = (id, active) => {
@@ -129,17 +147,16 @@ function PollContainer() {
 
 	return (
 		<ColumnWrapper>
-			<PollCard
-				{...pollData}
-				onVote={onVote}
-				onChange={onChange}
-				onCancelRating={onCancelRating}
-			/>
-			{closedPollData.map((poll, index) => (
+			{pollData && (
 				<PollCard
-					{...poll}
-					key={index}
-					onVote={onVote} />
+					{...pollData}
+					onVote={onVote}
+					onChange={onChange}
+					onCancelRating={onCancelRating}
+				/>
+			)}
+			{closedPollData.map((poll, index) => (
+				<PollCard {...poll} key={index} onVote={onVote} />
 			))}
 		</ColumnWrapper>
 	);
