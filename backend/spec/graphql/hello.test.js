@@ -1,7 +1,7 @@
 import assert from "assert";
 import { GQLClient } from "./graphqlTestClient.js";
 
-describe("graphql api", () => {
+describe("graphql yoga server hello", () => {
 	it("able query hello", async () => {
 		const query = `
 		query {
