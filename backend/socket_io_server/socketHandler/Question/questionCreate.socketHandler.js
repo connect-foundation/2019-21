@@ -1,15 +1,25 @@
 import {createQuestion} from "../../../DB/queries/question";
+import globalOption from "../../globalOption";
 
 const questionCreateSocketHandler = async (data, emit) => {
 	try {
-		console.log(data);
 		const {EventId, content, GuestId} = data;
 
-		await createQuestion(EventId, content, GuestId);
+		// Dummy Event Id:2
+		const currentModerationOption = globalOption.getOption(2).moderationOption;
 
-		console.log("delayed");
+		if (currentModerationOption) {
+			const moderationData = data;
+			const EventId = 2;
+			const GuestId = 127;
 
-		emit(data);
+			moderationData.status = "moderation";
+			await createQuestion(EventId, content, GuestId, "moderation");
+			emit(moderationData);
+		} else {
+			await createQuestion(EventId , content, GuestId);
+			emit(data);
+		}
 	} catch (e) {
 		console.log(e);
 		emit({status: "error", e});

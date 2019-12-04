@@ -41,7 +41,7 @@ function getQuestionsByEventCodeAndGuestId(eventCode,guestId){
 function setModerationOptionById(eventId,moderationOption){
 	return gql`
 	mutation{
-  		moderation(eventId: 1, moderationOption: ${moderationOption})
+  		moderation(eventId: 2, moderationOption: ${moderationOption})
 	}
 `;
 }
