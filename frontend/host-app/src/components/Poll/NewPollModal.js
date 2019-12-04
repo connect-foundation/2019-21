@@ -1,11 +1,12 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import {Button, Modal} from "@material-ui/core";
+import { Button, Modal } from "@material-ui/core";
 import PollName from "./PollName";
 import PollType from "./PollType";
 import MultipleItems from "./MultipleItems";
 import RatingBlock from "./RatingBlock";
 import Duplication from "./Duplication";
+import { socketClient, useSocket } from "../../libs/socket.io-Client-wrapper";
 
 const ModalWrapper = styled.div`
 	display: flex;
@@ -27,7 +28,7 @@ const RowWrapper = styled.div`
 	box-sizing: border-box;
 `;
 
-function NewPollModal({open, handleClose}) {
+function NewPollModal({ open, handleClose }) {
 	// Poll 이름
 	const [pollName, setPollName] = useState("");
 	const onPollNameChange = event => {
@@ -56,7 +57,7 @@ function NewPollModal({open, handleClose}) {
 	const onTextChange = (event, id) => {
 		setTexts(
 			texts.map((text, index) =>
-				(index === id ? event.target.value : text),
+				index === id ? event.target.value : text,
 			),
 		);
 	};
@@ -72,7 +73,6 @@ function NewPollModal({open, handleClose}) {
 	// Poll 종류가 N지선다 이고 항목들의 속성이 date일때 항목들을 관리하는 부분
 	const now = Date.now();
 	const initialDates = [now, now];
-
 
 	const [dates, setDates] = useState(initialDates);
 	const onDateChange = (newDate, id) => {
@@ -99,6 +99,30 @@ function NewPollModal({open, handleClose}) {
 		justifyContent: "center",
 		alignItems: "center",
 	};
+
+	const getCandidates = (pollType, selectionType) => {
+		return pollType === "rating"
+			? ratingValue
+			: selectionType === "text"
+			? texts
+			: dates;
+	};
+
+	const onCreatePoll = () => {
+		const newPoll = {};
+		newPoll.EventId = 1;
+		newPoll.pollName = pollName;
+		newPoll.pollType = pollType;
+		newPoll.selectionType = selectionType;
+		newPoll.allowDuplication = allowDuplication;
+		newPoll.candidates = getCandidates(pollType, selectionType);
+
+		socketClient.emit("poll/create", newPoll);
+	};
+
+	useSocket("poll/create", req => {
+		console.log("useSocket", req);
+	});
 
 	return (
 		<Modal open={open} style={modalStyle} onClose={handleClose}>
@@ -136,7 +160,7 @@ function NewPollModal({open, handleClose}) {
 					<Button
 						variant="contained"
 						color="primary"
-						onClick={handleClose}
+						onClick={onCreatePoll}
 					>
 						확인
 					</Button>
