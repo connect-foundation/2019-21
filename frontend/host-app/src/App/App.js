@@ -19,7 +19,7 @@ function App() {
 		return <p>error-page...</p>;
 	} else {
 		const hostInfo = data.init.host;
-		const event = data.init.events.length;
+		const event = 1;
 
 		return (
 			<HostProvider value={hostInfo}>

@@ -12,17 +12,16 @@ import QuestionsReducer from "./QuestionsReducer.js";
 
 const EXCHANGE_RATES = gql`
     {
-        questions(eventCode: "u0xn", guestId: 148) {
+        questions(eventCode: "u0xn", GuestId: 148) {
             content
             id
-            likeCount
-            isLike
+            didILiked
+			isStared
             GuestId
+            state
             createdAt
             guestName
-            Emojis {
-                EmojiName
-            }
+			isStared
         }
     }
 `;

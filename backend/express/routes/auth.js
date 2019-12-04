@@ -1,7 +1,7 @@
 import express from "express";
 import passport from "passport";
 import {getTokenExpired} from "../utils";
-import {generateAccessToken} from "../authentication/token";
+import generateAccessToken from "../authentication/token";
 import loadConfig from "../config/configLoader";
 
 const {routePage} = loadConfig();
