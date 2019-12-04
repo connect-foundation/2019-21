@@ -11,6 +11,7 @@ import generateAccessToken from "./authentication/token";
 import {createGuest} from "../DB/queries/guest";
 import {getEventIdByEventCode} from "../DB/queries/event";
 import {getTokenExpired} from "./utils";
+import "./authentication/google.js";
 import authRouter from "./routes/auth";
 
 config();
