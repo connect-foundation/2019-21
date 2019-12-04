@@ -4,7 +4,7 @@ import {GQLClient} from "./graphqlTestClient.js";
 import testCase from "./question.testcase.js";
 
 describe("graphql yoga guest model", () => {
-	it("able query questions", async () => {
+	it("able query guest", async () => {
 		const query = `
 		query getGuests(
 			$EventId: ID!
