@@ -1,16 +1,14 @@
 type Question {
 	id: ID!
 	EventId: ID!
-	guestName: String!
 	GuestId: ID!
 	createdAt: String!
 	content: String!
-	isAnonymous: Boolean!
 	state: String!
 	isStared: Boolean!
 	likeCount: Int!
 }
 
 type Query {
-    questions(eventCode:ID!, GuestId:ID!): [Question]!,
+    questions(EventId:ID!): [Question]!,
 },
