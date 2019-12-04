@@ -45,3 +45,8 @@ export async function deleteQuestionById(id) {
 export async function updateQuestionById({id, content}) {
 	return Question.update({content}, {where: {id}});
 }
+
+
+export async function getQuestionById(id) {
+	return Question.findOne({where: {id}});
+}
