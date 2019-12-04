@@ -1,4 +1,3 @@
-import Sequelize from "sequelize";
 import models from "../models";
 
 export async function createEvent({

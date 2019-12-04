@@ -1,4 +1,4 @@
-import {createHost, findHostByAuthId} from "../DB/queries/host";
+import {createHost, findHostByAuthId} from "../../DB/queries/host.js";
 import assert from "assert";
 
 describe("host query api", () => {

@@ -1,0 +1,12 @@
+type Guest {
+	id: ID!
+	name: String!
+	isAnonymous: Boolean!
+	company: String
+	email: String
+	EventId: ID
+}
+
+type Query {
+	guests(EventId: ID!): [Guest]!
+}
