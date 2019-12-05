@@ -19,13 +19,12 @@ const ContentStyle = styled.div`
 
 const filterQuestion = (option, data) => data.filter(e => e.state === option);
 
-function Inner({data, event}) {
+function Inner({data, event ,option}) {
 	const SELECTED = true;
 	const UNSELECTED = false;
-	const MODERATION_ON = true;
-	const MODERATION_OFF = false;
+
 	const [radioState, setRadioState] = useState([SELECTED, UNSELECTED, UNSELECTED, UNSELECTED]);
-	const [moderationState, setModeration] = useState(MODERATION_OFF);
+	const [moderationState, setModeration] = useState(option.moderationOption); // get from DB
 	const [modeartionDatas, setModerationDatas] = useState({questions: filterQuestion("moderation", data)});
 	const [newQuestionDatas, setNewQuestionDatas] = useState({questions: filterQuestion("active", data)});
 	const [completeQuestionDatas, setCompleteQuestionDatas] = useState({questions: filterQuestion("completeQuestion", data)});
@@ -39,14 +38,10 @@ function Inner({data, event}) {
 		setRadioState(newState);
 	};
 
-	const handleModerationState = () => {
-		moderationState === MODERATION_ON ? setModeration(MODERATION_OFF) : setModeration(MODERATION_ON);
-	};
-
 	const typeMap = {
 		moderation: {
 			state: moderationState,
-			stateHandler: handleModerationState,
+			stateHandler: setModeration,
 			data: modeartionDatas,
 			handler: setModerationDatas,
 		},
@@ -91,10 +86,16 @@ function Inner({data, event}) {
 			id: Math.floor(Math.random() * 9999999), // id sequelize 로부터 받아와야 함
 			isLike: false,
 			likeCount: 0,
-			state: "active",
+			state: req.status,
 		};
 
-		setNewQuestionDatas({questions: [...(newQuestionDatas.questions), tempData]});
+		switch (req.status) {
+			case "moderation" :
+				return setModerationDatas({questions: [...(modeartionDatas.questions), tempData]});
+			case "active" :
+				return setNewQuestionDatas({questions: [...(newQuestionDatas.questions), tempData]});
+			default: return "err";
+		}
 	});
 
 	useSocket("question/toggleStar", req => {
@@ -171,7 +172,7 @@ function Content({event}) {
 
 	return (
 		<>
-			<Inner data={data.questions} event={event}/>
+			<Inner data={data.questions} event={event} option={data.getEventOption}/>
 		</>
 	);
 }

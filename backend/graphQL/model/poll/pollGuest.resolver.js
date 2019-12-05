@@ -61,26 +61,24 @@ async function getItems(pollId, candidates) {
  */
 const setPollTypes = polls => {
 	polls.forEach(poll => {
-		switch (poll.pollType) {
-			case 0:
-				poll.pollType = "nItems";
-				poll.selectionType = "text";
-				break;
-			case 1:
-				poll.pollType = "nItems";
-				poll.selectionType = "date";
-				break;
-			case 2:
-				poll.pollType = "rating";
-				poll.selectionType = "rating";
-				break;
-			default:
-				console.error(`unknown pollType ${poll.pollType}`);
-				break;
-		}
-		poll.active = false;
+		// switch (poll.pollType) {
+		// 	case 0:
+		// 		poll.pollType = "nItems";
+		// 		poll.selectionType = "text";
+		// 		break;
+		// 	case 1:
+		// 		poll.pollType = "nItems";
+		// 		poll.selectionType = "date";
+		// 		break;
+		// 	case 2:
+		// 		poll.pollType = "rating";
+		// 		poll.selectionType = "rating";
+		// 		break;
+		// 	default:
+		// 		console.error(`unknown pollType ${poll.pollType}`);
+		// 		break;
+		// }
 		poll.pollDate = poll.createdAt;
-		poll.pollName = poll.name;
 	});
 
 	return polls;
@@ -171,7 +169,7 @@ async function setVotedOnPolls(polls, guestId) {
  *
  * Yoga Resolver
  */
-async function pollResolver(eventCode, guestId) {
+async function pollGuestResolver(eventCode, guestId) {
 	/**
 	 * getEventIdByEventCode(eventCode)
 	 * getPollsByEventId(event.id)
@@ -190,13 +188,14 @@ async function pollResolver(eventCode, guestId) {
 	polls = await setPollItems(polls, candidates);
 	polls = await setVotedOnPolls(polls, guestId);
 
-	// console.log(polls);
+	console.log("resolver", polls);
 	return polls;
 }
 
 // noinspection JSUnusedGlobalSymbols
 export default {
 	Query: {
-		polls: (_, { eventCode, guestId }) => pollResolver(eventCode, guestId),
+		pollGuest: (_, { eventCode, guestId }) =>
+			pollGuestResolver(eventCode, guestId),
 	},
 };

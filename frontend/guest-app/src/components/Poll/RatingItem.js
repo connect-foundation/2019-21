@@ -4,8 +4,8 @@ import styled from "styled-components";
 import ActiveRating from "./ActiveRating";
 
 const ColumnWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
 	flex: 1;
@@ -15,26 +15,23 @@ const ColumnWrapper = styled.div`
 	border: 1px solid #dee2e6; /* Gray3 */
 `;
 
-function RatingItem({
-	nItems,
-	active,
-	onChange,
-	onCancelRating,
-}) {
+function RatingItem({nItems, state, onChange, onCancelRating}) {
 	return (
 		<ColumnWrapper>
-			{active ? <ActiveRating
-				{...nItems[0]}
-				active={active}
-				onChange={onChange}
-				onCancelRating={onCancelRating}
-			/> :
+			{state === "running" ? (
+				<ActiveRating
+					{...nItems[0]}
+					state={state}
+					onChange={onChange}
+					onCancelRating={onCancelRating}
+				/>
+			) : (
 				<Rating
 					readOnly
 					value={nItems[0].value}
 					max={nItems[0].maxStars}
 				/>
-			}
+			)}
 		</ColumnWrapper>
 	);
 }

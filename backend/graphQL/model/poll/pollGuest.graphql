@@ -15,12 +15,11 @@ type Poll {
 	allowDuplication: Boolean!
 	state: String!
 	pollDate: String!
-	active: Boolean!
 	totalVoters: Int!
 	createdAt: String!
 	nItems: [Candidate]!
 }
 
 type Query {
-	polls(eventCode: ID!, guestId: ID!): [Poll]!
+	pollGuest(eventCode: ID!, guestId: ID!): [Poll]!
 }

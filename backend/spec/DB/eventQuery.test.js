@@ -36,6 +36,7 @@ describe("event query api", () => {
 			endAt: new Date(),
 		};
 
-		await updateEventById(EventId, newValue);
+		const ddd= await updateEventById(EventId, newValue);
+		console.log(ddd);
 	});
 });

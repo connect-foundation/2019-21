@@ -5,8 +5,14 @@ type Event {
 	replyOption: Boolean!
 	createdAt: String!
 	updatedAt: String!
+	startAt: String!
 	endAt: String!
 	HostId: ID!
+}
+
+type EventOption {
+    moderationOption: Boolean!
+    replyOption: Boolean!
 }
 
 type Host {
@@ -23,7 +29,22 @@ type InitData {
 	host: Host!
 }
 
+input EventInfo {
+	HostId: ID!
+	startAt: String!
+	endAt: String!
+}
+
+type Mutation {
+	createEvent(info: EventInfo!): Event
+}
+
 type Query {
 	events: [Event]!
 	init: InitData!
+	getEventOption(eventId:Int!): EventOption!
+}
+
+type Mutation{
+    moderation(eventId:Int!, moderationOption:Boolean!): Int!
 }

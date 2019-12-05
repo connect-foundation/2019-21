@@ -3,6 +3,7 @@ import Switch from "@material-ui/core/Switch";
 import styled from "styled-components";
 import Badge from "@material-ui/core/Badge";
 import {makeStyles} from "@material-ui/core";
+import {socketClient, useSocket} from "../libs/socket.io-Client-wrapper";
 
 
 const TitleBox = styled.div`
@@ -26,6 +27,14 @@ const useStyles = makeStyles(theme => ({
 
 function SwitchTitle({titleName, state, stateHandler, badgeState}) {
 	const classes = useStyles();
+	const eventId = 2; //dummyEventId
+
+	const moderationEventEmit = () => socketClient.emit("moderation/toggle", {eventId, state: !state});
+
+	useSocket("moderation/toggle", req => {
+		console.log(req);
+		stateHandler(req.state);
+	});
 
 	return (
 		<TitleBox>
@@ -38,7 +47,7 @@ function SwitchTitle({titleName, state, stateHandler, badgeState}) {
 			<TitleStyle>{titleName}</TitleStyle>
 			<Switch
 				checked={state}
-				onClick={stateHandler}
+				onClick={() => moderationEventEmit()}
 			>
 			</Switch>
 		</TitleBox>

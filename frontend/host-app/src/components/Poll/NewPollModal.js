@@ -100,6 +100,10 @@ function NewPollModal({ open, handleClose }) {
 		alignItems: "center",
 	};
 
+	const getSelectionType = () => {
+		return pollType === "rating" ? ratingValue.toString() : selectionType;
+	};
+
 	const getCandidates = (pollType, selectionType) => {
 		return pollType === "rating"
 			? ratingValue
@@ -113,7 +117,7 @@ function NewPollModal({ open, handleClose }) {
 		newPoll.EventId = 1;
 		newPoll.pollName = pollName;
 		newPoll.pollType = pollType;
-		newPoll.selectionType = selectionType;
+		newPoll.selectionType = getSelectionType();
 		newPoll.allowDuplication = allowDuplication;
 		newPoll.candidates = getCandidates(pollType, selectionType);
 

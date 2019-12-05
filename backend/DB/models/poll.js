@@ -8,11 +8,14 @@ module.exports = (sequelize, DataTypes) => {
 				primaryKey: true,
 				type: DataTypes.INTEGER,
 			},
-			name: {
+			pollName: {
 				type: DataTypes.STRING(100),
 			},
 			pollType: {
-				type: DataTypes.INTEGER,
+				type: DataTypes.STRING(10),
+			},
+			selectionType: {
+				type: DataTypes.STRING(10),
 			},
 			allowDuplication: {
 				type: DataTypes.BOOLEAN,

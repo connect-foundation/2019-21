@@ -7,7 +7,6 @@ import QuestionInputArea from "./QuestionInputArea/QuestionInputArea.js";
 import QuestionCardList from "./QuestionCard/QuestionCardList.js";
 import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
 import QuestionsReducer from "./QuestionsReducer.js";
-
 import useQueryQuestions from "../../apolloHooks/useQueryQuestions.js";
 
 const RECENT_TAB_IDX = 1;
@@ -40,6 +39,7 @@ function QuestionContainer() {
 			isShowEditButton: true,
 			isLike: false,
 			likeCount: 0,
+			status: "active",
 		};
 
 		socketClient.emit("question/create", newQuestion);
