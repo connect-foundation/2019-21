@@ -1,5 +1,6 @@
-import React, {useReducer} from "react";
+import React, { useReducer, useContext } from "react";
 import styled from "styled-components";
+import moment from "moment";
 import TabHeader from "../TabHeader";
 import InputEventName from "./InputEventName";
 import InputStartDate from "./InputStartDate";
@@ -8,11 +9,9 @@ import InputEventCode from "./InputEventCode";
 import InputEventLink from "./InputEventLink";
 import InputHashTag from "./InputHashTag";
 import HashTagsField from "./HashTagsField";
-import {
-	initialGeneralState,
-	generalSettingReducer,
-} from "../../settingReducer/settingReducer";
+import { generalSettingReducer } from "../../settingReducer/settingReducer";
 import ButtonField from "../ButtonField";
+import { HostContext } from "../../../../libs/hostContext";
 
 const PopUpLayOutStyle = styled.div`
 	display: flex;
@@ -20,12 +19,30 @@ const PopUpLayOutStyle = styled.div`
 	background-color: white;
 `;
 
-export default function GeneralSetting({handleClose}) {
-	console.log("general");
+function convertDataToView(eventInfo) {
+	return {
+		eventName: eventInfo.eventName,
+		startDate: moment(new Date(parseInt(eventInfo.startAt))),
+		endDate: moment(new Date(parseInt(eventInfo.endAt))).format(
+			"YYYY년 MM월 DD일 HH시 mm분",
+		),
+		eventCode: eventInfo.eventCode,
+		hashTags: [
+			{ key: "sadfsadf", label: "부스트캠프" },
+			{ key: "asdfuuu", label: "자바스크립트" },
+		],
+		eventLink: `http://localhost:3001/${window.btoa(eventInfo.eventCode)}`,
+	};
+}
+
+export default function GeneralSetting({ handleClose }) {
+	const { hostInfo, events, setEvents } = useContext(HostContext);
+	const initialGeneralState = convertDataToView(events[0]);
 	const [generalSettingState, dispatch] = useReducer(
 		generalSettingReducer,
 		initialGeneralState,
 	);
+
 	const {
 		eventName,
 		startDate,
@@ -72,7 +89,7 @@ export default function GeneralSetting({handleClose}) {
 
 	const sendData = () => {
 		console.log(generalSettingState);
-		reset();
+		handleClose();
 	};
 	const updateHashTag = hashTagList => {
 		dispatch({
@@ -88,7 +105,7 @@ export default function GeneralSetting({handleClose}) {
 			<InputStartDate
 				endDate={endDate}
 				startDate={startDate}
-				dispatch={{setStartDate, setEndDate}}
+				dispatch={{ setStartDate, setEndDate }}
 			/>
 			<EndDateField endDate={endDate} />
 			<InputEventCode eventCode={eventCode} dispatch={setEventCode} />

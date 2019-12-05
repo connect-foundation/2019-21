@@ -51,7 +51,8 @@ export default {
 					if (!exist) break;
 					eventCode = faker.random.alphaNumeric(4);
 				}
-				event = await createEvent({
+				let event = await createEvent({
+					eventName: info.eventName,
 					eventCode,
 					HostId: authority.info.id,
 					startAt: info.startAt,

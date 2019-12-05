@@ -7,6 +7,11 @@ function getEventsByHost() {
 				events {
 					id
 					eventCode
+					eventName
+					startAt
+					endAt
+					moderationOption
+					replyOption
 				}
 				host {
 					oauthId
@@ -22,20 +27,21 @@ function getEventsByHost() {
 
 function createEvent() {
 	return gql`
-	mutation Query($info: EventInfo!) {
+		mutation Query($info: EventInfo!) {
 			createEvent(info: $info) {
 				id
 				eventCode
+				eventName
 				moderationOption
 				replyOption
 				endAt
 				HostId
 			}
-	}
-`;
+		}
+	`;
 }
 
-function setModerationOptionById(eventId,moderationOption){
+function setModerationOptionById(eventId, moderationOption) {
 	return gql`
 	mutation{
   		moderation(eventId: 2, moderationOption: ${moderationOption})
@@ -57,13 +63,12 @@ function getQuestionsByEventCodeAndGuestId() {
             guestName
 			isStared
 		}
-		
-        getEventOption(eventId: 2){
-        	moderationOption
-        	replyOption
-    	}
-    }
-`;
+	`;
 }
 
-export { getEventsByHost, getQuestionsByEventCodeAndGuestId, createEvent,setModerationOptionById };
+export {
+	getEventsByHost,
+	getQuestionsByEventCodeAndGuestId,
+	createEvent,
+	setModerationOptionById,
+};
