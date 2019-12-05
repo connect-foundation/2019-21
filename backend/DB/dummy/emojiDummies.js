@@ -11,7 +11,7 @@ export default async function makeEmojiDummy(number = 500) {
 
 	for (let i = 0; i < number; ++i) {
 		const QuestionId = faker.random.number({min: 1, max: 100});
-		const GuestId = faker.random.number({min: 1, max: GUEST_NUM});
+		const GuestId = (await getQuestionById(QuestionId)).dataValues.GuestId;
 		const name = faker.random.arrayElement(["one", "two", "three", "four"]);
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
@@ -24,7 +24,7 @@ export default async function makeEmojiDummy(number = 500) {
 			name,
 			createdAt,
 			updatedAt,
-			EventId: res.dataValues.EventId,
+			EventId: res.dataValues.EventId
 		});
 	}
 	return bulkEmoji;
