@@ -1,19 +1,34 @@
 import React, {useEffect, useReducer, useRef} from "react";
 import Box from "@material-ui/core/Box";
 import gray from "@material-ui/core/colors/grey.js";
+import {useQuery} from "@apollo/react-hooks";
 import QuestionContainerTabBar from "./QuestionContainerTabBar.js";
 import useTabs from "../../materialUIHooks/useTabs.js";
 import QuestionInputArea from "./QuestionInputArea/QuestionInputArea.js";
 import QuestionCardList from "./QuestionCard/QuestionCardList.js";
 import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
 import QuestionsReducer from "./QuestionsReducer.js";
-import useQueryQuestions from "../../apolloHooks/useQueryQuestions.js";
+import {
+	QUERY_INIT_QUESTIONS,
+	buildQuestions,
+} from "../../libs/useQueryQuestions.js";
 
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
 
+function useMyQuery(
+	options = {
+		variables: {EventId: 2, GuestId: 122},
+	},
+) {
+	return useQuery(QUERY_INIT_QUESTIONS, options);
+}
+
 function QuestionContainer() {
-	const {data} = useQueryQuestions();
+	const {data, loading, error} = useMyQuery({
+		variables: {EventId: 2, GuestId: 27},
+	});
+
 	const [questions, dispatch] = useReducer(QuestionsReducer, []);
 	const {tabIdx, selectTabIdx} = useTabs(RECENT_TAB_IDX);
 	const userNameRef = useRef(null);
@@ -21,7 +36,7 @@ function QuestionContainer() {
 
 	useEffect(() => {
 		if (data) {
-			dispatch({type: "load", data: data.questions});
+			dispatch({type: "load", data: buildQuestions(data)});
 		}
 	}, [data]);
 
@@ -70,15 +85,12 @@ function QuestionContainer() {
 			/>
 			<QuestionInputArea
 				onAskQuestion={onAskQuestion}
-				onOpen={() => {
-				}}
+				onOpen={() => {}}
 				questionRef={questionRef}
 				userNameRef={userNameRef}
 			/>
-			<QuestionCardList questions={questions}/>
-			<Box p={12} style={style}>
-
-			</Box>
+			<QuestionCardList questions={questions} />
+			<Box p={12} style={style}></Box>
 		</>
 	);
 }
