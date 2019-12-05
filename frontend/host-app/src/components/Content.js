@@ -170,10 +170,10 @@ function Content({event}) {
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
-	console.log(data);
+
 	return (
 		<>
-			<Inner data={data} event={event} option={false}/>
+			<Inner data={data.newData} event={event} option={data.newOption}/>
 		</>
 	);
 }

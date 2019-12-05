@@ -79,7 +79,11 @@ const QUERY_INIT_QUESTIONS = gql`
         didILikes(GuestId: $GuestId) {
             QuestionId
         }
+		getEventOption(EventId: $EventId){
+		moderationOption
+		replyOption
     }
+}
 `;
 
 export default function useQueryQuestions(
@@ -88,11 +92,12 @@ export default function useQueryQuestions(
 	}
 ) {
 	const {data, loading, error} = useQuery(QUERY_INIT_QUESTIONS, options);
-	console.log(data);
 	let newData = undefined;
+	let newOption = undefined;
 	if (data) {
+		newOption = data.getEventOption;
 		newData = buildQuestions(data);
 	}
 
-	return {data: newData, loading, error};
+	return {data: {newData,newOption}, loading, error};
 }
