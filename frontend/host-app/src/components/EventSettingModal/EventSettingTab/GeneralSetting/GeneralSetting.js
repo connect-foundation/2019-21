@@ -1,4 +1,4 @@
-import React, { useReducer, useContext, useEffect } from "react";
+import React, { useReducer, useContext } from "react";
 import styled from "styled-components";
 import moment from "moment";
 import TabHeader from "../TabHeader";
@@ -31,7 +31,7 @@ function convertDataToView(eventInfo) {
 			{ key: "sadfsadf", label: "부스트캠프" },
 			{ key: "asdfuuu", label: "자바스크립트" },
 		],
-		eventLink: `https://localhost:3001/${window.btoa(eventInfo.eventCode)}`,
+		eventLink: `http://localhost:3001/${window.btoa(eventInfo.eventCode)}`,
 	};
 }
 
