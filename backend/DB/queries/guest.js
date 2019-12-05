@@ -23,7 +23,6 @@ async function createGuest(name, eventId) {
 	return result;
 }
 
-
 async function getGuestById(id) {
 	return Guest.findOne({
 		where: {id},
@@ -41,4 +40,10 @@ async function getGuestByEventId(EventId) {
 	return Guest.findAll({where: {EventId}});
 }
 
-export {createGuest, getGuestById, updateGuestById, getGuestByEventId, findGuestBySid};
+export {
+	createGuest,
+	getGuestById,
+	updateGuestById,
+	getGuestByEventId,
+	findGuestBySid,
+};

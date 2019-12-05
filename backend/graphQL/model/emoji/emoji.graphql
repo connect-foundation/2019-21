@@ -1,0 +1,15 @@
+type Emoji {
+	name: String!
+	count: Int!
+	QuestionId: Int!
+}
+
+type EmojiPick {
+	name: String!
+	QuestionId: Int!
+}
+
+type Query {
+	emojis(EventId: ID!): [Emoji]
+	emojiPicks(EventId: ID!, GuestId: ID!): [EmojiPick]
+}

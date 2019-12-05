@@ -20,24 +20,50 @@ function getEventsByHost() {
 	`;
 }
 
-function getQuestionsByEventCodeAndGuestId(eventCode,guestId){
+function createEvent() {
+	return gql`
+	mutation Query($info: EventInfo!) {
+			createEvent(info: $info) {
+				id
+				eventCode
+				moderationOption
+				replyOption
+				endAt
+				HostId
+			}
+	}
+`;
+}
+
+function setModerationOptionById(eventId,moderationOption){
+	return gql`
+	mutation{
+  		moderation(eventId: 2, moderationOption: ${moderationOption})
+	}
+`;
+}
+
+function getQuestionsByEventCodeAndGuestId() {
 	return gql`
     {
-        questions(eventCode: "u0xn", guestId: 148) {
+        questions(eventCode: "u959", GuestId: 148) {
             content
             id
-            likeCount
-            isLike
+            didILiked
+			isStared
             GuestId
             state
             createdAt
             guestName
-            Emojis {
-                EmojiName
-            }
-        }
+			isStared
+		}
+		
+        getEventOption(eventId: 2){
+        	moderationOption
+        	replyOption
+    	}
     }
 `;
 }
 
-export { getEventsByHost, getQuestionsByEventCodeAndGuestId };
+export { getEventsByHost, getQuestionsByEventCodeAndGuestId, createEvent,setModerationOptionById };

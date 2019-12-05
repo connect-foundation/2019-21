@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
-import { Button, Modal } from "@material-ui/core";
+import {Button, Modal} from "@material-ui/core";
 import PollName from "./PollName";
 import PollType from "./PollType";
 import MultipleItems from "./MultipleItems";
 import RatingBlock from "./RatingBlock";
 import Duplication from "./Duplication";
-import { socketClient, useSocket } from "../../libs/socket.io-Client-wrapper";
+import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper";
 
 const ModalWrapper = styled.div`
 	display: flex;
@@ -28,7 +28,7 @@ const RowWrapper = styled.div`
 	box-sizing: border-box;
 `;
 
-function NewPollModal({ open, handleClose }) {
+function NewPollModal({open, handleClose}) {
 	// Poll 이름
 	const [pollName, setPollName] = useState("");
 	const onPollNameChange = event => {
@@ -57,7 +57,7 @@ function NewPollModal({ open, handleClose }) {
 	const onTextChange = (event, id) => {
 		setTexts(
 			texts.map((text, index) =>
-				index === id ? event.target.value : text,
+				(index === id ? event.target.value : text),
 			),
 		);
 	};
@@ -100,20 +100,17 @@ function NewPollModal({ open, handleClose }) {
 		alignItems: "center",
 	};
 
-	const getSelectionType = () => {
-		return pollType === "rating" ? ratingValue.toString() : selectionType;
-	};
+	const getSelectionType = () => (pollType === "rating" ? ratingValue.toString() : selectionType);
 
-	const getCandidates = (pollType, selectionType) => {
-		return pollType === "rating"
-			? ratingValue
-			: selectionType === "text"
-			? texts
-			: dates;
-	};
+	const getCandidates = (pollType, selectionType) => (pollType === "rating" ?
+		ratingValue :
+		selectionType === "text" ?
+			texts :
+			dates);
 
 	const onCreatePoll = () => {
 		const newPoll = {};
+
 		newPoll.EventId = 1;
 		newPoll.pollName = pollName;
 		newPoll.pollType = pollType;

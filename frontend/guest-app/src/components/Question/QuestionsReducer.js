@@ -6,7 +6,7 @@ const QuestionsReducer = (state, action) => {
 	const actionTable = {
 		reset: () => [],
 		load: () => [...action.data.sort(compareByDate)],
-		addNewQuestion: () => [...state, action.data],
+		addNewQuestion: () => (action.data.status === "active" ? [...state, action.data] : [...state]),
 		sortByRecent: () => [...state.sort(compareByDate)],
 		sortByLikeCount: () => [...state.sort(compareByLikeCount)],
 	};

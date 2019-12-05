@@ -29,19 +29,6 @@ function BindSocketListener(socket, server) {
 	};
 }
 
-socketServer.on("connection", socket => {
-	const id = socket.id;
-
-	console.log(`id ${id} connected `);
-
-	const addSocketListener = BindSocketListener(socket, socketServer);
-
-	socketHandlers.forEach(({eventName, handler}) => {
-		console.log(`apply handler at ${eventName} event`);
-		addSocketListener(eventName, handler);
-	});
-});
-
 const nameSpaceServer = socketServer.of(/.*/);
 
 nameSpaceServer.on("connection", socket => {
@@ -53,7 +40,6 @@ nameSpaceServer.on("connection", socket => {
 	const addSocketListener = BindSocketListener(socket, nameSpaceServer);
 
 	socketHandlers.forEach(({eventName, handler}) => {
-		console.log(`apply handler at ${eventName} event`);
 		addSocketListener(eventName, handler);
 	});
 });

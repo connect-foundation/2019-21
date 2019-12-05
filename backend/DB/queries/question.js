@@ -21,8 +21,8 @@ export async function createQuestion(
 }
 
 export async function getQuestionsByEventId(EventId) {
-	return Question.findAll({
-		where: {EventId, QuestionId: null},
+	return models.Question.findAll({
+		where: {EventId},
 	});
 }
 
@@ -44,4 +44,9 @@ export async function deleteQuestionById(id) {
 
 export async function updateQuestionById({id, content}) {
 	return Question.update({content}, {where: {id}});
+}
+
+
+export async function getQuestionById(id) {
+	return Question.findOne({where: {id}});
 }

@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, {useReducer} from "react";
 import styled from "styled-components";
 import PollCard from "./PollCard";
 // import PollDummyData from "./PollDummyData";
@@ -112,13 +112,15 @@ function reducer(state, action) {
 	}
 }
 
-function PollContainer({ data }) {
+function PollContainer({data}) {
 	console.log(data);
 
 	let activePollData = null;
 	let closedPollData = null;
+
 	if (data) {
 		const initialPollData = data;
+
 		activePollData = initialPollData.filter(
 			poll => poll.state === "running",
 		)[0];

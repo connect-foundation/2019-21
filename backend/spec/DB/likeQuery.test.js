@@ -1,11 +1,11 @@
 import {
 	createLike,
 	deleteLikeById,
-	getDidILiked,
+	getDidILikes,
 	getLikeCountByQuestion,
 	getLikesByGuestId,
 	getLikesByQuestionId,
-} from "../DB/queries/like.js";
+} from "../../DB/queries/like.js";
 
 describe("like query api", () => {
 	let newId = null;
@@ -45,7 +45,7 @@ describe("like query api", () => {
 	it("should able to get didILiked", async () => {
 		const QuestionId = 11;
 		const GuestId = 58;
-		const res = await getDidILiked({
+		const res = await getDidILikes({
 			QuestionId,
 			GuestId,
 		});

@@ -45,6 +45,7 @@ module.exports = (sequelize, DataTypes) => {
 		Event.belongsTo(models.Host);
 		Event.hasMany(models.Poll);
 		Event.hasMany(models.Hashtag);
+		Event.hasMany(models.Emoji);
 	};
 	return Event;
 };

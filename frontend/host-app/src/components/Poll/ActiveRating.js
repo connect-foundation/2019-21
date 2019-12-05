@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Button } from "@material-ui/core";
+import {Button} from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 
 const ColumnWrapper = styled.div`

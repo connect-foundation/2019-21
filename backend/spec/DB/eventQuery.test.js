@@ -2,9 +2,8 @@ import {
 	createEvent,
 	getEventIdByEventCode,
 	getEventsByHostId,
-	getQuestionsByEventCodeAndGuestId,
 	updateEventById,
-} from "../DB/queries/event.js";
+} from "../../DB/queries/event.js";
 
 describe("event query api", () => {
 	it("be able to createQuestion", async () => {
@@ -27,14 +26,6 @@ describe("event query api", () => {
 		await getEventsByHostId(hostId);
 	});
 
-	it("be able to getQuestionsByEventCodeAndGuestId", async () => {
-		const eventCode = "1cfs";
-		const guestId = 1;
-
-		throw Error("not implement");
-		await getQuestionsByEventCodeAndGuestId(eventCode, guestId);
-	});
-
 	it("be able to updateEventById", async () => {
 		const EventId = 1;
 		const newValue = {
@@ -45,6 +36,7 @@ describe("event query api", () => {
 			endAt: new Date(),
 		};
 
-		await updateEventById(EventId, newValue);
+		const ddd= await updateEventById(EventId, newValue);
+		console.log(ddd);
 	});
 });
