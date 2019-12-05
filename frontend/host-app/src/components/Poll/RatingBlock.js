@@ -3,8 +3,8 @@ import styled from "styled-components";
 import Rating from "@material-ui/lab/Rating";
 
 const ColumnWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
 	flex: 1;
@@ -15,15 +15,20 @@ const ColumnWrapper = styled.div`
 `;
 
 function RatingBlock({ratingValue, maxValue, onChange}) {
-	return (<ColumnWrapper>별점 최대값을 정해주세요.
-		<div>
-			<Rating
-				value={ratingValue}
-				max={maxValue}
-				onChange={(_, newValue) => { onChange(newValue); }}
-			/>
-		</div>
-	</ColumnWrapper>);
+	return (
+		<ColumnWrapper>
+			별점 최대값을 정해주세요.
+			<div>
+				<Rating
+					value={ratingValue}
+					max={maxValue}
+					onChange={(_, newValue) => {
+						onChange(newValue);
+					}}
+				/>
+			</div>
+		</ColumnWrapper>
+	);
 }
 
 export default RatingBlock;

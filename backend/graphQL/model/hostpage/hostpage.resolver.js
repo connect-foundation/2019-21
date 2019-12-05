@@ -1,10 +1,21 @@
 import faker from "faker";
 import {
 	getEventsByHostId,
-	findEventByEventCode,
 	createEvent,
 	getAllEvents,
+	updateEventById,
+	getEventOptionByEventId,
 } from "../../../DB/queries/event.js";
+const moderationResolver = async (eventId, moderationOption) => {
+	const updatedEvent = await updateEventById(eventId, { moderationOption });
+	return updatedEvent[0];
+};
+
+const getEventOptionResolver = async eventId => {
+	const evnetOption = await getEventOptionByEventId(eventId);
+
+	return evnetOption;
+};
 
 export default {
 	Query: {
@@ -18,6 +29,12 @@ export default {
 
 			throw new Error("AuthenticationError");
 		},
+		getEventOption: async (_, { eventId }) =>
+			getEventOptionResolver(eventId),
+	},
+	Mutation: {
+		moderation: (_, { eventId, moderationOption }) =>
+			moderationResolver(eventId, moderationOption),
 	},
 	Mutation: {
 		createEvent: async (_, { info }, authority) => {

@@ -5,7 +5,7 @@ import PollContainer from "./PollContainer";
 
 const POLL_QUERY = gql`
 	{
-		pollGuest(eventCode: "sd3k", guestId: 4) {
+		pollHost(eventCode: "sd3k") {
 			id
 			pollName
 			pollType
@@ -32,7 +32,7 @@ function PollApollo() {
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
 
-	return <PollContainer data={data.pollGuest} />;
+	return <PollContainer data={data.pollHost} />;
 }
 
 export default PollApollo;

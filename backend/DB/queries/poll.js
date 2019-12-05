@@ -13,25 +13,24 @@ export async function getPollsByEventId(eventId) {
 
 export async function createPoll(
 	EventId,
-	name,
-	type,
+	pollName,
+	pollType,
+	selectionType,
 	allowDuplication,
 	state,
 	candidates
 ) {
-	const pollType = type;
-
 	const poll = await Poll.create({
 		EventId,
-		name,
+		pollName,
 		pollType,
+		selectionType,
 		allowDuplication,
 		state,
 	});
 
 	switch (pollType) {
-		case 0: // N지선다 (text)
-		case 1: // N지선다 (date)
+		case "nItems":
 			let i = 0;
 			for (let value of candidates) {
 				await Candidate.create({
@@ -42,7 +41,7 @@ export async function createPoll(
 				i++;
 			}
 			break;
-		case 2: // 별점매기기
+		case "rating":
 			for (let i = 0; i < candidates; i++) {
 				await Candidate.create({
 					PollId: poll.id,

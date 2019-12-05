@@ -53,6 +53,17 @@ export async function getEventIdByEventCode(eventCode) {
 	return event;
 }
 
+export async function getEventOptionByEventId(id) {
+	const event = await models.Event.findOne({
+		where: {
+			id,
+		},
+		attributes: ["moderationOption", "replyOption"],
+	});
+
+	return event;
+}
+
 export async function getQuestionLikeCount(EventId = 2, limit, offset) {
 	return models.Question.findAll({
 		attributes: ["id", [models.sequelize.fn("count", "*"), "likeCount"]],
@@ -67,4 +78,65 @@ export async function getQuestionLikeCount(EventId = 2, limit, offset) {
 		offset,
 		limit,
 	});
+}
+
+export async function getQuestionsByEventCodeAndGuestId(
+	eventCode,
+	guestId,
+	limit = 30,
+	offset,
+) {
+	// const event = await models.Event.findOne({where: {eventCode}});
+	// const EventId = event.dataValues.id
+	const EventId = 2;
+
+	return models.Question.findAll({
+		where: {EventId, QuestionId: null},
+		include: [
+			{
+				model: models.Like,
+			}, {
+				model: models.Emoji,
+			}, {
+				model: models.Guest,
+			},
+		],
+		offset,
+		limit,
+	});
+}
+
+export async function raw_getQuestionsByEventCodeAndGuestId(
+	eventCode,
+	guestId,
+	limit = 100,
+	offset = 0,
+) {
+	// const event = await models.Event.findOne({where: {eventCode}});
+	// const EventId = event.dataValues.id
+	const EventId = 2;
+
+	const query = `
+	select *, Emojis.name, Emojis.GuestId 
+	from Questions 
+		inner join Emojis on Questions.id = Emojis.QuestionId
+	where EventId = :EventId and Questions.QuestionId is null
+-- 	order by Emojis.QuestionId DESC
+	
+-- 	limit :limit offset :offset
+	
+-- 	group by Emojis.QuestionId
+`;
+	// console.log(event.dataValues.id)
+	const [questions] = await models.sequelize.query(query, {
+		replacements: {
+			EventId,
+			limit,
+			offset,
+			type: Sequelize.QueryTypes.SELECT,
+			raw: true,
+		},
+	});
+
+	return questions;
 }

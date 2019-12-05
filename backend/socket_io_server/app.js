@@ -40,7 +40,6 @@ nameSpaceServer.on("connection", socket => {
 	const addSocketListener = BindSocketListener(socket, nameSpaceServer);
 
 	socketHandlers.forEach(({eventName, handler}) => {
-		console.log(`apply handler at ${eventName} event`);
 		addSocketListener(eventName, handler);
 	});
 });
