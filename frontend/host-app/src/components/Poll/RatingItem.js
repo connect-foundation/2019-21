@@ -15,7 +15,7 @@ const ColumnWrapper = styled.div`
 	border: 1px solid #dee2e6; /* Gray3 */
 `;
 
-function RatingItem({ nItems, state, onChange, onCancelRating }) {
+function RatingItem({nItems, state, onChange, onCancelRating}) {
 	return (
 		<ColumnWrapper>
 			{state === "running" ? (

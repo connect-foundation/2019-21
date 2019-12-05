@@ -19,7 +19,7 @@ const ContentStyle = styled.div`
 
 const filterQuestion = (option, data) => data.filter(e => e.state === option);
 
-function Inner({data, event ,option}) {
+function Inner({data, event, option}) {
 	const SELECTED = true;
 	const UNSELECTED = false;
 
@@ -123,7 +123,7 @@ function Inner({data, event ,option}) {
 				.find(e => e.id === req.id),
 		]});
 
-		return setQuestionNumber([modeartionDatas.questions.length,newQuestionDatas.questions.length,newQuestionDatas.questions.length,completeQuestionDatas.questions.length]);
+		return setQuestionNumber([modeartionDatas.questions.length, newQuestionDatas.questions.length, newQuestionDatas.questions.length, completeQuestionDatas.questions.length]);
 		// bug: state 가 한박자 늦게 update. 아직 handler 로 인한 state 변화가 update 되지 않았기 때문으로 추정함.
 	});
 
