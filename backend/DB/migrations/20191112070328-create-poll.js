@@ -7,11 +7,14 @@ module.exports = {
 				primaryKey: true,
 				type: Sequelize.INTEGER,
 			},
-			name: {
+			pollName: {
 				type: Sequelize.STRING(100),
 			},
 			pollType: {
-				type: Sequelize.INTEGER,
+				type: Sequelize.STRING(10),
+			},
+			selectionType: {
+				type: Sequelize.STRING(10),
 			},
 			allowDuplication: {
 				type: Sequelize.BOOLEAN,

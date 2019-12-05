@@ -1,6 +1,6 @@
 import React from "react";
-import styled, {css} from "styled-components";
-import {MdPerson} from "react-icons/md";
+import styled, { css } from "styled-components";
+import { MdPerson } from "react-icons/md";
 import SelectionItems from "./SelectionItems";
 import RatingItem from "./RatingItem";
 

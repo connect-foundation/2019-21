@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {MdDone, MdPerson} from "react-icons/md";
+import { MdDone, MdPerson } from "react-icons/md";
 
 const RowWrapper = styled.div`
 	position: relative;

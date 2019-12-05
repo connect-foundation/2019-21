@@ -1,6 +1,7 @@
 import React from "react";
 import Rating from "@material-ui/lab/Rating";
 import styled from "styled-components";
+import ActiveRating from "./ActiveRating";
 
 const ColumnWrapper = styled.div`
 	display: flex;
@@ -11,28 +12,28 @@ const ColumnWrapper = styled.div`
 	width: 80%;
 	padding: 1rem;
 	box-sizing: border-box;
-	border: 1px solid gray;
+	border: 1px solid #dee2e6; /* Gray3 */
 `;
 
-function RatingBlock({maxStars, value, active}) {
+function RatingItem({ nItems, state, onChange, onCancelRating }) {
 	return (
 		<ColumnWrapper>
-			{active ? (
-				<Rating
-					value={value}
-					max={maxStars}
-					// onChange={(event, newValue) => { onChange(newValue); }}
+			{state === "running" ? (
+				<ActiveRating
+					{...nItems[0]}
+					state={state}
+					onChange={onChange}
+					onCancelRating={onCancelRating}
 				/>
 			) : (
 				<Rating
 					readOnly
-					value={value}
-					max={maxStars}
-					// onChange={(event, newValue) => { onChange(newValue); }}
+					value={nItems[0].value}
+					max={nItems[0].maxStars}
 				/>
 			)}
 		</ColumnWrapper>
 	);
 }
 
-export default RatingBlock;
+export default RatingItem;
