@@ -13,7 +13,7 @@ const ColumnWrapper = styled.div`
 `;
 
 function SelectionItem(props) {
-	const {nItems, totalVoters, ...others} = props;
+	const { nItems, totalVoters, ...others } = props;
 
 	return (
 		<ColumnWrapper>

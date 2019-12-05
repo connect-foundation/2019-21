@@ -1,5 +1,9 @@
 import models from "../models";
 
+export async function findEventByEventCode(eventCode) {
+	return models.Event.findOne({where: {eventCode}});
+}
+
 export async function createEvent({
 	eventCode,
 	HostId,

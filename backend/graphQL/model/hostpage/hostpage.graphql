@@ -5,6 +5,7 @@ type Event {
 	replyOption: Boolean!
 	createdAt: String!
 	updatedAt: String!
+	startAt: String!
 	endAt: String!
 	HostId: ID!
 }
@@ -26,6 +27,16 @@ type Host {
 type InitData {
 	events: [Event]!
 	host: Host!
+}
+
+input EventInfo {
+	HostId: ID!
+	startAt: String!
+	endAt: String!
+}
+
+type Mutation {
+	createEvent(info: EventInfo!): Event
 }
 
 type Query {

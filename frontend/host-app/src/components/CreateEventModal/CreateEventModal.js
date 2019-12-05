@@ -1,13 +1,17 @@
-import React, {useReducer} from "react";
+import React, {useReducer, useContext} from "react";
 import {Modal} from "@material-ui/core";
 import styled from "styled-components";
+import moment from "moment";
 import InputEventName from "./InputEventName";
 import InputStartDate from "./InputStartDate";
+import {useMutation} from "@apollo/react-hooks";
 import InputHashTag from "./InputHashTag";
 import EndDateField from "./EndDateField";
 import HashTagsField from "./HashTagsField";
 import ButtonField from "./ButtonField";
-import {eventModalReducer, initialModalState} from "./eventModalReducer";
+import {eventModalReducer, initialEventInfo} from "./eventModalReducer";
+import {createEvent} from "../../libs/gql";
+import {HostContext} from "../../libs/hostContext";
 
 const modalHeight = 37;
 const modalWidth = 28.125;
@@ -37,35 +41,49 @@ const Header = styled.div`
 	color: #139ffb;
 `;
 
+function formattingDate(date) {
+	return moment(date).format("YYYY-MM-DD HH:mm:ss");
+}
+
 function CreateEventModal({open, handleClose}) {
-	const [modalState, dispatchModalState] = useReducer(
+	const {hostInfo, events, setEvents} = useContext(HostContext);
+	const [eventInfo, dispatchEventInfo] = useReducer(
 		eventModalReducer,
-		initialModalState,
+		initialEventInfo,
 	);
+	const [sendToServer, {data}] = useMutation(createEvent(), {
+		variables: {
+			info: {
+				HostId: hostInfo.id,
+				startAt: formattingDate(eventInfo.startDate),
+				endAt: formattingDate(eventInfo.endDate),
+			},
+		},
+	});
 
 	const setEventName = event => {
-		dispatchModalState({
+		dispatchEventInfo({
 			type: "setEventName",
 			eventName: event.target.value,
 		});
 	};
 
 	const setStartDate = event => {
-		dispatchModalState({
+		dispatchEventInfo({
 			type: "setStartDate",
 			startDate: event,
 		});
 	};
 
 	const setEndDate = event => {
-		dispatchModalState({
+		dispatchEventInfo({
 			type: "setEndDate",
 			endDate: event,
 		});
 	};
 
 	const updateHashTag = hashTagList => {
-		dispatchModalState({
+		dispatchEventInfo({
 			type: "updateHashTags",
 			hashTags: hashTagList,
 		});
@@ -73,13 +91,15 @@ function CreateEventModal({open, handleClose}) {
 
 	const reset = () => {
 		handleClose();
-		dispatchModalState({
+		dispatchEventInfo({
 			type: "reset",
 		});
 	};
 
 	const sendData = () => {
-		console.log(modalState);
+		sendToServer().then(res => {
+			setEvents([...events, res.data.createEvent]);
+		});
 		reset();
 	};
 
@@ -95,17 +115,17 @@ function CreateEventModal({open, handleClose}) {
 				<StyledForm>
 					<InputEventName dispatch={setEventName} />
 					<InputStartDate
-						endDate={modalState.endDate}
-						startDate={modalState.startDate}
+						endDate={eventInfo.endDate}
+						startDate={eventInfo.startDate}
 						dispatch={{setStartDate, setEndDate}}
 					/>
-					<EndDateField endDate={modalState.endDate} />
+					<EndDateField endDate={eventInfo.endDate} />
 					<InputHashTag
-						hashTags={modalState.hashTags}
+						hashTags={eventInfo.hashTags}
 						dispatch={updateHashTag}
 					/>
 					<HashTagsField
-						hashTags={modalState.hashTags}
+						hashTags={eventInfo.hashTags}
 						dispatch={updateHashTag}
 					/>
 					<ButtonField createEvent={sendData} onClose={reset} />
