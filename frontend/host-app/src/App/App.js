@@ -24,7 +24,7 @@ function App() {
 		const hostInfo = data.init.host;
 
 		socketClient.emit("event/initOption", 2); // dummy Event Id:2
-		const eventNum = events.length;
+		const eventNum = 1;
 
 		return (
 			<HostProvider value={{hostInfo, events, setEvents}}>
