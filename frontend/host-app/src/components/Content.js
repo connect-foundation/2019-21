@@ -85,7 +85,7 @@ function Inner({data, event, option}) {
 			content: req.content,
 			createdAt: req.createdAt,
 			guestName: req.guestName,
-			id: Math.floor(Math.random() * 9999999), // id sequelize 로부터 받아와야 함
+			id: req.id,
 			isLike: req.didILike,
 			likeCount: req.likeCount,
 			state: req.status,
@@ -171,8 +171,6 @@ function Content({event}) {
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
-
-	console.log(data);
 
 	return (
 		<>
