@@ -1,7 +1,7 @@
 import models from "../models";
 
-export async function findEventByEventCode(eventCode) {
-	return models.Event.findOne({where: {eventCode}});
+export async function getAllEvents() {
+	return models.Event.findAll();
 }
 
 export async function createEvent({
@@ -13,7 +13,7 @@ export async function createEvent({
 	endAt = new Date(),
 }) {
 	return models.Event.findOrCreate({
-		where: {eventCode},
+		where: { eventCode },
 		defaults: {
 			moderationOption,
 			replyOption,
@@ -26,17 +26,17 @@ export async function createEvent({
 
 export async function updateEventById(
 	id,
-	{eventCode, moderationOption, replyOption, startAt, endAt},
+	{ eventCode, moderationOption, replyOption, startAt, endAt }
 ) {
 	return models.Event.update(
-		{eventCode, moderationOption, replyOption, startAt, endAt},
-		{where: {id}},
+		{ eventCode, moderationOption, replyOption, startAt, endAt },
+		{ where: { id } }
 	);
 }
 
 export async function getEventsByHostId(hostId) {
 	const events = await models.Event.findAll({
-		where: {HostId: hostId},
+		where: { HostId: hostId },
 	});
 
 	return events;
@@ -67,7 +67,7 @@ export async function getEventOptionByEventId(id) {
 export async function getQuestionLikeCount(EventId = 2, limit, offset) {
 	return models.Question.findAll({
 		attributes: ["id", [models.sequelize.fn("count", "*"), "likeCount"]],
-		where: {EventId, QuestionId: null},
+		where: { EventId, QuestionId: null },
 		include: [
 			{
 				model: models.Like,

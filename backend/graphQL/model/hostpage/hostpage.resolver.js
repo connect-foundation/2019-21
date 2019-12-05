@@ -1,8 +1,8 @@
 import faker from "faker";
 import {
 	getEventsByHostId,
-	findEventByEventCode,
 	createEvent,
+	getAllEvents,
 	updateEventById,
 	getEventOptionByEventId,
 } from "../../../DB/queries/event.js";
@@ -40,11 +40,16 @@ export default {
 		createEvent: async (_, { info }, authority) => {
 			if (authority.sub === "host") {
 				let eventCode = faker.random.alphaNumeric(4);
-				let event = await findEventByEventCode(eventCode);
-
-				while (event) {
+				let events = await getAllEvents();
+				const existCode = events.map(event => {
+					return event.eventCode;
+				});
+				while (true) {
+					const exist = existCode.some(someCode => {
+						return eventCode === someCode;
+					});
+					if (!exist) break;
 					eventCode = faker.random.alphaNumeric(4);
-					event = await findEventByEventCode(eventCode);
 				}
 				event = await createEvent({
 					eventCode,
