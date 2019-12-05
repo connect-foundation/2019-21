@@ -8,7 +8,8 @@ const questionCreateSocketHandler = async (data, emit) => {
 		// Dummy Event Id:2
 		const currentModerationOption = globalOption.getOption(2).moderationOption;
 		const eventId = 2; // EventId
-		const guestId = 127; // GuestId
+		const guestId = 19; // GuestId
+		console.log(data);
 
 		if (currentModerationOption) {
 			const moderationData = data;

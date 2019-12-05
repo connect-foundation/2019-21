@@ -78,23 +78,24 @@ function Inner({data, event, option}) {
 
 	useSocket("question/create", req => {
 		// DB 와 sequelize 이름이 달라 error 발생해서 임시조치
-		const tempData = {
+		console.log(req);
+		const newData = {
 			Emojis: [],
-			GuestId: req.guestId,
+			GuestId: req.GuestId,
 			content: req.content,
-			createdAt: req.date,
-			guestName: req.userName,
+			createdAt: req.createdAt,
+			guestName: req.guestName,
 			id: Math.floor(Math.random() * 9999999), // id sequelize 로부터 받아와야 함
-			isLike: false,
-			likeCount: 0,
+			isLike: req.didILike,
+			likeCount: req.likeCount,
 			state: req.status,
 		};
 
 		switch (req.status) {
 			case "moderation" :
-				return setModerationDatas({questions: [...(modeartionDatas.questions), tempData]});
+				return setModerationDatas({questions: [...(modeartionDatas.questions), newData]});
 			case "active" :
-				return setNewQuestionDatas({questions: [...(newQuestionDatas.questions), tempData]});
+				return setNewQuestionDatas({questions: [...(newQuestionDatas.questions), newData]});
 			default: return "err";
 		}
 	});
@@ -170,6 +171,8 @@ function Content({event}) {
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
+
+	console.log(data);
 
 	return (
 		<>
