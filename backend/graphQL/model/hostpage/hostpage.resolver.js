@@ -29,12 +29,8 @@ export default {
 
 			throw new Error("AuthenticationError");
 		},
-		getEventOption: async (_, { eventId }) =>
-			getEventOptionResolver(eventId),
-	},
-	Mutation: {
-		moderation: (_, { eventId, moderationOption }) =>
-			moderationResolver(eventId, moderationOption),
+		getEventOption: async (_, { EventId }) =>
+			getEventOptionResolver(EventId),
 	},
 	Mutation: {
 		createEvent: async (_, { info }, authority) => {
@@ -63,5 +59,7 @@ export default {
 			}
 			throw new Error("AuthenticationError");
 		},
+		moderation: (_, { eventId, moderationOption }) =>
+			moderationResolver(eventId, moderationOption),
 	},
 };

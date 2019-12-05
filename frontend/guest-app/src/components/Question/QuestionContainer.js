@@ -46,15 +46,17 @@ function QuestionContainer() {
 
 	const onAskQuestion = () => {
 		const newQuestion = {
-			userName: userNameRef.current.value,
-			eventId: 2,
-			guestId: 148,
+			guestName: userNameRef.current.value,
+			EventId: 2,
+			GuestId: 148,
 			createdAt: new Date(),
 			content: questionRef.current.value,
 			isShowEditButton: true,
-			isLike: false,
+			isAnonymous: false,
+			didILike: false,
 			likeCount: 0,
 			status: "active",
+			isStared: false,
 		};
 
 		socketClient.emit("question/create", newQuestion);

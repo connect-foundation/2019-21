@@ -8,18 +8,19 @@ const questionCreateSocketHandler = async (data, emit) => {
 		// Dummy Event Id:2
 		const currentModerationOption = globalOption.getOption(2).moderationOption;
 		const eventId = 2; // EventId
-		const guestId = 127; // GuestId
+		const guestId = 19; // GuestId
+		const reqData = data;
+		let newData;
 
 		if (currentModerationOption) {
-			const moderationData = data;
-
-			moderationData.status = "moderation";
-			await createQuestion(eventId, content, guestId, "moderation");
-			emit(moderationData);
+			reqData.status = "moderation";
+			newData = await createQuestion(eventId, content, guestId, "moderation");
 		} else {
-			await createQuestion(eventId , content, guestId);
-			emit(data);
+			newData = await createQuestion(eventId, content, guestId);
 		}
+
+		reqData.id = newData.get({plain: true}).id;
+		emit(reqData);
 	} catch (e) {
 		console.log(e);
 		emit({status: "error", e});
