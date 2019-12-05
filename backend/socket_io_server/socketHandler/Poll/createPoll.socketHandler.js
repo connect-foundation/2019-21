@@ -11,10 +11,6 @@ import { createPoll } from "../../../DB/queries/poll";
  *
  */
 
-const getPollTypeInDB = (pollType, selectionType) => {
-	return pollType === "rating" ? 2 : selectionType === "text" ? 0 : 1;
-};
-
 const createPollSocketHandler = async (data, emit) => {
 	try {
 		console.log(data);
@@ -27,14 +23,13 @@ const createPollSocketHandler = async (data, emit) => {
 			candidates,
 		} = data;
 
-		const name = pollName;
-		const type = getPollTypeInDB(pollType, selectionType);
 		const state = "standby";
 
 		const poll = await createPoll(
 			EventId,
-			name,
-			type,
+			pollName,
+			pollType,
+			selectionType,
 			allowDuplication,
 			state,
 			candidates
