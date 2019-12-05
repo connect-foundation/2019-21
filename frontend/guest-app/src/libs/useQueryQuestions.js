@@ -1,6 +1,7 @@
 import {useQuery} from "@apollo/react-hooks";
 import {gql} from "apollo-boost";
 import {JSONNestJoin} from "./utils.js";
+import {_} from "lodash"
 
 function buildQuestions(object) {
 	const copyData = _.cloneDeep(object);

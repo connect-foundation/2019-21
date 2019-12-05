@@ -46,7 +46,7 @@ function setModerationOptionById(eventId,moderationOption){
 function getQuestionsByEventCodeAndGuestId() {
 	return gql`
     {
-        questions(eventCode: "u959", GuestId: 148) {
+        questions(eventCode: "97st", GuestId: 148) {
             content
             id
             didILiked
