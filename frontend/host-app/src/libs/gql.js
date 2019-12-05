@@ -51,22 +51,17 @@ function setModerationOptionById(eventId, moderationOption) {
 
 function getQuestionsByEventCodeAndGuestId() {
 	return gql`
-		{
-			questions(EventId: 13) {
-				id
-				EventId
-				GuestId
-				createdAt
-				content
-				state
-				isStared
-				likeCount
-			}
-
-			getEventOption(eventId: 13) {
-				moderationOption
-				replyOption
-			}
+    {
+        questions(eventCode: "97st", GuestId: 148) {
+            content
+            id
+            didILiked
+			isStared
+            GuestId
+            state
+            createdAt
+            guestName
+			isStared
 		}
 	`;
 }
