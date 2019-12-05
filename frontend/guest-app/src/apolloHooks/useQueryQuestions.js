@@ -13,32 +13,32 @@ const QUERY_INIT_QUESTIONS = gql`
 			isStared
 			likeCount
 		}
-		
-        emojis(EventId: $EventId) {
-            name
-            count
-            QuestionId
-        }
 
-        emojiPicks(EventId: $EventId, GuestId: $GuestId) {
-            name
-            QuestionId
-        }
+		emojis(EventId: $EventId) {
+			name
+			count
+			QuestionId
+		}
 
-        guests(EventId: $EventId) {
-            id
-            name
-            isAnonymous
-        }
+		emojiPicks(EventId: $EventId, GuestId: $GuestId) {
+			name
+			QuestionId
+		}
 
-        didILikes(GuestId: $GuestId) {
-            QuestionId
-        }
+		guests(EventId: $EventId) {
+			id
+			name
+			isAnonymous
+		}
+
+		didILikes(GuestId: $GuestId) {
+			QuestionId
+		}
 	}
 `;
 
-export default function useQueryQuestions() {
+export default function useQueryQuestions(EventId, GuestId) {
 	return useQuery(QUERY_INIT_QUESTIONS, {
-		variables: {EventId: 2, GuestId: 122},
+		variables: {EventId: EventId, GuestId: GuestId},
 	});
 }

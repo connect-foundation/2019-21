@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer, useRef} from "react";
+import React, {useEffect, useReducer, useRef, useContext} from "react";
 import Box from "@material-ui/core/Box";
 import gray from "@material-ui/core/colors/grey.js";
 import QuestionContainerTabBar from "./QuestionContainerTabBar.js";
@@ -8,12 +8,14 @@ import QuestionCardList from "./QuestionCard/QuestionCardList.js";
 import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
 import QuestionsReducer from "./QuestionsReducer.js";
 import useQueryQuestions from "../../apolloHooks/useQueryQuestions.js";
+import {GuestContext} from "../../libs/guestContext";
 
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
 
 function QuestionContainer() {
-	const {data} = useQueryQuestions();
+	const {event, guest} = useContext(GuestContext);
+	const {data} = useQueryQuestions(event.id, guest.id);
 	const [questions, dispatch] = useReducer(QuestionsReducer, []);
 	const {tabIdx, selectTabIdx} = useTabs(RECENT_TAB_IDX);
 	const userNameRef = useRef(null);
@@ -32,8 +34,8 @@ function QuestionContainer() {
 	const onAskQuestion = () => {
 		const newQuestion = {
 			userName: userNameRef.current.value,
-			eventId: 2,
-			guestId: 148,
+			eventId: event.id,
+			guestId: guest.id,
 			createdAt: new Date(),
 			content: questionRef.current.value,
 			isShowEditButton: true,
@@ -70,15 +72,12 @@ function QuestionContainer() {
 			/>
 			<QuestionInputArea
 				onAskQuestion={onAskQuestion}
-				onOpen={() => {
-				}}
+				onOpen={() => {}}
 				questionRef={questionRef}
 				userNameRef={userNameRef}
 			/>
-			<QuestionCardList questions={questions}/>
-			<Box p={12} style={style}>
-
-			</Box>
+			<QuestionCardList questions={questions} />
+			<Box p={12} style={style}></Box>
 		</>
 	);
 }

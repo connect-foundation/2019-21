@@ -55,6 +55,15 @@ export async function getEventIdByEventCode(eventCode) {
 	return event;
 }
 
+export async function getEventById(EventId){
+	const event = await models.Event.findOne({
+		where:{
+			id:EventId
+		}
+	})
+	return event;
+}
+
 export async function getEventOptionByEventId(id) {
 	const event = await models.Event.findOne({
 		where: {
