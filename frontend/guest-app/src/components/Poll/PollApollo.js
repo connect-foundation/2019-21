@@ -5,14 +5,13 @@ import PollContainer from "./PollContainer";
 
 const POLL_QUERY = gql`
 	{
-		polls(eventCode: "sd3k", guestId: 148) {
+		pollGuest(eventCode: "sd3k", guestId: 4) {
 			id
 			pollName
 			pollType
 			selectionType
 			allowDuplication
 			state
-			active
 			totalVoters
 			pollDate
 			nItems {
@@ -33,8 +32,7 @@ function PollApollo() {
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
 
-	// console.log(data.polls);
-	return <PollContainer data={data.polls} />;
+	return <PollContainer data={data.pollGuest} />;
 }
 
 export default PollApollo;

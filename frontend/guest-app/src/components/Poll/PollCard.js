@@ -44,7 +44,7 @@ function PollCard(props) {
 		pollDate,
 		pollType,
 		totalVoters,
-		active,
+		state,
 		...others
 	} = props;
 
@@ -57,7 +57,7 @@ function PollCard(props) {
 		<ColumnWrapper>
 			<RowWrapper left bold>
 				{pollName}
-				<div>{!active && "(종료됨)"}</div>
+				<div>{state === "closed" && "(종료됨)"}</div>
 			</RowWrapper>
 			<RowWrapper left small>
 				{allowDuplication
@@ -67,13 +67,11 @@ function PollCard(props) {
 			{pollType === "nItems" && (
 				<SelectionItems
 					totalVoters={totalVoters}
-					active={active}
+					state={state}
 					{...others}
 				/>
 			)}
-			{pollType === "rating" && (
-				<RatingItem active={active} {...others} />
-			)}
+			{pollType === "rating" && <RatingItem state={state} {...others} />}
 			<RowWrapper left>
 				<MdPerson />
 				{`${parseInt(totalVoters).toLocaleString()} 명 참여`}

@@ -113,16 +113,24 @@ function reducer(state, action) {
 }
 
 function PollContainer({data}) {
-	const initialPollData = data;
-	const activePollData = initialPollData.filter(poll => poll.active)[0];
-	const closedPollData = initialPollData.filter(
-		poll => poll.active === false,
-	);
+	console.log(data);
+
+	let activePollData = null;
+	let closedPollData = null;
+	if (data) {
+		const initialPollData = data;
+		activePollData = initialPollData.filter(
+			poll => poll.state === "running",
+		)[0];
+		closedPollData = initialPollData.filter(
+			poll => poll.state === "closed",
+		);
+	}
 
 	const [pollData, dispatch] = useReducer(reducer, activePollData);
 
-	const onVote = (id, active) => {
-		if (!active) return;
+	const onVote = (id, state) => {
+		if (state !== "running") return;
 
 		dispatch({
 			type: "VOTE",
@@ -130,8 +138,8 @@ function PollContainer({data}) {
 		});
 	};
 
-	const onChange = (value, active) => {
-		if (!active) return;
+	const onChange = (value, state) => {
+		if (state !== "running") return;
 
 		dispatch({
 			type: "RATE",
@@ -155,9 +163,10 @@ function PollContainer({data}) {
 					onCancelRating={onCancelRating}
 				/>
 			)}
-			{closedPollData.map((poll, index) => (
-				<PollCard {...poll} key={index} onVote={onVote} />
-			))}
+			{closedPollData &&
+				closedPollData.map((poll, index) => (
+					<PollCard {...poll} key={index} onVote={onVote} />
+				))}
 		</ColumnWrapper>
 	);
 }
