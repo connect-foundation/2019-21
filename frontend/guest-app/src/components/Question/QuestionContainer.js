@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer, useRef} from "react";
+import React, {useEffect, useReducer, useRef,useContext} from "react";
 import Box from "@material-ui/core/Box";
 import gray from "@material-ui/core/colors/grey.js";
 import {useQuery} from "@apollo/react-hooks";
@@ -12,6 +12,7 @@ import {
 	QUERY_INIT_QUESTIONS,
 	buildQuestions,
 } from "../../libs/useQueryQuestions.js";
+import {GuestContext} from "../../libs/guestContext";
 
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
@@ -25,8 +26,9 @@ function useMyQuery(
 }
 
 function QuestionContainer() {
+	const {event,guest}=useContext(GuestContext);
 	const {data, loading, error} = useMyQuery({
-		variables: {EventId: 2, GuestId: 27},
+		variables: {EventId: event.id, GuestId: guest.id},
 	});
 
 	const [questions, dispatch] = useReducer(QuestionsReducer, []);
@@ -47,8 +49,8 @@ function QuestionContainer() {
 	const onAskQuestion = () => {
 		const newQuestion = {
 			guestName: userNameRef.current.value,
-			EventId: 2,
-			GuestId: 148,
+			EventId: event.id,
+			GuestId: guest.id,
 			createdAt: new Date(),
 			content: questionRef.current.value,
 			isShowEditButton: true,
