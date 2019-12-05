@@ -1,6 +1,7 @@
 type Event {
 	id: Int!
 	eventCode: String!
+	eventName: String!
 	moderationOption: Boolean!
 	replyOption: Boolean!
 	createdAt: String!

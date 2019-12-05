@@ -5,6 +5,7 @@ export async function getAllEvents() {
 }
 
 export async function createEvent({
+	eventName,
 	eventCode,
 	HostId,
 	moderationOption = false,
@@ -20,6 +21,7 @@ export async function createEvent({
 			startAt,
 			endAt,
 			HostId,
+			eventName,
 		},
 	});
 }
@@ -84,20 +86,22 @@ export async function getQuestionsByEventCodeAndGuestId(
 	eventCode,
 	guestId,
 	limit = 30,
-	offset,
+	offset
 ) {
 	// const event = await models.Event.findOne({where: {eventCode}});
 	// const EventId = event.dataValues.id
 	const EventId = 2;
 
 	return models.Question.findAll({
-		where: {EventId, QuestionId: null},
+		where: { EventId, QuestionId: null },
 		include: [
 			{
 				model: models.Like,
-			}, {
+			},
+			{
 				model: models.Emoji,
-			}, {
+			},
+			{
 				model: models.Guest,
 			},
 		],
@@ -110,7 +114,7 @@ export async function raw_getQuestionsByEventCodeAndGuestId(
 	eventCode,
 	guestId,
 	limit = 100,
-	offset = 0,
+	offset = 0
 ) {
 	// const event = await models.Event.findOne({where: {eventCode}});
 	// const EventId = event.dataValues.id
