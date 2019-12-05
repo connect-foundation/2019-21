@@ -59,24 +59,20 @@ export const QUERY_INIT_QUESTIONS = gql`
             isStared
             likeCount
         }
-
         emojis(EventId: $EventId) {
             name
             count
             QuestionId
         }
-
         emojiPicks(EventId: $EventId, GuestId: $GuestId) {
             name
             QuestionId
         }
-
         guests(EventId: $EventId) {
             id
             name
             isAnonymous
         }
-
         didILikes(GuestId: $GuestId) {
             QuestionId
         }

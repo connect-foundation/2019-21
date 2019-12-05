@@ -7,6 +7,12 @@ type Guest {
 	EventId: ID
 }
 
+type EventAndGuest {
+	event: Event
+	guest: Guest
+}
+
 type Query {
 	guests(EventId: ID!): [Guest]!
+	guestInEvent: EventAndGuest
 }
