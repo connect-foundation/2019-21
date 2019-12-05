@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
 	DateTimePicker,
 	MuiPickersUtilsProvider,
 	TimePicker,
 } from "@material-ui/pickers";
-import {styled} from "@material-ui/core/styles";
+import { styled } from "@material-ui/core/styles";
 import DateFnsUtils from "@date-io/date-fns";
 import Container from "@material-ui/core/Container";
 import moment from "moment";
@@ -27,7 +27,7 @@ const CustomTimePicker = styled(TimePicker)({
 });
 
 function InputStartDate(props) {
-	const {setStartDate, setEndDate} = props.dispatch;
+	const { setStartDate, setEndDate } = props.dispatch;
 	const [lastTime, handleLastTimeChange] = useState(
 		new Date().setHours(0, 0),
 	);
@@ -52,6 +52,7 @@ function InputStartDate(props) {
 			<MuiPickersUtilsProvider utils={DateFnsUtils}>
 				<CustomDateTimePicker
 					label="시작날짜"
+					format={"yyyy년 MM월 dd일 HH시 mm분"}
 					value={props.startDate}
 					onChange={setStartDate}
 				/>
