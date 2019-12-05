@@ -117,8 +117,10 @@ function PollContainer({data}) {
 
 	let activePollData = null;
 	let closedPollData = null;
+
 	if (data) {
 		const initialPollData = data;
+
 		activePollData = initialPollData.filter(
 			poll => poll.state === "running",
 		)[0];

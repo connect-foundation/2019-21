@@ -1,6 +1,6 @@
 import React from "react";
-import styled, { css } from "styled-components";
-import { MdPerson } from "react-icons/md";
+import styled, {css} from "styled-components";
+import {MdPerson} from "react-icons/md";
 import SelectionItems from "./SelectionItems";
 import RatingItem from "./RatingItem";
 
@@ -60,9 +60,9 @@ function PollCard(props) {
 				<div>{state === "closed" && "(종료됨)"}</div>
 			</RowWrapper>
 			<RowWrapper left small>
-				{allowDuplication
-					? `복수선택 | ${localePollDate}`
-					: `${localePollDate}`}
+				{allowDuplication ?
+					`복수선택 | ${localePollDate}` :
+					`${localePollDate}`}
 			</RowWrapper>
 			{pollType === "nItems" && (
 				<SelectionItems

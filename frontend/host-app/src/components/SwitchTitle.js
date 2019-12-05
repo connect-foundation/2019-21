@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 
 function SwitchTitle({titleName, state, stateHandler, badgeState}) {
 	const classes = useStyles();
-	const eventId = 2; //dummyEventId
+	const eventId = 2; // dummyEventId
 
 	const moderationEventEmit = () => socketClient.emit("moderation/toggle", {eventId, state: !state});
 
