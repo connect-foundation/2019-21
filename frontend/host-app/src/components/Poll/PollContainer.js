@@ -192,7 +192,7 @@ function PollContainer({ data }) {
 			)}
 			{standbyPollData &&
 				standbyPollData.map((poll, index) => (
-					<PollCard {...poll} key={index} onVote={onVote} standby />
+					<PollCard {...poll} key={index} onVote={onVote} />
 				))}
 			{closedPollData &&
 				closedPollData.map((poll, index) => (

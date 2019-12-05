@@ -40,20 +40,18 @@ const RowWrapper = styled.div`
 
 function PollCard(props) {
 	const {
+		id,
 		pollName,
 		allowDuplication,
 		pollDate,
 		pollType,
 		totalVoters,
 		state,
-		standby,
 		...others
 	} = props;
 
 	// const localePollDate = pollDate.toLocaleString();
 	const localePollDate = pollDate;
-
-	// console.log(pollName, pollDate, totalVoters);
 
 	return (
 		<ColumnWrapper>
@@ -79,13 +77,10 @@ function PollCard(props) {
 				<MdPerson />
 				{`${parseInt(totalVoters).toLocaleString()} 명 참여`}
 			</RowWrapper>
-			{standby && (
+			{state === "standby" && (
 				<>
 					<Button variant="contained" color="primary">
 						개시하기
-					</Button>
-					<Button variant="contained" color="secondary">
-						삭제하기
 					</Button>
 				</>
 			)}
