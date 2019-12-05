@@ -22,7 +22,7 @@ function getEventsByHost() {
 
 function createEvent() {
 	return gql`
-		mutation Query($info: EventInfo!) {
+	mutation Query($info: EventInfo!) {
 			createEvent(info: $info) {
 				id
 				eventCode
@@ -31,27 +31,39 @@ function createEvent() {
 				endAt
 				HostId
 			}
-		}
-	`;
+	}
+`;
+}
+
+function setModerationOptionById(eventId,moderationOption){
+	return gql`
+	mutation{
+  		moderation(eventId: 2, moderationOption: ${moderationOption})
+	}
+`;
 }
 
 function getQuestionsByEventCodeAndGuestId() {
 	return gql`
-		query Query($eventCode: String!) {
-			questions(eventCode: $eventCode) {
-				content
-				id
-				likeCount
-				isLike
-				GuestId
-				state
-				createdAt
-				guestName
-				Emojis {
-					EmojiName
-				}
-			}
+    {
+        questions(eventCode: "u959", GuestId: 148) {
+            content
+            id
+            didILiked
+			isStared
+            GuestId
+            state
+            createdAt
+            guestName
+			isStared
 		}
-	`;
+		
+        getEventOption(eventId: 2){
+        	moderationOption
+        	replyOption
+    	}
+    }
+`;
 }
-export { getEventsByHost, getQuestionsByEventCodeAndGuestId, createEvent };
+
+export { getEventsByHost, getQuestionsByEventCodeAndGuestId, createEvent,setModerationOptionById };

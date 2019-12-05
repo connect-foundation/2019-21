@@ -10,6 +10,11 @@ type Event {
 	HostId: ID!
 }
 
+type EventOption {
+    moderationOption: Boolean!
+    replyOption: Boolean!
+}
+
 type Host {
 	id: Int!
 	oauthId: ID!
@@ -37,4 +42,9 @@ type Mutation {
 type Query {
 	events: [Event]!
 	init: InitData!
+	getEventOption(eventId:Int!): EventOption!
+}
+
+type Mutation{
+    moderation(eventId:Int!, moderationOption:Boolean!): Int!
 }

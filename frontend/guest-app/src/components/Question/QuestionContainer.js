@@ -12,7 +12,7 @@ import QuestionsReducer from "./QuestionsReducer.js";
 
 const EXCHANGE_RATES = gql`
     {
-        questions(eventCode: "u0xn", GuestId: 148) {
+        questions(eventCode: "u959", GuestId: 148) {
             content
             id
             didILiked
@@ -56,6 +56,7 @@ function QuestionContainer() {
 			isShowEditButton: true,
 			isLike: false,
 			likeCount: 0,
+			status: "active",
 		};
 
 		socketClient.emit("question/create", newQuestion);
