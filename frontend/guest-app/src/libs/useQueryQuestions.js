@@ -3,6 +3,7 @@ import {gql} from "apollo-boost";
 import {JSONNestJoin} from "./utils.js";
 import _ from "lodash"
 
+
 export function buildQuestions(object) {
 	const copyData = _.cloneDeep(object);
 	let {questions, emojis, emojiPicks, guests, didILikes} = copyData;
