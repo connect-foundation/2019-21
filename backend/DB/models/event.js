@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
 			eventCode: {
 				type: DataTypes.STRING(10),
 			},
+			eventName: {
+				type: DataTypes.STRING(100),
+			},
 			moderationOption: {
 				type: DataTypes.BOOLEAN,
 				defaultValue: false,
