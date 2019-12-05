@@ -3,5 +3,6 @@ module.exports = {
     "tabWidth": 4,
     "useTabs": true,
     "semi": true,
-    "singleQuote": false
+    "singleQuote": false,
+    "bracketSpacing": false
 };
