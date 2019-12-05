@@ -94,7 +94,7 @@ export async function getQuestionLikeCount(EventId = 2, limit, offset) {
 export async function getQuestionsByEventCodeAndGuestId(
 	eventCode,
 	guestId,
-	limit = 30,
+	limit = 70,
 	offset
 ) {
 	// const event = await models.Event.findOne({where: {eventCode}});

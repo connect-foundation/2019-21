@@ -17,8 +17,8 @@ export default function makeCandidateDummy(number = POLL_NUM) {
 				numberOfCandidates[faker.random.number({ min: 0, max: 9 })];
 
 			for (
-				let candidateNumber = 1;
-				candidateNumber <= LIMIT;
+				let candidateNumber = 0;
+				candidateNumber < LIMIT;
 				candidateNumber++
 			) {
 				const content = faker.lorem.sentence();
@@ -39,8 +39,8 @@ export default function makeCandidateDummy(number = POLL_NUM) {
 				numberOfCandidates[faker.random.number({ min: 0, max: 9 })];
 
 			for (
-				let candidateNumber = 1;
-				candidateNumber <= LIMIT;
+				let candidateNumber = 0;
+				candidateNumber < LIMIT;
 				candidateNumber++
 			) {
 				const content = faker.date.between("1900-01-01", "2999-12-31");
@@ -61,11 +61,11 @@ export default function makeCandidateDummy(number = POLL_NUM) {
 			const LIMIT = 10;
 
 			for (
-				let candidateNumber = 1;
-				candidateNumber <= LIMIT;
+				let candidateNumber = 0;
+				candidateNumber < LIMIT;
 				candidateNumber++
 			) {
-				const content = candidateNumber.toString();
+				const content = (candidateNumber + 1).toString();
 				const createdAt = faker.date.past(1);
 				const updatedAt = createdAt;
 				const PollId = index;

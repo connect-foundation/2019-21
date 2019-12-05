@@ -6,6 +6,7 @@ const Candidate = models.Candidate;
 export async function getPollsByEventId(eventId) {
 	const result = await models.Poll.findAll({
 		where: { EventId: eventId },
+		order: [["id", "DESC"]],
 	});
 
 	return result;

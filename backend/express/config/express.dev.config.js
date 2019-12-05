@@ -17,9 +17,9 @@ const configSetting = {
 		callbackURL: process.env.OAUTH2_DEV_CALLBACK,
 	},
 	routePage: {
-		main: process.env.MAIN_PAGE,
-		host: process.env.HOST_PAGE,
-		guest: process.env.GUEST_PAGE,
+		main: process.env.DEV_MAIN_PAGE,
+		host: process.env.DEV_HOST_PAGE,
+		guest: process.env.DEV_GUEST_PAGE,
 	},
 };
 

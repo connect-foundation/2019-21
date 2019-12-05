@@ -1,10 +1,8 @@
 import {useQuery} from "@apollo/react-hooks";
 import {gql} from "apollo-boost";
 import {JSONNestJoin} from "./utils.js";
-import _ from "lodash"
 
-
-export function buildQuestions(object) {
+function buildQuestions(object) {
 	const copyData = _.cloneDeep(object);
 	let {questions, emojis, emojiPicks, guests, didILikes} = copyData;
 
@@ -47,7 +45,7 @@ export function buildQuestions(object) {
 	return questions;
 }
 
-export const QUERY_INIT_QUESTIONS = gql`
+const QUERY_INIT_QUESTIONS = gql`
     query getQuestions($EventId: ID!, $GuestId: ID!) {
         questions(EventId: $EventId) {
             id
@@ -59,30 +57,41 @@ export const QUERY_INIT_QUESTIONS = gql`
             isStared
             likeCount
         }
+
         emojis(EventId: $EventId) {
             name
             count
             QuestionId
         }
+
         emojiPicks(EventId: $EventId, GuestId: $GuestId) {
             name
             QuestionId
         }
+
         guests(EventId: $EventId) {
             id
             name
             isAnonymous
         }
+
         didILikes(GuestId: $GuestId) {
             QuestionId
         }
     }
 `;
 
-export function useQueryQuestions(
+export default function useQueryQuestions(
 	options = {
 		variables: {EventId: 2, GuestId: 122}
 	}
 ) {
-	return useQuery(QUERY_INIT_QUESTIONS, options);
+	const {data, loading, error} = useQuery(QUERY_INIT_QUESTIONS, options);
+
+	let newData = undefined;
+	if (data) {
+		newData = buildQuestions(data);
+	}
+
+	return {data: newData, loading, error};
 }
