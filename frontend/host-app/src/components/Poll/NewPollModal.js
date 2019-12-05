@@ -122,6 +122,7 @@ function NewPollModal({ open, handleClose }) {
 		newPoll.candidates = getCandidates(pollType, selectionType);
 
 		socketClient.emit("poll/create", newPoll);
+		handleClose();
 	};
 
 	useSocket("poll/create", req => {
