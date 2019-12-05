@@ -1,6 +1,6 @@
 const config = {
-	authLoginURL: "http://www.vaggle.com/auth/login",
-	guestAppURL: "http://www.vaggle.com",
+	authLoginURL: "http://www.vaagle.com/auth/login",
+	guestAppURL: "http://www.vaagle.com/guest-app",
 };
 
 export default config;
