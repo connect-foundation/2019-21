@@ -52,6 +52,7 @@ export default {
 					eventCode = faker.random.alphaNumeric(4);
 				}
 				event = await createEvent({
+					eventName: info.eventName,
 					eventCode,
 					HostId: authority.info.id,
 					startAt: info.startAt,
