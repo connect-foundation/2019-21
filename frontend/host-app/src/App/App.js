@@ -14,17 +14,24 @@ function App() {
 	const modal = false;
 	const {data, loading, error} = useQuery(getEventsByHost());
 	const [events, setEvents] = useState("");
-
+	let eventNum = 0;
 	if (loading) {
 		return <p>loading...</p>;
 	} else if (error) {
 		return <p>error-page...</p>;
 	} else {
-		if (events === "") setEvents(data.init.events);
+		if (events === "") {
+			setEvents(
+				data.init.events,
+				() => (eventNum = data.init.events.length),
+			);
+		}
 		const hostInfo = data.init.host;
-
-		socketClient.emit("event/initOption", 2); // dummy Event Id:2
-		const eventNum = 1;
+		eventNum = events.length;
+		if (eventNum) {
+			const eventId = events[0].id;
+			socketClient.emit("event/initOption", eventId); // dummy Event Id:2
+		}
 
 		return (
 			<HostProvider value={{hostInfo, events, setEvents}}>
