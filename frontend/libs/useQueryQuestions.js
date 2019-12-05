@@ -7,7 +7,7 @@ function buildQuestions(object) {
 	let {questions, emojis, emojiPicks, guests, didILikes} = copyData;
 
 	questions = JSONNestJoin(questions, guests, "GuestId", "id", (a, b) => {
-		a.gusetName = b.name;
+		a.guestName = b.name;
 		a.isAnonymous = b.isAnonymous;
 
 		return a;

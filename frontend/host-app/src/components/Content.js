@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Column from "./Column";
 import {socketClient, useSocket} from "../libs/socket.io-Client-wrapper";
 import {getQuestionsByEventCodeAndGuestId} from "../libs/gql";
+import useQueryQuestions from "../libs/useQueryQuestions";
 
 const ContentStyle = styled.div`
 	display: flex;
@@ -165,14 +166,14 @@ function Inner({data, event, option}) {
 }
 
 function Content({event}) {
-	const {loading, error, data} = useQuery(getQuestionsByEventCodeAndGuestId());
+	const {loading, error, data} = useQueryQuestions();
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
-
+	console.log(data);
 	return (
 		<>
-			<Inner data={data.questions} event={event} option={data.getEventOption}/>
+			<Inner data={data} event={event} option={false}/>
 		</>
 	);
 }
