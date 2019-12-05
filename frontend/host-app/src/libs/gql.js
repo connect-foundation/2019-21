@@ -20,22 +20,38 @@ function getEventsByHost() {
 	`;
 }
 
-function getQuestionsByEventCodeAndGuestId(eventCode,guestId){
+function createEvent() {
 	return gql`
-    {
-        questions(eventCode: "u0xn", GuestId: 148) {
-            content
-            id
-            didILiked
-			isStared
-            GuestId
-            state
-            createdAt
-            guestName
-			isStared
-        }
-    }
-`;
+		mutation Query($info: EventInfo!) {
+			createEvent(info: $info) {
+				id
+				eventCode
+				moderationOption
+				replyOption
+				endAt
+				HostId
+			}
+		}
+	`;
 }
 
-export { getEventsByHost, getQuestionsByEventCodeAndGuestId };
+function getQuestionsByEventCodeAndGuestId() {
+	return gql`
+		query Query($eventCode: String!) {
+			questions(eventCode: $eventCode) {
+				content
+				id
+				likeCount
+				isLike
+				GuestId
+				state
+				createdAt
+				guestName
+				Emojis {
+					EmojiName
+				}
+			}
+		}
+	`;
+}
+export { getEventsByHost, getQuestionsByEventCodeAndGuestId, createEvent };
