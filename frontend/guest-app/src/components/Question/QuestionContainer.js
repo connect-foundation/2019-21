@@ -31,6 +31,8 @@ function QuestionContainer() {
 		variables: {EventId: event.id, GuestId: guest.id},
 	});
 
+	console.log(data);
+
 	const [questions, dispatch] = useReducer(QuestionsReducer, []);
 	const {tabIdx, selectTabIdx} = useTabs(RECENT_TAB_IDX);
 	const userNameRef = useRef(null);

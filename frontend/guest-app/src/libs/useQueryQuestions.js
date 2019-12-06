@@ -6,6 +6,7 @@ import {JSONNestJoin2} from "./utils.js";
 
 
 export function buildQuestions(object) {
+	object.questions = object.questions.filter( e => e.state === "active" );
 	const copyData = _.cloneDeep(object);
 	let {questions, emojis, emojiPicks, guests, didILikes} = copyData;
 

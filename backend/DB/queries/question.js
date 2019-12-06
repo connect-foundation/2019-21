@@ -42,8 +42,17 @@ export async function deleteQuestionById(id) {
 	return Question.destroy({where: {id}});
 }
 
-export async function updateQuestionById({id, content}) {
-	return Question.update({content}, {where: {id}});
+export async function updateQuestionById({
+	id,
+	content,
+	state,
+	isStared}) {
+	return Question.update({
+		content,
+		state,
+		isStared,
+	},
+	{where: {id}});
 }
 
 
