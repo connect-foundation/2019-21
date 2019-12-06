@@ -1,10 +1,10 @@
 import React, {useState, useContext} from "react";
-import {useQuery} from "@apollo/react-hooks";
 import styled from "styled-components";
 import Column from "./Column";
 import {socketClient, useSocket} from "../libs/socket.io-Client-wrapper";
 import useQueryQuestions from "../libs/useQueryQuestions";
 import {HostContext} from "../libs/hostContext";
+import {makeNewData} from "../libs/utils";
 
 const ContentStyle = styled.div`
 	display: flex;
