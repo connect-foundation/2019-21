@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, {useState, useContext} from "react";
 import styled from "styled-components";
-import { Button, Modal } from "@material-ui/core";
+import {Button, Modal} from "@material-ui/core";
 import PollName from "./PollName";
 import PollType from "./PollType";
 import MultipleItems from "./MultipleItems";
 import RatingBlock from "./RatingBlock";
 import Duplication from "./Duplication";
-import { socketClient } from "../../libs/socket.io-Client-wrapper";
+import {socketClient} from "../../libs/socket.io-Client-wrapper";
+import {HostContext} from "../../libs/hostContext";
 
 const ModalWrapper = styled.div`
 	display: flex;
@@ -28,7 +29,9 @@ const RowWrapper = styled.div`
 	box-sizing: border-box;
 `;
 
-function NewPollModal({ open, handleClose }) {
+function NewPollModal({open, handleClose}) {
+	const {events} = useContext(HostContext);
+	const EventId = events[0].id;
 	// Poll 이름
 	const [pollName, setPollName] = useState("");
 	const onPollNameChange = event => {
@@ -113,7 +116,7 @@ function NewPollModal({ open, handleClose }) {
 	const onCreatePoll = () => {
 		const newPoll = {};
 
-		newPoll.EventId = 1;
+		newPoll.EventId = EventId;
 		newPoll.pollName = pollName;
 		newPoll.pollType = pollType;
 		newPoll.selectionType = getSelectionType();

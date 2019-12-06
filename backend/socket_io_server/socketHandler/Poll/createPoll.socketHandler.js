@@ -23,7 +23,7 @@ const createPollSocketHandler = async (data, emit) => {
 			candidates,
 		} = data;
 
-		const state = "standby";
+		const state = "running";
 
 		const poll = await createPoll(
 			EventId,
