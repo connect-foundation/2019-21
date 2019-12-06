@@ -40,9 +40,10 @@ function ActiveRating({
 			</RowWrapper>
 			<RowWrapper>
 				<Rating
+					name="simple-controlled"
 					value={value}
 					max={maxStars}
-					onChange={(event, newValue) => {
+					onChange={(_, newValue) => {
 						onChange(newValue, state);
 					}}
 				/>
