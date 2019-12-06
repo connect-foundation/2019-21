@@ -38,7 +38,7 @@ app.get("/:path", authenticate(), async (req, res, next) => {
 		let eventId = await getEventIdByEventCode(eventCode);
 
 		eventId = eventId.dataValues.id;
-		const guest = await createGuest(" ", eventId);
+		const guest = await createGuest("Anonymous", eventId);
 		const accessToken = generateAccessToken(guest.guestSid, "guest");
 
 		res.cookie("vaagle", accessToken, {expires: getTokenExpired(1)});
