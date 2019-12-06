@@ -9,8 +9,8 @@
     "deploy:undo": "sh script/deploy_undo.sh",
     "deploy:auto": "sh script/deploy_demon.sh",
     "start": "sh script/start.sh",
-    "start:frontend": "sh script/start.sh",
-    "start:backend": "sh script/start.sh"
+    "start:frontend": "sh script/start_frontend.sh",
+    "start:backend": "sh script/start_backend.sh.sh"
   },
   "license": "MIT",
   "dependencies": {
