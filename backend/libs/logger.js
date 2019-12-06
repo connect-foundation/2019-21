@@ -5,7 +5,7 @@ require("winston-daily-rotate-file");
 require("date-utils");
 
 function getRand() {
-	return parseInt(Math.random() * 255, 10);
+	return parseInt(Math.random() * 150 + 100, 10);
 }
 
 const randomRGB = [getRand(), getRand(), getRand()];
@@ -19,7 +19,7 @@ const randomRGB = [getRand(), getRand(), getRand()];
  *
  * @return {function}
  */
-export default (header = "") => {
+export default (header = "", level = "info") => {
 	const format = winston.format.combine(
 		winston.format.colorize(),
 		winston.format.timestamp(),
@@ -43,7 +43,7 @@ export default (header = "") => {
 	);
 
 	return winston.createLogger({
-		level: "info", // 최소 레벨
+		level, // 최소 레벨
 		transports: [
 			new winston.transports.DailyRotateFile({
 				filename: "log/system.log", // log 폴더에 system.log 이름으로 저장
