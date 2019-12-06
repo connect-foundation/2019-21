@@ -25,18 +25,18 @@ const uncheckOtherItems = items => {
 };
 
 // N지선다형 투표에서 CLICK 으로 인해 상태 변화가 발생한 경우 처리하는 함수
-const updateItems = (items, id, allowDuplication) => {
+const updateItems = (items, number, allowDuplication) => {
 	const newItems = [...items];
 
-	if (newItems[id].voted) {
-		newItems[id].voted = false;
-		newItems[id].voters--;
+	if (newItems[number].voted) {
+		newItems[number].voted = false;
+		newItems[number].voters--;
 	} else {
 		if (!allowDuplication) {
 			uncheckOtherItems(newItems);
 		}
-		newItems[id].voted = true;
-		newItems[id].voters++;
+		newItems[number].voted = true;
+		newItems[number].voters++;
 	}
 	return newItems;
 };
@@ -74,7 +74,7 @@ function reducer(state, action) {
 				...state,
 				nItems: updateItems(
 					state.nItems,
-					action.id,
+					action.number,
 					state.allowDuplication,
 				),
 				totalVoters: updateTotalVoters(
@@ -131,12 +131,13 @@ function PollContainer({data}) {
 
 	const [pollData, dispatch] = useReducer(reducer, activePollData);
 
-	const onVote = (id, state) => {
+	const onVote = (id, number, state) => {
 		if (state !== "running") return;
 
 		dispatch({
 			type: "VOTE",
 			id,
+			number,
 		});
 	};
 
