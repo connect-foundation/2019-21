@@ -45,9 +45,9 @@ yarn start
 
 ## 기술 스택
 
--   Front-end: React, Apollo, (Websocket/Polling)
--   Back-end: Nginx, nodejs, MySQL2, Sequelize, GraphQL(Yoga), Oauth, Docker
--   Env: Eslint, babel, webpack, prettier, yarn, github, slack
+-   Front-end: React, Apollo
+-   Back-end: Nginx, nodejs, MySQL2, Sequelize, GraphQL(Yoga), socket.io, Oauth, Docker
+-   Env & etc: Eslint, babel, webpack, prettier, yarn, github, slack
 
 ## 사용자 집단
 
