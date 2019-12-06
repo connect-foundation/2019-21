@@ -5,7 +5,7 @@ import useQuestionInputArea from "./useQuestionInputArea.js";
 import EnabledQuestionInputArea from "./EnabledQuestionInputArea.js";
 import DisabledQuestionInputArea from "./DisabledQuestionInputArea.js";
 
-const style = {
+const cardStyle = {
 	width: "calc(100% - 2rem)",
 	position: "fixed",
 	bottom: "0",
@@ -14,13 +14,15 @@ const style = {
 	margin: "1rem",
 };
 
+const cardContentStyle = {paddingBottom: "1rem"};
+
 function QuestionInputArea(props) {
 	const {onAskQuestion, questionRef, userNameRef} = props;
 	const questionInputArea = useQuestionInputArea();
 
 	return (
-		<Card style={style}>
-			<CardContent style={{paddingBottom: "1rem"}}>
+		<Card style={cardStyle}>
+			<CardContent style={cardContentStyle}>
 				{questionInputArea.state ? (
 					<EnabledQuestionInputArea
 						onAskQuestion={() => {
