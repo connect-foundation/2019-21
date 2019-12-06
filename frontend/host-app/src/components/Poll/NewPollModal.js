@@ -30,12 +30,65 @@ const RowWrapper = styled.div`
 `;
 
 function NewPollModal({open, handleClose}) {
+	// Poll이 속한 EventId
 	const {events} = useContext(HostContext);
 	const EventId = events[0].id;
+
+	const initialPollName = {
+		value: "",
+		error: false,
+		helperText: "",
+	};
 	// Poll 이름
-	const [pollName, setPollName] = useState("");
+	const [pollName, setPollName] = useState(initialPollName);
 	const onPollNameChange = event => {
-		setPollName(event.target.value);
+		setPollName({
+			...pollName,
+			value: event.target.value,
+			error: false,
+			helperText: "",
+		});
+	};
+	const checkValidity = () => {
+		let result = true;
+
+		if (pollName.value.length === 0) {
+			result = false;
+		}
+		setPollName(
+			pollName.value.length === 0
+				? {
+						...pollName,
+						error: true,
+						helperText: "투표 제목을 입력하세요",
+				  }
+				: {
+						...pollName,
+						error: false,
+						helperText: "",
+				  },
+		);
+
+		if (!texts.every(text => text.value.length > 0)) {
+			result = false;
+		}
+		setTexts(
+			texts.map(text =>
+				text.value.length === 0
+					? {
+							...text,
+							error: true,
+							helperText: "항목을 입력하세요",
+					  }
+					: {
+							...text,
+							error: false,
+							helperText: "",
+					  },
+			),
+		);
+
+		return result;
 	};
 
 	// Poll 종류
@@ -50,23 +103,30 @@ function NewPollModal({open, handleClose}) {
 		setSelectionType(event.target.value);
 	};
 
-	// Poll 종류가 별점 일때
-	const RECOMMENDED_MAX_STARS = 5;
-	const MAX_STARS = 10;
-	const [ratingValue, setRatingValue] = useState(RECOMMENDED_MAX_STARS);
-
 	// Poll 종류가 N지선다 이고 항목들의 속성이 text일때 항목들을 관리하는 부분
-	const [texts, setTexts] = useState(["", ""]);
+	const initialText = {
+		value: "",
+		error: false,
+		helperText: "",
+	};
+	const initialTexts = [initialText, initialText];
+	const [texts, setTexts] = useState(initialTexts);
 	const onTextChange = (event, id) => {
 		setTexts(
 			texts.map((text, index) =>
-				index === id ? event.target.value : text,
+				index === id
+					? {
+							...text,
+							value: event.target.value,
+							error: false,
+							helperText: "",
+					  }
+					: text,
 			),
 		);
 	};
-
 	const onAddText = () => {
-		setTexts([...texts, ""]);
+		setTexts([...texts, initialText]);
 	};
 
 	const onDeleteText = id => {
@@ -89,6 +149,11 @@ function NewPollModal({open, handleClose}) {
 	const onDeleteDate = id => {
 		setDates(dates.filter((date, index) => index !== id));
 	};
+
+	// Poll 종류가 별점 일때
+	const RECOMMENDED_MAX_STARS = 5;
+	const MAX_STARS = 10;
+	const [ratingValue, setRatingValue] = useState(RECOMMENDED_MAX_STARS);
 
 	// Poll 종류가 N지선다 일때 중복선택 옵션을 체크하는 부분
 	const [allowDuplication, setDuplication] = useState(false);
@@ -114,6 +179,9 @@ function NewPollModal({open, handleClose}) {
 			: dates;
 
 	const onCreatePoll = () => {
+		if (!checkValidity()) {
+			return;
+		}
 		const newPoll = {};
 
 		newPoll.EventId = EventId;
@@ -131,7 +199,12 @@ function NewPollModal({open, handleClose}) {
 		<Modal open={open} style={modalStyle} onClose={handleClose}>
 			<ModalWrapper>
 				<h2>투표 만들기</h2>
-				<PollName value={pollName} onChange={onPollNameChange} />
+				<PollName
+					value={pollName.value}
+					onChange={onPollNameChange}
+					error={pollName.error}
+					helperText={pollName.helperText}
+				/>
 				<PollType pollType={pollType} onChange={onPollTypeChange} />
 				{pollType === "nItems" ? (
 					<MultipleItems
