@@ -14,7 +14,7 @@
 
 </p>
 
-![alt](./docs/logo_image.PNG)
+![alt](https://raw.githubusercontent.com/connect-foundation/2019-21/master/docs/logo_image.PNG)
 
 ## 배포 링크
 
@@ -66,4 +66,3 @@ yarn start
 -   Localization: 한국인에게 친숙한 UI 개발 (카톡의 투표 UI, 다양한 한글폰트 추가 등)
 -   Mobile first: Guest 모드는 스마트폰에 최적화된 UI 개발, 최적화 작업 진행
 -   Emoji 적용
--   기타: infinite scroll, D3 library를 이용한 analytics, lighthouse 성능 개선
