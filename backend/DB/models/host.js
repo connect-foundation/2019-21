@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
 			image: {
 				type: DataTypes.TEXT,
 			},
+			refreshToken: {
+				type: DataTypes.STRING(100),
+				allowNull: true,
+			},
 			createdAt: {
 				allowNull: false,
 				type: DataTypes.DATE,
