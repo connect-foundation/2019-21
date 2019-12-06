@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost";
+import {gql} from "apollo-boost";
 
 function getEventsByHost() {
 	return gql`
@@ -35,6 +35,7 @@ function createEvent() {
 				moderationOption
 				replyOption
 				endAt
+				startAt
 				HostId
 			}
 		}

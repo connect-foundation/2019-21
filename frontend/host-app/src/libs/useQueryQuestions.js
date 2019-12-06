@@ -7,7 +7,7 @@ import _ from "lodash"
 
 function buildQuestions(object) {
 	const copyData = _.cloneDeep(object);
-	let {questions, emojis, emojiPicks, guests, didILikes} = copyData;
+	let {questions, emojis, guests,} = copyData;
 
 	questions = JSONNestJoin2(questions, guests, "GuestId", "id", (a, b) => {
 
@@ -22,23 +22,10 @@ function buildQuestions(object) {
 		return x;
 	});
 
-	questions = JSONNestJoin(questions, didILikes, "id", "QuestionId", (x, y) => {
-		x.didILike = true;
-		return x;
-	});
-
 	emojis = emojis.map(x => {
 		x.key = `${x.QuestionId}_${x.name}`;
 		x.didIPick = false;
 		return x;
-	});
-	emojiPicks = emojiPicks.map(x => {
-		x.key = `${x.QuestionId}_${x.name}`;
-		return x;
-	});
-	emojis = JSONNestJoin(emojis, emojiPicks, "key", "key", (a, b) => {
-		a.didIPick = true;
-		return a;
 	});
 
 	questions = JSONNestJoin(questions, emojis, "id", "QuestionId", (a, b) => {
@@ -50,7 +37,7 @@ function buildQuestions(object) {
 }
 
 const QUERY_INIT_QUESTIONS = gql`
-    query getQuestions($EventId: ID!, $GuestId: ID!) {
+    query getQuestions($EventId: ID!) {
         questions(EventId: $EventId) {
             id
             EventId
@@ -68,20 +55,12 @@ const QUERY_INIT_QUESTIONS = gql`
             QuestionId
         }
 
-        emojiPicks(EventId: $EventId, GuestId: $GuestId) {
-            name
-            QuestionId
-        }
-
         guests(EventId: $EventId) {
             id
             name
             isAnonymous
         }
 
-        didILikes(GuestId: $GuestId) {
-            QuestionId
-        }
 		getEventOption(EventId: $EventId){
 		moderationOption
 		replyOption
