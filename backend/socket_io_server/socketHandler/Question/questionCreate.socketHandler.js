@@ -1,13 +1,13 @@
 import { createQuestion } from "../../../DB/queries/question";
 import globalOption from "../../globalOption";
+import {updateGuestById} from "../../../DB/queries/guest";
 
 const questionCreateSocketHandler = async (data, emit) => {
 	try {
-		const { EventId, content, GuestId } = data;
-
+		const {EventId, content, GuestId, guestName} = data;
+		console.log(data);
 		const currentModerationOption = globalOption.getOption(EventId)
 			.moderationOption;
-
 		const reqData = data;
 		let newData;
 
@@ -17,12 +17,13 @@ const questionCreateSocketHandler = async (data, emit) => {
 				EventId,
 				content,
 				GuestId,
-				"moderation"
+				"moderation",
 			);
 		} else {
 			newData = await createQuestion(EventId, content, GuestId);
 		}
 
+		await updateGuestById({id: GuestId, name: guestName, isAnonymous: false});
 		reqData.id = newData.get({ plain: true }).id;
 		emit(reqData);
 	} catch (e) {
