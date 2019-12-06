@@ -7,6 +7,7 @@ import NavBar from "../components/NavBar/NavBar.js";
 import TabGroup from "../components/TabGroup/TabGroup.js";
 import {GuestProvider} from "../libs/guestContext";
 import TopProgressBar from "../components/TopProcessBar.js";
+import ErrorPage from "../components/ErrorPage/ErrorPage.js";
 
 const AppStyle = styled.div`
 	height: 100vh;
@@ -39,7 +40,7 @@ export default function App() {
 	const {data, loading, error} = useQuery(GET_EVENT);
 
 	if (error) {
-		return <p>error-page...</p>;
+		return <ErrorPage/>;
 	}
 
 	if (loading) {
