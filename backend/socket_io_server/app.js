@@ -4,12 +4,12 @@ import http from "http";
 import io from "socket.io";
 import configLoader from "./config/configLoader.js";
 import socketHandlers from "./socketHandler";
-import getLogger from "../libs/logger.js";
+import logger from "./logger.js";
 
 dotenv.config();
 
 const {port} = configLoader();
-const logger = getLogger("socket.io");
+
 const app = express();
 const httpServer = http.createServer(app).listen(port, () => {
 	logger.info(
@@ -42,7 +42,7 @@ function BindSocketListener(socket, server) {
 
 const nameSpaceServer = socketServer.of(/.*/);
 
-nameSpaceServer.on("connection", socket => {
+nameSpaceServer.on("connection", async socket => {
 	const nameSpace = socket.nsp.name;
 	const id = socket.id;
 
