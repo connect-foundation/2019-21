@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer, useRef,useContext} from "react";
+import React, {useContext, useEffect, useReducer, useRef} from "react";
 import Box from "@material-ui/core/Box";
 import gray from "@material-ui/core/colors/grey.js";
 import {useQuery} from "@apollo/react-hooks";
@@ -9,8 +9,8 @@ import QuestionCardList from "./QuestionCard/QuestionCardList.js";
 import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
 import QuestionsReducer from "./QuestionsReducer.js";
 import {
-	QUERY_INIT_QUESTIONS,
 	buildQuestions,
+	QUERY_INIT_QUESTIONS,
 } from "../../libs/useQueryQuestions.js";
 import {GuestContext} from "../../libs/guestContext";
 
@@ -26,12 +26,10 @@ function useMyQuery(
 }
 
 function QuestionContainer() {
-	const {event,guest}=useContext(GuestContext);
+	const {event, guest} = useContext(GuestContext);
 	const {data, loading, error} = useMyQuery({
 		variables: {EventId: event.id, GuestId: guest.id},
 	});
-
-	console.log(data);
 
 	const [questions, dispatch] = useReducer(QuestionsReducer, []);
 	const {tabIdx, selectTabIdx} = useTabs(RECENT_TAB_IDX);
@@ -96,7 +94,7 @@ function QuestionContainer() {
 				userNameRef={userNameRef}
 			/>
 			<QuestionCardList questions={questions} />
-			<Box p={12} style={style}></Box>
+			<Box p={12} style={style}/>
 		</>
 	);
 }
