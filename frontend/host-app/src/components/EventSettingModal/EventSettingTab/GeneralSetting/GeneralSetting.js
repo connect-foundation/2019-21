@@ -1,4 +1,4 @@
-import React, { useReducer, useContext } from "react";
+import React, {useReducer, useContext} from "react";
 import styled from "styled-components";
 import moment from "moment";
 import TabHeader from "../TabHeader";
@@ -9,9 +9,12 @@ import InputEventCode from "./InputEventCode";
 import InputEventLink from "./InputEventLink";
 import InputHashTag from "./InputHashTag";
 import HashTagsField from "./HashTagsField";
-import { generalSettingReducer } from "../../settingReducer/settingReducer";
+import {generalSettingReducer} from "../../settingReducer/settingReducer";
 import ButtonField from "../ButtonField";
-import { HostContext } from "../../../../libs/hostContext";
+import {HostContext} from "../../../../libs/hostContext";
+import configLoader from "../../../../config/configLoader";
+
+const config = configLoader();
 
 const PopUpLayOutStyle = styled.div`
 	display: flex;
@@ -28,15 +31,15 @@ function convertDataToView(eventInfo) {
 		),
 		eventCode: eventInfo.eventCode,
 		hashTags: [
-			{ key: "sadfsadf", label: "부스트캠프" },
-			{ key: "asdfuuu", label: "자바스크립트" },
+			{key: "sadfsadf", label: "부스트캠프"},
+			{key: "asdfuuu", label: "자바스크립트"},
 		],
-		eventLink: `http://localhost:3001/${window.btoa(eventInfo.eventCode)}`,
+		eventLink: `${config.url}/${window.btoa(eventInfo.eventCode)}`,
 	};
 }
 
-export default function GeneralSetting({ handleClose }) {
-	const { hostInfo, events, setEvents } = useContext(HostContext);
+export default function GeneralSetting({handleClose}) {
+	const {hostInfo, events, setEvents} = useContext(HostContext);
 	const initialGeneralState = convertDataToView(events[0]);
 	const [generalSettingState, dispatch] = useReducer(
 		generalSettingReducer,
@@ -105,7 +108,7 @@ export default function GeneralSetting({ handleClose }) {
 			<InputStartDate
 				endDate={endDate}
 				startDate={startDate}
-				dispatch={{ setStartDate, setEndDate }}
+				dispatch={{setStartDate, setEndDate}}
 			/>
 			<EndDateField endDate={endDate} />
 			<InputEventCode eventCode={eventCode} dispatch={setEventCode} />
