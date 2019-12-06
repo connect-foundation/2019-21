@@ -1,13 +1,16 @@
-import { createQuestion } from "../../../DB/queries/question";
-import globalOption from "../../globalOption";
+import {createQuestion} from "../../../DB/queries/question";
 import {updateGuestById} from "../../../DB/queries/guest";
+import eventCache from "../../EventCache.js";
+import logger from "../../logger.js";
 
 const questionCreateSocketHandler = async (data, emit) => {
 	try {
 		const {EventId, content, GuestId, guestName} = data;
-		console.log(data);
-		const currentModerationOption = globalOption.getOption(EventId)
-			.moderationOption;
+
+		logger.debug(data);
+
+		const event = await eventCache.get(EventId);
+		const currentModerationOption = event.moderationOption;
 		const reqData = data;
 		let newData;
 
@@ -23,12 +26,16 @@ const questionCreateSocketHandler = async (data, emit) => {
 			newData = await createQuestion(EventId, content, GuestId);
 		}
 
-		await updateGuestById({id: GuestId, name: guestName, isAnonymous: false});
-		reqData.id = newData.get({ plain: true }).id;
+		await updateGuestById({
+			id: GuestId,
+			name: guestName,
+			isAnonymous: false,
+		});
+		reqData.id = newData.get({plain: true}).id;
 		emit(reqData);
 	} catch (e) {
-		console.log(e);
-		emit({ status: "error", e });
+		logger.error(e);
+		emit({status: "error", e});
 	}
 };
 
