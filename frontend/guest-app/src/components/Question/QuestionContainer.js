@@ -89,7 +89,6 @@ function QuestionContainer() {
 			/>
 			<QuestionInputArea
 				onAskQuestion={onAskQuestion}
-				onOpen={() => {}}
 				questionRef={questionRef}
 				userNameRef={userNameRef}
 			/>

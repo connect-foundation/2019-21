@@ -15,13 +15,8 @@ const style = {
 };
 
 function QuestionInputArea(props) {
-	const {onAskQuestion, onOpen, questionRef, userNameRef} = props;
+	const {onAskQuestion, questionRef, userNameRef} = props;
 	const questionInputArea = useQuestionInputArea();
-
-	const onQuestionAreaClick = () => {
-		questionInputArea.toggle();
-		onOpen();
-	};
 
 	return (
 		<Card style={style}>
@@ -37,7 +32,9 @@ function QuestionInputArea(props) {
 						userNameRef={userNameRef}
 					/>
 				) : (
-					<DisabledQuestionInputArea onClick={onQuestionAreaClick} />
+					<DisabledQuestionInputArea
+						onClick={questionInputArea.toggle}
+					/>
 				)}
 			</CardContent>
 		</Card>
@@ -46,7 +43,6 @@ function QuestionInputArea(props) {
 
 QuestionInputArea.propTypes = {
 	onAskQuestion: PropTypes.func,
-	onOpen: PropTypes.func,
 	questionRef: PropTypes.any,
 	userNameRef: PropTypes.any,
 };
