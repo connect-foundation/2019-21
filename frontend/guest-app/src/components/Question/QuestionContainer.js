@@ -12,7 +12,7 @@ import {
 	buildQuestions,
 	QUERY_INIT_QUESTIONS,
 } from "../../libs/useQueryQuestions.js";
-import {GuestContext} from "../../libs/guestContext";
+import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
@@ -59,7 +59,7 @@ function getNewQuestion({
 }
 
 function QuestionContainer() {
-	const {event, guest} = useContext(GuestContext);
+	const {event, guest} = useContext(GuestGlobalContext);
 	const {data, loading, error} = useMyQuery({
 		variables: {EventId: event.id, GuestId: guest.id},
 	});

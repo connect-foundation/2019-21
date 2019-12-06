@@ -4,7 +4,7 @@ import {useQuery} from "@apollo/react-hooks";
 import "./App.css";
 import NavBar from "../components/NavBar/NavBar.js";
 import TabGroup from "../components/TabGroup/TabGroup.js";
-import {GuestProvider} from "../libs/guestContext";
+import {GuestGlobalProvider} from "../libs/guestGlobalContext.js";
 import TopProgressBar from "../components/TopProcessBar.js";
 import ErrorPage from "../components/ErrorPage/ErrorPage.js";
 import {GET_GUEST_APP_GLOBAL_DATA} from "../apollo/gqlSchemes.js";
@@ -29,11 +29,11 @@ export default function App() {
 	const {event, guest} = data.guestInEvent;
 
 	return (
-		<GuestProvider value={{event, guest}}>
+		<GuestGlobalProvider value={{event, guest}}>
 			<AppStyle>
 				<NavBar/>
 				<TabGroup/>
 			</AppStyle>
-		</GuestProvider>
+		</GuestGlobalProvider>
 	);
 }
