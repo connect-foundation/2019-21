@@ -1,0 +1,52 @@
+type Event {
+	id: Int!
+	eventCode: String!
+	eventName: String!
+	moderationOption: Boolean!
+	replyOption: Boolean!
+	createdAt: String!
+	updatedAt: String!
+	startAt: String!
+	endAt: String!
+	HostId: ID!
+}
+
+type EventOption {
+	moderationOption: Boolean!
+	replyOption: Boolean!
+}
+
+type Host {
+	id: Int!
+	oauthId: ID!
+	name: String!
+	email: String!
+	emailFeedBack: Boolean!
+	image: String!
+}
+
+type InitData {
+	events: [Event]!
+	host: Host!
+}
+
+input EventInfo {
+	HostId: ID!
+	eventName: String!
+	startAt: String!
+	endAt: String!
+}
+
+type Mutation {
+	createEvent(info: EventInfo!): Event
+}
+
+type Query {
+	events: [Event]!
+	init: InitData!
+	getEventOption(EventId:ID!): EventOption!
+}
+
+type Mutation {
+	moderation(eventId: Int!, moderationOption: Boolean!): Int!
+}

@@ -1,0 +1,11 @@
+{
+	"ignore": [
+		"/build/",
+		"/docker/volumes/",
+		"/script/",
+		"/express/public/",
+		"/node_modules/",
+		"/spec/",
+		".gitignore"
+	]
+}
