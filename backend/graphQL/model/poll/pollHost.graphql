@@ -21,5 +21,5 @@ type Poll {
 }
 
 type Query {
-	pollHost(eventCode: ID!): [Poll]!
+	pollHost(EventId: ID!): [Poll]!
 }

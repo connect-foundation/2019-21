@@ -169,16 +169,16 @@ async function setPollItems(polls, candidates) {
  *
  * Yoga Resolver
  */
-async function pollHostResolver(eventCode) {
+async function pollHostResolver(EventId) {
 	/**
 	 * getEventIdByEventCode(eventCode)
 	 * getPollsByEventId(event.id)
 	 * 해당 guestId가 어떻게 투표를 했는지에 대한 정보를 가져옴(active 여부와 상관없이)
 	 *
 	 */
-	const event = await getEventIdByEventCode(eventCode);
+	// const event = await getEventIdByEventCode(eventCode);
 
-	let polls = await getPollsByEventId(event.id);
+	let polls = await getPollsByEventId(EventId);
 
 	polls = simplifyList(polls);
 	polls = setPollTypes(polls);
@@ -194,6 +194,6 @@ async function pollHostResolver(eventCode) {
 // noinspection JSUnusedGlobalSymbols
 export default {
 	Query: {
-		pollHost: (_, { eventCode }) => pollHostResolver(eventCode),
+		pollHost: (_, { EventId }) => pollHostResolver(EventId),
 	},
 };
