@@ -44,18 +44,38 @@ function PollCard(props) {
 		pollDate,
 		pollType,
 		totalVoters,
-		active,
+		state,
 		...others
 	} = props;
-	const localePollDate = pollDate.toLocaleString();
+
+	// const localePollDate = pollDate.toLocaleString();
+	const localePollDate = pollDate;
+
+	// console.log(pollName, pollDate, totalVoters);
 
 	return (
 		<ColumnWrapper>
-			<RowWrapper left bold>{pollName}<div>{!active && "(종료됨)"}</div></RowWrapper>
-			<RowWrapper left small>{allowDuplication ? `복수선택 | ${localePollDate}` : `${localePollDate}`}</RowWrapper>
-			{(pollType === "nItems") && <SelectionItems totalVoters={totalVoters} active={active} {...others} />}
-			{(pollType === "rating") && <RatingItem active={active} {...others} />}
-			<RowWrapper left><MdPerson />{`${totalVoters.toLocaleString()} 명 참여`}</RowWrapper>
+			<RowWrapper left bold>
+				{pollName}
+				<div>{state === "closed" && "(종료됨)"}</div>
+			</RowWrapper>
+			<RowWrapper left small>
+				{allowDuplication ?
+					`복수선택 | ${localePollDate}` :
+					`${localePollDate}`}
+			</RowWrapper>
+			{pollType === "nItems" && (
+				<SelectionItems
+					totalVoters={totalVoters}
+					state={state}
+					{...others}
+				/>
+			)}
+			{pollType === "rating" && <RatingItem state={state} {...others} />}
+			<RowWrapper left>
+				<MdPerson />
+				{`${parseInt(totalVoters).toLocaleString()} 명 참여`}
+			</RowWrapper>
 		</ColumnWrapper>
 	);
 }

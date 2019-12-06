@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import {Button, Modal} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
+import configLoader from "../config/configLoader.js";
+
+const config = configLoader();
 
 const LoginStyle = styled.div`
 	position: relative;
@@ -31,12 +34,14 @@ const StyledButton = withStyles({
 	},
 })(Button);
 
-function LoginModal({onHideModal}) {
+function LoginModal({onHideModal, googleLogin}) {
 	return (
-		<Modal open onClose={onHideModal} >
+		<Modal open onClose={onHideModal}>
 			<LoginStyle>
-				<LoginImageStyle src="naver.png" onClick={onHideModal} />
-				<LoginImageStyle src="google.png" onClick={onHideModal} />
+				<LoginImageStyle src="naver.png" onClick={onHideModal}/>
+				<a href={config.authLoginURL}>
+					<LoginImageStyle src="google.png"/>
+				</a>
 
 				<StyledButton
 					variant="contained"

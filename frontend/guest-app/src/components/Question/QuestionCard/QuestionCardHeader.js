@@ -3,8 +3,8 @@ import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
 import {Typography} from "@material-ui/core";
 import UserAvatar from "../../UserAvatar/UserAvatar.js";
-import LikeButton from "./LikeButton/LikeButton.js";
-import useLikeButton from "./LikeButton/useLikeButton.js";
+import LikeButton from "../../LikeButton/LikeButton.js";
+import useLikeButton from "../../LikeButton/useLikeButton.js";
 
 const QuestionInfo = styled.div`
 	display: flex;
@@ -26,10 +26,9 @@ function QuestionUserName({userName}) {
 }
 
 function QuestionDate({date}) {
-	console.log(date);
 	return (
 		<Typography color={"textSecondary"} variant={"body1"}>
-			{date}
+			{new Date(parseInt(date, 10)).toLocaleString()}
 		</Typography>
 	);
 }
@@ -40,8 +39,7 @@ const QuestionHeaderStyle = styled.div`
 `;
 
 function QuestionHeader(props) {
-	const {guestName, createdAt, isAnonymous, isLike, likeCount} = props;
-	console.log(props);
+	const {guestName, createdAt, isLike, likeCount} = props;
 	const likeButton = useLikeButton({
 		isLikeClicked: isLike,
 		likeCount,

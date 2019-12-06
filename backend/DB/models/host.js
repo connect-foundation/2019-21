@@ -1,4 +1,3 @@
-
 module.exports = (sequelize, DataTypes) => {
 	const Host = sequelize.define(
 		"Host",
@@ -20,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			emailFeedBack: {
 				type: DataTypes.BOOLEAN,
+			},
+			image: {
+				type: DataTypes.TEXT,
 			},
 			createdAt: {
 				allowNull: false,

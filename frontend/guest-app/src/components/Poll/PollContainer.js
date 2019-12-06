@@ -1,7 +1,7 @@
 import React, {useReducer} from "react";
 import styled from "styled-components";
 import PollCard from "./PollCard";
-import PollDummyData from "./PollDummyData";
+// import PollDummyData from "./PollDummyData";
 
 const ColumnWrapper = styled.div`
 	display: flex;
@@ -14,10 +14,6 @@ const ColumnWrapper = styled.div`
 	width: 100%;
 `;
 
-const initialPollData = PollDummyData();
-const activePollData = initialPollData.filter(poll => poll.active)[0];
-const closedPollData = initialPollData.filter(poll => poll.active === false);
-
 // 복수선택이 아닌 투표의 경우, 다른 선택된 항목을 uncheck 하는 함수
 const uncheckOtherItems = items => {
 	items.forEach(item => {
@@ -29,18 +25,18 @@ const uncheckOtherItems = items => {
 };
 
 // N지선다형 투표에서 CLICK 으로 인해 상태 변화가 발생한 경우 처리하는 함수
-const updateItems = (items, id, allowDuplication) => {
+const updateItems = (items, number, allowDuplication) => {
 	const newItems = [...items];
 
-	if (newItems[id].voted) {
-		newItems[id].voted = false;
-		newItems[id].voters--;
+	if (newItems[number].voted) {
+		newItems[number].voted = false;
+		newItems[number].voters--;
 	} else {
 		if (!allowDuplication) {
 			uncheckOtherItems(newItems);
 		}
-		newItems[id].voted = true;
-		newItems[id].voters++;
+		newItems[number].voted = true;
+		newItems[number].voters++;
 	}
 	return newItems;
 };
@@ -76,44 +72,77 @@ function reducer(state, action) {
 		case "VOTE":
 			return {
 				...state,
-				nItems: updateItems(state.nItems, action.id, state.allowDuplication),
-				totalVoters: updateTotalVoters(notVoted, state.totalVoters, state.nItems),
+				nItems: updateItems(
+					state.nItems,
+					action.number,
+					state.allowDuplication,
+				),
+				totalVoters: updateTotalVoters(
+					notVoted,
+					state.totalVoters,
+					state.nItems,
+				),
 			};
 		case "RATE":
 			return {
 				...state,
 				nItems: updateRatingItem(state.nItems, action.value, true),
-				totalVoters: updateTotalVoters(notVoted, state.totalVoters, state.nItems),
+				totalVoters: updateTotalVoters(
+					notVoted,
+					state.totalVoters,
+					state.nItems,
+				),
 			};
 		case "CANCEL_RATING":
 			// 이전 상태도 투표하지 않은 상태라면 서버에 요청을 보내지 않도록 처리하는 루틴
-			if (notVoted && (state.nItems[0].value === 0)) {
+			if (notVoted && state.nItems[0].value === 0) {
 				return state;
 			}
 			return {
 				...state,
 				nItems: updateRatingItem(state.nItems, 0, false),
-				totalVoters: updateTotalVoters(notVoted, state.totalVoters, state.nItems),
+				totalVoters: updateTotalVoters(
+					notVoted,
+					state.totalVoters,
+					state.nItems,
+				),
 			};
 		default:
 			throw new Error("Unhandled action.");
 	}
 }
 
-function PollContainer() {
+function PollContainer({data}) {
+	console.log(data);
+
+	let activePollData = null;
+	let closedPollData = null;
+
+	if (data) {
+		const initialPollData = data;
+
+		activePollData = initialPollData.filter(
+			poll => poll.state === "running",
+		)[0];
+		closedPollData = initialPollData.filter(
+			poll => poll.state === "closed",
+		);
+	}
+
 	const [pollData, dispatch] = useReducer(reducer, activePollData);
 
-	const onVote = (id, active) => {
-		if (!active) return;
+	const onVote = (id, number, state) => {
+		if (state !== "running") return;
 
 		dispatch({
 			type: "VOTE",
 			id,
+			number,
 		});
 	};
 
-	const onChange = (value, active) => {
-		if (!active) return;
+	const onChange = (value, state) => {
+		if (state !== "running") return;
 
 		dispatch({
 			type: "RATE",
@@ -129,18 +158,18 @@ function PollContainer() {
 
 	return (
 		<ColumnWrapper>
-			<PollCard
-				{...pollData}
-				onVote={onVote}
-				onChange={onChange}
-				onCancelRating={onCancelRating}
-			/>
-			{closedPollData.map((poll, index) => (
+			{pollData && (
 				<PollCard
-					{...poll}
-					key={index}
-					onVote={onVote} />
-			))}
+					{...pollData}
+					onVote={onVote}
+					onChange={onChange}
+					onCancelRating={onCancelRating}
+				/>
+			)}
+			{closedPollData &&
+				closedPollData.map((poll, index) => (
+					<PollCard {...poll} key={index} onVote={onVote} />
+				))}
 		</ColumnWrapper>
 	);
 }

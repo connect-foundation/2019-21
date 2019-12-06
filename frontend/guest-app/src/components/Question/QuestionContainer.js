@@ -1,90 +1,102 @@
-import React, {useRef} from "react";
+import React, {useEffect, useReducer, useRef,useContext} from "react";
+import Box from "@material-ui/core/Box";
+import gray from "@material-ui/core/colors/grey.js";
 import {useQuery} from "@apollo/react-hooks";
-import {gql} from "apollo-boost";
-import QuestionContainerHeader from "./QuestionContainerHeader.js";
-import useTabGroup from "../TabGroup/useTabGroup.js";
+import QuestionContainerTabBar from "./QuestionContainerTabBar.js";
+import useTabs from "../../materialUIHooks/useTabs.js";
 import QuestionInputArea from "./QuestionInputArea/QuestionInputArea.js";
-import useQuestionCardList from "./useQuestionCardList.js";
-import QuestionCardList from "./QuestionCardList.js";
+import QuestionCardList from "./QuestionCard/QuestionCardList.js";
 import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
+import QuestionsReducer from "./QuestionsReducer.js";
+import {
+	QUERY_INIT_QUESTIONS,
+	buildQuestions,
+} from "../../libs/useQueryQuestions.js";
+import {GuestContext} from "../../libs/guestContext";
 
-const EXCHANGE_RATES = gql`
-    {
-        questions(eventCode: "u0xn", guestId: 148) {
-            content
-            id
-            likeCount
-            isLike
-            GuestId
-            createdAt
-            guestName
-            Emojis {
-                EmojiName
-            }
-        }
-    }
-`;
+const RECENT_TAB_IDX = 1;
+const POPULAR_TAB_IDX = 2;
 
-function Inner(props) {
-	const {data = undefined} = props;
-
-	const {questions, addQuestion} = useQuestionCardList(data);
-	const {tabIdx, selectTabIdx} = useTabGroup();
-	const userNameRef = useRef(null);
-	const questionRef = useRef(null);
-
-	useSocket("question/create", req => {
-		addQuestion(req);
-	});
-
-	const onAskQuestion = () => {
-		const userName = userNameRef.current.value;
-		const question = questionRef.current.value;
-
-		const newQuestion = {
-			userName,
-			eventId: 2,
-			guestId: 148,
-			date: new Date(),
-			content: question,
-			isShowEditButton: true,
-			isLike: false,
-			likeCount: 0,
-		};
-
-		// addQuestion(newQuestion);
-		socketClient.emit("question/create", newQuestion);
-	};
-
-	console.log(data);
-	return (
-		<>
-			<QuestionContainerHeader
-				questionNumber={questions.length}
-				tabIdx={tabIdx}
-				onSelectTab={selectTabIdx}
-			/>
-			<QuestionInputArea
-				onAskQuestion={onAskQuestion}
-				onOpen={() => {
-				}}
-				questionRef={questionRef}
-				userNameRef={userNameRef}
-			/>
-			<QuestionCardList questions={questions}/>
-		</>
-	);
+function useMyQuery(
+	options = {
+		variables: {EventId: 2, GuestId: 122},
+	},
+) {
+	return useQuery(QUERY_INIT_QUESTIONS, options);
 }
 
 function QuestionContainer() {
-	const {loading, error, data} = useQuery(EXCHANGE_RATES);
+	const {event,guest}=useContext(GuestContext);
+	const {data, loading, error} = useMyQuery({
+		variables: {EventId: event.id, GuestId: guest.id},
+	});
 
-	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error :(</p>;
+	console.log(data);
+
+	const [questions, dispatch] = useReducer(QuestionsReducer, []);
+	const {tabIdx, selectTabIdx} = useTabs(RECENT_TAB_IDX);
+	const userNameRef = useRef(null);
+	const questionRef = useRef(null);
+
+	useEffect(() => {
+		if (data) {
+			dispatch({type: "load", data: buildQuestions(data)});
+		}
+	}, [data]);
+
+	useSocket("question/create", req => {
+		dispatch({type: "addNewQuestion", data: req});
+	});
+
+	const onAskQuestion = () => {
+		const newQuestion = {
+			guestName: userNameRef.current.value,
+			EventId: event.id,
+			GuestId: guest.id,
+			createdAt: new Date(),
+			content: questionRef.current.value,
+			isShowEditButton: true,
+			isAnonymous: false,
+			didILike: false,
+			likeCount: 0,
+			status: "active",
+			isStared: false,
+		};
+
+		socketClient.emit("question/create", newQuestion);
+	};
+
+	const onContainerSelectTab = (event, newValue) => {
+		if (newValue === RECENT_TAB_IDX) {
+			dispatch({type: "sortByRecent"});
+		}
+
+		if (newValue === POPULAR_TAB_IDX) {
+			dispatch({type: "sortByLikeCount"});
+		}
+
+		selectTabIdx(event, newValue);
+	};
+
+	const style = {
+		backgroundColor: gray[300],
+	};
 
 	return (
 		<>
-			<Inner data={data.questions}/>
+			<QuestionContainerTabBar
+				questionNumber={questions.length}
+				tabIdx={tabIdx}
+				onSelectTab={onContainerSelectTab}
+			/>
+			<QuestionInputArea
+				onAskQuestion={onAskQuestion}
+				onOpen={() => {}}
+				questionRef={questionRef}
+				userNameRef={userNameRef}
+			/>
+			<QuestionCardList questions={questions} />
+			<Box p={12} style={style}></Box>
 		</>
 	);
 }

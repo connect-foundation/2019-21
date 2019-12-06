@@ -7,7 +7,7 @@ module.exports = {
 			primaryKey: true,
 			type: Sequelize.INTEGER,
 		},
-		code: {
+		eventCode: {
 			type: Sequelize.STRING(10),
 		},
 		moderationOption: {
@@ -15,6 +15,10 @@ module.exports = {
 		},
 		replyOption: {
 			type: Sequelize.BOOLEAN,
+		},
+		startAt: {
+			allowNull: false,
+			type: Sequelize.DATE,
 		},
 		createdAt: {
 			allowNull: false,

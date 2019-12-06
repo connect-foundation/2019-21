@@ -1,18 +1,12 @@
-import query from "../../../DB/queries/event";
+import {getQuestionsByEventId} from "../../../DB/queries/question.js";
 
-async function DBquery(eventCode, guestId) {
-	const dbQueryValue = await query.getQuestionsInEvent(eventCode, guestId);
-	// console.log(dbQueryValue);
-	return dbQueryValue;
-}
-
-async function questionResolver(eventCode, guestId) {
-	return DBquery(eventCode, guestId);
+async function questionResolver(EventId) {
+	return getQuestionsByEventId(EventId);
 }
 
 // noinspection JSUnusedGlobalSymbols
 export default {
 	Query: {
-		questions: (_, {eventCode}, {guestId}) => questionResolver(eventCode, guestId),
+		questions: (_, {EventId}) => questionResolver(EventId),
 	},
 };

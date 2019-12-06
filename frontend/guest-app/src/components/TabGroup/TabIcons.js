@@ -1,27 +1,28 @@
 import React from "react";
 import Badge from "@material-ui/core/Badge/Badge.js";
-import {PollIcon, QuestionIcon} from "../FontAwesomeIcons.js";
+import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer";
+import PollIcon from "@material-ui/icons/Poll";
+
+const style = {marginRight: "8px"};
 
 export function QnATabIcon({showBadge}) {
-	if (showBadge) {
-		return (
-			<Badge color="error" variant="dot">
-				<QuestionIcon>&nbsp;Q&A</QuestionIcon>
-			</Badge>
-		);
-	} else {
-		return <QuestionIcon>&nbsp;Q&A</QuestionIcon>;
-	}
+	const props = showBadge ? {color: "error", variant: "dot"} : {};
+
+	return (
+		<Badge {...props}>
+			<QuestionAnswerIcon style={style} />
+			Q&A
+		</Badge>
+	);
 }
 
 export function PollTabIcon({showBadge}) {
-	if (showBadge) {
-		return (
-			<Badge color="error" variant="dot">
-				<PollIcon>&nbsp;Poll</PollIcon>
-			</Badge>
-		);
-	} else {
-		return <PollIcon>&nbsp;Poll</PollIcon>;
-	}
+	const props = showBadge ? {color: "error", variant: "dot"} : {};
+
+	return (
+		<Badge {...props}>
+			<PollIcon style={style} />
+			투표
+		</Badge>
+	);
 }

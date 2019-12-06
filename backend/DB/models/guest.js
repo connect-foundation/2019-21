@@ -25,14 +25,22 @@ module.exports = (sequelize, DataTypes) => {
 				allowNull: false,
 				type: DataTypes.DATE,
 			},
+			email: {
+				type: DataTypes.STRING(100),
+				defaultValue: null,
+			},
+			company: {
+				type: DataTypes.STRING(100),
+				defaultValue: null,
+			},
 		},
-		{}
+		{},
 	);
 
 	Guest.associate = function(models) {
 		Guest.belongsTo(models.Event);
 		Guest.hasMany(models.Question);
-		Guest.hasMany(models.Voter);
+		Guest.belongsToMany(models.Candidate, {through: "Votes"});
 		Guest.hasMany(models.Like);
 		Guest.hasMany(models.Emoji);
 	};

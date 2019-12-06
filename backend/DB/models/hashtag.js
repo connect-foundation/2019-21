@@ -1,4 +1,3 @@
-
 module.exports = (sequelize, DataTypes) => {
 	const Hashtag = sequelize.define(
 		"Hashtag",
@@ -25,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
 	);
 
 	Hashtag.associate = function(models) {
-		Hashtag.belongsToMany(models.Event, {through: "EventHashtags"});
+		Hashtag.belongsTo(models.Event);
 	};
 	return Hashtag;
 };

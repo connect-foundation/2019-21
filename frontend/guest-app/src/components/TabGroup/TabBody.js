@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Scrollbars} from "react-custom-scrollbars";
+import gray from "@material-ui/core/colors/grey.js";
 
 function TabBody(props) {
 	const {children, hidden} = props;
@@ -10,7 +11,8 @@ function TabBody(props) {
 			hidden={hidden}
 			style={{
 				width: "100%",
-				height: "calc(100vh - 11rem)",
+				height: "calc(100vh - 7rem)",
+				backgroundColor: gray[300],
 			}}
 		>
 			{children}

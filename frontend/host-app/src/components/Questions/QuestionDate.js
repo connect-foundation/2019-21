@@ -1,10 +1,10 @@
 import {Typography} from "@material-ui/core";
 import React from "react";
 
-function QuestionDate({date}) {
+function QuestionDate({createdAt}) {
 	return (
 		<Typography color={"textSecondary"} variant={"body2"}>
-			{`${date.getFullYear()}.${date.getMonth()}.${date.getDay()}`}
+			{new Date(parseInt(createdAt, 10)).toLocaleTimeString()}
 		</Typography>
 	);
 }

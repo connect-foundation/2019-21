@@ -1,19 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import {Button} from "@material-ui/core";
 import ModerationQuestionCard from "./ModerationQuestionCard.js";
 import LiveQuestionCard from "./LiveQuestionCard";
 import CompleteQuestionCard from "./CompleteQuestionCard";
-import useModal from "../../customhook/useModal";
-import NewPollModal from "../Poll/NewPollModal";
+import PollApollo from "../Poll/PollApollo.js";
 
 const QuestionDiv = styled.div`
 	width: 100%;
 `;
 
-function QuestionContainer({datas, type, dataHandler, handleStar}) {
-	const [createPollModalOpen, handleOpen, handleClose] = useModal();
+const compareByCreateAt = (a, b) =>
+	a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0;
+const compareByLikeCount = (a, b) =>
+	a.likeCount < b.likeCount ? 1 : a.likeCount > b.likeCount ? -1 : 0;
 
+function QuestionContainer({ datas, type, dataHandler, handleStar }) {
 	return (
 		<QuestionDiv>
 			{type === "moderation" &&
@@ -27,25 +28,29 @@ function QuestionContainer({datas, type, dataHandler, handleStar}) {
 					/>
 				))}
 			{type === "popularQuestion" &&
-				datas.questions.map(question => (
-					<LiveQuestionCard
-						{...question}
-						id={question.id}
-						dataHandler={dataHandler}
-						type={type}
-						handleStar={handleStar}
-					/>
-				))}
+				datas.questions
+					.sort(compareByLikeCount)
+					.map(question => (
+						<LiveQuestionCard
+							{...question}
+							id={question.id}
+							dataHandler={dataHandler}
+							type={type}
+							handleStar={handleStar}
+						/>
+					))}
 			{type === "newQuestion" &&
-				datas.questions.map(question => (
-					<LiveQuestionCard
-						{...question}
-						id={question.id}
-						dataHandler={dataHandler}
-						type={type}
-						handleStar={handleStar}
-					/>
-				))}
+				datas.questions
+					.sort(compareByCreateAt)
+					.map(question => (
+						<LiveQuestionCard
+							{...question}
+							id={question.id}
+							dataHandler={dataHandler}
+							type={type}
+							handleStar={handleStar}
+						/>
+					))}
 			{type === "completeQuestion" &&
 				datas.questions.map(question => (
 					<CompleteQuestionCard
@@ -56,17 +61,7 @@ function QuestionContainer({datas, type, dataHandler, handleStar}) {
 						handleStar={handleStar}
 					/>
 				))}
-			{type === "poll" && (
-				<Button color="primary" onClick={handleOpen}>
-					투표만들기
-				</Button>
-			)}
-			{type === "poll" && createPollModalOpen && (
-				<NewPollModal
-					open={createPollModalOpen}
-					handleClose={handleClose}
-				/>
-			)}
+			{type === "poll" && <PollApollo />}
 		</QuestionDiv>
 	);
 }

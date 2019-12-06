@@ -2,7 +2,9 @@ import React, {useState} from "react";
 import styled from "styled-components";
 import {TextField, Button} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
+import configLoader from "../config/configLoader.js";
 
+const config = configLoader();
 const EventFormStyle = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -40,8 +42,10 @@ function EventForm() {
 	};
 
 	const onEnterEvent = () => {
-		setCode("");
 		setMessage("이벤트 번호가 전달되었습니다.");
+		const path = window.btoa(code);
+		window.location.href = `${config.guestAppURL}/${path}`;
+		setCode("");
 	};
 
 	return (

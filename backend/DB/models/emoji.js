@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
 				allowNull: false,
 				type: DataTypes.DATE,
 			},
-			EmojiName: {
-				type: DataTypes.STRING,
+			name: {
+				type: DataTypes.STRING(100),
 				primaryKey: true,
 			},
 			QuestionId: {
@@ -29,8 +29,10 @@ module.exports = (sequelize, DataTypes) => {
 				primaryKey: true,
 			},
 		},
-		{}
 	);
 
+	Emoji.associate = function(models) {
+		Emoji.belongsTo(models.Event);
+	};
 	return Emoji;
 };

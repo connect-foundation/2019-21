@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import styled from "styled-components";
 import {Button, Modal} from "@material-ui/core";
 import PollName from "./PollName";
@@ -6,6 +6,8 @@ import PollType from "./PollType";
 import MultipleItems from "./MultipleItems";
 import RatingBlock from "./RatingBlock";
 import Duplication from "./Duplication";
+import {socketClient} from "../../libs/socket.io-Client-wrapper";
+import {HostContext} from "../../libs/hostContext";
 
 const ModalWrapper = styled.div`
 	display: flex;
@@ -28,6 +30,8 @@ const RowWrapper = styled.div`
 `;
 
 function NewPollModal({open, handleClose}) {
+	const {events} = useContext(HostContext);
+	const EventId = events[0].id;
 	// Poll 이름
 	const [pollName, setPollName] = useState("");
 	const onPollNameChange = event => {
@@ -56,7 +60,7 @@ function NewPollModal({open, handleClose}) {
 	const onTextChange = (event, id) => {
 		setTexts(
 			texts.map((text, index) =>
-				(index === id ? event.target.value : text),
+				index === id ? event.target.value : text,
 			),
 		);
 	};
@@ -72,7 +76,6 @@ function NewPollModal({open, handleClose}) {
 	// Poll 종류가 N지선다 이고 항목들의 속성이 date일때 항목들을 관리하는 부분
 	const now = Date.now();
 	const initialDates = [now, now];
-
 
 	const [dates, setDates] = useState(initialDates);
 	const onDateChange = (newDate, id) => {
@@ -98,6 +101,30 @@ function NewPollModal({open, handleClose}) {
 		display: "flex",
 		justifyContent: "center",
 		alignItems: "center",
+	};
+
+	const getSelectionType = () =>
+		pollType === "rating" ? ratingValue.toString() : selectionType;
+
+	const getCandidates = (pollType, selectionType) =>
+		pollType === "rating"
+			? ratingValue
+			: selectionType === "text"
+			? texts
+			: dates;
+
+	const onCreatePoll = () => {
+		const newPoll = {};
+
+		newPoll.EventId = EventId;
+		newPoll.pollName = pollName;
+		newPoll.pollType = pollType;
+		newPoll.selectionType = getSelectionType();
+		newPoll.allowDuplication = allowDuplication;
+		newPoll.candidates = getCandidates(pollType, selectionType);
+
+		socketClient.emit("poll/create", newPoll);
+		handleClose();
 	};
 
 	return (
@@ -136,7 +163,7 @@ function NewPollModal({open, handleClose}) {
 					<Button
 						variant="contained"
 						color="primary"
-						onClick={handleClose}
+						onClick={onCreatePoll}
 					>
 						확인
 					</Button>

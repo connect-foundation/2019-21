@@ -1,28 +1,14 @@
-type Emoji {
-	id: Int!
-	EmojiName: String!
-	count: Int!
-	questionId: Int!
-	GuestId: ID!
-	didIPicked: Boolean!
-}
-
 type Question {
-	id: Int!
-	EventId: Int!
-	guestName: String!
+	id: ID!
+	EventId: ID!
 	GuestId: ID!
 	createdAt: String!
 	content: String!
-	isAnonymous: Boolean!
 	state: String!
 	isStared: Boolean!
-	isLike: Boolean!
 	likeCount: Int!
-	Emojis: [Emoji]!
-	replies: [Question]!
 }
 
 type Query {
-    questions(eventCode:ID!,guestId:ID!): [Question]!,
+    questions(EventId:ID!): [Question]!,
 },

@@ -1,8 +1,11 @@
-
-import {makeQuestionDummy} from "../utils";
+import makeQuestionDummy from "../dummy/questionDummies";
 
 module.exports = {
-	up: (queryInterface, Sequelize) => queryInterface.bulkInsert("Questions", makeQuestionDummy(), {}),
+	up: (queryInterface, Sequelize) =>
+		makeQuestionDummy().then(data =>
+			queryInterface.bulkInsert("Questions", data, {}),
+		),
 
-	down: (queryInterface, Sequelize) => queryInterface.bulkDelete("Questions", null, {}),
+	down: (queryInterface, Sequelize) =>
+		queryInterface.bulkDelete("Questions", null, {}),
 };

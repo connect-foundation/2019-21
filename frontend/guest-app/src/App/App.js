@@ -1,29 +1,55 @@
 import React from "react";
 import styled from "styled-components";
-import ApolloClient from "apollo-boost";
-import {ApolloProvider} from "@apollo/react-hooks";
+import {useQuery} from "@apollo/react-hooks";
+import {gql} from "apollo-boost";
 import "./App.css";
 import NavBar from "../components/NavBar/NavBar.js";
 import TabGroup from "../components/TabGroup/TabGroup.js";
-import configLoader from "../config/configLoader.js";
-
-const config = configLoader();
-const apolloClient = new ApolloClient({
-	uri: config.apolloURI,
-});
+import {GuestProvider} from "../libs/guestContext";
 
 const AppStyle = styled.div`
 	height: 100vh;
 	width: 100vw;
 `;
 
+const GET_EVENT = gql`
+	query {
+		guestInEvent {
+			event {
+				id
+				eventCode
+				startAt
+				endAt
+				eventName
+				HostId
+			}
+			guest {
+				id
+				name
+				email
+				company
+			}
+		}
+	}
+`;
+
 export default function App() {
-	return (
-		<ApolloProvider client={apolloClient}>
-			<AppStyle>
-				<NavBar />
-				<TabGroup />
-			</AppStyle>
-		</ApolloProvider>
-	);
+	const {data, loading, error} = useQuery(GET_EVENT);
+
+	if (loading) {
+		return <p>loading...</p>;
+	} else if (error) {
+		return <p>error-page...</p>;
+	} else {
+		const {event, guest} = data.guestInEvent;
+
+		return (
+			<GuestProvider value={{event, guest}}>
+				<AppStyle>
+					<NavBar />
+					<TabGroup />
+				</AppStyle>
+			</GuestProvider>
+		);
+	}
 }

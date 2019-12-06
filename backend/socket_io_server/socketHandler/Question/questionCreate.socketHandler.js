@@ -1,15 +1,31 @@
 import { createQuestion } from "../../../DB/queries/question";
+import globalOption from "../../globalOption";
+import {updateGuestById} from "../../../DB/queries/guest";
 
 const questionCreateSocketHandler = async (data, emit) => {
 	try {
+		const {EventId, content, GuestId, guestName} = data;
 		console.log(data);
-		const { eventId, content, guestId } = data;
+		const currentModerationOption = globalOption.getOption(EventId)
+			.moderationOption;
+		const reqData = data;
+		let newData;
 
-		await createQuestion(eventId, content, guestId);
+		if (currentModerationOption) {
+			reqData.status = "moderation";
+			newData = await createQuestion(
+				EventId,
+				content,
+				GuestId,
+				"moderation",
+			);
+		} else {
+			newData = await createQuestion(EventId, content, GuestId);
+		}
 
-		console.log("delayed");
-
-		emit(data);
+		await updateGuestById({id: GuestId, name: guestName, isAnonymous: false});
+		reqData.id = newData.get({ plain: true }).id;
+		emit(reqData);
 	} catch (e) {
 		console.log(e);
 		emit({ status: "error", e });

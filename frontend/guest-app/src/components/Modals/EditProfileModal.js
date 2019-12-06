@@ -1,11 +1,13 @@
 import React from "react";
 import {Grid, Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import BusinessIcon from "@material-ui/icons/Business";
+import EmailIcon from "@material-ui/icons/Email";
+import PersonIcon from "@material-ui/icons/Person";
 import UserAvatar from "../UserAvatar/UserAvatar.js";
-import CommonModal from "../CommonModal/CommonModal.js";
-import CommonTextInput from "../CommonTextInput/CommonTextInput.js";
-import {CompanyIcon, EmailIcon, UserIcon} from "../FontAwesomeIcons.js";
-import useCommonTextInput from "../CommonTextInput/useCommonTextInput.js";
+import CommonModal from "../CommonComponent/CommonModal/CommonModal.js";
+import CommonTextInput from "../CommonComponent/CommonTextInput/CommonTextInput.js";
+import useCommonTextInput from "../CommonComponent/CommonTextInput/useCommonTextInput.js";
 import useUserAvatar from "../UserAvatar/useUserAvatar.js";
 
 function UserNameInput() {
@@ -26,8 +28,8 @@ function UserNameInput() {
 			<UserAvatar userName={userName} isAnonymous={isAnonymous} />
 
 			<CommonTextInput
-				icon={<UserIcon />}
-				label={"Your name"}
+				icon={<PersonIcon />}
+				label={"이름"}
 				value={userName}
 				onChange={onUserNameChange}
 			/>
@@ -40,8 +42,8 @@ function CompanyInput({company = ""}) {
 
 	return (
 		<CommonTextInput
-			icon={<CompanyIcon />}
-			label={"Your company"}
+			icon={<BusinessIcon />}
+			label={"회사"}
 			value={textInputState.value}
 			onChange={textInputState.onChange}
 		/>
@@ -54,7 +56,7 @@ function EmailInput({email = ""}) {
 	return (
 		<CommonTextInput
 			icon={<EmailIcon />}
-			label={"Your email"}
+			label={"이메일"}
 			value={textInputState.value}
 			onChange={textInputState.onChange}
 		/>
@@ -73,7 +75,7 @@ function EditProfileModal({isOpened = false, onCancelClick, onSave}) {
 	return (
 		<CommonModal isOpened={isOpened} onCancelClick={onCancelClick}>
 			<Typography variant={"h6"} color={"textSecondary"}>
-				Edit my profile
+				내 프로필 변경
 			</Typography>
 
 			<Grid container direction={"column"} alignItems={"center"}>

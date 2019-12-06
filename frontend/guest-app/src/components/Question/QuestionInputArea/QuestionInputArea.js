@@ -1,17 +1,18 @@
 import React from "react";
-import {Card} from "@material-ui/core";
-import styled from "styled-components";
+import {Card, CardContent} from "@material-ui/core";
 import PropTypes from "prop-types";
 import useQuestionInputArea from "./useQuestionInputArea.js";
 import EnabledQuestionInputArea from "./EnabledQuestionInputArea.js";
 import DisabledQuestionInputArea from "./DisabledQuestionInputArea.js";
 
-const QuestionInputAreaStyle = styled.div`
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-	z-index: 100;
-`;
+const style = {
+	width: "calc(100% - 2rem)",
+	position: "fixed",
+	bottom: "0",
+	left: "0rem",
+	zIndex: 100,
+	margin: "1rem",
+};
 
 function QuestionInputArea(props) {
 	const {onAskQuestion, onOpen, questionRef, userNameRef} = props;
@@ -23,8 +24,8 @@ function QuestionInputArea(props) {
 	};
 
 	return (
-		<QuestionInputAreaStyle>
-			<Card style={{width: "100%"}}>
+		<Card style={style}>
+			<CardContent style={{paddingBottom: "1rem"}}>
 				{questionInputArea.state ? (
 					<EnabledQuestionInputArea
 						onAskQuestion={() => {
@@ -38,8 +39,8 @@ function QuestionInputArea(props) {
 				) : (
 					<DisabledQuestionInputArea onClick={onQuestionAreaClick} />
 				)}
-			</Card>
-		</QuestionInputAreaStyle>
+			</CardContent>
+		</Card>
 	);
 }
 
