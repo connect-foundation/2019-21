@@ -1,10 +1,10 @@
-import React, { useState, useReducer } from "react";
+import React, {useState, useReducer} from "react";
 import styled from "styled-components";
-import { Button } from "@material-ui/core";
+import {Button} from "@material-ui/core";
 import PollCard from "./PollCard";
 import NewPollModal from "./NewPollModal";
 import useModal from "../../customhook/useModal";
-import { useSocket } from "../../libs/socket.io-Client-wrapper";
+import {useSocket} from "../../libs/socket.io-Client-wrapper";
 
 // import PollDummyData from "./PollDummyData";
 
@@ -117,7 +117,7 @@ function reducer(state, action) {
 	}
 }
 
-function PollContainer({ data }) {
+function PollContainer({data}) {
 	const [createPollModalOpen, handleOpen, handleClose] = useModal();
 
 	let activePollData = null;
@@ -129,7 +129,7 @@ function PollContainer({ data }) {
 
 		activePollData = initialPollData.filter(
 			poll => poll.state === "running",
-		)[0];
+		);
 		sbPollData = initialPollData.filter(poll => poll.state === "standby");
 		closedPollData = initialPollData.filter(
 			poll => poll.state === "closed",
@@ -143,6 +143,7 @@ function PollContainer({ data }) {
 	// onCreatePoll에 의해 신규로 생성된 Poll은 DB에 socket.io server에 요청하여 DB에 write 함
 	useSocket("poll/create", req => {
 		console.log("useSocket: Poll created. Please refresh.", req);
+		console.log(req);
 		// console.log(standbyPollData);
 		// setStandbyPollData(standbyPollData.concat(req));
 	});
@@ -182,21 +183,23 @@ function PollContainer({ data }) {
 			>
 				투표만들기
 			</Button>
-			{pollData && (
-				<PollCard
-					{...pollData}
-					onVote={onVote}
-					onChange={onChange}
-					onCancelRating={onCancelRating}
-				/>
-			)}
+			{pollData &&
+				pollData.map(poll => (
+					<PollCard
+						{...poll}
+						key={poll.id}
+						onVote={onVote}
+						onChange={onChange}
+						onCancelRating={onCancelRating}
+					/>
+				))}
 			{standbyPollData &&
-				standbyPollData.map((poll, index) => (
-					<PollCard {...poll} key={index} onVote={onVote} />
+				standbyPollData.map(poll => (
+					<PollCard {...poll} key={poll.id} onVote={onVote} />
 				))}
 			{closedPollData &&
-				closedPollData.map((poll, index) => (
-					<PollCard {...poll} key={index} onVote={onVote} />
+				closedPollData.map(poll => (
+					<PollCard {...poll} key={poll.id} onVote={onVote} />
 				))}
 			{createPollModalOpen && (
 				<NewPollModal
