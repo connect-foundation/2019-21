@@ -17,12 +17,45 @@ import {GuestContext} from "../../libs/guestContext";
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
 
-function useMyQuery(
-	options = {
-		variables: {EventId: 2, GuestId: 122},
-	},
-) {
+
+function useMyQuery(options) {
 	return useQuery(QUERY_INIT_QUESTIONS, options);
+}
+
+const style = {
+	backgroundColor: gray[300],
+};
+
+function BottomPaddingBox() {
+	return <Box p={24} style={style} />;
+}
+
+function getNewQuestion({
+	EventId,
+	GuestId,
+	guestName,
+	content,
+	createdAt = new Date(),
+	isShowEditButton = true,
+	isAnonymous = false,
+	didILike = false,
+	likeCount = 0,
+	status = "active",
+	isStared = false,
+}) {
+	return {
+		guestName,
+		EventId,
+		GuestId,
+		createdAt,
+		content,
+		isShowEditButton,
+		isAnonymous,
+		didILike,
+		likeCount,
+		status,
+		isStared,
+	};
 }
 
 function QuestionContainer() {
@@ -47,21 +80,14 @@ function QuestionContainer() {
 	});
 
 	const onAskQuestion = () => {
-		const newQuestion = {
-			guestName: userNameRef.current.value,
-			EventId: event.id,
-			GuestId: guest.id,
-			createdAt: new Date(),
-			content: questionRef.current.value,
-			isShowEditButton: true,
-			isAnonymous: false,
-			didILike: false,
-			likeCount: 0,
-			status: "active",
-			isStared: false,
-		};
-
-		socketClient.emit("question/create", newQuestion);
+		socketClient.emit(
+			"question/create",
+			getNewQuestion({
+				guestName: userNameRef.current.value,
+				EventId: event.id,
+				GuestId: guest.id,
+			}),
+		);
 	};
 
 	const onContainerSelectTab = (event, newValue) => {
@@ -74,10 +100,6 @@ function QuestionContainer() {
 		}
 
 		selectTabIdx(event, newValue);
-	};
-
-	const style = {
-		backgroundColor: gray[300],
 	};
 
 	return (
@@ -93,7 +115,7 @@ function QuestionContainer() {
 				userNameRef={userNameRef}
 			/>
 			<QuestionCardList questions={questions} />
-			<Box p={12} style={style}/>
+			<BottomPaddingBox />
 		</>
 	);
 }
