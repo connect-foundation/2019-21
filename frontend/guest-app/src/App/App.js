@@ -15,6 +15,7 @@ const AppStyle = styled.div`
 `;
 
 
+
 export default function App() {
 	const {data, loading, error} = useQuery(GET_GUEST_APP_GLOBAL_DATA);
 
