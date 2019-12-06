@@ -29,11 +29,16 @@ export default (header = "") => {
 
 			const ts = timestamp.slice(0, 19).replace("T", " ");
 
-			const head = chalk.rgb(...randomRGB)(header);
+			const head = chalk.rgb(...randomRGB)(`${ts} | ${header}`);
+			const msg = chalk.rgb(...randomRGB)(
+				`${message} ${
+					Object.keys(args).length ?
+						JSON.stringify(args, null, 2) :
+						""
+				}`,
+			);
 
-			return `${ts} | ${head} | [${level}]: ${message} ${
-				Object.keys(args).length ? JSON.stringify(args, null, 2) : ""
-			}`;
+			return `${head} | [${level}]: ${msg} `;
 		}),
 	);
 
@@ -44,8 +49,7 @@ export default (header = "") => {
 				filename: "log/system.log", // log 폴더에 system.log 이름으로 저장
 				zippedArchive: true, // 압축여부
 				format,
-			}),
-			new winston.transports.Console({
+			}), new winston.transports.Console({
 				format,
 			}),
 		],
