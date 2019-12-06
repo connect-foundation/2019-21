@@ -18,7 +18,7 @@
 
 ## 배포 링크
 
-* [main-app](http://106.10.53.159/main-app)
+* [vaagle](http://www.vaagle.com)
 
 ## 주요 기능
 
