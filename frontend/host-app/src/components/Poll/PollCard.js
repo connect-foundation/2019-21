@@ -1,6 +1,7 @@
 import React from "react";
-import styled, {css} from "styled-components";
-import {MdPerson} from "react-icons/md";
+import styled, { css } from "styled-components";
+import { Button } from "@material-ui/core";
+import { MdPerson } from "react-icons/md";
 import SelectionItems from "./SelectionItems";
 import RatingItem from "./RatingItem";
 
@@ -39,6 +40,7 @@ const RowWrapper = styled.div`
 
 function PollCard(props) {
 	const {
+		id,
 		pollName,
 		allowDuplication,
 		pollDate,
@@ -51,18 +53,17 @@ function PollCard(props) {
 	// const localePollDate = pollDate.toLocaleString();
 	const localePollDate = pollDate;
 
-	// console.log(pollName, pollDate, totalVoters);
-
 	return (
 		<ColumnWrapper>
 			<RowWrapper left bold>
 				{pollName}
 				<div>{state === "closed" && "(종료됨)"}</div>
+				<div>{state === "standby" && "(대기중)"}</div>
 			</RowWrapper>
 			<RowWrapper left small>
-				{allowDuplication ?
-					`복수선택 | ${localePollDate}` :
-					`${localePollDate}`}
+				{allowDuplication
+					? `복수선택 | ${localePollDate}`
+					: `${localePollDate}`}
 			</RowWrapper>
 			{pollType === "nItems" && (
 				<SelectionItems
@@ -76,6 +77,13 @@ function PollCard(props) {
 				<MdPerson />
 				{`${parseInt(totalVoters).toLocaleString()} 명 참여`}
 			</RowWrapper>
+			{state === "standby" && (
+				<>
+					<Button variant="contained" color="primary">
+						개시하기
+					</Button>
+				</>
+			)}
 		</ColumnWrapper>
 	);
 }

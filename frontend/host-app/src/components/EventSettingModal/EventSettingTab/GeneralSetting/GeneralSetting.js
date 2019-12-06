@@ -22,7 +22,7 @@ const PopUpLayOutStyle = styled.div`
 function convertDataToView(eventInfo) {
 	return {
 		eventName: eventInfo.eventName,
-		startDate: moment(new Date(parseInt(eventInfo.startAt))),
+		startDate: new Date(parseInt(eventInfo.startAt)),
 		endDate: moment(new Date(parseInt(eventInfo.endAt))).format(
 			"YYYY년 MM월 DD일 HH시 mm분",
 		),

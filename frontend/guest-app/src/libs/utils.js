@@ -27,3 +27,15 @@ export function JSONNestJoin(parents, childs, parentKey, childKey, func) {
 
   return unMappingByKey(mapped);
 }
+
+export function JSONNestJoin2(parents, childs, parentKey, childKey, func) {
+  const mapped = mappingByKey(childs, childKey);
+  parents.forEach(parent => {
+    const joinValue = parent[parentKey];
+    if (mapped[joinValue]) {
+      const childElement = mapped[joinValue];
+      parent = func(parent, childElement);
+    }
+  });
+  return parents;
+}
