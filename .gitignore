@@ -2,3 +2,25 @@
 .idea
 
 node_modules
+*.pem
+*.sdi
+*.CSV
+*.CSM
+*.ibd
+*.index
+*.000005
+*.000004
+*.000003
+*.000002
+*.000001
+*.cnf
+*.ibt
+*.env
+backend/docker/volumes/mysql_bagle_dev/undo_002
+backend/docker/volumes/mysql_bagle_dev/undo_001
+backend/docker/volumes/mysql_bagle_dev/ibtmp1
+backend/docker/volumes/mysql_bagle_dev/ibdata1
+backend/docker/volumes/mysql_bagle_dev/ib_logfile1
+backend/docker/volumes/mysql_bagle_dev/ib_logfile0
+backend/docker/volumes/mysql_bagle_dev/ib_buffer_pool
+frontend/main-app/yarn-error.log
