@@ -113,7 +113,7 @@ function QuestionContainer() {
 				questionRef={questionRef}
 				userNameRef={userNameRef}
 			/>
-			<QuestionCardList questions={questions} />
+			<QuestionCardList />
 			<BottomPaddingBox />
 		</QuestionsProvider>
 	);

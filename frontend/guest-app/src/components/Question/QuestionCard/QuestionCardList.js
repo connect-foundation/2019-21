@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, {useContext} from "react";
 import gray from "@material-ui/core/colors/grey.js";
 import QuestionCard from "./QuestionCard.js";
+import {QuestionsContext} from "../QuestionsContext.js";
 
 const style = {
 	backgroundColor: gray[300],
@@ -11,8 +11,8 @@ const style = {
 	paddingBottom: "0.5rem",
 };
 
-function QuestionCardList(props) {
-	const {questions} = props;
+function QuestionCardList() {
+	const questions = useContext(QuestionsContext);
 
 	return (
 		<div style={style}>
@@ -23,8 +23,6 @@ function QuestionCardList(props) {
 	);
 }
 
-QuestionCardList.propTypes = {
-	questions: PropTypes.any,
-};
+QuestionCardList.propTypes = {};
 
 export default QuestionCardList;
