@@ -35,7 +35,7 @@ function getNewQuestion({
 	GuestId,
 	guestName,
 	content,
-	createdAt = new Date(),
+	createdAt = new Date().getTime(),
 	isShowEditButton = true,
 	isAnonymous = false,
 	didILike = false,
