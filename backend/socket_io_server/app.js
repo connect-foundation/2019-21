@@ -24,7 +24,16 @@ function BindSocketListener(socket, server) {
 				server.emit(eventName, res);
 			};
 
-			handler(data, emit);
+			try {
+				handler(data, emit, {socket, server});
+			} catch (e) {
+				console.error(
+					`while handing ${eventName} error raise,\n ${e.toString()}\n${
+						e.stack
+					}`,
+				);
+				socket.send({status: "error", error: e});
+			}
 		});
 	};
 }
