@@ -13,10 +13,10 @@ import {
 	QUERY_INIT_QUESTIONS,
 } from "../../libs/useQueryQuestions.js";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
+import {QuestionsProvider} from "./QuestionsContext.js";
 
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
-
 
 function useMyQuery(options) {
 	return useQuery(QUERY_INIT_QUESTIONS, options);
@@ -103,9 +103,8 @@ function QuestionContainer() {
 	};
 
 	return (
-		<>
+		<QuestionsProvider value={questions}>
 			<QuestionContainerTabBar
-				questionNumber={questions.length}
 				tabIdx={tabIdx}
 				onSelectTab={onContainerSelectTab}
 			/>
@@ -116,7 +115,7 @@ function QuestionContainer() {
 			/>
 			<QuestionCardList questions={questions} />
 			<BottomPaddingBox />
-		</>
+		</QuestionsProvider>
 	);
 }
 

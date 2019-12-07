@@ -1,16 +1,18 @@
-import React from "react";
+import React, {useContext} from "react";
 import Paper from "@material-ui/core/Paper";
 import {Typography} from "@material-ui/core";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import gray from "@material-ui/core/colors/grey.js";
 import PropTypes from "prop-types";
+import {QuestionsContext} from "./QuestionsContext.js";
 
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
 
 function QuestionContainerTabBar(props) {
-	const {questionNumber, tabIdx, onSelectTab} = props;
+	const questions = useContext(QuestionsContext);
+	const {tabIdx, onSelectTab} = props;
 
 	return (
 		<Paper style={{backgroundColor: gray[300]}}>
@@ -22,7 +24,7 @@ function QuestionContainerTabBar(props) {
 					disabled
 					icon={
 						<Typography color={"textSecondary"}>
-							총 {questionNumber} 질문
+							총 {questions.length} 질문
 						</Typography>
 					}
 					style={{
