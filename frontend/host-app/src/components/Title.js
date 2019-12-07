@@ -1,6 +1,7 @@
 import React from "react";
 import SwitchTitle from "./SwitchTitle";
 import RadioTitle from "./RadioTitle";
+import {filterQuestion} from "../libs/utils";
 
 const titleMap = {
 	moderation: {
@@ -25,24 +26,34 @@ const titleMap = {
 	},
 };
 
-function Title({type, state, stateHandler, badgeState, dataHandler}) {
+function Title({type, state, stateHandler, data, dataHandler}) {
 	if (type === "moderation") {
 		return <SwitchTitle
 			titleName= {titleMap[type].titleName}
 			state={state}
 			stateHandler={stateHandler}
-			badgeState={badgeState}
+			data={filterQuestion(type, data).questions}
+		/>;
+	} else if (type === "completeQuestion") {
+		return <RadioTitle
+			titleName={titleMap[type].titleName}
+			state= {state}
+			stateHandler={stateHandler}
+			data={filterQuestion(type, data).questions}
+			idx={titleMap[type].columnIndex}
+			dataHandler={dataHandler}
+			type={type}
 		/>;
 	} else {
 		return <RadioTitle
 			titleName={titleMap[type].titleName}
 			state= {state}
 			stateHandler={stateHandler}
-			badgeState={badgeState}
+			data={filterQuestion("active", data).questions}
 			idx={titleMap[type].columnIndex}
 			dataHandler={dataHandler}
 			type={type}
-		/>;
+		/>
 	}
 }
 

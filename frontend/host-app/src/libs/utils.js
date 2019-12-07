@@ -13,6 +13,12 @@ export function makeNewData(req) {
 	return newData;
 }
 
+export function filterQuestion(option, data){
+	console.log(option);
+	console.log(data);
+	return {questions: data.questions.filter(e => e.state === option)};
+}
+
 function mappingByKey(object, key) {
 	const mappped = {};
 

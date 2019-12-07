@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function SwitchTitle({titleName, state, stateHandler, badgeState}) {
+function SwitchTitle({titleName, state, stateHandler, data}) {
 	const {events} = useContext(HostContext);
 	const classes = useStyles();
 	const eventId = events[0].id; // dummyEventId
@@ -40,7 +40,7 @@ function SwitchTitle({titleName, state, stateHandler, badgeState}) {
 		<TitleBox>
 			<Badge
 				color="secondary"
-				badgeContent={badgeState[0]}
+				badgeContent={data.length}
 				showZero
 				className={classes.margin}
 			/>
@@ -48,7 +48,7 @@ function SwitchTitle({titleName, state, stateHandler, badgeState}) {
 			<Switch
 				checked={state}
 				onClick={() => moderationEventEmit()}
-			></Switch>
+			/>
 		</TitleBox>
 	);
 }

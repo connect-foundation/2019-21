@@ -18,67 +18,29 @@ const ContentStyle = styled.div`
 	flex-wrap: nowrap;
 `;
 
-const filterQuestion = (option, data) => data.filter(e => e.state === option);
-
 function Inner({data, event, option}) {
 	const SELECTED = true;
 	const UNSELECTED = false;
 
 	const [radioState, setRadioState] = useState([SELECTED, UNSELECTED, UNSELECTED, UNSELECTED]);
 	const [moderationState, setModeration] = useState(option.moderationOption); // get from DB
-	const [modeartionDatas, setModerationDatas] = useState({
-		questions: filterQuestion("moderation", data),
-	});
-	const [newQuestionDatas, setNewQuestionDatas] = useState({
-		questions: filterQuestion("active", data),
-	});
-	const [completeQuestionDatas, setCompleteQuestionDatas] = useState({
-		questions: filterQuestion("completeQuestion", data),
-	});
-	const [questionNumber, setQuestionNumber] = useState([modeartionDatas.questions.length, newQuestionDatas.questions.length, newQuestionDatas.questions.length, completeQuestionDatas.questions.length]);
+	const [questions, setQuestions] = useState({questions: data});
+
 	const [pollNumberStatus] = useState(0);
 
 	const handleRadioState = buttonIndex => {
-		const newState = [UNSELECTED, UNSELECTED, UNSELECTED, UNSELECTED].map((_, idx) => (idx === buttonIndex ? SELECTED : UNSELECTED));
+		const newState = [UNSELECTED, UNSELECTED, UNSELECTED, UNSELECTED]
+			.map((_, idx) => (idx === buttonIndex ? SELECTED : UNSELECTED));
 
 		setRadioState(newState);
 	};
 
 	const typeMap = {
-		moderation: {
-			state: moderationState,
-			stateHandler: setModeration,
-			data: modeartionDatas,
-			handler: setModerationDatas,
-		},
-		newQuestion: {
-			state: radioState,
-			stateHandler: handleRadioState,
-			data: newQuestionDatas,
-			handler: setNewQuestionDatas,
-		},
-		popularQuestion: {
-			state: radioState,
-			stateHandler: handleRadioState,
-			data: newQuestionDatas,
-			handler: setNewQuestionDatas,
-		},
-		completeQuestion: {
-			state: radioState,
-			stateHandler: handleRadioState,
-			data: completeQuestionDatas,
-			handler: setCompleteQuestionDatas,
-		},
-		deleted: {
-			data: {
-				questions: [],
-			},
-			handler: e => typeMap.deleted.data.questions.push(e),
-		},
-		active: {
-			data: newQuestionDatas,
-			handler: setNewQuestionDatas,
-		},
+		moderation: {state: moderationState, stateHandler: setModeration},
+		newQuestion: {state: radioState, stateHandler: handleRadioState},
+		popularQuestion: {state: radioState, stateHandler: handleRadioState},
+		completeQuestion: {state: radioState, stateHandler: handleRadioState},
+		deleted: {data: {questions: []}, handler: e => typeMap.deleted.data.questions.push(e)},
 	};
 
 	useSocket("question/create", req => {
@@ -116,7 +78,7 @@ function Inner({data, event, option}) {
 
 			fromObject.handler({questions: []});
 			toObject.handler({questions: newCompleteData});
-			return setQuestionNumber([modeartionDatas.questions.length, 0, 0, newCompleteData.length]);
+			return 0;
 		}
 
 		fromObject.handler({
@@ -125,9 +87,7 @@ function Inner({data, event, option}) {
 		toObject.handler({
 			questions: [...toObject.data.questions, fromObject.data.questions.find(e => e.id === req.id)],
 		});
-
-		return setQuestionNumber([modeartionDatas.questions.length, newQuestionDatas.questions.length, newQuestionDatas.questions.length, completeQuestionDatas.questions.length]);
-		// bug: state 가 한박자 늦게 update. 아직 handler 로 인한 state 변화가 update 되지 않았기 때문으로 추정함.
+		return 0;
 	});
 
 	const handleQuestionDatas = (id, from, to) =>
@@ -155,9 +115,8 @@ function Inner({data, event, option}) {
 						type={e}
 						state={typeMap[e].state}
 						stateHandler={typeMap[e].stateHandler}
-						data={typeMap[e].data}
-						badgeState={questionNumber}
-						dataHandler={handleQuestionDatas}
+						data={questions}
+						dataHandler={setQuestions}
 						handleStar={handleStar}
 					/>
 				))}
@@ -166,6 +125,7 @@ function Inner({data, event, option}) {
 				state={radioState}
 				stateHandler={handleRadioState}
 				badgeState={pollNumberStatus}
+				data={{questions: []}}
 			/>
 		</ContentStyle>
 	);
@@ -174,17 +134,15 @@ function Inner({data, event, option}) {
 function Content({event}) {
 	const {events} = useContext(HostContext);
 	const {loading, error, data} = useQueryQuestions({
-		variables: {
-			EventId: events[0].id,
-		},
+		variables: {EventId: events[0].id},
 	});
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
-	console.log(data);
+
 	return (
 		<>
-			<Inner data={data.newData} event={event} option={data.newOption} />
+			<Inner data={data.newData.splice(0,10)} event={event} option={data.newOption} />
 		</>
 	);
 }

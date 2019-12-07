@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
 }
 ));
 
-function RadioTitle({titleName, state, stateHandler, idx, badgeState, dataHandler, type}) {
+function RadioTitle({titleName, state, stateHandler, idx, data, dataHandler, type}) {
 	const SELECTED = true;
 	const classes = useStyles();
 
@@ -41,7 +41,7 @@ function RadioTitle({titleName, state, stateHandler, idx, badgeState, dataHandle
 		<TitleBox>
 			<Badge
 				color="secondary"
-				badgeContent={badgeState[idx + 1]}
+				badgeContent={data.length}
 				showZero
 				className={classes.margin}
 			/>
@@ -63,7 +63,7 @@ function RadioTitle({titleName, state, stateHandler, idx, badgeState, dataHandle
 		<TitleBox>
 			<Badge
 				color="secondary"
-				badgeContent={idx === 3 ? badgeState : badgeState[idx + 1]}
+				badgeContent={data.length}
 				showZero
 				className={classes.margin}
 			/>
