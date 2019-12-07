@@ -86,6 +86,7 @@ function QuestionContainer() {
 				guestName: userNameRef.current.value,
 				EventId: event.id,
 				GuestId: guest.id,
+				content: questionRef.current.value,
 			}),
 		);
 	};
