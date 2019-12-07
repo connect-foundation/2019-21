@@ -3,4 +3,4 @@ tabWidth: 4
 useTabs: true
 semi: true
 singleQuote: false
-bracketSpacing: true
+bracketSpacing: false
