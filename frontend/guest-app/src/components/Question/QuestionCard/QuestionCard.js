@@ -5,23 +5,23 @@ import Divider from "@material-ui/core/Divider";
 import QuestionHeader from "./QuestionCardHeader.js";
 import QuestionBody from "./QuestionCardBody.js";
 import EmojiArea from "../../Emoji/EmojiArea.js";
+import {QuestionsContext} from "../QuestionsContext.js";
 
 function QuestionCard(props) {
-	const {isShowEditButton = false, content} = props;
-
 	return (
 		<Card style={{margin: "0.5rem"}}>
 			<CardContent style={{paddingTop: "1rem", paddingBottom: "0"}}>
 				<QuestionHeader {...props} />
-				<Divider style={{marginTop: "0.5rem", marginBottom: "0.5rem"}} />
-				<QuestionBody
-					question={content}
-					isMyQuestion={isShowEditButton}
+				<Divider
+					style={{marginTop: "0.5rem", marginBottom: "0.5rem"}}
 				/>
+				<QuestionBody {...props} />
 				<EmojiArea />
 			</CardContent>
 		</Card>
 	);
 }
+
+QuestionsContext.proptypes = {};
 
 export default QuestionCard;
