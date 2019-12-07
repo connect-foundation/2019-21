@@ -20,8 +20,8 @@ const socketServer = io(httpServer);
 function BindSocketListener(socket, server) {
 	return (eventName, handler) => {
 		socket.on(eventName, data => {
-			const emit = () => {
-				server.emit(eventName, data);
+			const emit = res => {
+				server.emit(eventName, res);
 			};
 
 			handler(data, emit);
