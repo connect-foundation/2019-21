@@ -1,6 +1,16 @@
-export function timeFormatter(timeString) {
-	const timetoken = timeString.split(":");
-	return `${timetoken[0].slice(-2)}시${timetoken[1]}분${timetoken[2].slice(0, 2)}초 `
+export function makeNewData(req) {
+	const newData = {
+		Emojis: [],
+		GuestId: req.GuestId,
+		content: req.content,
+		createdAt: req.createdAt,
+		guestName: req.guestName,
+		id: req.id,
+		isLike: req.didILike,
+		likeCount: req.likeCount,
+		state: req.status,
+	};
+	return newData;
 }
 
 function mappingByKey(object, key) {

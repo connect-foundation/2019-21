@@ -1,11 +1,10 @@
 import React, {useState, useContext} from "react";
-import {useQuery} from "@apollo/react-hooks";
 import styled from "styled-components";
 import Column from "./Column";
 import {socketClient, useSocket} from "../libs/socket.io-Client-wrapper";
-import {getQuestionsByEventCodeAndGuestId} from "../libs/gql";
 import useQueryQuestions from "../libs/useQueryQuestions";
 import {HostContext} from "../libs/hostContext";
+import {makeNewData} from "../libs/utils";
 
 const ContentStyle = styled.div`
 	display: flex;
@@ -83,19 +82,7 @@ function Inner({data, event, option}) {
 	};
 
 	useSocket("question/create", req => {
-		// DB 와 sequelize 이름이 달라 error 발생해서 임시조치
-		console.log(req);
-		const newData = {
-			Emojis: [],
-			GuestId: req.GuestId,
-			content: req.content,
-			createdAt: req.createdAt,
-			guestName: req.guestName,
-			id: req.id,
-			isLike: req.didILike,
-			likeCount: req.likeCount,
-			state: req.status,
-		};
+		const newData = makeNewData(req);
 
 		switch (req.status) {
 			case "moderation":

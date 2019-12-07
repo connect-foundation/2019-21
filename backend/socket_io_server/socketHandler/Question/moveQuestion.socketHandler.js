@@ -1,7 +1,13 @@
+import {updateQuestionById} from "../../../DB/queries/question";
+
 const moveQuestionSocketHandler = async (data, emit) => {
 	try {
-		console.log(data);
+		const id = data.id;
+		const status = data.to;
 
+		await updateQuestionById({id, status});
+
+		console.log(data);
 		emit(data);
 	} catch (e) {
 		console.log(e);

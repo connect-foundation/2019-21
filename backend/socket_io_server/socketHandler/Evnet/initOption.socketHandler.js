@@ -3,9 +3,9 @@ import globalOption from "../../globalOption";
 
 const initOptionSocketHandler = async (data, emit) => {
 	try {
-		const currentState = await getEventOptionByEventId(2); // dummy event Id
+		const currentState = await getEventOptionByEventId(data); // dummy event Id
 
-		globalOption.setOption(2, currentState.get({plain: true}));
+		globalOption.setOption(data, currentState.get({plain: true}));
 	} catch (e) {
 		console.log(e);
 		emit({status: "error", e});
