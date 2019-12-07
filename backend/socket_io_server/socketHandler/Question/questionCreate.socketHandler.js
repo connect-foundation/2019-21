@@ -68,9 +68,10 @@ const questionCreateSocketHandler = async (data, emit, socket, server) => {
 
 		// todo 성능 개선: moderation기능이 on인경우 host에만 send 하도록 수정
 		emit(reqData);
+
 	} catch (e) {
-		logger.error(e);
-		emit({status: "error", e});
+		logger.error(`${e.toString()}\n${e.stack}`);
+		socket.send({status: "error", error: e});
 	}
 };
 
