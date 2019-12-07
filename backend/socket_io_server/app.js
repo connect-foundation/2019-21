@@ -20,11 +20,20 @@ const socketServer = io(httpServer);
 function BindSocketListener(socket, server) {
 	return (eventName, handler) => {
 		socket.on(eventName, data => {
-			const emit = () => {
-				server.emit(eventName, data);
+			const emit = res => {
+				server.emit(eventName, res);
 			};
 
-			handler(data, emit);
+			try {
+				handler(data, emit, {socket, server});
+			} catch (e) {
+				console.error(
+					`while handing ${eventName} error raise,\n ${e.toString()}\n${
+						e.stack
+					}`,
+				);
+				socket.send({status: "error", error: e});
+			}
 		});
 	};
 }
