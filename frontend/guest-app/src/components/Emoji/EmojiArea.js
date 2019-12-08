@@ -1,10 +1,13 @@
-import React, {useState} from "react";
+import React, {useContext} from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import IconButton from "@material-ui/core/IconButton";
 import InsertEmoticonOutlinedIcon from "@material-ui/icons/InsertEmoticonOutlined";
 import EmojiInstance from "./EmojiInstance";
 import EmojiPickerModal from "./EmojiPickerModal";
 import useCommonModal from "../CommonComponent/CommonModal/useCommonModal";
+import {socketClient} from "../../libs/socket.io-Client-wrapper.js";
+import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 
 const RowWrapper = styled.div`
 	display: flex;
@@ -51,33 +54,41 @@ function EmojiInsertButton(props) {
 }
 
 function EmojiArea(props) {
-	// const {emojis} = props;
-	// console.log(emojis)
+	const {emojis, id: QuestionId} = props;
+	const {guest, event} = useContext(GuestGlobalContext);
 	const emojiPickerModal = useCommonModal();
-	const [emojiList, setEmojiList] = useState([]);
+
 	const onAddEmoji = emoji => {
 		const newEmoji = {
-			id: emojiList.length,
 			name: emoji,
-			count: 1,
-			voted: true,
+			QuestionId,
+			GuestId: guest.id,
+			EventId: event.id,
 		};
 
-		setEmojiList(emojiList.concat(newEmoji));
+		socketClient.emit("questionEmoji/create", newEmoji);
 	};
-	const onClickEmoji = id => {
-		let result = emojiList.map(emoji =>
-			emoji.id === id ? updateEmoji(emoji) : emoji,
-		);
 
-		result = result.filter(n => n != null);
-		result = addIndex(result);
-		setEmojiList(result);
+	const onClickEmoji = name => {
+		emojis.forEach(emoji => {
+			if (emoji.name !== name) {
+				return;
+			}
+
+			const newEmoji = {
+				name: emoji.name,
+				QuestionId,
+				GuestId: guest.id,
+				EventId: event.id,
+			};
+
+			socketClient.emit("questionEmoji/create", newEmoji);
+		});
 	};
 
 	return (
 		<RowWrapper left>
-			{emojiList.map((emj, index) => (
+			{emojis.map((emj, index) => (
 				<EmojiInstance {...emj} onClick={onClickEmoji} key={index} />
 			))}
 			<EmojiInsertButton onClick={emojiPickerModal.openModal} />

@@ -1,21 +1,13 @@
-import {updateQuestionById} from "../../../DB/queries/question";
+import {createEmoji} from "../../../DB/queries/emoji.js";
 
 const moveQuestionSocketHandler = async (data, emit) => {
-	try {
-		const id = data.id;
-		const status = data.to;
+	const {GuestId, name, EventId, QuestionId} = data;
+	const res = await createEmoji({GuestId, name, EventId, QuestionId});
 
-		await updateQuestionById({id, status});
-
-		console.log(data);
-		emit(data);
-	} catch (e) {
-		console.log(e);
-		emit({status: "error", e});
-	}
+	emit(res.get({plain: true}));
 };
 
-const eventName = "question/move";
+const eventName = "questionEmoji/create";
 
 export default {
 	eventName,

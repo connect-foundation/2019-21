@@ -6,7 +6,7 @@ const EmojiInstanceStyle = styled.div`
 	display: inline-block;
 	border: 1px solid #dee2e6; /* gray3 */
 	${props =>
-		props.didIPicked &&
+		props.didIPick &&
 		css`
 			background-color: #e7f5ff; /* blue0 */
 			border: 1px solid #339af0; /* blue5 */
@@ -25,10 +25,10 @@ const EmojiInstanceStyle = styled.div`
 `;
 
 function EmojiInstance(props) {
-	const {id, name, count, didIPicked, onClick} = props;
+	const {name, count, didIPick, onClick} = props;
 
 	return (
-		<EmojiInstanceStyle didIPicked={didIPicked} onClick={() => onClick(id)}>
+		<EmojiInstanceStyle didIPick={didIPick} onClick={() => onClick(name)}>
 			<Emoji emoji={name} size={16} />
 			<span>{count}</span>
 		</EmojiInstanceStyle>

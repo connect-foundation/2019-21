@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 const compareByDate = (a, b) => b.createdAt.localeCompare(a.createdAt);
 
 const compareByLikeCount = (a, b) => b.likeCount - a.likeCount;
@@ -59,6 +61,35 @@ const onUndoQuestionLike = (state, data) => {
 	return newState;
 };
 
+const onAddQuestionEmoji = (state, data) => {
+	const {QuestionId, GuestId, name} = data;
+	const guestGlobal = data.guestGlobal;
+	const newState = _.cloneDeep(state);
+
+	newState.map(question => {
+		if (question.id !== QuestionId) {
+			return question;
+		}
+
+		question.emojis.map(emoji => {
+			if (emoji.name === name) {
+				emoji.count += 1;
+
+				if (GuestId === guestGlobal.id) {
+					emoji.didIPick = true;
+				}
+			}
+
+			return emoji;
+		});
+
+		return question;
+	});
+
+	return newState;
+};
+
+
 const QuestionsReducer = (state, action) => {
 	const {type, data} = action;
 
@@ -70,6 +101,7 @@ const QuestionsReducer = (state, action) => {
 		sortByLikeCount: onSortByLikeCount,
 		questionLike: onQuestionLike,
 		undoQuestionLike: onUndoQuestionLike,
+		addQuestionEmoji: onAddQuestionEmoji,
 	};
 
 	if (!(type in actionTable)) {

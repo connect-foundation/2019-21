@@ -83,6 +83,11 @@ const useSocketHandler = (dispatch, guestGlobal) => {
 		req.guestGlobal = guestGlobal;
 		dispatch({type: "undoQuestionLike", data: req});
 	});
+
+	useSocket("questionEmoji/create", req => {
+		req.guestGlobal = guestGlobal;
+		dispatch({type: "addQuestionEmoji", data: req});
+	});
 };
 
 function QuestionContainer() {
