@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
 import UserAvatar from "../../UserAvatar/UserAvatar.js";
 import LikeButton from "../../LikeButton/LikeButton.js";
-import useLikeButton from "../../LikeButton/useLikeButton.js";
 import QuestionCardDate from "./QuestionsCardDate.js";
 import QuestionUserName from "./QuestionCardUserName.js";
 
@@ -20,11 +19,7 @@ const QuestionHeaderStyle = styled.div`
 `;
 
 function QuestionHeader(props) {
-	const {guestName, createdAt, isLike, likeCount} = props;
-	const likeButton = useLikeButton({
-		isLikeClicked: isLike,
-		likeCount,
-	});
+	const {guestName, createdAt} = props;
 
 	return (
 		<QuestionHeaderStyle>
@@ -35,7 +30,7 @@ function QuestionHeader(props) {
 					<QuestionCardDate date={createdAt} />
 				</QuestionInfo>
 			</Grid>
-			<LikeButton {...likeButton} />
+			<LikeButton {...props} />
 		</QuestionHeaderStyle>
 	);
 }
