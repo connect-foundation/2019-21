@@ -16,10 +16,8 @@ function Inner({data, event, option}) {
 	const [pollNumberStatus] = useState(0);
 
 	const handleRadioState = buttonIndex => {
-		const newState = [UNSELECTED, UNSELECTED, UNSELECTED, UNSELECTED]
-			.map((_, idx) => (idx === buttonIndex ? SELECTED : UNSELECTED));
-
-		setRadioState(newState);
+		setRadioState([UNSELECTED, UNSELECTED, UNSELECTED, UNSELECTED]
+			.map((_, idx) => (idx === buttonIndex ? SELECTED : UNSELECTED)));
 	};
 
 	const typeMap = {
@@ -34,7 +32,6 @@ function Inner({data, event, option}) {
 	useSocket("question/move", req => dispatch({type: "moveQuestion", data: req}));
 
 	const handleQuestionDatas = (id, from, to) => socketClient.emit("question/move", {id, from, to});
-
 	const handleStar = id => {
 		questions.questions.some(e => {
 			if (e.id === id) {

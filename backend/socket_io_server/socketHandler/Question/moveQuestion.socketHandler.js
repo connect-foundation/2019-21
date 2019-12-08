@@ -3,9 +3,9 @@ import {updateQuestionById} from "../../../DB/queries/question";
 const moveQuestionSocketHandler = async (data, emit) => {
 	try {
 		const id = data.id;
-		const status = data.to;
+		const state = data.to;
 
-		await updateQuestionById({id, status});
+		await updateQuestionById({id, state});
 
 		console.log(data);
 		emit(data);
