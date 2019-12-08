@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Cookie from "js-cookie";
 import { TextField, Button } from "@material-ui/core";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
 import configLoader from "../config/configLoader.js";
 
@@ -35,6 +38,15 @@ const StyledButton = withStyles({
 function EventForm() {
 	const [code, setCode] = useState("");
 	const [errorMessage, setMessage] = useState(" ");
+	const [anchorEl, setAnchorEl] = React.useState(null);
+	const hostCookieName = "vaagle-host";
+	const guestCookieName = "vaagle-guest";
+	const handleClick = event => {
+		setAnchorEl(event.currentTarget);
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
 
 	const onChange = e => {
 		setCode(e.target.value);
@@ -48,6 +60,9 @@ function EventForm() {
 		window.location.href = `${config.guestAppURL}/${path}`;
 		setCode("");
 	};
+	const hostCookie = Cookie.get(hostCookieName);
+	const guestCookie = Cookie.get(guestCookieName);
+	const empty = !hostCookie && !guestCookie;
 
 	return (
 		<EventFormStyle>
@@ -79,6 +94,32 @@ function EventForm() {
 				</StyledButton>
 				<ErrorStyle>{errorMessage}</ErrorStyle>
 			</form>
+			<Button onClick={handleClick}>
+				<h3>최근목록</h3>
+			</Button>
+			<Menu
+				id="simple-menu"
+				anchorEl={anchorEl}
+				keepMounted
+				open={Boolean(anchorEl)}
+				onClose={handleClose}
+			>
+				{hostCookie && (
+					<MenuItem onClick={handleClose}>
+						<a href={`${config.hostAppURL}/`}>Go To Host</a>
+					</MenuItem>
+				)}
+				{guestCookie && (
+					<MenuItem onClick={handleClose}>
+						<a href={`${config.guestAppURL}/`}>Go To Guest</a>
+					</MenuItem>
+				)}
+				{empty && (
+					<MenuItem onClick={handleClose}>
+						최근 기록이 없습니다
+					</MenuItem>
+				)}
+			</Menu>
 		</EventFormStyle>
 	);
 }

@@ -17,6 +17,10 @@ async function pathToCode(path) {
 	return eventId.dataValues.id;
 }
 
+router.get("/",guestAuthenticate(),(req,res,next)=>{
+    res.redirect(routePage.main);
+})
+
 router.get("/logout", (req, res, next) => {
 	res.clearCookie(cookieName).redirect(routePage.main);
 });
