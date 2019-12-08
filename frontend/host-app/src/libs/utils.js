@@ -14,8 +14,6 @@ export function makeNewData(req) {
 }
 
 export function filterQuestion(option, data){
-	console.log(option);
-	console.log(data);
 	return {questions: data.questions.filter(e => e.state === option)};
 }
 

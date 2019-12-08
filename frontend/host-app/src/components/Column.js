@@ -1,8 +1,7 @@
 import React from "react";
 import Title from "./Title";
 import QuestionContainer from "./Questions/QuestionContainer";
-import {ColumnStyle} from "./ComponentsStyle"
-
+import {ColumnStyle} from "./ComponentsStyle";
 
 function Column({type, state, stateHandler, data, dataHandler, handleStar}) {
 	return (

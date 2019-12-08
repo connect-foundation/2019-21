@@ -1,17 +1,15 @@
 import React, {useState, useContext, useReducer} from "react";
-import styled from "styled-components";
 import Column from "./Column";
 import {socketClient, useSocket} from "../libs/socket.io-Client-wrapper";
 import useQueryQuestions from "../libs/useQueryQuestions";
 import {HostContext} from "../libs/hostContext";
 import {makeNewData} from "../libs/utils";
-import {ContentStyle} from "./ComponentsStyle"
+import {ContentStyle} from "./ComponentsStyle";
 import QuestionsReducer from "./Questions/QuestionReducer";
 
 function Inner({data, event, option}) {
 	const SELECTED = true;
 	const UNSELECTED = false;
-
 	const [radioState, setRadioState] = useState([SELECTED, UNSELECTED, UNSELECTED, UNSELECTED]);
 	const [moderationState, setModeration] = useState(option.moderationOption);
 	const [questions, dispatch] = useReducer(QuestionsReducer, {questions: data});
