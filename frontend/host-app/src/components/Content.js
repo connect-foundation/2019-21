@@ -50,14 +50,7 @@ function Inner({data, event, option}) {
 		dispatch({type: "addNewQuestion", data: newData});
 	});
 
-	useSocket("question/toggleStar", req => {
-		const targetColumn = typeMap[req.state];
-		const newData = targetColumn.data.questions.map(e =>
-			(e.id === req.id ? req : e),
-		);
-
-		targetColumn.handler({questions: [...newData]});
-	});
+	useSocket("question/toggleStar", req => dispatch({type: "toggleStar", data: req}));
 
 	useSocket("question/move", req => {
 		const fromObject = typeMap[req.from];
@@ -83,10 +76,8 @@ function Inner({data, event, option}) {
 	const handleQuestionDatas = (id, from, to) =>
 		socketClient.emit("question/move", {id, from, to});
 
-	const handleStar = (id, type) => {
-		const targetObject = typeMap[type];
-
-		targetObject.data.questions.some(e => {
+	const handleStar = id => {
+		questions.questions.some(e => {
 			if (e.id === id) {
 				e.isStared = !e.isStared;
 				socketClient.emit("question/toggleStar", e);
