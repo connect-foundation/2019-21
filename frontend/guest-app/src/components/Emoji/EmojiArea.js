@@ -26,7 +26,7 @@ function EmojiInsertButton(props) {
 	const {onClick} = props;
 
 	return (
-		<IconButton size="medium" onClick={onClick}>
+		<IconButton size="small" onClick={onClick}>
 			<InsertEmoticonOutlinedIcon />
 		</IconButton>
 	);
