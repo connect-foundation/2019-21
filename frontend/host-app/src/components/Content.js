@@ -1,10 +1,11 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useReducer} from "react";
 import styled from "styled-components";
 import Column from "./Column";
 import {socketClient, useSocket} from "../libs/socket.io-Client-wrapper";
 import useQueryQuestions from "../libs/useQueryQuestions";
 import {HostContext} from "../libs/hostContext";
 import {makeNewData} from "../libs/utils";
+import QuestionsReducer from "./Questions/QuestionReducer";
 
 const ContentStyle = styled.div`
 	display: flex;
@@ -23,9 +24,9 @@ function Inner({data, event, option}) {
 	const UNSELECTED = false;
 
 	const [radioState, setRadioState] = useState([SELECTED, UNSELECTED, UNSELECTED, UNSELECTED]);
-	const [moderationState, setModeration] = useState(option.moderationOption); // get from DB
-	const [questions, setQuestions] = useState({questions: data});
-
+	const [moderationState, setModeration] = useState(option.moderationOption);
+	//const [questions, setQuestions] = useState({questions: data});
+	const [questions, dispatch] = useReducer(QuestionsReducer, {questions: data});
 	const [pollNumberStatus] = useState(0);
 
 	const handleRadioState = buttonIndex => {
@@ -46,18 +47,7 @@ function Inner({data, event, option}) {
 	useSocket("question/create", req => {
 		const newData = makeNewData(req);
 
-		switch (req.status) {
-			case "moderation":
-				return setModerationDatas({
-					questions: [...modeartionDatas.questions, newData],
-				});
-			case "active":
-				return setNewQuestionDatas({
-					questions: [...newQuestionDatas.questions, newData],
-				});
-			default:
-				return "err";
-		}
+		dispatch({type: "addNewQuestion", data: newData});
 	});
 
 	useSocket("question/toggleStar", req => {
@@ -116,7 +106,7 @@ function Inner({data, event, option}) {
 						state={typeMap[e].state}
 						stateHandler={typeMap[e].stateHandler}
 						data={questions}
-						dataHandler={setQuestions}
+						dataHandler={dispatch}
 						handleStar={handleStar}
 					/>
 				))}
