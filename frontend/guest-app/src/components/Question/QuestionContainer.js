@@ -58,6 +58,31 @@ function getNewQuestion({
 	};
 }
 
+const useDataLoadEffect = (dispatch, data) => {
+	useEffect(() => {
+		if (data) {
+			console.log(data);
+			dispatch({type: "load", data: buildQuestions(data)});
+		}
+	}, [data]);
+};
+
+const useSocketHandler = (dispatch, guestGlobal) => {
+	useSocket("question/create", req => {
+		dispatch({type: "addNewQuestion", data: req});
+	});
+
+	useSocket("questionLike/create", req => {
+		req.guestGlobal = guestGlobal;
+		dispatch({type: "addNewQuestion", data: req});
+	});
+
+	useSocket("questionLike/remove", req => {
+		req.guestGlobal = guestGlobal;
+		dispatch({type: "undoQuestionLike", data: req});
+	});
+};
+
 function QuestionContainer() {
 	const {event, guest} = useContext(GuestGlobalContext);
 	const {data, loading, error} = useMyQuery({
@@ -69,15 +94,8 @@ function QuestionContainer() {
 	const userNameRef = useRef(null);
 	const questionRef = useRef(null);
 
-	useEffect(() => {
-		if (data) {
-			dispatch({type: "load", data: buildQuestions(data)});
-		}
-	}, [data]);
-
-	useSocket("question/create", req => {
-		dispatch({type: "addNewQuestion", data: req});
-	});
+	useDataLoadEffect(dispatch, data);
+	useSocketHandler(dispatch, guest);
 
 	const onAskQuestion = () => {
 		socketClient.emit(
