@@ -12,7 +12,7 @@ const style = {
 };
 
 function QuestionCardList() {
-	const questions = useContext(QuestionsContext);
+	const {questions} = useContext(QuestionsContext);
 
 	return (
 		<div style={style}>

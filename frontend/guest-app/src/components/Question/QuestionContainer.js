@@ -104,7 +104,7 @@ function QuestionContainer() {
 	};
 
 	return (
-		<QuestionsProvider value={questions}>
+		<QuestionsProvider value={{questions, dispatch}}>
 			<QuestionContainerTabBar
 				tabIdx={tabIdx}
 				onSelectTab={onContainerSelectTab}
