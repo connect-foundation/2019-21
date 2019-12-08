@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import {TextField, Button} from "@material-ui/core";
-import {withStyles} from "@material-ui/core/styles";
+import { TextField, Button } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 import configLoader from "../config/configLoader.js";
 
 const config = configLoader();
@@ -44,6 +44,7 @@ function EventForm() {
 	const onEnterEvent = () => {
 		setMessage("이벤트 번호가 전달되었습니다.");
 		const path = window.btoa(code);
+
 		window.location.href = `${config.guestAppURL}/${path}`;
 		setCode("");
 	};
@@ -71,7 +72,7 @@ function EventForm() {
 					variant="contained"
 					color="primary"
 					size="large"
-					type="button"
+					type="submit"
 					onClick={onEnterEvent}
 				>
 					참가하기
