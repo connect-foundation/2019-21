@@ -34,13 +34,12 @@ function PollApollo() {
 			EventId: events[0].id,
 		},
 	};
-	console.log(options);
+
 	const {loading, error, data} = useQuery(POLL_QUERY, options);
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
 
-	console.log(data);
 	console.log(data.pollHost);
 	return <PollContainer data={data.pollHost} />;
 }
