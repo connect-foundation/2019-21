@@ -11,7 +11,7 @@ const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
 
 function QuestionContainerTabBar(props) {
-	const questions = useContext(QuestionsContext);
+	const {questions} = useContext(QuestionsContext);
 	const {tabIdx, onSelectTab} = props;
 
 	return (
