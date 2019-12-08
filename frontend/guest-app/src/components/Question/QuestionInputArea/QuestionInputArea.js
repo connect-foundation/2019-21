@@ -1,62 +1,52 @@
 import React from "react";
+import styled from "styled-components";
 import PropTypes from "prop-types";
-import {Card, CardContent} from "@material-ui/core";
-import useQuestionInputArea from "./useQuestionInputArea.js";
-import EnabledQuestionInputArea from "./EnabledQuestionInputArea.js";
-import DisabledQuestionInputArea from "./DisabledQuestionInputArea.js";
+import {Box} from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Divider from "@material-ui/core/Divider";
+import QuestionInput from "./QuestionInput.js";
+import AskButton from "./AskButton.js";
+import CancelButton from "../../CommonComponent/CommonButtons/CancelButton.js";
+import UserInfoInput from "./UserInfoInput.js";
 
-const disabled = {
-	width: "calc(100% - 2rem)",
-	position: "fixed",
-	bottom: "0",
-	left: "0rem",
-	zIndex: 100,
-	margin: "1rem",
-	backgroundColor: "#3f51b5",
-};
+const FlexedCenterDiv = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
 
-const enabled = {
-	width: "calc(100% - 2rem)",
-	position: "fixed",
-	bottom: "0",
-	left: "0rem",
-	zIndex: 100,
-	margin: "1rem",
-};
-
-const cardContentStyle = {paddingBottom: "1rem"};
+const FlexedSpaceBetweenDiv = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+`;
 
 function QuestionInputArea(props) {
-	const {onAskQuestion, questionRef, userNameRef} = props;
-	const questionInputArea = useQuestionInputArea();
+	const {onCancel, onAskQuestion, userNameRef, questionRef} = props;
 
-	return questionInputArea.state ? (
-		<Card style={enabled}>
-			<CardContent style={cardContentStyle}>
-				<EnabledQuestionInputArea
-					onAskQuestion={() => {
-						onAskQuestion();
-						questionInputArea.toggle();
-					}}
-					onCancel={questionInputArea.toggle}
-					questionRef={questionRef}
-					userNameRef={userNameRef}
-				/>
-			</CardContent>
-		</Card>
-	) : (
-		<Card style={disabled}>
-			<CardContent style={cardContentStyle}>
-				<DisabledQuestionInputArea onClick={questionInputArea.toggle} />
-			</CardContent>
-		</Card>
+	return (
+		<Grid container direction={"column"}>
+			<QuestionInput questionRef={questionRef} />
+			<Divider style={{marginTop: "0.5rem", marginBottom: "0.5rem"}} />
+			<FlexedSpaceBetweenDiv>
+				<FlexedCenterDiv>
+					<UserInfoInput userNameRef={userNameRef} />
+				</FlexedCenterDiv>
+				<FlexedCenterDiv>
+					<CancelButton variant="contained" onClick={onCancel} />
+					<Box p={1} />
+					<AskButton onClick={onAskQuestion} />
+				</FlexedCenterDiv>
+			</FlexedSpaceBetweenDiv>
+		</Grid>
 	);
 }
 
 QuestionInputArea.propTypes = {
+	onCancel: PropTypes.func,
 	onAskQuestion: PropTypes.func,
-	questionRef: PropTypes.any,
 	userNameRef: PropTypes.any,
+	questionRef: PropTypes.any,
 };
 
 export default QuestionInputArea;
