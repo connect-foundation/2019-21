@@ -1,5 +1,4 @@
 import React, {useContext} from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import IconButton from "@material-ui/core/IconButton";
 import InsertEmoticonOutlinedIcon from "@material-ui/icons/InsertEmoticonOutlined";
@@ -23,26 +22,6 @@ const RowWrapper = styled.div`
 	}
 `;
 
-const updateEmoji = emoji => {
-	if (emoji.voted && emoji.count === 1) {
-		return null;
-	}
-
-	const newEmoji = {...emoji};
-
-	if (newEmoji.voted) {
-		newEmoji.voted = false;
-		newEmoji.count--;
-	} else {
-		newEmoji.voted = true;
-		newEmoji.count++;
-	}
-
-	return newEmoji;
-};
-
-const addIndex = list => list.map((item, index) => ({...item, id: index}));
-
 function EmojiInsertButton(props) {
 	const {onClick} = props;
 
@@ -53,49 +32,82 @@ function EmojiInsertButton(props) {
 	);
 }
 
-function EmojiArea(props) {
-	const {emojis, id: QuestionId} = props;
-	const {guest, event} = useContext(GuestGlobalContext);
-	const emojiPickerModal = useCommonModal();
+const unPickEmoji = (emojis, name, guestGlobal, QuestionId) => {
+	const {event, guest} = guestGlobal;
 
-	const onAddEmoji = emoji => {
+	emojis.forEach(emoji => {
+		if (emoji.name !== name) {
+			return;
+		}
+
 		const newEmoji = {
-			name: emoji,
+			name: emoji.name,
+			QuestionId,
+			GuestId: guest.id,
+			EventId: event.id,
+		};
+
+		socketClient.emit("questionEmoji/remove", newEmoji);
+	});
+};
+
+const pickEmoji = (emojis, name, guestGlobal, QuestionId) => {
+	const {event, guest} = guestGlobal;
+
+	emojis.forEach(emoji => {
+		if (emoji.name !== name) {
+			return;
+		}
+
+		const newEmoji = {
+			name: emoji.name,
 			QuestionId,
 			GuestId: guest.id,
 			EventId: event.id,
 		};
 
 		socketClient.emit("questionEmoji/create", newEmoji);
+	});
+};
+
+function EmojiArea(props) {
+	const {emojis, id: QuestionId} = props;
+	const guestGlobal = useContext(GuestGlobalContext);
+	const emojiPickerModal = useCommonModal();
+
+	const onEmojiInstanceClick = (name, didIPick) => {
+		didIPick ?
+			unPickEmoji(emojis, name, guestGlobal, QuestionId) :
+			pickEmoji(emojis, name, guestGlobal, QuestionId);
 	};
 
-	const onClickEmoji = name => {
-		emojis.forEach(emoji => {
-			if (emoji.name !== name) {
-				return;
-			}
+	const onSelectOfEmojiPicker = value => {
+		const {id: name} = value;
+		const {event, guest} = guestGlobal;
+		const newEmoji = {
+			name,
+			QuestionId,
+			GuestId: guest.id,
+			EventId: event.id,
+		};
 
-			const newEmoji = {
-				name: emoji.name,
-				QuestionId,
-				GuestId: guest.id,
-				EventId: event.id,
-			};
+		if (emojis.filter(x => x.name === name).length) {
+			return;
+		}
 
-			socketClient.emit("questionEmoji/create", newEmoji);
-		});
+		socketClient.emit("questionEmoji/create", newEmoji);
 	};
 
 	return (
 		<RowWrapper left>
 			{emojis.map((emj, index) => (
-				<EmojiInstance {...emj} onClick={onClickEmoji} key={index} />
+				<EmojiInstance {...emj} onClick={onEmojiInstanceClick} key={index} />
 			))}
 			<EmojiInsertButton onClick={emojiPickerModal.openModal} />
 			{emojiPickerModal.isOpened && (
 				<EmojiPickerModal
 					onClose={emojiPickerModal.closeModal}
-					onSelect={onAddEmoji}
+					onSelect={onSelectOfEmojiPicker}
 				/>
 			)}
 		</RowWrapper>

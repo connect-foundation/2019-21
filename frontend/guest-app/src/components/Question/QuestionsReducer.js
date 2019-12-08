@@ -66,29 +66,72 @@ const onAddQuestionEmoji = (state, data) => {
 	const guestGlobal = data.guestGlobal;
 	const newState = _.cloneDeep(state);
 
+	newState.forEach(question => {
+		if (question.id !== QuestionId) {
+			return question;
+		}
+
+		let isFound = false;
+
+		question.emojis.forEach(emoji => {
+			if (emoji.name !== name) {
+				return;
+			}
+
+			isFound = true;
+
+			emoji.count += 1;
+			if (GuestId === guestGlobal.id) {
+				emoji.didIPick = true;
+			}
+		});
+
+		if (!isFound) {
+			data.count = 1;
+			if (GuestId === guestGlobal.id) {
+				data.didIPick = true;
+			}
+
+			question.emojis.push(data);
+		}
+	});
+
+	return newState;
+};
+
+const onRemoveQuestionEmoji = (state, data) => {
+	const {QuestionId, GuestId, name} = data;
+	const guestGlobal = data.guestGlobal;
+	let newState = _.cloneDeep(state);
+
 	newState.map(question => {
 		if (question.id !== QuestionId) {
 			return question;
 		}
 
-		question.emojis.map(emoji => {
-			if (emoji.name === name) {
-				emoji.count += 1;
-
-				if (GuestId === guestGlobal.id) {
-					emoji.didIPick = true;
-				}
+		question.emojis.forEach(emoji => {
+			if (emoji.name !== name) {
+				return;
 			}
 
-			return emoji;
+			emoji.count -= 1;
+
+			if (GuestId === guestGlobal.id) {
+				emoji.didIPick = false;
+			}
 		});
+
+		return question;
+	});
+
+	newState = newState.map(question => {
+		question.emojis = question.emojis.filter(emoji => emoji.count > 0);
 
 		return question;
 	});
 
 	return newState;
 };
-
 
 const QuestionsReducer = (state, action) => {
 	const {type, data} = action;
@@ -102,6 +145,7 @@ const QuestionsReducer = (state, action) => {
 		questionLike: onQuestionLike,
 		undoQuestionLike: onUndoQuestionLike,
 		addQuestionEmoji: onAddQuestionEmoji,
+		removeQuestionEmoji: onRemoveQuestionEmoji,
 	};
 
 	if (!(type in actionTable)) {

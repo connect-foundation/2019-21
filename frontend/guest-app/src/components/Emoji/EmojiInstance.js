@@ -28,7 +28,7 @@ function EmojiInstance(props) {
 	const {name, count, didIPick, onClick} = props;
 
 	return (
-		<EmojiInstanceStyle didIPick={didIPick} onClick={() => onClick(name)}>
+		<EmojiInstanceStyle didIPick={didIPick} onClick={() => onClick(name, didIPick)}>
 			<Emoji emoji={name} size={16} />
 			<span>{count}</span>
 		</EmojiInstanceStyle>
