@@ -5,7 +5,6 @@ import InsertEmoticonOutlinedIcon from "@material-ui/icons/InsertEmoticonOutline
 import EmojiInstance from "./EmojiInstance";
 import EmojiPickerModal from "./EmojiPickerModal";
 import useCommonModal from "../CommonComponent/CommonModal/useCommonModal";
-import EmojiDummyData from "./EmojiDummyData";
 
 const RowWrapper = styled.div`
 	display: flex;
@@ -41,11 +40,22 @@ const updateEmoji = emoji => {
 
 const addIndex = list => list.map((item, index) => ({...item, id: index}));
 
-function EmojiArea() {
+function EmojiInsertButton(props) {
+	const {onClick} = props;
+
+	return (
+		<IconButton size="medium" onClick={onClick}>
+			<InsertEmoticonOutlinedIcon />
+		</IconButton>
+	);
+}
+
+function EmojiArea(props) {
+	// const {emojis} = props;
+	// console.log(emojis)
 	const emojiPickerModal = useCommonModal();
-	const initialEmojiList = EmojiDummyData();
-	const [emojiList, setEmojiList] = useState(initialEmojiList);
-	const onSelect = emoji => {
+	const [emojiList, setEmojiList] = useState([]);
+	const onAddEmoji = emoji => {
 		const newEmoji = {
 			id: emojiList.length,
 			name: emoji,
@@ -55,7 +65,7 @@ function EmojiArea() {
 
 		setEmojiList(emojiList.concat(newEmoji));
 	};
-	const onVote = id => {
+	const onClickEmoji = id => {
 		let result = emojiList.map(emoji =>
 			emoji.id === id ? updateEmoji(emoji) : emoji,
 		);
@@ -68,15 +78,13 @@ function EmojiArea() {
 	return (
 		<RowWrapper left>
 			{emojiList.map((emj, index) => (
-				<EmojiInstance {...emj} onVote={onVote} key={index} />
+				<EmojiInstance {...emj} onClick={onClickEmoji} key={index} />
 			))}
-			<IconButton size="medium" onClick={emojiPickerModal.openModal}>
-				<InsertEmoticonOutlinedIcon />
-			</IconButton>
+			<EmojiInsertButton onClick={emojiPickerModal.openModal} />
 			{emojiPickerModal.isOpened && (
 				<EmojiPickerModal
 					onClose={emojiPickerModal.closeModal}
-					onSelect={onSelect}
+					onSelect={onAddEmoji}
 				/>
 			)}
 		</RowWrapper>

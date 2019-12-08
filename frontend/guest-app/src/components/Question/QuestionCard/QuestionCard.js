@@ -15,7 +15,7 @@ function QuestionCard(props) {
 					style={{marginTop: "0.5rem", marginBottom: "0.5rem"}}
 				/>
 				<QuestionBody {...props} />
-				<EmojiArea />
+				<EmojiArea {...props}/>
 			</CardContent>
 		</Card>
 	);
