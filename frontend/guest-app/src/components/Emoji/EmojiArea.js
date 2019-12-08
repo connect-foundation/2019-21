@@ -96,6 +96,7 @@ function EmojiArea(props) {
 		}
 
 		socketClient.emit("questionEmoji/create", newEmoji);
+		emojiPickerModal.closeModal();
 	};
 
 	return (
