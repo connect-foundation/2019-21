@@ -137,6 +137,23 @@ async function setVotedOnPolls(polls, guestId) {
 	return polls;
 }
 
+const setRatingInfoOnPolls = polls => {
+	polls.forEach(poll => {
+		poll.ratingValue = 0;
+		poll.rated = false;
+		if (poll.pollType === "rating") {
+			poll.nItems.forEach((item, index) => {
+				if (item.voted) {
+					poll.ratingValue = index + 1;
+					poll.rated = true;
+				}
+			});
+		}
+	});
+
+	return polls;
+};
+
 /**
  *
  * @param {int} EventId
@@ -162,7 +179,9 @@ async function pollGuestResolver(EventId, guestId) {
 	polls = await setPollItems(polls, candidates);
 	polls = await setVotedOnPolls(polls, guestId);
 
-	// console.log("resolver", polls);
+	polls = setRatingInfoOnPolls(polls);
+
+	console.log("resolver", polls);
 	return polls;
 }
 

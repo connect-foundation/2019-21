@@ -18,6 +18,8 @@ type Poll {
 	totalVoters: Int!
 	createdAt: String!
 	nItems: [Candidate]!
+	ratingValue: Int!
+	rated: Boolean!
 }
 
 type Query {
