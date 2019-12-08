@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Modal} from "@material-ui/core";
 import styled from "styled-components";
 import TabNavigation from "./EventSettingTab/TabNavigation";
+import {HostContext} from "../../libs/hostContext";
 
 const modalHeight = 45;
 const modalWidth = 60;
+const alertHeight = 2;
+const alertWidth = 12;
 const PopUpLayOutStyle = styled.div`
 	position: relative;
 	top: calc(50% - ${modalHeight / 2}rem);
@@ -13,8 +16,19 @@ const PopUpLayOutStyle = styled.div`
 	height: ${modalHeight}rem;
 	background-color: white;
 `;
+const AlertLayOut = styled.div`
+	position: relative;
+	top: calc(50% - ${alertHeight / 2}rem);
+	left: calc(50% - ${alertWidth / 2}rem);
+	width: ${alertWidth}rem;
+	height: ${alertHeight}rem;
+	background-color: white;
+	text-align: center;
+`;
 
 function EventSettingModal(props) {
+	const {events} = useContext(HostContext);
+	const eventNum = events.length;
 	return (
 		<Modal
 			aria-labelledby="createEvent-modal-title"
@@ -22,9 +36,15 @@ function EventSettingModal(props) {
 			open={props.open}
 			onClose={props.handleClose}
 		>
-			<PopUpLayOutStyle>
-				<TabNavigation handleClose={props.handleClose} />
-			</PopUpLayOutStyle>
+			{eventNum ? (
+				<PopUpLayOutStyle>
+					<TabNavigation handleClose={props.handleClose} />
+				</PopUpLayOutStyle>
+			) : (
+				<AlertLayOut>
+					<p>이벤트가 없습니다.</p>
+				</AlertLayOut>
+			)}
 		</Modal>
 	);
 }
