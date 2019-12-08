@@ -21,7 +21,7 @@ const RowWrapper = styled.div`
 	align-items: center;
 `;
 
-function RatingItem({nItems, state, selectionType, onChange, onCancelRating}) {
+function RatingItem({nItems, state, selectionType}) {
 	return (
 		<ColumnWrapper>
 			{state === "running" &&

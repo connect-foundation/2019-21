@@ -76,44 +76,44 @@ function reducer(state, action) {
 	switch (action.type) {
 		case "OPEN":
 			return [action.poll, ...state];
-		case "VOTE":
-			return {
-				...state,
-				nItems: updateItems(
-					state.nItems,
-					action.id,
-					state.allowDuplication,
-				),
-				totalVoters: updateTotalVoters(
-					notVoted,
-					state.totalVoters,
-					state.nItems,
-				),
-			};
-		case "RATE":
-			return {
-				...state,
-				nItems: updateRatingItem(state.nItems, action.value, true),
-				totalVoters: updateTotalVoters(
-					notVoted,
-					state.totalVoters,
-					state.nItems,
-				),
-			};
-		case "CANCEL_RATING":
-			// 이전 상태도 투표하지 않은 상태라면 서버에 요청을 보내지 않도록 처리하는 루틴
-			if (notVoted && state.nItems[0].value === 0) {
-				return state;
-			}
-			return {
-				...state,
-				nItems: updateRatingItem(state.nItems, 0, false),
-				totalVoters: updateTotalVoters(
-					notVoted,
-					state.totalVoters,
-					state.nItems,
-				),
-			};
+		// case "VOTE":
+		// 	return {
+		// 		...state,
+		// 		nItems: updateItems(
+		// 			state.nItems,
+		// 			action.id,
+		// 			state.allowDuplication,
+		// 		),
+		// 		totalVoters: updateTotalVoters(
+		// 			notVoted,
+		// 			state.totalVoters,
+		// 			state.nItems,
+		// 		),
+		// 	};
+		// case "RATE":
+		// 	return {
+		// 		...state,
+		// 		nItems: updateRatingItem(state.nItems, action.value, true),
+		// 		totalVoters: updateTotalVoters(
+		// 			notVoted,
+		// 			state.totalVoters,
+		// 			state.nItems,
+		// 		),
+		// 	};
+		// case "CANCEL_RATING":
+		// 	// 이전 상태도 투표하지 않은 상태라면 서버에 요청을 보내지 않도록 처리하는 루틴
+		// 	if (notVoted && state.nItems[0].value === 0) {
+		// 		return state;
+		// 	}
+		// 	return {
+		// 		...state,
+		// 		nItems: updateRatingItem(state.nItems, 0, false),
+		// 		totalVoters: updateTotalVoters(
+		// 			notVoted,
+		// 			state.totalVoters,
+		// 			state.nItems,
+		// 		),
+		// 	};
 		default:
 			throw new Error("Unhandled action.");
 	}
@@ -170,29 +170,29 @@ function PollContainer({data}) {
 		});
 	});
 
-	const onVote = (id, state) => {
-		if (state !== "running") return;
+	// const onVote = (id, state) => {
+	// 	if (state !== "running") return;
 
-		dispatch({
-			type: "VOTE",
-			id,
-		});
-	};
+	// 	dispatch({
+	// 		type: "VOTE",
+	// 		id,
+	// 	});
+	// };
 
-	const onChange = (value, state) => {
-		if (state !== "running") return;
+	// const onChange = (value, state) => {
+	// 	if (state !== "running") return;
 
-		dispatch({
-			type: "RATE",
-			value,
-		});
-	};
+	// 	dispatch({
+	// 		type: "RATE",
+	// 		value,
+	// 	});
+	// };
 
-	const onCancelRating = () => {
-		dispatch({
-			type: "CANCEL_RATING",
-		});
-	};
+	// const onCancelRating = () => {
+	// 	dispatch({
+	// 		type: "CANCEL_RATING",
+	// 	});
+	// };
 
 	return (
 		<ColumnWrapper>
@@ -210,18 +210,18 @@ function PollContainer({data}) {
 					<PollCard
 						{...poll}
 						key={poll.id}
-						onVote={onVote}
-						onChange={onChange}
-						onCancelRating={onCancelRating}
+						// onVote={onVote}
+						// onChange={onChange}
+						// onCancelRating={onCancelRating}
 					/>
 				))}
 			{standbyPollData &&
 				standbyPollData.map(poll => (
-					<PollCard {...poll} key={poll.id} onVote={onVote} />
+					<PollCard {...poll} key={poll.id} /* onVote={onVote} */ />
 				))}
 			{closedPollData &&
 				closedPollData.map(poll => (
-					<PollCard {...poll} key={poll.id} onVote={onVote} />
+					<PollCard {...poll} key={poll.id} /* onVote={onVote} */ />
 				))}
 			{createPollModalOpen && (
 				<NewPollModal
