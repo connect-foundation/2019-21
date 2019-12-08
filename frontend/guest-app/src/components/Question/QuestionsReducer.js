@@ -142,8 +142,8 @@ const QuestionsReducer = (state, action) => {
 		addNewQuestion: onAddNewQuestion,
 		sortByRecent: onSortByRecent,
 		sortByLikeCount: onSortByLikeCount,
-		questionLike: onQuestionLike,
-		undoQuestionLike: onUndoQuestionLike,
+		LikeQuestion: onQuestionLike,
+		undoLikeQuestion: onUndoQuestionLike,
 		addQuestionEmoji: onAddQuestionEmoji,
 		removeQuestionEmoji: onRemoveQuestionEmoji,
 	};

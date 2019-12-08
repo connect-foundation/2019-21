@@ -51,17 +51,18 @@ const useDataLoadEffect = (dispatch, data) => {
 
 const useSocketHandler = (dispatch, guestGlobal) => {
 	useSocket("question/create", req => {
+		req.guestGlobal = guestGlobal;
 		dispatch({type: "addNewQuestion", data: req});
 	});
 
 	useSocket("questionLike/create", req => {
 		req.guestGlobal = guestGlobal;
-		dispatch({type: "addNewQuestion", data: req});
+		dispatch({type: "LikeQuestion", data: req});
 	});
 
 	useSocket("questionLike/remove", req => {
 		req.guestGlobal = guestGlobal;
-		dispatch({type: "undoQuestionLike", data: req});
+		dispatch({type: "undoLikeQuestion", data: req});
 	});
 
 	useSocket("questionEmoji/create", req => {
