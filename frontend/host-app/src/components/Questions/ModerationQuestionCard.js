@@ -28,7 +28,7 @@ function ModerationQuestionCard(props) {
 							</Icon>
 							<Icon
 								className={classes.approveButton}
-								onClick={() => props.dataHandler(props.id, props.type, "newQuestion")}>
+								onClick={() => props.dataHandler(props.id, props.type, "active")}>
 								check_circle_outline
 							</Icon>
 							<Icon

@@ -25,7 +25,6 @@ function Inner({data, event, option}) {
 
 	const [radioState, setRadioState] = useState([SELECTED, UNSELECTED, UNSELECTED, UNSELECTED]);
 	const [moderationState, setModeration] = useState(option.moderationOption);
-	//const [questions, setQuestions] = useState({questions: data});
 	const [questions, dispatch] = useReducer(QuestionsReducer, {questions: data});
 	const [pollNumberStatus] = useState(0);
 
@@ -53,28 +52,10 @@ function Inner({data, event, option}) {
 	useSocket("question/toggleStar", req => dispatch({type: "toggleStar", data: req}));
 
 	useSocket("question/move", req => {
-		const fromObject = typeMap[req.from];
-		const toObject = typeMap[req.to];
-
-		if (req.id === "all") {
-			const newCompleteData = [...toObject.data.questions, ...fromObject.data.questions];
-
-			fromObject.handler({questions: []});
-			toObject.handler({questions: newCompleteData});
-			return 0;
-		}
-
-		fromObject.handler({
-			questions: fromObject.data.questions.filter(e => e.id !== req.id),
-		});
-		toObject.handler({
-			questions: [...toObject.data.questions, fromObject.data.questions.find(e => e.id === req.id)],
-		});
-		return 0;
+		dispatch({type: "moveQuestion", data: req});
 	});
 
-	const handleQuestionDatas = (id, from, to) =>
-		socketClient.emit("question/move", {id, from, to});
+	const handleQuestionDatas = (id, from, to) => socketClient.emit("question/move", {id, from, to});
 
 	const handleStar = id => {
 		questions.questions.some(e => {
@@ -97,7 +78,7 @@ function Inner({data, event, option}) {
 						state={typeMap[e].state}
 						stateHandler={typeMap[e].stateHandler}
 						data={questions}
-						dataHandler={dispatch}
+						dataHandler={handleQuestionDatas}
 						handleStar={handleStar}
 					/>
 				))}
