@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {Skeleton} from "@material-ui/lab";
 import {useQuery} from "@apollo/react-hooks";
 import "./App.css";
 import Header from "../components/Header";
@@ -10,13 +11,14 @@ import {getEventsByHost} from "../libs/gql";
 import EmptyContent from "../components/EmptyContent";
 import {socketClient} from "../libs/socket.io-Client-wrapper";
 
+
 function App() {
 	const modal = false;
 	const {data, loading, error} = useQuery(getEventsByHost());
 	const [events, setEvents] = useState("");
 	let eventNum = 0;
 	if (loading) {
-		return <p>loading...</p>;
+		return (<Skeleton variant="rect" width={1500} height={104} />);
 	} else if (error) {
 		return <p>error-page...</p>;
 	} else {

@@ -8,7 +8,6 @@ const moveQuestionSocketHandler = async (data, emit) => {
 		if (id === "all") await updateEveryState("active", {state});
 		else await updateQuestionById({id, state});
 
-		console.log(data);
 		emit(data);
 	} catch (e) {
 		console.log(e);
