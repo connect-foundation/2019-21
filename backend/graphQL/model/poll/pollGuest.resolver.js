@@ -51,13 +51,13 @@ async function getItems(pollId, candidates) {
 	return nItems;
 }
 
-const setPollDates = polls => {
-	polls.forEach(poll => {
-		poll.pollDate = poll.createdAt;
-	});
+// const setPollDates = polls => {
+// 	polls.forEach(poll => {
+// 		poll.pollDate = poll.createdAt;
+// 	});
 
-	return polls;
-};
+// 	return polls;
+// };
 
 /**
  *
@@ -155,7 +155,7 @@ async function pollGuestResolver(EventId, guestId) {
 	let polls = await getPollsByEventId(EventId);
 
 	polls = simplifyList(polls);
-	polls = setPollDates(polls);
+	// polls = setPollDates(polls);
 
 	const candidates = await getCandidatesByPolls(polls);
 
