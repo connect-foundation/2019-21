@@ -3,11 +3,12 @@ import models from "../models";
 
 const Emoji = models.Emoji;
 
-export async function createEmoji({GuestId, QuestionId, name}) {
+export async function createEmoji({GuestId, QuestionId, name, EventId}) {
 	return Emoji.create({
 		GuestId,
 		QuestionId,
 		name,
+		EventId,
 	});
 }
 
