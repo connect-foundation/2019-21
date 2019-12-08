@@ -3,8 +3,8 @@ import {styled} from "@material-ui/core/styles";
 import {TextField} from "@material-ui/core";
 
 const CustomTextField = styled(TextField)({
-	marginTop: 20,
-	width: 400,
+	marginTop: "1.3rem",
+	width: "25rem",
 });
 
 function EndDateField(props) {

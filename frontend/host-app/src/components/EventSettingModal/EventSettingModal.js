@@ -4,7 +4,7 @@ import styled from "styled-components";
 import TabNavigation from "./EventSettingTab/TabNavigation";
 import {HostContext} from "../../libs/hostContext";
 
-const modalHeight = 45;
+const modalHeight = 41;
 const modalWidth = 60;
 const alertHeight = 2;
 const alertWidth = 12;
