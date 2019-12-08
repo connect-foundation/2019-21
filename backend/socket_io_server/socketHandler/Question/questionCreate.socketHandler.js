@@ -5,7 +5,6 @@ import {updateGuestById} from "../../../DB/queries/guest";
 const questionCreateSocketHandler = async (data, emit) => {
 	try {
 		const {EventId, content, GuestId, guestName} = data;
-		console.log(data);
 		const currentModerationOption = globalOption.getOption(EventId)
 			.moderationOption;
 		const reqData = data;

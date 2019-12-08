@@ -81,7 +81,7 @@ function Content({event}) {
 
 	return (
 		<>
-			<Inner data={data.newData.splice(0,10)} event={event} option={data.newOption} />
+			<Inner data={data.newData} event={event} option={data.newOption} />
 		</>
 	);
 }
