@@ -8,8 +8,8 @@ import useCommonModal from "../CommonComponent/CommonModal/useCommonModal";
 import EmojiDummyData from "./EmojiDummyData";
 
 const RowWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
+	display: flex;
+	flex-direction: row;
 	align-items: center;
 	justify-content: ${props => (props.left ? "flex-start" : "space-around")};
 	width: 100%;
@@ -56,7 +56,9 @@ function EmojiArea() {
 		setEmojiList(emojiList.concat(newEmoji));
 	};
 	const onVote = id => {
-		let result = emojiList.map(emoji => (emoji.id === id ? updateEmoji(emoji) : emoji));
+		let result = emojiList.map(emoji =>
+			emoji.id === id ? updateEmoji(emoji) : emoji,
+		);
 
 		result = result.filter(n => n != null);
 		result = addIndex(result);
@@ -65,14 +67,18 @@ function EmojiArea() {
 
 	return (
 		<RowWrapper left>
-			{emojiList.map((emj, index) => <EmojiInstance {...emj} onVote={onVote} key={index} />)}
+			{emojiList.map((emj, index) => (
+				<EmojiInstance {...emj} onVote={onVote} key={index} />
+			))}
 			<IconButton size="medium" onClick={emojiPickerModal.openModal}>
 				<InsertEmoticonOutlinedIcon />
 			</IconButton>
-			{emojiPickerModal.isOpened && <EmojiPickerModal
-				onClose={emojiPickerModal.closeModal}
-				onSelect={onSelect}
-			/>}
+			{emojiPickerModal.isOpened && (
+				<EmojiPickerModal
+					onClose={emojiPickerModal.closeModal}
+					onSelect={onSelect}
+				/>
+			)}
 		</RowWrapper>
 	);
 }
