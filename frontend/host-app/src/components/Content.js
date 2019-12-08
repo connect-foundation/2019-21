@@ -5,19 +5,8 @@ import {socketClient, useSocket} from "../libs/socket.io-Client-wrapper";
 import useQueryQuestions from "../libs/useQueryQuestions";
 import {HostContext} from "../libs/hostContext";
 import {makeNewData} from "../libs/utils";
+import {ContentStyle} from "./ComponentsStyle"
 import QuestionsReducer from "./Questions/QuestionReducer";
-
-const ContentStyle = styled.div`
-	display: flex;
-	flex-direction: row;
-	flex: 1;
-	overflow: auto;
-	justify-content: left;
-	align-items: center;
-	padding: 4px 8px;
-	overflow-x: auto;
-	flex-wrap: nowrap;
-`;
 
 function Inner({data, event, option}) {
 	const SELECTED = true;
@@ -42,17 +31,9 @@ function Inner({data, event, option}) {
 		completeQuestion: {state: radioState, stateHandler: handleRadioState},
 	};
 
-	useSocket("question/create", req => {
-		const newData = makeNewData(req);
-
-		dispatch({type: "addNewQuestion", data: newData});
-	});
-
+	useSocket("question/create", req => dispatch({type: "addNewQuestion", data: makeNewData(req)}));
 	useSocket("question/toggleStar", req => dispatch({type: "toggleStar", data: req}));
-
-	useSocket("question/move", req => {
-		dispatch({type: "moveQuestion", data: req});
-	});
+	useSocket("question/move", req => dispatch({type: "moveQuestion", data: req}));
 
 	const handleQuestionDatas = (id, from, to) => socketClient.emit("question/move", {id, from, to});
 

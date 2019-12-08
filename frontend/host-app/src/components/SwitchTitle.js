@@ -5,17 +5,7 @@ import Badge from "@material-ui/core/Badge";
 import {makeStyles} from "@material-ui/core";
 import {socketClient, useSocket} from "../libs/socket.io-Client-wrapper";
 import {HostContext} from "../libs/hostContext";
-
-const TitleBox = styled.div`
-	display: flex;
-	align-items: center;
-	width: 100%;
-	justify-content: space-around;
-`;
-
-const TitleStyle = styled.div`
-	font-weight: bold;
-`;
+import {TitleStyle, TitleBox} from "./ComponentsStyle";
 
 const useStyles = makeStyles(theme => ({
 	margin: {

@@ -1,26 +1,9 @@
 import React from "react";
 import Radio from "@material-ui/core/Radio";
-import styled from "styled-components";
 import Badge from "@material-ui/core/Badge";
 import {makeStyles} from "@material-ui/core/styles";
 import {Icon} from "@material-ui/core";
-
-const TitleBox = styled.div`
-	display:flex;
-	align-items: center;
-	width:100%;
-	justify-content:space-around;
-`;
-
-const TitleStyle = styled.div`
-	font-weight: bold;
-`;
-
-const RightSide = styled.div`
-	margin-left: 2rem;
-	display: flex;
-	align-items: center;
-`;
+import {TitleStyle, TitleBox, RightSide} from "./ComponentsStyle";
 
 const useStyles = makeStyles(theme => ({
 	margin: {
