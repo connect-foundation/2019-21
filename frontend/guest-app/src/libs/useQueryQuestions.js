@@ -45,7 +45,7 @@ export function buildQuestions(object) {
 		return x;
 	});
 	questions = JSONNestJoin(questions, emojis, "id", "QuestionId", (a, b) => {
-		a.emojis = b;
+		a.emojis.push(b);
 		return a;
 	});
 
@@ -68,6 +68,7 @@ export const QUERY_INIT_QUESTIONS = gql`
             name
             count
             QuestionId
+            createdAt
         }
         emojiPicks(EventId: $EventId, GuestId: $GuestId) {
             name
