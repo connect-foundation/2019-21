@@ -2,6 +2,7 @@ type Emoji {
 	name: String!
 	count: Int!
 	QuestionId: Int!
+	createdAt:String!
 }
 
 type EmojiPick {
