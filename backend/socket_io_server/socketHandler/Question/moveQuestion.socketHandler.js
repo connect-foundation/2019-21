@@ -1,11 +1,12 @@
-import {updateQuestionById} from "../../../DB/queries/question";
+import {updateEveryState, updateQuestionById} from "../../../DB/queries/question";
 
 const moveQuestionSocketHandler = async (data, emit) => {
 	try {
 		const id = data.id;
 		const state = data.to;
 
-		await updateQuestionById({id, state});
+		if (id === "all") await updateEveryState("active", {state});
+		else await updateQuestionById({id, state});
 
 		console.log(data);
 		emit(data);
