@@ -12,7 +12,8 @@ function getNewQuestion({
 	content,
 	emojis = [],
 	isAnonymous = false,
-	createdAt = new Date().getTime(),
+	createdAt = new Date().getTime()
+		.toString(),
 	isShowEditButton = true,
 	didILike = false,
 	likeCount = 0,

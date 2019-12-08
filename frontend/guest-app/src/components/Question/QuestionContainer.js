@@ -30,43 +30,23 @@ function BottomPaddingBox() {
 	return <Box p={24} style={style} />;
 }
 
-function getNewQuestion({
-	EventId,
-	GuestId,
-	guestName,
-	content,
-	emojis = [],
-	createdAt = new Date().getTime(),
-	isShowEditButton = true,
-	isAnonymous = false,
-	didILike = false,
-	likeCount = 0,
-	status = "active",
-	isStared = false,
-}) {
+function getNewQuestion({EventId, GuestId, guestName, content}) {
 	return {
 		guestName,
 		EventId,
 		GuestId,
-		emojis,
-		createdAt,
 		content,
-		isShowEditButton,
-		isAnonymous,
-		didILike,
-		likeCount,
-		status,
-		isStared,
 	};
 }
 
 const useDataLoadEffect = (dispatch, data) => {
 	useEffect(() => {
 		if (data) {
-			console.log(data);
-			dispatch({type: "load", data: buildQuestions(data)});
+			const buildData = buildQuestions(data);
+
+			dispatch({type: "load", data: buildData});
 		}
-	}, [data]);
+	}, [data, dispatch]);
 };
 
 const useSocketHandler = (dispatch, guestGlobal) => {
