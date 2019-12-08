@@ -4,14 +4,14 @@ const compareByDate = (a, b) => b.createdAt.localeCompare(a.createdAt);
 
 const compareByLikeCount = (a, b) => b.likeCount - a.likeCount;
 
-const onReset = (state, data) => [];
+const onReset = () => [];
 
 const onLoad = (state, data) => [...data.sort(compareByDate)];
 
 const onAddNewQuestion = (state, data) =>
 	(data.status === "active" ? [...state, data] : [...state]);
 
-const onSortByRecent = (state, data) => [...state.sort(compareByDate)];
+const onSortByRecent = state => [...state.sort(compareByDate)];
 
 const onSortByLikeCount = state => [...state.sort(compareByLikeCount)];
 
