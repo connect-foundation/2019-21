@@ -32,5 +32,4 @@ const QuestionsReducer = (state, action) => {
 	return actionTable[action.type]();
 };
 
-
 export default QuestionsReducer;

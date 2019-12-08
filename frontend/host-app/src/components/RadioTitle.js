@@ -53,7 +53,7 @@ function RadioTitle({titleName, state, stateHandler, idx, data, dataHandler, typ
 				/>
 				<Icon
 					className={classes.icon}
-					onClick={() => dataHandler("all", type, "completeQuestion")}
+					onClick={() => dataHandler("all", "active", "completeQuestion")}
 				>
 					delete_outlined_icon
 				</Icon>

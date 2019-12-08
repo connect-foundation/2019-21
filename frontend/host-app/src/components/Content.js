@@ -40,7 +40,6 @@ function Inner({data, event, option}) {
 		newQuestion: {state: radioState, stateHandler: handleRadioState},
 		popularQuestion: {state: radioState, stateHandler: handleRadioState},
 		completeQuestion: {state: radioState, stateHandler: handleRadioState},
-		deleted: {data: {questions: []}, handler: e => typeMap.deleted.data.questions.push(e)},
 	};
 
 	useSocket("question/create", req => {
@@ -71,7 +70,6 @@ function Inner({data, event, option}) {
 	return (
 		<ContentStyle>
 			{Object.keys(typeMap)
-				.splice(0, Object.keys(typeMap).length - 2)
 				.map(e => (
 					<Column
 						type={e}

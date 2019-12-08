@@ -53,7 +53,7 @@ function Title({type, state, stateHandler, data, dataHandler}) {
 			idx={titleMap[type].columnIndex}
 			dataHandler={dataHandler}
 			type={type}
-		/>
+		/>;
 	}
 }
 
