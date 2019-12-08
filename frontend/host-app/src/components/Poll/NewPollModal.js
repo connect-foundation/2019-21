@@ -49,6 +49,8 @@ function NewPollModal({open, handleClose}) {
 			helperText: "",
 		});
 	};
+
+	// createPoll()을 호출하기 전에 입력 항목들이 empty가 아닌지 체크함
 	const checkValidity = () => {
 		let result = true;
 
@@ -69,6 +71,17 @@ function NewPollModal({open, handleClose}) {
 				  },
 		);
 
+		// 별점매기기의 경우는 투표제목만 입력되면 validity가 통과됨
+		if (pollType === "rating") {
+			return result;
+		}
+
+		// N지선다형의 date 인 경우, 기본값이 입력되어 있으므로 투표제목만 확인함
+		if (selectionType === "date") {
+			return result;
+		}
+
+		// 별점이 아닌 N지선다형의 text인경우에만 계속 validity를 진행함
 		if (!texts.every(text => text.value.length > 0)) {
 			result = false;
 		}
@@ -130,11 +143,11 @@ function NewPollModal({open, handleClose}) {
 	};
 
 	const onDeleteText = id => {
-		setTexts(texts.filter((text, index) => index !== id));
+		setTexts(texts.filter((_, index) => index !== id));
 	};
 
 	// Poll 종류가 N지선다 이고 항목들의 속성이 date일때 항목들을 관리하는 부분
-	const now = Date.now();
+	const now = new Date();
 	const initialDates = [now, now];
 
 	const [dates, setDates] = useState(initialDates);
@@ -143,11 +156,11 @@ function NewPollModal({open, handleClose}) {
 	};
 
 	const onAddDate = () => {
-		setDates([...dates, Date.now()]);
+		setDates([...dates, new Date()]);
 	};
 
 	const onDeleteDate = id => {
-		setDates(dates.filter((date, index) => index !== id));
+		setDates(dates.filter((_, index) => index !== id));
 	};
 
 	// Poll 종류가 별점 일때
@@ -171,12 +184,20 @@ function NewPollModal({open, handleClose}) {
 	const getSelectionType = () =>
 		pollType === "rating" ? ratingValue.toString() : selectionType;
 
-	const getCandidates = (pollType, selectionType) =>
-		pollType === "rating"
-			? ratingValue
-			: selectionType === "text"
-			? texts
-			: dates;
+	const getCandidates = (pollType, selectionType) => {
+		if (pollType === "rating") {
+			return new Array(ratingValue);
+		}
+		if (selectionType === "date") {
+			return dates.map(
+				date =>
+					`${date.getFullYear()}년 
+					${date.getMonth() + 1}월 
+					${date.getDate()}일`,
+			);
+		}
+		return texts.map(text => text.value);
+	};
 
 	const onCreatePoll = () => {
 		if (!checkValidity()) {
@@ -185,7 +206,7 @@ function NewPollModal({open, handleClose}) {
 		const newPoll = {};
 
 		newPoll.EventId = EventId;
-		newPoll.pollName = pollName;
+		newPoll.pollName = pollName.value;
 		newPoll.pollType = pollType;
 		newPoll.selectionType = getSelectionType();
 		newPoll.allowDuplication = allowDuplication;
