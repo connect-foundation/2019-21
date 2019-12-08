@@ -5,7 +5,6 @@ import Divider from "@material-ui/core/Divider";
 import QuestionHeader from "./QuestionCardHeader.js";
 import QuestionBody from "./QuestionCardBody.js";
 import EmojiArea from "../../Emoji/EmojiArea.js";
-import {QuestionsContext} from "../QuestionsContext.js";
 
 function QuestionCard(props) {
 	return (
@@ -22,6 +21,6 @@ function QuestionCard(props) {
 	);
 }
 
-QuestionsContext.proptypes = {};
+QuestionCard.proptypes = {};
 
 export default QuestionCard;
