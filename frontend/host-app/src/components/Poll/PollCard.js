@@ -1,9 +1,10 @@
 import React from "react";
-import styled, { css } from "styled-components";
-import { Button } from "@material-ui/core";
-import { MdPerson } from "react-icons/md";
+import styled, {css} from "styled-components";
+import {Button} from "@material-ui/core";
+import {MdPerson} from "react-icons/md";
 import SelectionItems from "./SelectionItems";
 import RatingItem from "./RatingItem";
+import {socketClient} from "../../libs/socket.io-Client-wrapper";
 
 const ColumnWrapper = styled.div`
 	display: flex;
@@ -38,6 +39,11 @@ const RowWrapper = styled.div`
 		`}
 `;
 
+const onOpenPoll = id => {
+	const req = {pollId: id};
+	socketClient.emit("poll/open", req);
+};
+
 function PollCard(props) {
 	const {
 		id,
@@ -50,15 +56,15 @@ function PollCard(props) {
 		...others
 	} = props;
 
-	// const localePollDate = pollDate.toLocaleString();
-	const localePollDate = pollDate;
+	const localePollDate = pollDate || new Date();
 
 	return (
 		<ColumnWrapper>
 			<RowWrapper left bold>
 				{pollName}
-				<div>{state === "closed" && "(종료됨)"}</div>
+				<div>{state === "running" && "(투표중)"}</div>
 				<div>{state === "standby" && "(대기중)"}</div>
+				<div>{state === "closed" && "(종료됨)"}</div>
 			</RowWrapper>
 			<RowWrapper left small>
 				{allowDuplication
@@ -79,7 +85,11 @@ function PollCard(props) {
 			</RowWrapper>
 			{state === "standby" && (
 				<>
-					<Button variant="contained" color="primary">
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={() => onOpenPoll(id)}
+					>
 						개시하기
 					</Button>
 				</>

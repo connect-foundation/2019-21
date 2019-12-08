@@ -71,9 +71,11 @@ const updateTotalVoters = (notVoted, totalVoters, items) => {
 };
 
 function reducer(state, action) {
-	const notVoted = state.nItems.every(item => item.voted === false);
+	const notVoted = true; //state.nItems.every(item => item.voted === false);
 
 	switch (action.type) {
+		case "OPEN":
+			return [action.poll, ...state];
 		case "VOTE":
 			return {
 				...state,
@@ -141,11 +143,31 @@ function PollContainer({data}) {
 
 	// socket.io server 통신 부분
 	// onCreatePoll에 의해 신규로 생성된 Poll은 DB에 socket.io server에 요청하여 DB에 write 함
-	useSocket("poll/create", req => {
-		console.log("useSocket: Poll created. Please refresh.", req);
-		console.log(req);
-		// console.log(standbyPollData);
-		// setStandbyPollData(standbyPollData.concat(req));
+	useSocket("poll/create", res => {
+		console.log("useSocket: Poll created.", res);
+		res.pollDate = res.createdAt;
+		res.totalVoters = 0;
+		setStandbyPollData([res].concat(standbyPollData));
+	});
+
+	useSocket("poll/open", pollId => {
+		console.log("useSocket: Poll opened.", pollId);
+
+		const thePoll = standbyPollData.filter(poll => poll.id === pollId)[0];
+		console.log(thePoll);
+		// DB에는 바뀌어 있지만, 여기서는 바뀌지 않은 상태이므로 강제로 바꿈
+		thePoll.state = "running";
+		// 설정되지 않은 값들을 초기화
+		thePoll.nItems.forEach(item => {
+			item.voted = false;
+			item.voters = 0;
+		});
+		setStandbyPollData(standbyPollData.filter(poll => poll.id !== pollId));
+
+		dispatch({
+			type: "OPEN",
+			poll: thePoll,
+		});
 	});
 
 	const onVote = (id, state) => {
