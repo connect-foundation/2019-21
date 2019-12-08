@@ -6,7 +6,7 @@ const compareByLikeCount = (a, b) => b.likeCount - a.likeCount;
 
 const onReset = () => [];
 
-const onLoad = (state, data) => [...state, ...data.sort(compareByDate)];
+const onLoad = (state, data) => [...state, ...data];
 
 const onAddNewQuestion = (state, data) =>
 	(data.status === "active" ? [...state, data] : [...state]);
