@@ -6,7 +6,7 @@ function DisabledQuestionInputArea(props) {
 	const {onClick} = props;
 
 	return (
-		<div onClick={onClick}>
+		<div onClick={onClick} style={{color: "white"}}>
 			<EditIcon style={{marginRight: "8px"}} />
 			질문하기
 		</div>
