@@ -1,6 +1,4 @@
 import React, {useContext, useEffect, useReducer, useRef} from "react";
-import Box from "@material-ui/core/Box";
-import gray from "@material-ui/core/colors/grey.js";
 import {useQuery} from "@apollo/react-hooks";
 import QuestionContainerTabBar from "./QuestionContainerTabBar.js";
 import useTabs from "../../materialUIHooks/useTabs.js";
@@ -14,21 +12,10 @@ import {
 } from "../../libs/useQueryQuestions.js";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 import {QuestionsProvider} from "./QuestionsContext.js";
+import PaddingArea from "./PaddingArea.js";
 
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
-
-function useMyQuery(options) {
-	return useQuery(QUERY_INIT_QUESTIONS, options);
-}
-
-const style = {
-	backgroundColor: gray[300],
-};
-
-function BottomPaddingBox() {
-	return <Box p={24} style={style} />;
-}
 
 function getNewQuestion({EventId, GuestId, guestName, content}) {
 	return {
@@ -78,7 +65,7 @@ const useSocketHandler = (dispatch, guestGlobal) => {
 
 function QuestionContainer() {
 	const {event, guest} = useContext(GuestGlobalContext);
-	const {data, loading, error} = useMyQuery({
+	const {data, loading, error} = useQuery(QUERY_INIT_QUESTIONS, {
 		variables: {EventId: event.id, GuestId: guest.id},
 	});
 
@@ -126,7 +113,7 @@ function QuestionContainer() {
 				userNameRef={userNameRef}
 			/>
 			<QuestionCardList />
-			<BottomPaddingBox />
+			<PaddingArea />
 		</QuestionsProvider>
 	);
 }
