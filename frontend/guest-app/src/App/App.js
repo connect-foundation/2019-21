@@ -31,7 +31,7 @@ export default function App() {
 	return (
 		<GuestGlobalProvider value={{event, guest}}>
 			<AppStyle>
-				<NavBar/>
+				<NavBar title={event.eventName}/>
 				<TabGroup/>
 			</AppStyle>
 		</GuestGlobalProvider>
