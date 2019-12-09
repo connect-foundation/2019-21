@@ -137,6 +137,23 @@ const onRemoveQuestion = (state, data) => {
 	return _.cloneDeep(state).filter(x => x.id !== data.id);
 };
 
+const onUpdateQuestion = (state, data) => {
+	let newState = _.cloneDeep(state);
+
+	newState.map(x => {
+		if (x.id !== data.id) {
+			return x;
+		}
+
+		x.content = data.content;
+		x.isAnonymous = data.isAnonymous;
+		x.guestName = data.guestName;
+
+		return x;
+	});
+
+	return newState;
+};
 const QuestionsReducer = (state, action) => {
 	const {type, data} = action;
 
@@ -151,6 +168,7 @@ const QuestionsReducer = (state, action) => {
 		addQuestionEmoji: onAddQuestionEmoji,
 		removeQuestionEmoji: onRemoveQuestionEmoji,
 		removeQuestion: onRemoveQuestion,
+		updateQuestion: onUpdateQuestion,
 	};
 
 	if (!(type in actionTable)) {

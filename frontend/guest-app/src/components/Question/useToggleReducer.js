@@ -4,7 +4,7 @@ import ToggleReducer from "./ToggleReducer.js";
 function useToggleReducer() {
 	const [state, dispatch] = useReducer(ToggleReducer, {
 		state: false,
-		data: null,
+		data: {},
 	});
 
 	return {

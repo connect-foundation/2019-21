@@ -6,7 +6,10 @@ import AddQuestionInputButton from "./QuestionInputArea/AddQuestionInputButton.j
 import QuestionCardList from "./QuestionCard/QuestionCardList.js";
 import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
 import QuestionsReducer from "./QuestionsReducer.js";
-import {buildQuestions, QUERY_INIT_QUESTIONS} from "../../libs/useQueryQuestions.js";
+import {
+	buildQuestions,
+	QUERY_INIT_QUESTIONS,
+} from "../../libs/useQueryQuestions.js";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 import {QuestionsProvider} from "./QuestionsContext.js";
 import PaddingArea from "./QuestionInputArea/PaddingArea.js";
@@ -68,6 +71,12 @@ const useSocketHandler = (dispatch, guestGlobal) => {
 		req.guestGlobal = guestGlobal;
 		dispatch({type: "removeQuestion", data: req});
 	});
+
+
+	useSocket("question/update", req => {
+		req.guestGlobal = guestGlobal;
+		dispatch({type: "updateQuestion", data: req});
+	});
 };
 
 function QuestionContainer() {
@@ -76,7 +85,8 @@ function QuestionContainer() {
 		variables: {EventId: event.id, GuestId: guest.id},
 	});
 
-	const questionInputDrawerReducer = useToggleReducer();
+	const newQuestionInputDrawerReducer = useToggleReducer();
+	const EditQuestionInputDrawerReducer = useToggleReducer();
 	const questionEditMenuReducer = useToggleReducer();
 	const [questions, dispatch] = useReducer(QuestionsReducer, []);
 	const {tabIdx, selectTabIdx} = useTabs(RECENT_TAB_IDX);
@@ -86,7 +96,7 @@ function QuestionContainer() {
 	useDataLoadEffect(dispatch, data);
 	useSocketHandler(dispatch, guest);
 
-	const onConfirm = () => {
+	const onConfirmNewQuestion = () => {
 		socketClient.emit(
 			"question/create",
 			getNewQuestion({
@@ -110,29 +120,59 @@ function QuestionContainer() {
 		selectTabIdx(event, newValue);
 	};
 
-	const questionInputDrawerProps = {
-		isOpen: questionInputDrawerReducer.state,
-		onClose: () => questionInputDrawerReducer.setOff(),
+	const newQuestionInputDrawerProps = {
+		title: "질문 하기",
+		isOpen: newQuestionInputDrawerReducer.state,
+		onClose: () => newQuestionInputDrawerReducer.setOff(),
+		onConfirm: onConfirmNewQuestion,
 		userNameRef,
-		onConfirm,
 		questionRef,
+	};
+
+	const onConfirmEditQuestion = () => {
+		socketClient.emit("question/update", {
+			id: EditQuestionInputDrawerReducer.data.id,
+			guestName: userNameRef.current.value,
+			EventId: event.id,
+			GuestId: guest.id,
+			content: questionRef.current.value,
+			isAnonymous: userNameRef.current.value.length === 0,
+		});
+	};
+
+	const editQuestionInputDrawerProps = {
+		title: "질문 수정 하기",
+		isOpen: EditQuestionInputDrawerReducer.state,
+		onClose: () =>
+			EditQuestionInputDrawerReducer.setOff(
+				EditQuestionInputDrawerReducer.data,
+			),
+		onConfirm: onConfirmEditQuestion,
+		userNameRef,
+		questionRef,
+		initialUserName: EditQuestionInputDrawerReducer.data.guestName,
+		initialQuestion: EditQuestionInputDrawerReducer.data.content,
 	};
 
 	return (
 		<QuestionsProvider value={{questions, dispatch}}>
 			<ContainerProvider
-				value={{questionInputDrawerReducer, questionEditMenuReducer}}
+				value={{
+					questionInputDrawerReducer: newQuestionInputDrawerReducer,
+					questionEditMenuReducer,
+				}}
 			>
 				<QuestionContainerTabBar
 					tabIdx={tabIdx}
 					onSelectTab={onContainerSelectTab}
 				/>
-				<QuestionCardList/>
-				<PaddingArea/>
+				<QuestionCardList />
+				<PaddingArea />
 				<AddQuestionInputButton
-					onClick={() => questionInputDrawerReducer.setOn()}
+					onClick={() => newQuestionInputDrawerReducer.setOn()}
 				/>
-				<QuestionInputDrawer {...questionInputDrawerProps} />
+				<QuestionInputDrawer {...newQuestionInputDrawerProps} />
+				<QuestionInputDrawer {...editQuestionInputDrawerProps} />
 				<QuestionEditMenuDrawer
 					isOpen={questionEditMenuReducer.state}
 					onClose={() => questionEditMenuReducer.setOff()}
@@ -142,6 +182,11 @@ function QuestionContainer() {
 							questionEditMenuReducer.data,
 						);
 						questionEditMenuReducer.setOff();
+					}}
+					onEdit={() => {
+						EditQuestionInputDrawerReducer.setOn(
+							questionEditMenuReducer.data,
+						);
 					}}
 				/>
 			</ContainerProvider>
