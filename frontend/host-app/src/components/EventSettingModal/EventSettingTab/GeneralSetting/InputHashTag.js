@@ -5,8 +5,8 @@ import uuidv1 from "uuid/v1";
 
 const ENTER_KEY_CODE = 13;
 const CustomTextField = styled(TextField)({
-	marginTop: 20,
-	width: 400,
+	marginTop: "1.3rem",
+	width: "25rem",
 });
 
 function InputHashTag(props) {

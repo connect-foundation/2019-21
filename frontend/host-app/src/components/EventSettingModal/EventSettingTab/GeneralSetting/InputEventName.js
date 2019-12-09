@@ -3,7 +3,7 @@ import {styled} from "@material-ui/core/styles";
 import {TextField} from "@material-ui/core";
 
 const CustomTextField = styled(TextField)({
-	width: 400,
+	width: "25rem",
 });
 
 function InputEventName(props) {

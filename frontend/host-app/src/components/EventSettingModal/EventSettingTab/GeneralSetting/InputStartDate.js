@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {
 	DateTimePicker,
 	MuiPickersUtilsProvider,
 	TimePicker,
 } from "@material-ui/pickers";
-import { styled } from "@material-ui/core/styles";
+import {styled} from "@material-ui/core/styles";
 import DateFnsUtils from "@date-io/date-fns";
 import Container from "@material-ui/core/Container";
 import moment from "moment";
@@ -19,7 +19,7 @@ const CustomContainer = styled(Container)({
 
 const CustomDateTimePicker = styled(DateTimePicker)({
 	marginTop: marginTopLength,
-	width: 220,
+	width: "14rem",
 });
 
 const CustomTimePicker = styled(TimePicker)({
@@ -27,7 +27,7 @@ const CustomTimePicker = styled(TimePicker)({
 });
 
 function InputStartDate(props) {
-	const { setStartDate, setEndDate } = props.dispatch;
+	const {setStartDate, setEndDate} = props.dispatch;
 	const [lastTime, handleLastTimeChange] = useState(
 		new Date().setHours(0, 0),
 	);

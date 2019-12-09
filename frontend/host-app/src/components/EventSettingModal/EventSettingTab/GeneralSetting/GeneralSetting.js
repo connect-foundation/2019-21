@@ -30,10 +30,7 @@ function convertDataToView(eventInfo) {
 			"YYYY년 MM월 DD일 HH시 mm분",
 		),
 		eventCode: eventInfo.eventCode,
-		hashTags: [
-			{key: "sadfsadf", label: "부스트캠프"},
-			{key: "asdfuuu", label: "자바스크립트"},
-		],
+		hashTags: [{key: "sadfsadf", label: "부스트캠프"}, {key: "asdfuuu", label: "자바스크립트"}],
 		eventLink: `${config.url}/${window.btoa(eventInfo.eventCode)}`,
 	};
 }

@@ -11,7 +11,7 @@ import {initSocketIoClientWrapper} from "./libs/socket.io-Client-wrapper.js";
 import configLoader from "./config/configLoader.js";
 
 const config = configLoader();
-const cookieName = "vaagle";
+const cookieName = "vaagle-guest";
 const token = Cookies.get(cookieName);
 const client = creaetApolloClient(config.apolloURI, token);
 const webSocketNameSpace = "defaultRoom";

@@ -38,7 +38,6 @@ function LoginModal({ onHideModal, googleLogin }) {
 	return (
 		<Modal open onClose={onHideModal}>
 			<LoginStyle>
-				{/* <LoginImageStyle src="naver.png" onClick={onHideModal}/> */}
 				<a href={config.authLoginURL}>
 					<LoginImageStyle src="google.png" />
 				</a>

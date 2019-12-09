@@ -1,7 +1,10 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import {TextField, Button} from "@material-ui/core";
-import {withStyles} from "@material-ui/core/styles";
+import Cookie from "js-cookie";
+import { TextField, Button } from "@material-ui/core";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import { withStyles } from "@material-ui/core/styles";
 import configLoader from "../config/configLoader.js";
 
 const config = configLoader();
@@ -35,6 +38,15 @@ const StyledButton = withStyles({
 function EventForm() {
 	const [code, setCode] = useState("");
 	const [errorMessage, setMessage] = useState(" ");
+	const [anchorEl, setAnchorEl] = React.useState(null);
+	const hostCookieName = "vaagle-host";
+	const guestCookieName = "vaagle-guest";
+	const handleClick = event => {
+		setAnchorEl(event.currentTarget);
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
 
 	const onChange = e => {
 		setCode(e.target.value);
@@ -44,9 +56,13 @@ function EventForm() {
 	const onEnterEvent = () => {
 		setMessage("이벤트 번호가 전달되었습니다.");
 		const path = window.btoa(code);
+
 		window.location.href = `${config.guestAppURL}/${path}`;
 		setCode("");
 	};
+	const hostCookie = Cookie.get(hostCookieName);
+	const guestCookie = Cookie.get(guestCookieName);
+	const empty = !hostCookie && !guestCookie;
 
 	return (
 		<EventFormStyle>
@@ -71,13 +87,39 @@ function EventForm() {
 					variant="contained"
 					color="primary"
 					size="large"
-					type="button"
+					type="submit"
 					onClick={onEnterEvent}
 				>
 					참가하기
 				</StyledButton>
 				<ErrorStyle>{errorMessage}</ErrorStyle>
 			</form>
+			<Button onClick={handleClick}>
+				<h3>최근목록</h3>
+			</Button>
+			<Menu
+				id="simple-menu"
+				anchorEl={anchorEl}
+				keepMounted
+				open={Boolean(anchorEl)}
+				onClose={handleClose}
+			>
+				{hostCookie && (
+					<MenuItem onClick={handleClose}>
+						<a href={`${config.hostAppURL}/`}>Go To Host</a>
+					</MenuItem>
+				)}
+				{guestCookie && (
+					<MenuItem onClick={handleClose}>
+						<a href={`${config.guestAppURL}/`}>Go To Guest</a>
+					</MenuItem>
+				)}
+				{empty && (
+					<MenuItem onClick={handleClose}>
+						최근 기록이 없습니다
+					</MenuItem>
+				)}
+			</Menu>
 		</EventFormStyle>
 	);
 }
