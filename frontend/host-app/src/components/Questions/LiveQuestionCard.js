@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Divider from "@material-ui/core/Divider";
 import Card from "@material-ui/core/Card";
 import {CardContent, Icon} from "@material-ui/core";
@@ -9,9 +9,11 @@ import QuestionUserName from "./QuestionUserName";
 import useStyles from "./useStyles";
 import QuestionMenu from "./QuestionMenu";
 import ThumbUpButton from "./ThumbUpButton";
+import Replies from "./Replies";
 
 function LiveQuestionCard(props) {
 	const classes = useStyles();
+	const [openReplies, setOpenReplies] = useState(false);
 
 	return (
 		<Card className={props.isStared ? classes.staredQuestion : classes.normalQuestion}>
@@ -43,7 +45,8 @@ function LiveQuestionCard(props) {
 				<Divider
 					style={{marginTop: "0.5rem", marginBottom: "0.5rem"}}
 				/>
-				<ThumbUpButton {...props}/>
+				<ThumbUpButton {...props} replyOpenHandler={setOpenReplies} replyOpenStatus={openReplies}/>
+				{(openReplies) && <Replies replies={props.replies}/> }
 			</CardContent>
 		</Card>
 	);

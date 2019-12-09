@@ -18,6 +18,11 @@ export function filterQuestion(option, data){
 	return {questions: data.questions.filter(e => e.state === option && e.QuestionId === null)};
 }
 
+export function filterReplies(id, data){
+	return {questions: data.questions.filter(e => e.QuestionId === id )};
+}
+
+
 function mappingByKey(object, key) {
 	const mappped = {};
 
