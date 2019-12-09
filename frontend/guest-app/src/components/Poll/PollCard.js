@@ -57,12 +57,13 @@ function PollCard(props) {
 		<ColumnWrapper>
 			<RowWrapper left bold>
 				{pollName}
+				<div>{state === "running" && "(투표중)"}</div>
 				<div>{state === "closed" && "(종료됨)"}</div>
 			</RowWrapper>
 			<RowWrapper left small>
-				{allowDuplication ?
-					`복수선택 | ${localePollDate}` :
-					`${localePollDate}`}
+				{allowDuplication
+					? `복수선택 | ${localePollDate}`
+					: `${localePollDate}`}
 			</RowWrapper>
 			{pollType === "nItems" && (
 				<SelectionItems

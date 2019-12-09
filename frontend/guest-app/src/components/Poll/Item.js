@@ -53,9 +53,10 @@ function Item({
 	firstPlace,
 	onVote,
 	state,
+	candidateId,
 }) {
 	return (
-		<RowWrapper left onClick={() => onVote(id, number, state)}>
+		<RowWrapper left onClick={() => onVote(id, candidateId, number, state)}>
 			<div>{voted && <MdDone />}</div>
 			<div className="selection-name">{content}</div>
 			<RightEnd>

@@ -1,8 +1,8 @@
 type Candidate {
-	id: Int
+	id: Int!
 	number: Int!
 	content: String!
-	voters: Int
+	voters: Int!
 	voted: Boolean
 	firstPlace: Boolean
 }
@@ -14,7 +14,7 @@ type Poll {
 	selectionType: String!
 	allowDuplication: Boolean!
 	state: String!
-	pollDate: String!
+	pollDate: String
 	totalVoters: Int!
 	createdAt: String!
 	nItems: [Candidate]!
