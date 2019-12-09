@@ -31,6 +31,7 @@ export default function makePollDummy(number = POLL_NUM) {
 		const state = "closed";
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
+		const pollDate = createdAt;
 		const EventId = faker.random.number({ min: 1, max: EVENT_NUM });
 
 		bulkPoll.push({
@@ -42,6 +43,7 @@ export default function makePollDummy(number = POLL_NUM) {
 			createdAt,
 			updatedAt,
 			EventId,
+			pollDate,
 		});
 	}
 

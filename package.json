@@ -10,8 +10,8 @@
     "deploy:auto": "sh script/deploy_demon.sh",
     "start": "sh script/start.sh",
     "start:frontend": "sh script/start_frontend.sh",
-    "start:backend": "sh script/start_backend.sh.sh"
-  },
+    "start:backend": "sh script/start_backend.sh"
+    },
   "license": "MIT",
   "dependencies": {
     "concurrently": "^5.0.0",

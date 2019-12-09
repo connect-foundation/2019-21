@@ -4,14 +4,16 @@ import TextField from "@material-ui/core/TextField";
 import useCommonTextInput from "../../CommonComponent/CommonTextInput/useCommonTextInput.js";
 
 function QuestionInput(props) {
-	const {questionRef} = props;
-
-	const {onChange, value, maxTextLength = 160} = useCommonTextInput();
+	const {questionRef, initValue} = props;
+	const {onChange, value, maxTextLength = 160} = useCommonTextInput(
+		initValue,
+	);
 
 	return (
 		<TextField
 			multiline
 			fullWidth
+			autoFocus
 			label={"질문 내용"}
 			rowsMax="10"
 			value={value}
@@ -28,6 +30,12 @@ function QuestionInput(props) {
 
 QuestionInput.propTypes = {
 	questionRef: PropTypes.any,
+	initValue: PropTypes.any,
+};
+
+QuestionInput.defualtProps = {
+	questionRef: undefined,
+	initValue: "",
 };
 
 export default QuestionInput;

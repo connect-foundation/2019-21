@@ -37,7 +37,7 @@ const GraphWrapper = styled.div`
 	top: 0;
 	left: 0;
 	background-color: ${props =>
-		props.firstPlace ? "yellow" : "#ced4da"}; /* Gray4 */
+		(props.firstPlace ? "yellow" : "#ced4da")}; /* Gray4 */
 	height: 100%;
 	width: ${props => props.ratio};
 	box-sizing: border-box;
@@ -53,9 +53,10 @@ function Item({
 	firstPlace,
 	onVote,
 	state,
+	candidateId,
 }) {
 	return (
-		<RowWrapper left onClick={() => onVote(id, number, state)}>
+		<RowWrapper left onClick={() => onVote(id, candidateId, number, state)}>
 			<div>{voted && <MdDone />}</div>
 			<div className="selection-name">{content}</div>
 			<RightEnd>

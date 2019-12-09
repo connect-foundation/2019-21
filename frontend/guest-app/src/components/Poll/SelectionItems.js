@@ -17,11 +17,12 @@ function SelectionItem(props) {
 
 	return (
 		<ColumnWrapper>
-			{nItems.map((item, index) => (
+			{nItems.map(item => (
 				<Item
 					{...item}
 					totalVoters={totalVoters}
-					key={index}
+					key={item.id}
+					candidateId={item.id}
 					{...others}
 				/>
 			))}

@@ -1,7 +1,6 @@
 import React, {useReducer} from "react";
 import styled from "styled-components";
 import PollCard from "./PollCard";
-// import PollDummyData from "./PollDummyData";
 
 const ColumnWrapper = styled.div`
 	display: flex;
@@ -41,12 +40,18 @@ const updateItems = (items, number, allowDuplication) => {
 	return newItems;
 };
 
-// 별점 투표는 목록이 1개 이므로 항상 index가 0 임
+// 별점 투표는 목록이 최대 별점갯수만큼 있음. 선택한 value - 1 이 index가 됨
 const updateRatingItem = (items, value, voted) => {
 	const newItems = [...items];
 
-	newItems[0].value = value;
-	newItems[0].voted = voted;
+	if (voted) {
+		newItems[value - 1].voters++;
+		newItems[value - 1].voted = voted;
+	} else {
+		newItems[value - 1].voters++;
+		newItems[value - 1].voted = voted;
+	}
+
 	return newItems;
 };
 
@@ -65,56 +70,74 @@ const updateTotalVoters = (notVoted, totalVoters, items) => {
 	return result;
 };
 
-function reducer(state, action) {
-	const notVoted = state.nItems.every(item => item.voted === false);
+function reducer(polls, action) {
+	let thePoll = polls.filter(poll => poll.id === action.id)[0];
 
 	switch (action.type) {
 		case "VOTE":
-			return {
-				...state,
+			const notVoted = thePoll.nItems.every(item => item.voted === false);
+			thePoll = {
+				...thePoll,
 				nItems: updateItems(
-					state.nItems,
+					thePoll.nItems,
 					action.number,
-					state.allowDuplication,
+					thePoll.allowDuplication,
 				),
 				totalVoters: updateTotalVoters(
 					notVoted,
-					state.totalVoters,
-					state.nItems,
+					thePoll.totalVoters,
+					thePoll.nItems,
 				),
 			};
+			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
+
 		case "RATE":
-			return {
-				...state,
-				nItems: updateRatingItem(state.nItems, action.value, true),
-				totalVoters: updateTotalVoters(
-					notVoted,
-					state.totalVoters,
-					state.nItems,
-				),
-			};
-		case "CANCEL_RATING":
-			// 이전 상태도 투표하지 않은 상태라면 서버에 요청을 보내지 않도록 처리하는 루틴
-			if (notVoted && state.nItems[0].value === 0) {
-				return state;
+			if (thePoll.rated) {
+				return polls;
 			}
-			return {
-				...state,
-				nItems: updateRatingItem(state.nItems, 0, false),
-				totalVoters: updateTotalVoters(
-					notVoted,
-					state.totalVoters,
-					state.nItems,
-				),
+			thePoll = {
+				...thePoll,
+				nItems: updateRatingItem(thePoll.nItems, action.value, true),
+				rated: true,
+				ratingValue: action.value,
+				totalVoters: thePoll.totalVoters + 1,
 			};
+			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
+
+		case "CANCEL_RATING":
+			if (!thePoll.rated) {
+				return polls;
+			}
+			thePoll = {
+				...thePoll,
+				nItems: updateRatingItem(
+					thePoll.nItems,
+					thePoll.ratingValue,
+					false,
+				),
+				rated: false,
+				ratingValue: 0,
+				totalVoters: thePoll.totalVoters - 1,
+			};
+			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
+		// if (notVoted && thePoll.nItems[0].value === 0) {
+		// 	return thePoll;
+		// }
+		// return {
+		// 	...thePoll,
+		// 	nItems: updateRatingItem(thePoll.nItems, 0, false),
+		// 	totalVoters: updateTotalVoters(
+		// 		notVoted,
+		// 		thePoll.totalVoters,
+		// 		thePoll.nItems,
+		// 	),
+		// };
 		default:
 			throw new Error("Unhandled action.");
 	}
 }
 
 function PollContainer({data}) {
-	console.log(data);
-
 	let activePollData = null;
 	let closedPollData = null;
 
@@ -123,7 +146,7 @@ function PollContainer({data}) {
 
 		activePollData = initialPollData.filter(
 			poll => poll.state === "running",
-		)[0];
+		);
 		closedPollData = initialPollData.filter(
 			poll => poll.state === "closed",
 		);
@@ -131,44 +154,52 @@ function PollContainer({data}) {
 
 	const [pollData, dispatch] = useReducer(reducer, activePollData);
 
-	const onVote = (id, number, state) => {
+	const onVote = (id, candidateId, number, state) => {
 		if (state !== "running") return;
 
+		console.log("onVote", id, candidateId, number, state);
 		dispatch({
 			type: "VOTE",
 			id,
+			candidateId,
 			number,
 		});
 	};
 
-	const onChange = (value, state) => {
+	const onChange = (value, state, id) => {
 		if (state !== "running") return;
 
 		dispatch({
 			type: "RATE",
 			value,
+			id,
 		});
 	};
 
-	const onCancelRating = () => {
+	const onCancelRating = (id, state) => {
+		if (state !== "running") return;
+
 		dispatch({
 			type: "CANCEL_RATING",
+			id,
 		});
 	};
 
 	return (
 		<ColumnWrapper>
-			{pollData && (
-				<PollCard
-					{...pollData}
-					onVote={onVote}
-					onChange={onChange}
-					onCancelRating={onCancelRating}
-				/>
-			)}
+			{pollData &&
+				pollData.map(poll => (
+					<PollCard
+						{...poll}
+						key={poll.id}
+						onVote={onVote}
+						onChange={onChange}
+						onCancelRating={onCancelRating}
+					/>
+				))}
 			{closedPollData &&
-				closedPollData.map((poll, index) => (
-					<PollCard {...poll} key={index} onVote={onVote} />
+				closedPollData.map(poll => (
+					<PollCard {...poll} key={poll.id} onVote={onVote} />
 				))}
 		</ColumnWrapper>
 	);
