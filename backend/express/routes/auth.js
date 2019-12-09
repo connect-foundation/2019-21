@@ -1,10 +1,10 @@
 import express from "express";
 import passport from "passport";
-import { getTokenExpired } from "../utils";
+import {getTokenExpired} from "../utils";
 import generateAccessToken from "../authentication/token";
 import loadConfig from "../config/configLoader";
 
-const { routePage } = loadConfig();
+const {routePage} = loadConfig();
 const router = express.Router();
 
 router.get(
@@ -24,7 +24,7 @@ router.get(
 	(req, res) => {
 		const accessToken = generateAccessToken(req.user.oauthId, "host");
 
-		res.cookie("vaagle-host", accessToken, { expires: getTokenExpired(1) });
+		res.cookie("vaagle-host", accessToken, {expires: getTokenExpired(24)});
 		res.redirect(routePage.host);
 	}
 );
