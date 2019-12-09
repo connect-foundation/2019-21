@@ -6,6 +6,8 @@ import {HostContext} from "../libs/hostContext";
 import {makeNewData} from "../libs/utils";
 import {ContentStyle} from "./ComponentsStyle";
 import QuestionsReducer from "./Questions/QuestionReducer";
+import SkeletonContent from "./SkeletonContent";
+
 
 function Inner({data, event, option}) {
 	const SELECTED = true;
@@ -16,10 +18,8 @@ function Inner({data, event, option}) {
 	const [pollNumberStatus] = useState(0);
 
 	const handleRadioState = buttonIndex => {
-		const newState = [UNSELECTED, UNSELECTED, UNSELECTED, UNSELECTED]
-			.map((_, idx) => (idx === buttonIndex ? SELECTED : UNSELECTED));
-
-		setRadioState(newState);
+		setRadioState([UNSELECTED, UNSELECTED, UNSELECTED, UNSELECTED]
+			.map((_, idx) => (idx === buttonIndex ? SELECTED : UNSELECTED)));
 	};
 
 	const typeMap = {
@@ -34,7 +34,6 @@ function Inner({data, event, option}) {
 	useSocket("question/move", req => dispatch({type: "moveQuestion", data: req}));
 
 	const handleQuestionDatas = (id, from, to) => socketClient.emit("question/move", {id, from, to});
-
 	const handleStar = id => {
 		questions.questions.some(e => {
 			if (e.id === id) {
@@ -76,7 +75,7 @@ function Content({event}) {
 		variables: {EventId: events[0].id},
 	});
 
-	if (loading) return <p>Loading...</p>;
+	if (loading) return <SkeletonContent/>;
 	if (error) return <p>Error :(</p>;
 
 	return (

@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import {Button} from "@material-ui/core";
 import CreateEventModal from "./CreateEventModal/CreateEventModal";
 import useModal from "../customhook/useModal";

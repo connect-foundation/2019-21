@@ -6,6 +6,7 @@ import {QuestionHeader, QuestionBody, QuestionInfo, QuestionMeta, QuestionButton
 import QuestionDate from "./QuestionDate";
 import QuestionUserName from "./QuestionUserName";
 import useStyles from "./useStyles";
+import QuestionMenu from "./QuestionMenu";
 
 function LiveQuestionCard(props) {
 	const classes = useStyles();
@@ -32,7 +33,7 @@ function LiveQuestionCard(props) {
 								onClick={() => props.dataHandler(props.id, props.type, "completeQuestion")}>
 								check_circle_outline
 							</Icon>
-							<Icon className={classes.moreButton}>more_vert</Icon>
+							<QuestionMenu id={props.id} type={props.type} handler={props.dataHandler}/>
 						</QuestionButtons>
 					</QuestionMeta>
 				</QuestionHeader>

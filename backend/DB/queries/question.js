@@ -55,6 +55,14 @@ export async function updateQuestionById({
 	{where: {id}});
 }
 
+export async function updateEveryState(from, {
+	state}) {
+	return Question.update({
+		state,
+	},
+	{where: {state: from}});
+}
+
 
 export async function getQuestionById(id) {
 	return Question.findOne({where: {id}});
