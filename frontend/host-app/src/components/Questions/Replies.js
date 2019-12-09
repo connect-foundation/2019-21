@@ -1,28 +1,26 @@
 import React from "react";
 import Divider from "@material-ui/core/Divider";
-import UserAvata from "./UserAvata.js";
 import {QuestionBody, QuestionInfo, QuestionMeta} from "./QuestionStyle";
 import QuestionUserName from "./QuestionUserName";
-import useStyles from "./useStyles";
+import QuestionDate from "./QuestionDate";
 
 
 function Replies(props) {
-	const classes = useStyles();
 
 	return (
 		<div>
 			<Divider
 				style={{marginTop: "0.5rem", marginBottom: "0.5rem"}}
 			/>
-			{props.replies.map(e => (
+			{props.replies.map(reply => (
 				<>
 					<QuestionMeta>
-						<UserAvata {...e} />
 						<QuestionInfo>
-							<QuestionUserName {...e} />
+							<QuestionUserName {...reply} />
+							<QuestionDate {...reply} />
 						</QuestionInfo>
 					</QuestionMeta>
-					<QuestionBody>{e.content}</QuestionBody>
+					<QuestionBody>{reply.content}</QuestionBody>
 				</>))}
 		</div>
 	);
