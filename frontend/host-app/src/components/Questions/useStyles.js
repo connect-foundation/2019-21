@@ -36,11 +36,25 @@ const useStyles = makeStyles(theme => ({
 			color: "#ef0046",
 		},
 	},
+	thumbUpButton: {
+		color: "#7f7f7f",
+		transform: "scale(0.7)",
+		marginLeft: "0.5rem",
+	},
+	thumbUpbadge: {
+		margin: theme.spacing(2),
+		marginLeft: "0.5rem",
+	},
 	staredQuestion: {
 		backgroundColor: "rgb(242,248,255)",
 	},
 	normalQuestion: {
 		backgroundColor: "rgba(255,255,255,100)",
+	},
+	cardContentPadding: {
+		"&:last-child": {
+			paddingBottom: "0.5rem",
+		},
 	},
 }
 ));

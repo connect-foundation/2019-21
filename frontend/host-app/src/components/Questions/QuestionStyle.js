@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import ThumbUpButton from "./ThumbUpButton";
 
 const QuestionHeader = styled.div`
 	display: flex;
@@ -27,4 +28,10 @@ const QuestionButtons = styled.div`
 	margin-left:auto;
 `;
 
-export {QuestionHeader, QuestionMeta, QuestionInfo, QuestionBody, QuestionButtons};
+const ThumbUpContainer = styled.div`
+	display: flex;
+	margin-top: 0.1rem;
+	align-items: center;
+`;
+
+export {QuestionHeader, QuestionMeta, QuestionInfo, QuestionBody, QuestionButtons, ThumbUpContainer};
