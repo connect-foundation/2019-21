@@ -1,7 +1,8 @@
-import React, {useReducer} from "react";
+import React, {useReducer, useContext} from "react";
 import styled from "styled-components";
 import PollCard from "./PollCard";
 import {useSocket} from "../../libs/socket.io-Client-wrapper";
+import reducer from "./PollReducer";
 
 const ColumnWrapper = styled.div`
 	display: flex;
@@ -14,137 +15,7 @@ const ColumnWrapper = styled.div`
 	width: 100%;
 `;
 
-// 복수선택이 아닌 투표의 경우, 다른 선택된 항목을 uncheck 하는 함수
-const uncheckOtherItems = items => {
-	items.forEach(item => {
-		if (item.voted) {
-			item.voted = false;
-			item.voters--;
-		}
-	});
-};
-
-// N지선다형 투표에서 CLICK 으로 인해 상태 변화가 발생한 경우 처리하는 함수
-const updateItems = (items, number, allowDuplication) => {
-	const newItems = [...items];
-
-	if (newItems[number].voted) {
-		newItems[number].voted = false;
-		newItems[number].voters--;
-	} else {
-		if (!allowDuplication) {
-			uncheckOtherItems(newItems);
-		}
-		newItems[number].voted = true;
-		newItems[number].voters++;
-	}
-	return newItems;
-};
-
-// 별점 투표는 목록이 최대 별점갯수만큼 있음. 선택한 value - 1 이 index가 됨
-const updateRatingItem = (items, value, voted) => {
-	const newItems = [...items];
-
-	if (voted) {
-		newItems[value - 1].voters++;
-		newItems[value - 1].voted = voted;
-	} else {
-		newItems[value - 1].voters++;
-		newItems[value - 1].voted = voted;
-	}
-
-	return newItems;
-};
-
-// 투표의 참여 총인원수를 계산하는 함수 (복수선택 고려함)
-const updateTotalVoters = (notVoted, totalVoters, items) => {
-	let result = totalVoters;
-
-	if (notVoted) {
-		if (items.some(item => item.voted)) {
-			result = totalVoters + 1;
-		}
-	} else if (items.every(item => item.voted === false)) {
-		result = totalVoters - 1;
-	}
-
-	return result;
-};
-
-function reducer(polls, action) {
-	let thePoll;
-
-	if (action.id) {
-		thePoll = polls.filter(poll => poll.id === action.id)[0];
-	}
-
-	switch (action.type) {
-		case "NOTIFY_OPEN":
-			return [action.poll, ...polls];
-		case "VOTE":
-			const notVoted = thePoll.nItems.every(item => item.voted === false);
-			thePoll = {
-				...thePoll,
-				nItems: updateItems(
-					thePoll.nItems,
-					action.number,
-					thePoll.allowDuplication,
-				),
-				totalVoters: updateTotalVoters(
-					notVoted,
-					thePoll.totalVoters,
-					thePoll.nItems,
-				),
-			};
-			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
-
-		case "RATE":
-			if (thePoll.rated) {
-				return polls;
-			}
-			thePoll = {
-				...thePoll,
-				nItems: updateRatingItem(thePoll.nItems, action.value, true),
-				rated: true,
-				ratingValue: action.value,
-				totalVoters: thePoll.totalVoters + 1,
-			};
-			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
-
-		case "CANCEL_RATING":
-			if (!thePoll.rated) {
-				return polls;
-			}
-			thePoll = {
-				...thePoll,
-				nItems: updateRatingItem(
-					thePoll.nItems,
-					thePoll.ratingValue,
-					false,
-				),
-				rated: false,
-				ratingValue: 0,
-				totalVoters: thePoll.totalVoters - 1,
-			};
-			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
-		// if (notVoted && thePoll.nItems[0].value === 0) {
-		// 	return thePoll;
-		// }
-		// return {
-		// 	...thePoll,
-		// 	nItems: updateRatingItem(thePoll.nItems, 0, false),
-		// 	totalVoters: updateTotalVoters(
-		// 		notVoted,
-		// 		thePoll.totalVoters,
-		// 		thePoll.nItems,
-		// 	),
-		// };
-		default:
-			throw new Error("Unhandled action.");
-	}
-}
-
-function PollContainer({data}) {
+function PollContainer({data, GuestId}) {
 	let activePollData = null;
 	let closedPollData = null;
 
@@ -164,12 +35,12 @@ function PollContainer({data}) {
 	const onVote = (id, candidateId, number, state) => {
 		if (state !== "running") return;
 
-		console.log("onVote", id, candidateId, number, state);
 		dispatch({
 			type: "VOTE",
 			id,
 			candidateId,
 			number,
+			GuestId,
 		});
 	};
 
@@ -180,6 +51,7 @@ function PollContainer({data}) {
 			type: "RATE",
 			value,
 			id,
+			GuestId,
 		});
 	};
 
@@ -189,14 +61,43 @@ function PollContainer({data}) {
 		dispatch({
 			type: "CANCEL_RATING",
 			id,
+			GuestId,
 		});
 	};
 
 	useSocket("poll/notify_open", thePoll => {
-		console.log("Guest received poll/notify_open", thePoll);
+		// console.log("Guest received poll/notify_open", thePoll);
 		dispatch({
 			type: "NOTIFY_OPEN",
 			poll: thePoll,
+			GuestId,
+		});
+	});
+
+	useSocket("vote/on", res => {
+		// console.log("useSocket vote/on", res);
+		if (res.GuestId === GuestId) {
+			// console.log("My vote!");
+			return;
+		}
+		dispatch({
+			type: "SOMEONE_VOTE",
+			id: res.poll.id,
+			poll: res.poll,
+			GuestId,
+		});
+	});
+
+	useSocket("vote/off", res => {
+		if (res.GuestId === GuestId) {
+			// console.log("My vote!");
+			return;
+		}
+		dispatch({
+			type: "SOMEONE_VOTE",
+			id: res.poll.id,
+			poll: res.poll,
+			GuestId,
 		});
 	});
 
