@@ -41,10 +41,6 @@ const useStyles = makeStyles(theme => ({
 		transform: "scale(0.7)",
 		marginLeft: "0.5rem",
 	},
-	thumbUpbadge: {
-		margin: theme.spacing(2),
-		marginLeft: "0.5rem",
-	},
 	staredQuestion: {
 		backgroundColor: "rgb(242,248,255)",
 	},

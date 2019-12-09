@@ -34,4 +34,8 @@ const ThumbUpContainer = styled.div`
 	align-items: center;
 `;
 
-export {QuestionHeader, QuestionMeta, QuestionInfo, QuestionBody, QuestionButtons, ThumbUpContainer};
+const ReplyContainer = styled.div`
+	margin-left: auto;
+`;
+
+export {QuestionHeader, QuestionMeta, QuestionInfo, QuestionBody, QuestionButtons, ThumbUpContainer, ReplyContainer};
