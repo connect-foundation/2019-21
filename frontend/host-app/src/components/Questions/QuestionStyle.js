@@ -58,4 +58,5 @@ export {
 	ThumbUpContainer,
 	ReplyContainer,
 	ReplyBody,
-	ReplyInfo,};
+	ReplyInfo,
+};
