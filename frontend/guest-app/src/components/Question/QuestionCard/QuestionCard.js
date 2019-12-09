@@ -5,6 +5,7 @@ import Divider from "@material-ui/core/Divider";
 import QuestionHeader from "./QuestionCardHeader.js";
 import QuestionBody from "./QuestionCardBody.js";
 import EmojiArea from "../../Emoji/EmojiArea.js";
+import ReplyArea from "../../Reply/ReplyArea";
 
 function QuestionCard(props) {
 	return (
@@ -15,7 +16,8 @@ function QuestionCard(props) {
 					style={{marginTop: "0.5rem", marginBottom: "0.5rem"}}
 				/>
 				<QuestionBody {...props} />
-				<EmojiArea {...props}/>
+				<EmojiArea {...props} />
+				<ReplyArea />
 			</CardContent>
 		</Card>
 	);
