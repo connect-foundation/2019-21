@@ -15,6 +15,10 @@ export async function deleteLikeById(id) {
 	});
 }
 
+export async function deleteLikeBy({GuestId, QuestionId}) {
+	return Like.destroy({where: {GuestId, QuestionId}});
+}
+
 export async function getLikesByGuestId(GuestId) {
 	return Like.findAll({
 		where: {GuestId},
@@ -26,6 +30,7 @@ export async function getLikesByQuestionId(QuestionId) {
 		where: {QuestionId},
 	});
 }
+
 export async function getLikeCountByQuestion(QuestionId) {
 	return Like.count({
 		where: {QuestionId},

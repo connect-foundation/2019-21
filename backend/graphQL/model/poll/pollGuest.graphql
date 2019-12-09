@@ -1,8 +1,8 @@
 type Candidate {
-	id: Int
+	id: Int!
 	number: Int!
 	content: String!
-	voters: Int
+	voters: Int!
 	voted: Boolean
 	firstPlace: Boolean
 }
@@ -14,12 +14,14 @@ type Poll {
 	selectionType: String!
 	allowDuplication: Boolean!
 	state: String!
-	pollDate: String!
+	pollDate: String
 	totalVoters: Int!
 	createdAt: String!
 	nItems: [Candidate]!
+	ratingValue: Int!
+	rated: Boolean!
 }
 
 type Query {
-	pollGuest(eventCode: ID!, guestId: ID!): [Poll]!
+	pollGuest(EventId: ID!, guestId: ID!): [Poll]!
 }

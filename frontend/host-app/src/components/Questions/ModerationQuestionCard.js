@@ -23,12 +23,12 @@ function ModerationQuestionCard(props) {
 						<QuestionButtons>
 							<Icon
 								className={classes.starButton}
-								onClick={() => props.handleStar(props.id, props.type)}>
+								onClick={() => props.handleStar(props.id)}>
 								stars
 							</Icon>
 							<Icon
 								className={classes.approveButton}
-								onClick={() => props.dataHandler(props.id, props.type, "newQuestion")}>
+								onClick={() => props.dataHandler(props.id, props.type, "active")}>
 								check_circle_outline
 							</Icon>
 							<Icon

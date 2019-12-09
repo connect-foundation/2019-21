@@ -17,8 +17,8 @@ const client = creaetApolloClient(config.apolloURI, token);
 const webSocketNameSpace = "defaultRoom";
 
 initSocketIoClientWrapper(
-	config.websocketHost,
-	config.websocketPort,
+	config.socketIOHost,
+	config.socketIOPort,
 	webSocketNameSpace,
 );
 

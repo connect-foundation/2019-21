@@ -7,21 +7,20 @@ import QuestionBody from "./QuestionCardBody.js";
 import EmojiArea from "../../Emoji/EmojiArea.js";
 
 function QuestionCard(props) {
-	const {isShowEditButton = false, content} = props;
-
 	return (
 		<Card style={{margin: "0.5rem"}}>
 			<CardContent style={{paddingTop: "1rem", paddingBottom: "0"}}>
 				<QuestionHeader {...props} />
-				<Divider style={{marginTop: "0.5rem", marginBottom: "0.5rem"}} />
-				<QuestionBody
-					question={content}
-					isMyQuestion={isShowEditButton}
+				<Divider
+					style={{marginTop: "0.5rem", marginBottom: "0.5rem"}}
 				/>
-				<EmojiArea />
+				<QuestionBody {...props} />
+				<EmojiArea {...props}/>
 			</CardContent>
 		</Card>
 	);
 }
+
+QuestionCard.proptypes = {};
 
 export default QuestionCard;

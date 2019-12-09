@@ -23,6 +23,9 @@ module.exports = (sequelize, DataTypes) => {
 			state: {
 				type: DataTypes.STRING(10),
 			},
+			pollDate: {
+				type: DataTypes.DATE,
+			},
 			createdAt: {
 				allowNull: false,
 				type: DataTypes.DATE,

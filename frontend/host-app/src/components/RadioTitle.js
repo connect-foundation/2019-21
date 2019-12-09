@@ -1,26 +1,9 @@
 import React from "react";
 import Radio from "@material-ui/core/Radio";
-import styled from "styled-components";
 import Badge from "@material-ui/core/Badge";
 import {makeStyles} from "@material-ui/core/styles";
 import {Icon} from "@material-ui/core";
-
-const TitleBox = styled.div`
-	display:flex;
-	align-items: center;
-	width:100%;
-	justify-content:space-around;
-`;
-
-const TitleStyle = styled.div`
-	font-weight: bold;
-`;
-
-const RightSide = styled.div`
-	margin-left: 2rem;
-	display: flex;
-	align-items: center;
-`;
+import {TitleStyle, TitleBox, RightSide} from "./ComponentsStyle";
 
 const useStyles = makeStyles(theme => ({
 	margin: {
@@ -33,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 }
 ));
 
-function RadioTitle({titleName, state, stateHandler, idx, badgeState, dataHandler, type}) {
+function RadioTitle({titleName, state, stateHandler, idx, data, dataHandler, type}) {
 	const SELECTED = true;
 	const classes = useStyles();
 
@@ -41,7 +24,7 @@ function RadioTitle({titleName, state, stateHandler, idx, badgeState, dataHandle
 		<TitleBox>
 			<Badge
 				color="secondary"
-				badgeContent={badgeState[idx + 1]}
+				badgeContent={data.length}
 				showZero
 				className={classes.margin}
 			/>
@@ -53,7 +36,7 @@ function RadioTitle({titleName, state, stateHandler, idx, badgeState, dataHandle
 				/>
 				<Icon
 					className={classes.icon}
-					onClick={() => dataHandler("all", type, "completeQuestion")}
+					onClick={() => dataHandler("all", "active", "completeQuestion")}
 				>
 					delete_outlined_icon
 				</Icon>
@@ -63,7 +46,7 @@ function RadioTitle({titleName, state, stateHandler, idx, badgeState, dataHandle
 		<TitleBox>
 			<Badge
 				color="secondary"
-				badgeContent={idx === 3 ? badgeState : badgeState[idx + 1]}
+				badgeContent={data.length}
 				showZero
 				className={classes.margin}
 			/>

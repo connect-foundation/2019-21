@@ -1,11 +1,12 @@
-import React from "react";
+import React, {useContext} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import {gql} from "apollo-boost";
 import PollContainer from "./PollContainer";
+import {HostContext} from "../../libs/hostContext";
 
 const POLL_QUERY = gql`
-	{
-		pollHost(eventCode: "sd3k") {
+	query PollHost($EventId: ID!) {
+		pollHost(EventId: $EventId) {
 			id
 			pollName
 			pollType
@@ -27,11 +28,19 @@ const POLL_QUERY = gql`
 `;
 
 function PollApollo() {
-	const {loading, error, data} = useQuery(POLL_QUERY);
+	const {events} = useContext(HostContext);
+	const options = {
+		variables: {
+			EventId: events[0].id,
+		},
+	};
+
+	const {loading, error, data} = useQuery(POLL_QUERY, options);
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
 
+	console.log(data.pollHost);
 	return <PollContainer data={data.pollHost} />;
 }
 
