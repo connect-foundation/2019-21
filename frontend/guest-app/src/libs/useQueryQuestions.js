@@ -3,7 +3,6 @@ import {gql} from "apollo-boost";
 import {JSONNestJoin, JSONNestJoin2} from "./utils.js";
 import _ from "lodash";
 
-
 export function buildQuestions(object) {
 	object.questions = object.questions.filter(e => e.state === "active");
 	const copyData = _.cloneDeep(object);
@@ -21,10 +20,16 @@ export function buildQuestions(object) {
 		return x;
 	});
 
-	questions = JSONNestJoin(questions, didILikes, "id", "QuestionId", (x, y) => {
-		x.didILike = true;
-		return x;
-	});
+	questions = JSONNestJoin(
+		questions,
+		didILikes,
+		"id",
+		"QuestionId",
+		(x, y) => {
+			x.didILike = true;
+			return x;
+		},
+	);
 
 	emojis = emojis.map(x => {
 		x.key = `${x.QuestionId}_${x.name}`;
@@ -53,36 +58,37 @@ export function buildQuestions(object) {
 }
 
 export const QUERY_INIT_QUESTIONS = gql`
-    query getQuestions($EventId: ID!, $GuestId: ID!) {
-        questions(EventId: $EventId) {
-            id
-            EventId
-            GuestId
-            createdAt
-            content
-            state
-            isStared
-            likeCount
-        }
-        emojis(EventId: $EventId) {
-            name
-            count
-            QuestionId
-            createdAt
-        }
-        emojiPicks(EventId: $EventId, GuestId: $GuestId) {
-            name
-            QuestionId
-        }
-        guests(EventId: $EventId) {
-            id
-            name
-            isAnonymous
-        }
-        didILikes(GuestId: $GuestId) {
-            QuestionId
-        }
-    }
+	query getQuestions($EventId: ID!, $GuestId: ID!) {
+		questions(EventId: $EventId) {
+			id
+			EventId
+			GuestId
+			createdAt
+			content
+			state
+			isStared
+			likeCount
+			QuestionId
+		}
+		emojis(EventId: $EventId) {
+			name
+			count
+			QuestionId
+			createdAt
+		}
+		emojiPicks(EventId: $EventId, GuestId: $GuestId) {
+			name
+			QuestionId
+		}
+		guests(EventId: $EventId) {
+			id
+			name
+			isAnonymous
+		}
+		didILikes(GuestId: $GuestId) {
+			QuestionId
+		}
+	}
 `;
 
 export function useQueryQuestions(
