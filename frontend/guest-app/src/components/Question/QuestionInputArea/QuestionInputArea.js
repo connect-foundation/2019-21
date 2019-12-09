@@ -22,20 +22,29 @@ const FlexedSpaceBetweenDiv = styled.div`
 `;
 
 function QuestionInputArea(props) {
-	const {onCancel, onAskQuestion, userNameRef, questionRef} = props;
+	const {
+		onCancel,
+		onAskQuestion,
+		userNameRef,
+		questionRef,
+		initialUserName,
+	} = props;
 
 	return (
 		<Grid container direction={"column"}>
-			<QuestionInput questionRef={questionRef} />
-			<Divider style={{marginTop: "0.5rem", marginBottom: "0.5rem"}} />
+			<QuestionInput questionRef={questionRef}/>
+			<Divider style={{marginTop: "0.5rem", marginBottom: "0.5rem"}}/>
 			<FlexedSpaceBetweenDiv>
 				<FlexedCenterDiv>
-					<UserInfoInput userNameRef={userNameRef} />
+					<UserInfoInput
+						userNameRef={userNameRef}
+						initialUserName={initialUserName}
+					/>
 				</FlexedCenterDiv>
 				<FlexedCenterDiv>
-					<CancelButton variant="contained" onClick={onCancel} />
-					<Box p={1} />
-					<AskButton onClick={onAskQuestion} />
+					<CancelButton variant="contained" onClick={onCancel}/>
+					<Box p={1}/>
+					<AskButton onClick={onAskQuestion}/>
 				</FlexedCenterDiv>
 			</FlexedSpaceBetweenDiv>
 		</Grid>
