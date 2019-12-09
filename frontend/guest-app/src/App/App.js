@@ -1,55 +1,39 @@
 import React from "react";
 import styled from "styled-components";
 import {useQuery} from "@apollo/react-hooks";
-import {gql} from "apollo-boost";
 import "./App.css";
 import NavBar from "../components/NavBar/NavBar.js";
 import TabGroup from "../components/TabGroup/TabGroup.js";
-import {GuestProvider} from "../libs/guestContext";
+import {GuestGlobalProvider} from "../libs/guestGlobalContext.js";
+import TopProgressBar from "../components/TopProcessBar.js";
+import ErrorPage from "../components/ErrorPage/ErrorPage.js";
+import {GET_GUEST_APP_GLOBAL_DATA} from "../apollo/gqlSchemes.js";
 
 const AppStyle = styled.div`
 	height: 100vh;
 	width: 100vw;
 `;
 
-const GET_EVENT = gql`
-	query {
-		guestInEvent {
-			event {
-				id
-				eventCode
-				startAt
-				endAt
-				eventName
-				HostId
-			}
-			guest {
-				id
-				name
-				email
-				company
-			}
-		}
-	}
-`;
 
 export default function App() {
-	const {data, loading, error} = useQuery(GET_EVENT);
+	const {data, loading, error} = useQuery(GET_GUEST_APP_GLOBAL_DATA);
+
+	if (error) {
+		return <ErrorPage/>;
+	}
 
 	if (loading) {
-		return <p>loading...</p>;
-	} else if (error) {
-		return <p>error-page...</p>;
-	} else {
-		const {event, guest} = data.guestInEvent;
-
-		return (
-			<GuestProvider value={{event, guest}}>
-				<AppStyle>
-					<NavBar />
-					<TabGroup />
-				</AppStyle>
-			</GuestProvider>
-		);
+		return <TopProgressBar/>;
 	}
+
+	const {event, guest} = data.guestInEvent;
+
+	return (
+		<GuestGlobalProvider value={{event, guest}}>
+			<AppStyle>
+				<NavBar/>
+				<TabGroup/>
+			</AppStyle>
+		</GuestGlobalProvider>
+	);
 }

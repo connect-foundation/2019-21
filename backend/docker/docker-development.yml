@@ -16,6 +16,15 @@ services:
       - MYSQL_PASSWORD=${MYSQL_DEV_PASSWORD}
     networks:
       - backend
+  redis:
+    container_name: ${REDIS_DEV_CONTAINER_NAME}
+    image: redis
+    ports:
+      - ${REDIS_DEV_PORT}:6379
+    volumes:
+      - ${DOCKER_VOLUMNS_PATH}/${REDIS_DEV_CONTAINER_NAME}:/data
+    networks:
+      - backend
 
 networks:
   backend:
