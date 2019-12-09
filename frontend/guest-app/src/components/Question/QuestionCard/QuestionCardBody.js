@@ -12,7 +12,7 @@ function QuestionBody(props) {
 	return (
 		<span>
 			{content}
-			{isMyQuestion && <QuestionEditButton />}
+			{isMyQuestion && <QuestionEditButton {...props} />}
 		</span>
 	);
 }

@@ -13,6 +13,23 @@ const onCloseQuestionDrawer = (state, data) => {
 	newState.QuestionInputDrawer.isOpen = false;
 	return newState;
 };
+const onOpenQuestionEditMenuDrawer = (state, data) => {
+	const newState = _.cloneDeep(state);
+
+	newState.QuestionEditMenuDrawer.isOpen = true;
+	newState.QuestionEditMenuDrawer.target = _.cloneDeep(data);
+
+	return newState;
+};
+
+const onCloseQuestionEditMenuDrawer = (state, data) => {
+	const newState = _.cloneDeep(state);
+
+	newState.QuestionEditMenuDrawer.isOpen = false;
+	newState.QuestionEditMenuDrawer.target = null;
+
+	return newState;
+};
 
 const containerReducer = (state, action) => {
 	const {type, data} = action;
@@ -20,6 +37,8 @@ const containerReducer = (state, action) => {
 	const actionTable = {
 		openQuestionInputDrawer: onOpenQuestionInputDrawer,
 		closeQuestionInputDrawer: onCloseQuestionDrawer,
+		openQuestionEditMenuDrawer: onOpenQuestionEditMenuDrawer,
+		closeQuestionEditMenuDrawer: onCloseQuestionEditMenuDrawer,
 	};
 
 	if (!(type in actionTable)) {

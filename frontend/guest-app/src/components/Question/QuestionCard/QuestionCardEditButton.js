@@ -1,9 +1,8 @@
-import React from "react";
+import React, {useContext} from "react";
 import styled from "styled-components";
 import {Typography} from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz.js";
-import useDrawer from "../../../materialUIHooks/useDrawer.js";
-import QuestionCardDrawer from "./QuestionCardDrawer.js";
+import {ContainerContext} from "../ContainerContext.js";
 
 const QuestionEditButtonStyle = styled.div`
 	float: right;
@@ -12,16 +11,20 @@ const QuestionEditButtonStyle = styled.div`
 `;
 
 function QuestionEditButton(props) {
-	const {isOpen, toggleDrawer} = useDrawer();
+	const question = props;
+	const {dispatch} = useContext(ContainerContext);
 
 	return (
 		<span>
-			<QuestionEditButtonStyle onClick={toggleDrawer}>
+			<QuestionEditButtonStyle
+				onClick={() => {
+					dispatch({type: "openQuestionEditMenuDrawer", data: question});
+				}}
+			>
 				<Typography color={"textSecondary"}>
 					<MoreHorizIcon />
 				</Typography>
 			</QuestionEditButtonStyle>
-			<QuestionCardDrawer {...{isOpen, toggleDrawer}} />
 		</span>
 	);
 }

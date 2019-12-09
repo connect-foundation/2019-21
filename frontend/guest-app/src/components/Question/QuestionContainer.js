@@ -16,6 +16,7 @@ import PaddingArea from "./PaddingArea.js";
 import ContainerReducer from "./ContainerReducer.js";
 import {ContainerProvider} from "./ContainerContext.js";
 import QuestionInputDrawer from "./QuestionInputDrawer.js";
+import QuestionEditMenuDrawer from "./QuestionCard/QuestionEditMenuDrawer.js";
 
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
@@ -69,6 +70,10 @@ const useSocketHandler = (dispatch, guestGlobal) => {
 const containerInitialState = {
 	QuestionInputDrawer: {
 		isOpen: false,
+	},
+	QuestionEditMenuDrawer: {
+		isOpen: false,
+		target: null,
 	},
 };
 
@@ -138,6 +143,10 @@ function QuestionContainer() {
 					userNameRef={userNameRef}
 					onAskQuestion={onAskQuestion}
 					questionRef={questionRef}
+				/>
+				<QuestionEditMenuDrawer
+					isOpen={containerState.QuestionEditMenuDrawer.isOpen}
+					onClose={() => containerDispatch({type: "closeQuestionEditMenuDrawer"})}
 				/>
 			</ContainerProvider>
 		</QuestionsProvider>
