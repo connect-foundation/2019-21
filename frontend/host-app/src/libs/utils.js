@@ -9,12 +9,13 @@ export function makeNewData(req) {
 		isLike: req.didILike,
 		likeCount: req.likeCount,
 		state: req.status,
+		QuestionId: req.QuestionId
 	};
 	return newData;
 }
 
 export function filterQuestion(option, data){
-	return {questions: data.questions.filter(e => e.state === option)};
+	return {questions: data.questions.filter(e => e.state === option && e.QuestionId === null)};
 }
 
 function mappingByKey(object, key) {
