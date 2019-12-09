@@ -15,7 +15,7 @@ const cardStyle = {
 
 const cardContentStyle = {paddingBottom: "1rem"};
 
-function QuestionInputButton(props) {
+function AddQuestionInputButton(props) {
 	const {onClick} = props;
 
 	return (
@@ -30,8 +30,8 @@ function QuestionInputButton(props) {
 	);
 }
 
-QuestionInputButton.propTypes = {
+AddQuestionInputButton.propTypes = {
 	onClick: PropTypes.func,
 };
 
-export default QuestionInputButton;
+export default AddQuestionInputButton;

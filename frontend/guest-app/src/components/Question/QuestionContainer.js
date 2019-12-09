@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useReducer, useRef} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import QuestionContainerTabBar from "./QuestionContainerTabBar.js";
 import useTabs from "../../materialUIHooks/useTabs.js";
-import QuestionInputButton from "./QuestionInputArea/QuestionInputButton.js";
+import AddQuestionInputButton from "./QuestionInputArea/AddQuestionInputButton.js";
 import QuestionCardList from "./QuestionCard/QuestionCardList.js";
 import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
 import QuestionsReducer from "./QuestionsReducer.js";
@@ -12,11 +12,12 @@ import {
 } from "../../libs/useQueryQuestions.js";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 import {QuestionsProvider} from "./QuestionsContext.js";
-import PaddingArea from "./PaddingArea.js";
+import PaddingArea from "./QuestionInputArea/PaddingArea.js";
 import ContainerReducer from "./ContainerReducer.js";
 import {ContainerProvider} from "./ContainerContext.js";
-import QuestionInputDrawer from "./QuestionInputDrawer.js";
 import QuestionEditMenuDrawer from "./QuestionCard/QuestionEditMenuDrawer.js";
+import AddQuestionInputDrawer from "./QuestionInputArea/AddQuestionInputDrawer.js";
+import EditQuestionInputDrawer from "./QuestionInputArea/EditQuestionInputDrawer.js";
 
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
@@ -95,7 +96,7 @@ function QuestionContainer() {
 	useDataLoadEffect(dispatch, data);
 	useSocketHandler(dispatch, guest);
 
-	const onAskQuestion = () => {
+	const onConfirm = () => {
 		socketClient.emit(
 			"question/create",
 			getNewQuestion({
@@ -119,6 +120,15 @@ function QuestionContainer() {
 		selectTabIdx(event, newValue);
 	};
 
+	const AddQuestionInputDrawerProps = {
+		isOpen: containerState.QuestionInputDrawer.isOpen,
+		onClose: () => containerDispatch({type: "closeQuestionInputDrawer"}),
+		userNameRef,
+		onConfirm,
+		questionRef,
+	};
+
+
 	return (
 		<QuestionsProvider value={{questions, dispatch}}>
 			<ContainerProvider
@@ -128,25 +138,22 @@ function QuestionContainer() {
 					tabIdx={tabIdx}
 					onSelectTab={onContainerSelectTab}
 				/>
-				<QuestionCardList />
-				<PaddingArea />
-				<QuestionInputButton
+				<QuestionCardList/>
+				<PaddingArea/>
+				<AddQuestionInputButton
 					onClick={() =>
 						containerDispatch({type: "openQuestionInputDrawer"})
 					}
 				/>
-				<QuestionInputDrawer
-					isOpen={containerState.QuestionInputDrawer.isOpen}
-					onClose={() =>
-						containerDispatch({type: "closeQuestionInputDrawer"})
-					}
-					userNameRef={userNameRef}
-					onAskQuestion={onAskQuestion}
-					questionRef={questionRef}
-				/>
+				<AddQuestionInputDrawer {...AddQuestionInputDrawerProps} />
+				<EditQuestionInputDrawer/>
 				<QuestionEditMenuDrawer
 					isOpen={containerState.QuestionEditMenuDrawer.isOpen}
-					onClose={() => containerDispatch({type: "closeQuestionEditMenuDrawer"})}
+					onClose={() =>
+						containerDispatch({type: "closeQuestionEditMenuDrawer"})
+					}
+					// onEdit={()=>{}}
+					// onDelete={}
 				/>
 			</ContainerProvider>
 		</QuestionsProvider>
