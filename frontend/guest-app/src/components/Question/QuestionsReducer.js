@@ -9,7 +9,7 @@ const onReset = () => [];
 const onLoad = (state, data) => [...state, ...data];
 
 const onAddNewQuestion = (state, data) =>
-	(data.status === "active" ? [...state, data] : [...state]);
+	data.status === "active" ? [...state, data] : [...state];
 
 const onSortByRecent = state => [...state.sort(compareByDate)];
 
@@ -133,6 +133,10 @@ const onRemoveQuestionEmoji = (state, data) => {
 	return newState;
 };
 
+const onRemoveQuestion = (state, data) => {
+	return _.cloneDeep(state).filter(x => x.id !== data.id);
+};
+
 const QuestionsReducer = (state, action) => {
 	const {type, data} = action;
 
@@ -146,6 +150,7 @@ const QuestionsReducer = (state, action) => {
 		undoLikeQuestion: onUndoQuestionLike,
 		addQuestionEmoji: onAddQuestionEmoji,
 		removeQuestionEmoji: onRemoveQuestionEmoji,
+		removeQuestion: onRemoveQuestion,
 	};
 
 	if (!(type in actionTable)) {

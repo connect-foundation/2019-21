@@ -12,14 +12,12 @@ const QuestionEditButtonStyle = styled.div`
 
 function QuestionEditButton(props) {
 	const question = props;
-	const {dispatch} = useContext(ContainerContext);
+	const {questionEditMenuReducer} = useContext(ContainerContext);
 
 	return (
 		<span>
 			<QuestionEditButtonStyle
-				onClick={() => {
-					dispatch({type: "openQuestionEditMenuDrawer", data: question});
-				}}
+				onClick={() => questionEditMenuReducer.setOn(question)}
 			>
 				<Typography color={"textSecondary"}>
 					<MoreHorizIcon />

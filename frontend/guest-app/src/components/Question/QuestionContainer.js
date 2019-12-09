@@ -6,18 +6,14 @@ import AddQuestionInputButton from "./QuestionInputArea/AddQuestionInputButton.j
 import QuestionCardList from "./QuestionCard/QuestionCardList.js";
 import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
 import QuestionsReducer from "./QuestionsReducer.js";
-import {
-	buildQuestions,
-	QUERY_INIT_QUESTIONS,
-} from "../../libs/useQueryQuestions.js";
+import {buildQuestions, QUERY_INIT_QUESTIONS} from "../../libs/useQueryQuestions.js";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 import {QuestionsProvider} from "./QuestionsContext.js";
 import PaddingArea from "./QuestionInputArea/PaddingArea.js";
-import ContainerReducer from "./ContainerReducer.js";
 import {ContainerProvider} from "./ContainerContext.js";
+import QuestionInputDrawer from "./QuestionInputArea/QuestionInputDrawer.js";
+import useToggleReducer from "./useToggleReducer.js";
 import QuestionEditMenuDrawer from "./QuestionCard/QuestionEditMenuDrawer.js";
-import AddQuestionInputDrawer from "./QuestionInputArea/AddQuestionInputDrawer.js";
-import EditQuestionInputDrawer from "./QuestionInputArea/EditQuestionInputDrawer.js";
 
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
@@ -28,6 +24,7 @@ function getNewQuestion({EventId, GuestId, guestName, content}) {
 		EventId,
 		GuestId,
 		content,
+		isAnonymous: guestName.length === 0,
 	};
 }
 
@@ -66,16 +63,11 @@ const useSocketHandler = (dispatch, guestGlobal) => {
 		req.guestGlobal = guestGlobal;
 		dispatch({type: "removeQuestionEmoji", data: req});
 	});
-};
 
-const containerInitialState = {
-	QuestionInputDrawer: {
-		isOpen: false,
-	},
-	QuestionEditMenuDrawer: {
-		isOpen: false,
-		target: null,
-	},
+	useSocket("question/remove", req => {
+		req.guestGlobal = guestGlobal;
+		dispatch({type: "removeQuestion", data: req});
+	});
 };
 
 function QuestionContainer() {
@@ -84,10 +76,8 @@ function QuestionContainer() {
 		variables: {EventId: event.id, GuestId: guest.id},
 	});
 
-	const [containerState, containerDispatch] = useReducer(
-		ContainerReducer,
-		containerInitialState,
-	);
+	const questionInputDrawerReducer = useToggleReducer();
+	const questionEditMenuReducer = useToggleReducer();
 	const [questions, dispatch] = useReducer(QuestionsReducer, []);
 	const {tabIdx, selectTabIdx} = useTabs(RECENT_TAB_IDX);
 	const userNameRef = useRef(null);
@@ -120,19 +110,18 @@ function QuestionContainer() {
 		selectTabIdx(event, newValue);
 	};
 
-	const AddQuestionInputDrawerProps = {
-		isOpen: containerState.QuestionInputDrawer.isOpen,
-		onClose: () => containerDispatch({type: "closeQuestionInputDrawer"}),
+	const questionInputDrawerProps = {
+		isOpen: questionInputDrawerReducer.state,
+		onClose: () => questionInputDrawerReducer.setOff(),
 		userNameRef,
 		onConfirm,
 		questionRef,
 	};
 
-
 	return (
 		<QuestionsProvider value={{questions, dispatch}}>
 			<ContainerProvider
-				value={{container: containerState, dispatch: containerDispatch}}
+				value={{questionInputDrawerReducer, questionEditMenuReducer}}
 			>
 				<QuestionContainerTabBar
 					tabIdx={tabIdx}
@@ -141,19 +130,19 @@ function QuestionContainer() {
 				<QuestionCardList/>
 				<PaddingArea/>
 				<AddQuestionInputButton
-					onClick={() =>
-						containerDispatch({type: "openQuestionInputDrawer"})
-					}
+					onClick={() => questionInputDrawerReducer.setOn()}
 				/>
-				<AddQuestionInputDrawer {...AddQuestionInputDrawerProps} />
-				<EditQuestionInputDrawer/>
+				<QuestionInputDrawer {...questionInputDrawerProps} />
 				<QuestionEditMenuDrawer
-					isOpen={containerState.QuestionEditMenuDrawer.isOpen}
-					onClose={() =>
-						containerDispatch({type: "closeQuestionEditMenuDrawer"})
-					}
-					// onEdit={()=>{}}
-					// onDelete={}
+					isOpen={questionEditMenuReducer.state}
+					onClose={() => questionEditMenuReducer.setOff()}
+					onDelete={() => {
+						socketClient.emit(
+							"question/remove",
+							questionEditMenuReducer.data,
+						);
+						questionEditMenuReducer.setOff();
+					}}
 				/>
 			</ContainerProvider>
 		</QuestionsProvider>
