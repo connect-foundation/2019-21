@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import ThumbUpButton from "./ThumbUpButton";
 
 const QuestionHeader = styled.div`
 	display: flex;
@@ -17,6 +16,14 @@ const QuestionInfo = styled.div`
 	flex-direction: column;
 	align-content: left;
 	margin-left: 1rem;
+`;
+
+const ReplyInfo = styled.div`
+	display: flex;
+	width: 90%;
+	align-items: center;
+	margin-left: 0.3rem;
+	margin-top: 0.3rem;
 `;
 
 const QuestionBody = styled.div`
@@ -38,4 +45,17 @@ const ReplyContainer = styled.div`
 	margin-left: auto;
 `;
 
-export {QuestionHeader, QuestionMeta, QuestionInfo, QuestionBody, QuestionButtons, ThumbUpContainer, ReplyContainer};
+const ReplyBody = styled.div`
+	margin: 0.5rem 1rem;
+`;
+
+export {
+	QuestionHeader,
+	QuestionMeta,
+	QuestionInfo,
+	QuestionBody,
+	QuestionButtons,
+	ThumbUpContainer,
+	ReplyContainer,
+	ReplyBody,
+	ReplyInfo,};

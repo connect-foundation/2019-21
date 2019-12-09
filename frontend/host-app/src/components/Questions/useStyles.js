@@ -41,6 +41,10 @@ const useStyles = makeStyles(theme => ({
 		transform: "scale(0.7)",
 		marginLeft: "0.5rem",
 	},
+	replyIcon: {
+		color: "#7f7f7f",
+		transform: "scale(0.7)",
+	},
 	staredQuestion: {
 		backgroundColor: "rgb(242,248,255)",
 	},
