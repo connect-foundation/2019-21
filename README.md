@@ -14,13 +14,11 @@
 
 </p>
 
-![alt](./docs/logo_image.PNG)
+![alt](https://raw.githubusercontent.com/connect-foundation/2019-21/master/docs/logo_image.PNG)
 
 ## 배포 링크
 
-* [host-app](http://106.10.53.159/host-app)
-* [guest-app](http://106.10.53.159/guest-app)
-* [main-app](http://106.10.53.159/main-app)
+* [vaagle](http://www.vaagle.com)
 
 ## 주요 기능
 
@@ -29,18 +27,14 @@
 -   Live poll(실시간 투표): 쉽게 사용할 수 있도록 설계 (O/X투표, 별점주기, N지선다형 퀴즈 등)
 -   Analytics(통계/보고서): 유료기능을 무료로 지원함 (포맷: excel)
 
-## Usage
-
+## start local dev mode
 ```sh
-.... todo
+yarn start
 ```
 
 ## 위키 링크
 
 [wiki](https://github.com/connect-foundation/2019-21/wiki)
-
-## ERD
-![alt](./docs/diagram.png)
 
 ## 팀원
 
@@ -51,9 +45,9 @@
 
 ## 기술 스택
 
--   Front-end: React, Apollo, (Websocket/Polling)
--   Back-end: Nginx, nodejs, MySQL2, Sequelize, GraphQL(Yoga), Oauth, Docker
--   Env: Eslint, babel, webpack, prettier, yarn, github, slack
+-   Front-end: React, Apollo
+-   Back-end: Nginx, nodejs, MySQL2, Sequelize, GraphQL(Yoga), socket.io, Oauth, Docker
+-   Env & etc: Eslint, babel, webpack, prettier, yarn, github, slack
 
 ## 사용자 집단
 
@@ -72,4 +66,3 @@
 -   Localization: 한국인에게 친숙한 UI 개발 (카톡의 투표 UI, 다양한 한글폰트 추가 등)
 -   Mobile first: Guest 모드는 스마트폰에 최적화된 UI 개발, 최적화 작업 진행
 -   Emoji 적용
--   기타: infinite scroll, D3 library를 이용한 analytics, lighthouse 성능 개선

@@ -23,7 +23,7 @@ function LiveQuestionCard(props) {
 						<QuestionButtons>
 							<Icon
 								className={classes.starButton}
-								onClick={() => props.handleStar(props.id, props.type)}>
+								onClick={() => props.handleStar(props.id)}>
 								stars
 							</Icon>
 							<Icon className={classes.upwardButton}>publish</Icon>
