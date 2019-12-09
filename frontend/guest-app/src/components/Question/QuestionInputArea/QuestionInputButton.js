@@ -19,9 +19,9 @@ function QuestionInputButton(props) {
 	const {onClick} = props;
 
 	return (
-		<Card style={cardStyle}>
+		<Card style={cardStyle} onClick={onClick}>
 			<CardContent style={cardContentStyle}>
-				<div onClick={onClick} style={{color: "white"}}>
+				<div style={{color: "white"}}>
 					<EditIcon style={{marginRight: "8px"}} />
 					질문하기
 				</div>
