@@ -31,6 +31,7 @@ function AnonymousAvatar() {
 		},
 	});
 	const classes = useStyles();
+
 	return (
 		<Avatar className={classes.avatar}>
 			<PersonIcon />
@@ -40,6 +41,7 @@ function AnonymousAvatar() {
 
 function ReplyAvatar(props) {
 	const {isAnonymous = false, userName = "Anonymous", remainReplies} = props;
+
 	return isAnonymous ? (
 		<AnonymousAvatar {...{remainReplies}} />
 	) : (

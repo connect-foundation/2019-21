@@ -8,6 +8,7 @@ import EmojiArea from "../../Emoji/EmojiArea.js";
 import ReplyArea from "../../Reply/ReplyArea";
 
 function QuestionCard(props) {
+	const {replies} = props;
 	return (
 		<Card style={{margin: "0.5rem"}}>
 			<CardContent style={{paddingTop: "1rem", paddingBottom: "0"}}>
@@ -17,7 +18,7 @@ function QuestionCard(props) {
 				/>
 				<QuestionBody {...props} />
 				<EmojiArea {...props} />
-				<ReplyArea />
+				{replies.length !== 0 && <ReplyArea {...props} />}
 			</CardContent>
 		</Card>
 	);

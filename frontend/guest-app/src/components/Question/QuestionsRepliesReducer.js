@@ -9,7 +9,7 @@ const onReset = () => [];
 const onLoad = (state, data) => [...state, ...data];
 
 const onAddNewQuestion = (state, data) =>
-	(data.status === "active" ? [...state, data] : [...state]);
+	data.status === "active" ? [...state, data] : [...state];
 
 const onSortByRecent = state => [...state.sort(compareByDate)];
 
@@ -133,7 +133,7 @@ const onRemoveQuestionEmoji = (state, data) => {
 	return newState;
 };
 
-const QuestionsReducer = (state, action) => {
+const QuestionsRepliesReducer = (state, action) => {
 	const {type, data} = action;
 
 	const actionTable = {
@@ -156,4 +156,4 @@ const QuestionsReducer = (state, action) => {
 	return actionTable[type](state, data);
 };
 
-export default QuestionsReducer;
+export default QuestionsRepliesReducer;

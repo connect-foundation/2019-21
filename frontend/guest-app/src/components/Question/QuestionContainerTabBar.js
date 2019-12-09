@@ -5,13 +5,13 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import gray from "@material-ui/core/colors/grey.js";
 import PropTypes from "prop-types";
-import {QuestionsContext} from "./QuestionsContext.js";
+import {QuestionsRepliesContext} from "./QuestionsRepliesContext.js";
 
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
 
 function QuestionContainerTabBar(props) {
-	const {questions} = useContext(QuestionsContext);
+	const {questions} = useContext(QuestionsRepliesContext);
 	const {tabIdx, onSelectTab} = props;
 
 	return (

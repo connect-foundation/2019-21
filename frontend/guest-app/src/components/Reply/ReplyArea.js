@@ -3,6 +3,8 @@ import {styled} from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import ReplyAvatar from "./ReplyAvatar";
 
+import CurrentRepliesTextField from "./CurrentRepliesTextField";
+
 const PreviewReplyContainer = styled(Paper)({
 	display: "flex",
 	height: "3rem",
@@ -11,20 +13,20 @@ const PreviewReplyContainer = styled(Paper)({
 	backgroundColor: "#FFFFF0",
 });
 
-export default function ReplyArea() {
+function extractUniqueReplier(replies) {
+	const uniqueGuestIdMap = new Map();
+	replies.forEach(replie => {
+		uniqueGuestIdMap.set(replie.GuestId, replie.guestName);
+	});
+	return [...uniqueGuestIdMap.values()];
+}
+
+export default function ReplyArea(props) {
+	const {replies} = props;
+	const repliers = extractUniqueReplier(replies);
 	const MAX_SHOWING_AVATAR = 5;
-	const dummy = [
-		"David",
-		"Sara",
-		"James",
-		"Crong",
-		"David",
-		"Sara",
-		"James",
-		"Crong",
-	];
-	const repliesLength = dummy.length;
-	let showingReplierList = dummy.slice(0, MAX_SHOWING_AVATAR);
+	const repliesLength = repliers.length;
+	const showingReplierList = repliers.slice(0, MAX_SHOWING_AVATAR);
 
 	return (
 		<PreviewReplyContainer>
@@ -44,6 +46,7 @@ export default function ReplyArea() {
 					<ReplyAvatar userName={userName} key={idx}></ReplyAvatar>
 				);
 			})}
+			<CurrentRepliesTextField>{replies.length}</CurrentRepliesTextField>
 		</PreviewReplyContainer>
 	);
 }
