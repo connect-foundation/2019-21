@@ -12,14 +12,14 @@ const style = {
 };
 
 function getReplisInQuestion(questionId, replies) {
-	const repliesInQuestion = replies.filter(reply => {
-		return reply.QuestionId === questionId;
-	});
+	const repliesInQuestion = replies.filter(reply => reply.QuestionId === questionId);
+
 	return repliesInQuestion;
 }
 
 function QuestionCardList() {
 	const {questions, replies} = useContext(QuestionsRepliesContext);
+
 	return (
 		<div style={style}>
 			{questions.map((question, idx) => (

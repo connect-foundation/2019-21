@@ -7,14 +7,25 @@ const TextField = styled(Typography)({
 	marginLeft: 10,
 	textAlign: "center",
 	textDecoration: "underline",
+	cursor: "pointer",
+	"&:hover": {
+		color: "#3f51b5",
+	},
 });
 
 function CurrentRepliesTextField(props) {
-	return <TextField variant="h6">{`${props.children} replies`}</TextField>;
+	const {openReplies} = props;
+	return (
+		<TextField
+			variant="h6"
+			onClick={openReplies}
+		>{`${props.children} replies`}</TextField>
+	);
 }
 
 CurrentRepliesTextField.propTypes = {
 	children: PropTypes.node,
+	openReplies: PropTypes.func,
 };
 
 export default CurrentRepliesTextField;

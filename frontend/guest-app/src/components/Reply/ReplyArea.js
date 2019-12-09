@@ -1,10 +1,15 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {styled} from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import Drawer from "@material-ui/core/Drawer";
 import ReplyAvatar from "./ReplyAvatar";
+import RepliesPaper from "./RepliesPaper";
+import useReplies from "./useReplies";
 
 import CurrentRepliesTextField from "./CurrentRepliesTextField";
 
+const MAX_SHOWING_AVATAR = 5;
 const PreviewReplyContainer = styled(Paper)({
 	display: "flex",
 	height: "3rem",
@@ -15,6 +20,7 @@ const PreviewReplyContainer = styled(Paper)({
 
 function extractUniqueReplier(replies) {
 	const uniqueGuestIdMap = new Map();
+
 	replies.forEach(replie => {
 		uniqueGuestIdMap.set(replie.GuestId, replie.guestName);
 	});
@@ -22,10 +28,10 @@ function extractUniqueReplier(replies) {
 }
 
 export default function ReplyArea(props) {
+	const {repliesIsOpened, openReplies, closeReplies} = useReplies();
 	const {replies} = props;
 	const repliers = extractUniqueReplier(replies);
-	const MAX_SHOWING_AVATAR = 5;
-	const repliesLength = repliers.length;
+	const repliersNum = repliers.length;
 	const showingReplierList = repliers.slice(0, MAX_SHOWING_AVATAR);
 
 	return (
@@ -35,9 +41,7 @@ export default function ReplyArea(props) {
 					return (
 						<ReplyAvatar
 							userName={userName}
-							remainReplies={
-								repliesLength - MAX_SHOWING_AVATAR + 1
-							}
+							remainder={repliersNum - MAX_SHOWING_AVATAR + 1}
 							key={idx}
 						></ReplyAvatar>
 					);
@@ -46,7 +50,16 @@ export default function ReplyArea(props) {
 					<ReplyAvatar userName={userName} key={idx}></ReplyAvatar>
 				);
 			})}
-			<CurrentRepliesTextField>{replies.length}</CurrentRepliesTextField>
+			<CurrentRepliesTextField openReplies={openReplies}>
+				{replies.length}
+			</CurrentRepliesTextField>
+			<Drawer anchor="bottom" open={repliesIsOpened}>
+				<RepliesPaper onClose={closeReplies} />
+			</Drawer>
 		</PreviewReplyContainer>
 	);
 }
+
+ReplyArea.PropTypes = {
+	replies: PropTypes.array,
+};

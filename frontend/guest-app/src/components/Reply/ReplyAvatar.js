@@ -5,7 +5,7 @@ import Avatar from "@material-ui/core/Avatar";
 import randomMC from "random-material-color";
 import PersonIcon from "@material-ui/icons/Person";
 
-function NamedAvatar({userName, remainReplies}) {
+function NamedAvatar({userName, remainder}) {
 	const useStyles = makeStyles({
 		randomAvatar: {
 			width: "1.5rem",
@@ -16,7 +16,7 @@ function NamedAvatar({userName, remainReplies}) {
 		},
 	});
 	const classes = useStyles();
-	const inner = remainReplies ? `+${remainReplies}` : userName.slice(0, 1);
+	const inner = remainder ? `+${remainder}` : userName.slice(0, 1);
 
 	return <Avatar className={classes.randomAvatar}>{inner}</Avatar>;
 }
@@ -40,18 +40,19 @@ function AnonymousAvatar() {
 }
 
 function ReplyAvatar(props) {
-	const {isAnonymous = false, userName = "Anonymous", remainReplies} = props;
+	const {isAnonymous = false, userName = "Anonymous", remainder} = props;
 
 	return isAnonymous ? (
-		<AnonymousAvatar {...{remainReplies}} />
+		<AnonymousAvatar {...{remainder}} />
 	) : (
-		<NamedAvatar {...{userName, remainReplies}} />
+		<NamedAvatar {...{userName, remainder}} />
 	);
 }
 
 ReplyAvatar.propTypes = {
 	userName: PropTypes.string,
 	isAnonymous: PropTypes.bool,
+	remainder: PropTypes.any,
 };
 
 export default ReplyAvatar;
