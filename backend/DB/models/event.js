@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.BOOLEAN,
 				defaultValue: false,
 			},
+			isLive: {
+				type: DataTypes.BOOLEAN,
+				defaultValue: false,
+			},
 			replyOption: {
 				type: DataTypes.BOOLEAN,
 				defaultValue: false,
