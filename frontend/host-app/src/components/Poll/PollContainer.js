@@ -1,10 +1,10 @@
-import React, { useState, useReducer } from "react";
+import React, {useState, useReducer} from "react";
 import styled from "styled-components";
-import { Button } from "@material-ui/core";
+import {Button} from "@material-ui/core";
 import PollCard from "./PollCard";
 import NewPollModal from "./NewPollModal";
 import useModal from "../../customhook/useModal";
-import { useSocket } from "../../libs/socket.io-Client-wrapper";
+import {useSocket} from "../../libs/socket.io-Client-wrapper";
 
 // import PollDummyData from "./PollDummyData";
 
@@ -71,53 +71,55 @@ const updateTotalVoters = (notVoted, totalVoters, items) => {
 };
 
 function reducer(state, action) {
-	const notVoted = state.nItems.every(item => item.voted === false);
+	const notVoted = true; //state.nItems.every(item => item.voted === false);
 
 	switch (action.type) {
-		case "VOTE":
-			return {
-				...state,
-				nItems: updateItems(
-					state.nItems,
-					action.id,
-					state.allowDuplication,
-				),
-				totalVoters: updateTotalVoters(
-					notVoted,
-					state.totalVoters,
-					state.nItems,
-				),
-			};
-		case "RATE":
-			return {
-				...state,
-				nItems: updateRatingItem(state.nItems, action.value, true),
-				totalVoters: updateTotalVoters(
-					notVoted,
-					state.totalVoters,
-					state.nItems,
-				),
-			};
-		case "CANCEL_RATING":
-			// 이전 상태도 투표하지 않은 상태라면 서버에 요청을 보내지 않도록 처리하는 루틴
-			if (notVoted && state.nItems[0].value === 0) {
-				return state;
-			}
-			return {
-				...state,
-				nItems: updateRatingItem(state.nItems, 0, false),
-				totalVoters: updateTotalVoters(
-					notVoted,
-					state.totalVoters,
-					state.nItems,
-				),
-			};
+		case "OPEN":
+			return [action.poll, ...state];
+		// case "VOTE":
+		// 	return {
+		// 		...state,
+		// 		nItems: updateItems(
+		// 			state.nItems,
+		// 			action.id,
+		// 			state.allowDuplication,
+		// 		),
+		// 		totalVoters: updateTotalVoters(
+		// 			notVoted,
+		// 			state.totalVoters,
+		// 			state.nItems,
+		// 		),
+		// 	};
+		// case "RATE":
+		// 	return {
+		// 		...state,
+		// 		nItems: updateRatingItem(state.nItems, action.value, true),
+		// 		totalVoters: updateTotalVoters(
+		// 			notVoted,
+		// 			state.totalVoters,
+		// 			state.nItems,
+		// 		),
+		// 	};
+		// case "CANCEL_RATING":
+		// 	// 이전 상태도 투표하지 않은 상태라면 서버에 요청을 보내지 않도록 처리하는 루틴
+		// 	if (notVoted && state.nItems[0].value === 0) {
+		// 		return state;
+		// 	}
+		// 	return {
+		// 		...state,
+		// 		nItems: updateRatingItem(state.nItems, 0, false),
+		// 		totalVoters: updateTotalVoters(
+		// 			notVoted,
+		// 			state.totalVoters,
+		// 			state.nItems,
+		// 		),
+		// 	};
 		default:
 			throw new Error("Unhandled action.");
 	}
 }
 
-function PollContainer({ data }) {
+function PollContainer({data}) {
 	const [createPollModalOpen, handleOpen, handleClose] = useModal();
 
 	let activePollData = null;
@@ -129,7 +131,7 @@ function PollContainer({ data }) {
 
 		activePollData = initialPollData.filter(
 			poll => poll.state === "running",
-		)[0];
+		);
 		sbPollData = initialPollData.filter(poll => poll.state === "standby");
 		closedPollData = initialPollData.filter(
 			poll => poll.state === "closed",
@@ -141,35 +143,56 @@ function PollContainer({ data }) {
 
 	// socket.io server 통신 부분
 	// onCreatePoll에 의해 신규로 생성된 Poll은 DB에 socket.io server에 요청하여 DB에 write 함
-	useSocket("poll/create", req => {
-		console.log("useSocket: Poll created. Please refresh.", req);
-		// console.log(standbyPollData);
-		// setStandbyPollData(standbyPollData.concat(req));
+	useSocket("poll/create", res => {
+		console.log("useSocket: Poll created.", res);
+		res.pollDate = res.createdAt;
+		res.totalVoters = 0;
+		setStandbyPollData([res].concat(standbyPollData));
 	});
 
-	const onVote = (id, state) => {
-		if (state !== "running") return;
+	useSocket("poll/open", pollId => {
+		console.log("useSocket: Poll opened.", pollId);
+
+		const thePoll = standbyPollData.filter(poll => poll.id === pollId)[0];
+		console.log(thePoll);
+		// DB에는 바뀌어 있지만, 여기서는 바뀌지 않은 상태이므로 강제로 바꿈
+		thePoll.state = "running";
+		// 설정되지 않은 값들을 초기화
+		thePoll.nItems.forEach(item => {
+			item.voted = false;
+			item.voters = 0;
+		});
+		setStandbyPollData(standbyPollData.filter(poll => poll.id !== pollId));
 
 		dispatch({
-			type: "VOTE",
-			id,
+			type: "OPEN",
+			poll: thePoll,
 		});
-	};
+	});
 
-	const onChange = (value, state) => {
-		if (state !== "running") return;
+	// const onVote = (id, state) => {
+	// 	if (state !== "running") return;
 
-		dispatch({
-			type: "RATE",
-			value,
-		});
-	};
+	// 	dispatch({
+	// 		type: "VOTE",
+	// 		id,
+	// 	});
+	// };
 
-	const onCancelRating = () => {
-		dispatch({
-			type: "CANCEL_RATING",
-		});
-	};
+	// const onChange = (value, state) => {
+	// 	if (state !== "running") return;
+
+	// 	dispatch({
+	// 		type: "RATE",
+	// 		value,
+	// 	});
+	// };
+
+	// const onCancelRating = () => {
+	// 	dispatch({
+	// 		type: "CANCEL_RATING",
+	// 	});
+	// };
 
 	return (
 		<ColumnWrapper>
@@ -182,21 +205,23 @@ function PollContainer({ data }) {
 			>
 				투표만들기
 			</Button>
-			{pollData && (
-				<PollCard
-					{...pollData}
-					onVote={onVote}
-					onChange={onChange}
-					onCancelRating={onCancelRating}
-				/>
-			)}
+			{pollData &&
+				pollData.map(poll => (
+					<PollCard
+						{...poll}
+						key={poll.id}
+						// onVote={onVote}
+						// onChange={onChange}
+						// onCancelRating={onCancelRating}
+					/>
+				))}
 			{standbyPollData &&
-				standbyPollData.map((poll, index) => (
-					<PollCard {...poll} key={index} onVote={onVote} />
+				standbyPollData.map(poll => (
+					<PollCard {...poll} key={poll.id} /* onVote={onVote} */ />
 				))}
 			{closedPollData &&
-				closedPollData.map((poll, index) => (
-					<PollCard {...poll} key={index} onVote={onVote} />
+				closedPollData.map(poll => (
+					<PollCard {...poll} key={poll.id} /* onVote={onVote} */ />
 				))}
 			{createPollModalOpen && (
 				<NewPollModal

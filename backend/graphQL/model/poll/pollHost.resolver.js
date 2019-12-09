@@ -1,4 +1,3 @@
-import { getEventIdByEventCode } from "../../../DB/queries/event.js";
 import { getPollsByEventId } from "../../../DB/queries/poll.js";
 import { getCandidatesByPollId } from "../../../DB/queries/candidate.js";
 import { getVotersByCandidateList } from "../../../DB/queries/vote.js";
@@ -52,37 +51,13 @@ async function getItems(pollId, candidates) {
 	return nItems;
 }
 
-/**
- *
- * @param {array of object} polls
- *
- * MySQL에서 선언한 field명과 frontend에서 사용하는 field명이 서로 달라서
- * 이런 부분을 처리해주는 함수
- */
-const setPollTypes = polls => {
-	polls.forEach(poll => {
-		// switch (poll.pollType) {
-		// 	case 0:
-		// 		poll.pollType = "nItems";
-		// 		poll.selectionType = "text";
-		// 		break;
-		// 	case 1:
-		// 		poll.pollType = "nItems";
-		// 		poll.selectionType = "date";
-		// 		break;
-		// 	case 2:
-		// 		poll.pollType = "rating";
-		// 		poll.selectionType = "rating";
-		// 		break;
-		// 	default:
-		// 		console.error(`unknown pollType ${poll.pollType}`);
-		// 		break;
-		// }
-		poll.pollDate = poll.createdAt;
-	});
+// const setPollDates = polls => {
+// 	polls.forEach(poll => {
+// 		poll.pollDate = poll.createdAt;
+// 	});
 
-	return polls;
-};
+// 	return polls;
+// };
 
 /**
  *
@@ -130,41 +105,7 @@ async function setPollItems(polls, candidates) {
 
 /**
  *
- * @param {candidate에 해당하는 객체} items
- * @param {특정 guest가 특정 poll에 참가하여 투표를 한 candidate 목록} votedList
- *
- * 특정 guest가 poll에 속한 여러 candidate들 중에서 투표한 candidate가 있는지 확인하고 투표여부를 저장함
- */
-// const setVotedOnCandidate = (items, votedList) => {
-// 	items.forEach(n => {
-// 		if (votedList.includes(n.id)) {
-// 			n.voted = true;
-// 		}
-// 	});
-// };
-
-/**
- *
- * @param {array of object} polls
- * @param {int} guestId
- *
- * 특정 guest가 poll에 속한 여러 candidate들 중에서 투표한 candidate가 있는지 확인하고 투표여부를 저장함
- */
-// async function setVotedOnPolls(polls, guestId) {
-// 	for (let poll of polls) {
-// 		const candidateList = getCandidateList(poll.nItems);
-// 		let votedList = await getCandidatesByGuestId(candidateList, guestId);
-// 		votedList = simplifyList(votedList);
-// 		votedList = votedList.map(n => n.CandidateId);
-// 		setVotedOnCandidate(poll.nItems, votedList);
-// 	}
-
-// 	return polls;
-// }
-
-/**
- *
- * @param {string} eventCode
+ * @param {int} EventId
  * @param {int} guestId
  *
  * Yoga Resolver
@@ -176,17 +117,15 @@ async function pollHostResolver(EventId) {
 	 * 해당 guestId가 어떻게 투표를 했는지에 대한 정보를 가져옴(active 여부와 상관없이)
 	 *
 	 */
-	// const event = await getEventIdByEventCode(eventCode);
 
 	let polls = await getPollsByEventId(EventId);
 
 	polls = simplifyList(polls);
-	polls = setPollTypes(polls);
+	// polls = setPollDates(polls);
 
 	const candidates = await getCandidatesByPolls(polls);
 
 	polls = await setPollItems(polls, candidates);
-	// polls = await setVotedOnPolls(polls, guestId);
 
 	return polls;
 }

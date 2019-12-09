@@ -20,6 +20,7 @@ function RatingBlock({ratingValue, maxValue, onChange}) {
 			별점 최대값을 정해주세요.
 			<div>
 				<Rating
+					name="simple-controlled"
 					value={ratingValue}
 					max={maxValue}
 					onChange={(_, newValue) => {
