@@ -1,6 +1,7 @@
 import React, {useReducer} from "react";
 import styled from "styled-components";
 import PollCard from "./PollCard";
+import {useSocket} from "../../libs/socket.io-Client-wrapper";
 
 const ColumnWrapper = styled.div`
 	display: flex;
@@ -71,9 +72,15 @@ const updateTotalVoters = (notVoted, totalVoters, items) => {
 };
 
 function reducer(polls, action) {
-	let thePoll = polls.filter(poll => poll.id === action.id)[0];
+	let thePoll;
+
+	if (action.id) {
+		thePoll = polls.filter(poll => poll.id === action.id)[0];
+	}
 
 	switch (action.type) {
+		case "NOTIFY_OPEN":
+			return [action.poll, ...polls];
 		case "VOTE":
 			const notVoted = thePoll.nItems.every(item => item.voted === false);
 			thePoll = {
@@ -184,6 +191,14 @@ function PollContainer({data}) {
 			id,
 		});
 	};
+
+	useSocket("poll/notify_open", thePoll => {
+		console.log("Guest received poll/notify_open", thePoll);
+		dispatch({
+			type: "NOTIFY_OPEN",
+			poll: thePoll,
+		});
+	});
 
 	return (
 		<ColumnWrapper>
