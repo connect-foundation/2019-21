@@ -7,13 +7,15 @@ import QuestionDate from "./QuestionDate";
 import QuestionUserName from "./QuestionUserName";
 import useStyles from "./useStyles";
 import QuestionMenu from "./QuestionMenu";
+import Divider from "@material-ui/core/Divider";
+import ThumbUpButton from "./ThumbUpButton";
 
 function CompleteQuestionCard(props) {
 	const classes = useStyles();
 
 	return (
 		<Card className={props.isStared ? classes.staredQuestion : classes.normalQuestion}>
-			<CardContent>
+			<CardContent className={classes.cardContentPadding}>
 				<QuestionHeader>
 					<QuestionMeta>
 						<UserAvata {...props} />
@@ -27,6 +29,10 @@ function CompleteQuestionCard(props) {
 					</QuestionMeta>
 				</QuestionHeader>
 				<QuestionBody>{props.content}</QuestionBody>
+				<Divider
+					style={{marginTop: "0.5rem", marginBottom: "0.5rem"}}
+				/>
+				<ThumbUpButton {...props}/>
 			</CardContent>
 		</Card>
 	);

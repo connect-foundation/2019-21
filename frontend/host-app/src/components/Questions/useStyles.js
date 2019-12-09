@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	cardContentPadding: {
 		"&:last-child": {
-			paddingBottom: "0.5rem",
+			paddingBottom: "0.7rem",
 		},
 	},
 }
