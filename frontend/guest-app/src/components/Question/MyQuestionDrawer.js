@@ -1,5 +1,6 @@
 import React, {useContext} from "react";
 import PropTypes from "prop-types";
+import {grey} from "@material-ui/core/colors";
 import {Scrollbars} from "react-custom-scrollbars";
 import AppDrawer from "../AppDrawer/AppDrawer.js";
 import {useQuestions} from "./QuestionsContext.js";
@@ -10,6 +11,7 @@ import PaddingArea from "./QuestionInputArea/PaddingArea.js";
 const fullSizeCardStyle = {
 	width: "100vw",
 	height: "100vh",
+	backgroundColor: grey[300],
 };
 
 function MyQuestionsDrawer(props) {
@@ -29,7 +31,7 @@ function MyQuestionsDrawer(props) {
 					questions={questions.filter(x => x.GuestId === guest.d)}
 					replies={replies}
 				/>
-				<PaddingArea/>
+				<PaddingArea />
 			</Scrollbars>
 		</AppDrawer>
 	);
