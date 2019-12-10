@@ -8,13 +8,14 @@ import {addVote, deleteVoteBy} from "../../../DB/queries/vote";
 
 const rateOnSocketHandler = async (data, emit) => {
 	try {
-		const {GuestId, CandidateId, poll} = data;
+		const {GuestId, CandidateId, poll, index} = data;
 
 		await addVote({GuestId, CandidateId});
 
 		emit({
-			GuestId: GuestId,
-			poll: poll,
+			GuestId,
+			poll,
+			index,
 		});
 	} catch (e) {
 		console.error(e);
