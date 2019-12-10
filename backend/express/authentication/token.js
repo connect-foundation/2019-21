@@ -3,7 +3,7 @@ import loadConfig from "../config/configLoader";
 
 export default function generateAccessToken(sub, aud) {
 	const {tokenArgs} = loadConfig();
-	const expiresIn = "1 hour";
+	const expiresIn = "24 hour";
 	const token = jwt.sign({}, tokenArgs.secret, {
 		expiresIn,
 		issuer: tokenArgs.issuer,
@@ -13,4 +13,3 @@ export default function generateAccessToken(sub, aud) {
 
 	return token;
 }
-
