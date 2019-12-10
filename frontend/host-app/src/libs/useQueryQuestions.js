@@ -47,6 +47,7 @@ const QUERY_INIT_QUESTIONS = gql`
             state
             isStared
             likeCount
+			QuestionId
         }
 
         emojis(EventId: $EventId) {

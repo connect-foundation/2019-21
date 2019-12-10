@@ -9,13 +9,19 @@ export function makeNewData(req) {
 		isLike: req.didILike,
 		likeCount: req.likeCount,
 		state: req.status,
+		QuestionId: req.QuestionId
 	};
 	return newData;
 }
 
 export function filterQuestion(option, data){
-	return {questions: data.questions.filter(e => e.state === option)};
+	return {questions: data.questions.filter(e => e.state === option && e.QuestionId === null)};
 }
+
+export function filterReplies(id, data){
+	return {questions: data.questions.filter(e => e.QuestionId === id )};
+}
+
 
 function mappingByKey(object, key) {
 	const mappped = {};
