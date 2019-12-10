@@ -2,7 +2,6 @@ type Question {
 	id: ID!
 	EventId: ID!
 	GuestId: ID!
-	QuestionId: ID
 	createdAt: String!
 	content: String!
 	state: String!
