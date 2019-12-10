@@ -101,6 +101,33 @@ function PollContainer({data, GuestId}) {
 		});
 	});
 
+	useSocket("rate/on", res => {
+		// console.log("useSocket vote/on", res);
+		if (res.GuestId === GuestId) {
+			// console.log("My vote!");
+			return;
+		}
+		dispatch({
+			type: "SOMEONE_RATE",
+			id: res.poll.id,
+			poll: res.poll,
+			GuestId,
+		});
+	});
+
+	useSocket("rate/off", res => {
+		if (res.GuestId === GuestId) {
+			// console.log("My vote!");
+			return;
+		}
+		dispatch({
+			type: "SOMEONE_RATE",
+			id: res.poll.id,
+			poll: res.poll,
+			GuestId,
+		});
+	});
+
 	return (
 		<ColumnWrapper>
 			{pollData &&
