@@ -18,6 +18,13 @@ export function filterQuestion(option, data){
 	return {questions: data.questions.filter(e => e.state === option && e.QuestionId === null)};
 }
 
+export function filterStared(option, data){
+	return {questions: data.questions.filter(e => {
+		if (e.QuestionId !== null) return true;
+		return e.isStared === option
+	})};
+}
+
 export function filterReplies(id, data){
 	return {questions: data.questions.filter(e => e.QuestionId === id )};
 }
