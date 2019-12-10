@@ -6,10 +6,10 @@ export function makeNewData(req) {
 		createdAt: req.createdAt,
 		guestName: req.guestName,
 		id: req.id,
-		isLike: req.didILike,
 		likeCount: req.likeCount,
 		state: req.status,
-		QuestionId: req.QuestionId
+		QuestionId: req.QuestionId,
+		isStared: false,
 	};
 	return newData;
 }
