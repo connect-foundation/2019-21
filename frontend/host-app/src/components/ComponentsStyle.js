@@ -43,7 +43,7 @@ const ContentStyle = styled.div`
 	flex: 1;
 	overflow: auto;
 	justify-content: left;
-	align-items: center;
+	align-items: flex-start;
 	padding: 4px 8px;
 	overflow-x: auto;
 	flex-wrap: nowrap;
@@ -59,7 +59,7 @@ const ColumnStyle = styled.div`
 	border-radius: 8px;
 	background-color: #f1f3f5;
 	border: 1px solid #e9ecef;
-	height: 100%;
+	height: ${props => props.height || "100%" };
 	box-sizing: border-box;
 	& + & {
 		margin-left: 8px;

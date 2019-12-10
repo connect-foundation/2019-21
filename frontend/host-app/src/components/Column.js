@@ -5,8 +5,10 @@ import {ColumnStyle} from "./ComponentsStyle";
 import {filterStared} from "../libs/utils";
 
 function Column({type, state, stateHandler, data, dataHandler, handleStar}) {
+	const staredData = filterStared(true, data);
+
 	return (
-		<ColumnStyle>
+		<ColumnStyle height={`${100 + (staredData.questions.length * 10)}%` }>
 			<Title
 				type={type}
 				state={state}
@@ -16,15 +18,17 @@ function Column({type, state, stateHandler, data, dataHandler, handleStar}) {
 			/>
 			<QuestionContainer
 				type={type}
-				datas={filterStared(true, data)}
+				datas={staredData}
 				dataHandler={dataHandler}
 				handleStar={handleStar}
+				containerType={"focus"}
 			/>
 			<QuestionContainer
 				type={type}
 				datas={filterStared(false, data)}
 				dataHandler={dataHandler}
 				handleStar={handleStar}
+				containerType={"unFocus"}
 			/>
 		</ColumnStyle>
 	);
