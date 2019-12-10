@@ -27,11 +27,6 @@
 -   Live poll(실시간 투표): 쉽게 사용할 수 있도록 설계 (O/X투표, 별점주기, N지선다형 퀴즈 등)
 -   Analytics(통계/보고서): 유료기능을 무료로 지원함 (포맷: excel)
 
-## start local dev mode
-```sh
-yarn start
-```
-
 ## 위키 링크
 
 [wiki](https://github.com/connect-foundation/2019-21/wiki)
