@@ -61,9 +61,15 @@ const ColumnStyle = styled.div`
 	border: 1px solid #e9ecef;
 	height: ${props => props.height || "100%" };
 	box-sizing: border-box;
+	margin-bottom: 1rem;
 	& + & {
 		margin-left: 8px;
 	}
 `;
 
-export {TitleStyle, TitleBox, RightSide, EmptyContentBox, EmptyContentDiv, ContentStyle, ColumnStyle}
+const FooterStyle = styled.div`
+	width: 90%;
+	margin-top: auto;
+`;
+
+export {TitleStyle, TitleBox, RightSide, EmptyContentBox, EmptyContentDiv, ContentStyle, ColumnStyle,FooterStyle}

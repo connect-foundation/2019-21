@@ -1,14 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import Title from "./Title";
 import QuestionContainer from "./Questions/QuestionContainer";
+import ColumnFooter from "./ColumnFooter";
 import {ColumnStyle} from "./ComponentsStyle";
 import {filterStared} from "../libs/utils";
 
 function Column({type, state, stateHandler, data, dataHandler, handleStar}) {
-	const staredData = filterStared(true, data);
+	const [heightWeight,setHeightWeight] = useState(0);
 
 	return (
-		<ColumnStyle height={`${100 + (staredData.questions.length * 10)}%` }>
+		<ColumnStyle height={`${100 +(heightWeight * 50)}%`}>
 			<Title
 				type={type}
 				state={state}
@@ -18,7 +19,7 @@ function Column({type, state, stateHandler, data, dataHandler, handleStar}) {
 			/>
 			<QuestionContainer
 				type={type}
-				datas={staredData}
+				datas={filterStared(true, data)}
 				dataHandler={dataHandler}
 				handleStar={handleStar}
 				containerType={"focus"}
@@ -30,6 +31,7 @@ function Column({type, state, stateHandler, data, dataHandler, handleStar}) {
 				handleStar={handleStar}
 				containerType={"unFocus"}
 			/>
+			<ColumnFooter/>
 		</ColumnStyle>
 	);
 }
