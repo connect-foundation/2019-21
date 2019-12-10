@@ -10,6 +10,7 @@ import useSideMenuStyles from "./UseSideMenuStyles.js";
 import useCommonModal from "../CommonComponent/CommonModal/useCommonModal.js";
 import LogOutModal from "../Modals/LogoutModal.js";
 import MyQuestionModal from "../Modals/MyQuestionModal.js";
+import config from "../../config/index.js";
 
 function EditProfileButton() {
 	const modalState = useCommonModal();
@@ -47,7 +48,7 @@ function MyQuestionButton() {
 	);
 }
 
-function LogoutButton() {
+function LogoutButton(props) {
 	const modalState = useCommonModal();
 
 	return (
@@ -60,6 +61,9 @@ function LogoutButton() {
 			<LogOutModal
 				isOpened={modalState.isOpened}
 				onCancelClick={modalState.closeModal}
+				onLogout={() =>
+					(window.location.href = config.logoutRedirectURL)
+				}
 			/>
 		</div>
 	);
@@ -77,7 +81,6 @@ function SideMenuBody(props) {
 				<LogoutButton />
 			</List>
 			<Divider />
-
 			<EditProfileModal />
 		</div>
 	);
