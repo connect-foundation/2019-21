@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import gray from "@material-ui/core/colors/grey.js";
 import QuestionCard from "./QuestionCard.js";
-import {QuestionsContext} from "../QuestionsContext.js";
+import {QuestionsRepliesContext} from "../QuestionsRepliesContext.js";
 
 const style = {
 	backgroundColor: gray[300],
@@ -11,13 +11,23 @@ const style = {
 	paddingBottom: "0.5rem",
 };
 
+function getReplisInQuestion(questionId, replies) {
+	const repliesInQuestion = replies.filter(reply => reply.QuestionId === questionId);
+
+	return repliesInQuestion;
+}
+
 function QuestionCardList() {
-	const {questions} = useContext(QuestionsContext);
+	const {questions, replies} = useContext(QuestionsRepliesContext);
 
 	return (
 		<div style={style}>
 			{questions.map((question, idx) => (
-				<QuestionCard {...question} key={idx} />
+				<QuestionCard
+					{...question}
+					key={idx}
+					replies={getReplisInQuestion(question.id, replies)}
+				/>
 			))}
 		</div>
 	);

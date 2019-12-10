@@ -5,13 +5,13 @@ import useTabs from "../../materialUIHooks/useTabs.js";
 import AddQuestionInputButton from "./QuestionInputArea/AddQuestionInputButton.js";
 import QuestionCardList from "./QuestionCard/QuestionCardList.js";
 import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
-import QuestionsReducer from "./QuestionsReducer.js";
+import QuestionsRepliesReducer from "./QuestionsRepliesReducer.js";
 import {
 	buildQuestions,
 	QUERY_INIT_QUESTIONS,
 } from "../../libs/useQueryQuestions.js";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
-import {QuestionsProvider} from "./QuestionsContext.js";
+import {QuestionsRepliesProvider} from "./QuestionsRepliesContext.js";
 import PaddingArea from "./QuestionInputArea/PaddingArea.js";
 import {ContainerProvider} from "./ContainerContext.js";
 import useToggleReducer from "./useToggleReducer.js";
@@ -22,14 +22,32 @@ import EditQuestionInputDrawer from "./EditQuestionInputDrawer.js";
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
 
-const useDataLoadEffect = (dispatch, data) => {
+function getNewQuestion({EventId, GuestId, guestName, content}) {
+	return {
+		guestName,
+		EventId,
+		GuestId,
+		content,
+	};
+}
+
+const useDataLoadEffect = (questionsDispatch, repliesDispatch, data) => {
 	useEffect(() => {
 		if (data) {
+			let questions = [];
+			let replies = [];
 			const buildData = buildQuestions(data);
-
-			dispatch({type: "load", data: buildData});
+			buildData.forEach(question => {
+				if (question.QuestionId) {
+					replies.push(question);
+				} else {
+					questions.push(question);
+				}
+			});
+			questionsDispatch({type: "load", data: questions});
+			repliesDispatch({type: "load", data: replies});
 		}
-	}, [data, dispatch]);
+	}, [data, questionsDispatch, repliesDispatch]);
 };
 
 const useSocketHandler = (dispatch, guestGlobal) => {
@@ -74,32 +92,42 @@ function QuestionContainer() {
 	const {data, loading, error} = useQuery(QUERY_INIT_QUESTIONS, {
 		variables: {EventId: event.id, GuestId: guest.id},
 	});
-
+	const [questions, questionsDispatch] = useReducer(
+		QuestionsRepliesReducer,
+		[],
+	);
+	const [replies, repliesDispatch] = useReducer(QuestionsRepliesReducer, []);
 	const newQuestionInputDrawerReducer = useToggleReducer();
 	const EditQuestionInputDrawerReducer = useToggleReducer();
 	const questionEditMenuReducer = useToggleReducer();
-	const [questions, dispatch] = useReducer(QuestionsReducer, []);
 	const {tabIdx, selectTabIdx} = useTabs(RECENT_TAB_IDX);
 	const userNameRef = useRef(null);
 	const questionRef = useRef(null);
 
-	useDataLoadEffect(dispatch, data);
-	useSocketHandler(dispatch, guest);
+	useDataLoadEffect(questionsDispatch, repliesDispatch, data);
+	useSocketHandler(questionsDispatch, guest);
 
 	const onContainerSelectTab = (event, newValue) => {
 		if (newValue === RECENT_TAB_IDX) {
-			dispatch({type: "sortByRecent"});
+			questionsDispatch({type: "sortByRecent"});
 		}
 
 		if (newValue === POPULAR_TAB_IDX) {
-			dispatch({type: "sortByLikeCount"});
+			questionsDispatch({type: "sortByLikeCount"});
 		}
 
 		selectTabIdx(event, newValue);
 	};
 
 	return (
-		<QuestionsProvider value={{questions, dispatch}}>
+		<QuestionsRepliesProvider
+			value={{
+				questions,
+				dispatch: questionsDispatch,
+				replies,
+				repliesDispatch,
+			}}
+		>
 			<ContainerProvider
 				value={{
 					questionInputDrawerReducer: newQuestionInputDrawerReducer,
@@ -142,7 +170,7 @@ function QuestionContainer() {
 					}}
 				/>
 			</ContainerProvider>
-		</QuestionsProvider>
+		</QuestionsRepliesProvider>
 	);
 }
 
