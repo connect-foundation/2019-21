@@ -3,6 +3,7 @@ const config = {
 	socketIOPort: 4001,
 	apolloURI: "http://localhost:8000/graphql",
 	logoutRedirectURL: "http://localhost:3001/guest/logout",
+	inValidGuestRedirectURL: "http://localhost:5000",
 };
 
 export default config;

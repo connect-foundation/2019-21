@@ -6,7 +6,7 @@ import NavBar from "../components/NavBar/NavBar.js";
 import TabGroup from "../components/TabGroup/TabGroup.js";
 import {GuestGlobalProvider} from "../libs/guestGlobalContext.js";
 import TopProgressBar from "../components/TopProcessBar.js";
-import ErrorPage from "../components/ErrorPage/ErrorPage.js";
+import config from "../config";
 import {GET_GUEST_APP_GLOBAL_DATA} from "../apollo/gqlSchemes.js";
 
 const AppStyle = styled.div`
@@ -14,16 +14,16 @@ const AppStyle = styled.div`
 	width: 100vw;
 `;
 
-
 export default function App() {
 	const {data, loading, error} = useQuery(GET_GUEST_APP_GLOBAL_DATA);
 
-	if (error) {
-		return <ErrorPage/>;
+	if (loading) {
+		return <TopProgressBar />;
 	}
 
-	if (loading) {
-		return <TopProgressBar/>;
+	if (error) {
+		window.location.href = config.inValidGuestRedirectURL;
+		return <div />;
 	}
 
 	const {event, guest} = data.guestInEvent;
@@ -31,8 +31,8 @@ export default function App() {
 	return (
 		<GuestGlobalProvider value={{event, guest}}>
 			<AppStyle>
-				<NavBar title={event.eventName}/>
-				<TabGroup/>
+				<NavBar title={event.eventName} />
+				<TabGroup />
 			</AppStyle>
 		</GuestGlobalProvider>
 	);

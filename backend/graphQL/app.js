@@ -7,6 +7,7 @@ import resolvers from "./resolvers.js";
 import typeDefs from "./typeDefs.js";
 import config from "./config.js";
 import {findHostByAuthId} from "../DB/queries/host";
+import logger from "./logger.js";
 
 const authenticate = async (resolve, root, args, context, info) => {
 	let audience = "anonymous";
