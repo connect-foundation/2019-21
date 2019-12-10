@@ -61,5 +61,5 @@ server.express.use(morgan("dev"));
 server.express.use(cookieParser());
 
 server.start(config, ({port}) => {
-	console.log(`graphQL yoga Server is running on localhost:${port}`);
+	logger.info(`graphQL yoga Server is running on localhost:${port}`);
 });
