@@ -15,11 +15,11 @@ const TextField = styled(Typography)({
 
 function CurrentRepliesTextField(props) {
 	const {openReplies} = props;
+
 	return (
-		<TextField
-			variant="h6"
-			onClick={openReplies}
-		>{`${props.children} replies`}</TextField>
+		<TextField variant="h6" onClick={openReplies}>
+			{props.children}
+		</TextField>
 	);
 }
 

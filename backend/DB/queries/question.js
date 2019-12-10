@@ -8,15 +8,15 @@ export async function createQuestion(
 	EventId,
 	content,
 	GuestId,
-	state = "active",
 	QuestionId,
+	state = "active"
 ) {
 	return Question.create({
 		content,
 		EventId,
 		GuestId,
-		state,
 		QuestionId,
+		state,
 	});
 }
 
@@ -42,27 +42,25 @@ export async function deleteQuestionById(id) {
 	return Question.destroy({where: {id}});
 }
 
-export async function updateQuestionById({
-	id,
-	content,
-	state,
-	isStared}) {
-	return Question.update({
-		content,
-		state,
-		isStared,
-	},
-	{where: {id}});
+export async function updateQuestionById({id, content, state, isStared}) {
+	return Question.update(
+		{
+			content,
+			state,
+			isStared,
+		},
+		{where: {id}}
+	);
 }
 
-export async function updateEveryState(from, {
-	state}) {
-	return Question.update({
-		state,
-	},
-	{where: {state: from}});
+export async function updateEveryState(from, {state}) {
+	return Question.update(
+		{
+			state,
+		},
+		{where: {state: from}}
+	);
 }
-
 
 export async function getQuestionById(id) {
 	return Question.findOne({where: {id}});

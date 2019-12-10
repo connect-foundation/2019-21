@@ -35,22 +35,26 @@ export default function ReplyArea(props) {
 	const showingReplierList = repliers.slice(0, MAX_SHOWING_AVATAR);
 	return (
 		<PreviewReplyContainer>
-			{showingReplierList.map((userName, idx) => {
-				if (idx === MAX_SHOWING_AVATAR - 1) {
+			{replies.length !== 0 &&
+				showingReplierList.map((userName, idx) => {
+					if (idx === MAX_SHOWING_AVATAR - 1) {
+						return (
+							<ReplyAvatar
+								userName={userName}
+								remainder={repliersNum - MAX_SHOWING_AVATAR + 1}
+								key={idx}
+							></ReplyAvatar>
+						);
+					}
 					return (
 						<ReplyAvatar
 							userName={userName}
-							remainder={repliersNum - MAX_SHOWING_AVATAR + 1}
 							key={idx}
 						></ReplyAvatar>
 					);
-				}
-				return (
-					<ReplyAvatar userName={userName} key={idx}></ReplyAvatar>
-				);
-			})}
+				})}
 			<CurrentRepliesTextField openReplies={openReplies}>
-				{replies.length}
+				{replies.length ? `${replies.length} replies` : "답글달기"}
 			</CurrentRepliesTextField>
 			<Drawer anchor="bottom" open={repliesIsOpened}>
 				<RepliesPaper onClose={closeReplies} {...props} />

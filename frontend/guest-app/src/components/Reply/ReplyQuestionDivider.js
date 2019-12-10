@@ -24,6 +24,7 @@ const CustomDivider = styled(Divider)({
 
 function ReplyQuestionDivider(props) {
 	const {replies} = props;
+
 	return (
 		<Container>
 			<ReplieNumField>{`${replies.length} replies`}</ReplieNumField>

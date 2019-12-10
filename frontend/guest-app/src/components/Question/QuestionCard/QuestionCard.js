@@ -9,6 +9,7 @@ import ReplyArea from "../../Reply/ReplyArea";
 
 const QuestionCard = React.memo(props => {
 	const {replies} = props;
+
 	return (
 		<Card style={{margin: "0.5rem"}}>
 			<CardContent style={{paddingTop: "1rem", paddingBottom: "0"}}>
@@ -18,7 +19,7 @@ const QuestionCard = React.memo(props => {
 				/>
 				<QuestionBody {...props} />
 				<EmojiArea {...props} />
-				{replies.length !== 0 && <ReplyArea {...props} />}
+				<ReplyArea {...props} />
 			</CardContent>
 		</Card>
 	);

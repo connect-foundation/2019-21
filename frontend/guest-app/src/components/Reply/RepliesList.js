@@ -11,12 +11,11 @@ const RepliesListContainer = styled(Paper)({
 
 function RepliesList(props) {
 	const {replies} = props;
+
 	return (
 		<>
 			<RepliesListContainer>
-				{replies.map((reply, idx) => {
-					return <Reply {...reply} key={idx} />;
-				})}
+				{replies.map((reply, idx) => <Reply {...reply} key={idx} />)}
 			</RepliesListContainer>
 		</>
 	);
