@@ -8,6 +8,7 @@ import {filterQuestion, filterReplies} from "../../libs/utils";
 
 const QuestionDiv = styled.div`
 	width: 100%;
+	overflow: auto;
 `;
 
 const compareByCreateAt = (a, b) =>

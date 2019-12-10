@@ -54,7 +54,6 @@ const ColumnStyle = styled.div`
 	flex-direction: column;
 	flex: 1;
 	min-width: 20rem;
-	overflow: auto;
 	justify-content: flex-start;
 	align-items: center;
 	border-radius: 8px;
