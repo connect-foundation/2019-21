@@ -1,17 +1,17 @@
-import React, {useContext} from "react";
+import React from "react";
 import Paper from "@material-ui/core/Paper";
 import {Typography} from "@material-ui/core";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import gray from "@material-ui/core/colors/grey.js";
 import PropTypes from "prop-types";
-import {QuestionsRepliesContext} from "./QuestionsRepliesContext.js";
+import {useQuestions} from "./QuestionsContext.js";
 
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
 
 function QuestionContainerTabBar(props) {
-	const {questions} = useContext(QuestionsRepliesContext);
+	const {questions} = useQuestions();
 	const {tabIdx, onSelectTab} = props;
 
 	return (

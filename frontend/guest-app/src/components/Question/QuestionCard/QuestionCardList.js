@@ -1,7 +1,7 @@
-import React, {useContext} from "react";
+import React from "react";
 import gray from "@material-ui/core/colors/grey.js";
 import QuestionCard from "./QuestionCard.js";
-import {QuestionsRepliesContext} from "../QuestionsRepliesContext.js";
+import {useQuestions} from "../QuestionsContext.js";
 
 const style = {
 	backgroundColor: gray[300],
@@ -18,7 +18,7 @@ function getReplisInQuestion(questionId, replies) {
 }
 
 function QuestionCardList() {
-	const {questions, replies} = useContext(QuestionsRepliesContext);
+	const {questions, replies} = useQuestions();
 
 	return (
 		<div style={style}>
