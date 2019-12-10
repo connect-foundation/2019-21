@@ -31,7 +31,7 @@ function Column({type, state, stateHandler, data, dataHandler, handleStar}) {
 				handleStar={handleStar}
 				containerType={"unFocus"}
 			/>
-			<ColumnFooter/>
+			<ColumnFooter data={heightWeight} handler={setHeightWeight}/>
 		</ColumnStyle>
 	);
 }

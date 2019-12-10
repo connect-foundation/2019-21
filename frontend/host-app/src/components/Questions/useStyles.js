@@ -38,8 +38,8 @@ const useStyles = makeStyles(theme => ({
 	},
 	footerButton: {
 		color: "rgb(121,121,121)",
-		margin: " 0.2rem",
-		transform: "scale(0.7)",
+		margin: " 0.1rem",
+		transform: "scale(0.6)",
 		"&:hover": {
 			color: "#ef0046",
 		},
