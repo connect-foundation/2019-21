@@ -1,20 +1,22 @@
 import React from "react";
 import {Grid} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import CommonModal from "../CommonComponent/CommonModal/CommonModal.js";
 
 function LogOutModal({isOpened = false, onCancelClick, onLogout}) {
 	return (
 		<CommonModal isOpened={isOpened} onCancelClick={onCancelClick}>
-			<p>로그아웃 하시겠습니까?</p>
+			<Typography>로그아웃 하시겠습니까?</Typography>
+			<Box p={1} />
 			<Grid container direction={"row"} justify="flex-end">
 				<Button variant={"contained"} onClick={onCancelClick}>
 					취소
 				</Button>
 				<Box p={1} />
 				<Button
-					color="primary"
+					color="secondary"
 					variant={"contained"}
 					onClick={onLogout}
 				>
