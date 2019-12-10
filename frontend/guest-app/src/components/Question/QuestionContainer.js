@@ -22,21 +22,13 @@ import EditQuestionInputDrawer from "./EditQuestionInputDrawer.js";
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
 
-function getNewQuestion({EventId, GuestId, guestName, content}) {
-	return {
-		guestName,
-		EventId,
-		GuestId,
-		content,
-	};
-}
-
 const useDataLoadEffect = (questionsDispatch, repliesDispatch, data) => {
 	useEffect(() => {
 		if (data) {
-			let questions = [];
-			let replies = [];
+			const questions = [];
+			const replies = [];
 			const buildData = buildQuestions(data);
+
 			buildData.forEach(question => {
 				if (question.QuestionId) {
 					replies.push(question);

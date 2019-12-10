@@ -1,4 +1,3 @@
-import {useQuery} from "@apollo/react-hooks";
 import {gql} from "apollo-boost";
 import {JSONNestJoin, JSONNestJoin2} from "./utils.js";
 import _ from "lodash";
@@ -90,11 +89,3 @@ export const QUERY_INIT_QUESTIONS = gql`
 		}
 	}
 `;
-
-export function useQueryQuestions(
-	options = {
-		variables: {EventId: 2, GuestId: 122},
-	},
-) {
-	return useQuery(QUERY_INIT_QUESTIONS, options);
-}
