@@ -154,7 +154,8 @@ const onUpdateQuestion = (state, data) => {
 
 	return newState;
 };
-const QuestionsReducer = (state, action) => {
+
+const QuestionsRepliesReducer = (state, action) => {
 	const {type, data} = action;
 
 	const actionTable = {
@@ -179,4 +180,4 @@ const QuestionsReducer = (state, action) => {
 	return actionTable[type](state, data);
 };
 
-export default QuestionsReducer;
+export default QuestionsRepliesReducer;

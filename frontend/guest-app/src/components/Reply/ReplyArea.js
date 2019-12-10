@@ -1,8 +1,15 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {styled} from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import Drawer from "@material-ui/core/Drawer";
 import ReplyAvatar from "./ReplyAvatar";
+import RepliesPaper from "./RepliesPaper";
+import useReplies from "./useReplies";
 
+import CurrentRepliesTextField from "./CurrentRepliesTextField";
+
+const MAX_SHOWING_AVATAR = 5;
 const PreviewReplyContainer = styled(Paper)({
 	display: "flex",
 	height: "3rem",
@@ -11,20 +18,21 @@ const PreviewReplyContainer = styled(Paper)({
 	backgroundColor: "#FFFFF0",
 });
 
-export default function ReplyArea() {
-	const MAX_SHOWING_AVATAR = 5;
-	const dummy = [
-		"David",
-		"Sara",
-		"James",
-		"Crong",
-		"David",
-		"Sara",
-		"James",
-		"Crong",
-	];
-	const repliesLength = dummy.length;
-	let showingReplierList = dummy.slice(0, MAX_SHOWING_AVATAR);
+function extractUniqueReplier(replies) {
+	const uniqueGuestIdMap = new Map();
+
+	replies.forEach(replie => {
+		uniqueGuestIdMap.set(replie.GuestId, replie.guestName);
+	});
+	return [...uniqueGuestIdMap.values()];
+}
+
+export default function ReplyArea(props) {
+	const {repliesIsOpened, openReplies, closeReplies} = useReplies();
+	const {replies} = props;
+	const repliers = extractUniqueReplier(replies);
+	const repliersNum = repliers.length;
+	const showingReplierList = repliers.slice(0, MAX_SHOWING_AVATAR);
 
 	return (
 		<PreviewReplyContainer>
@@ -33,9 +41,7 @@ export default function ReplyArea() {
 					return (
 						<ReplyAvatar
 							userName={userName}
-							remainReplies={
-								repliesLength - MAX_SHOWING_AVATAR + 1
-							}
+							remainder={repliersNum - MAX_SHOWING_AVATAR + 1}
 							key={idx}
 						></ReplyAvatar>
 					);
@@ -44,6 +50,16 @@ export default function ReplyArea() {
 					<ReplyAvatar userName={userName} key={idx}></ReplyAvatar>
 				);
 			})}
+			<CurrentRepliesTextField openReplies={openReplies}>
+				{replies.length}
+			</CurrentRepliesTextField>
+			<Drawer anchor="bottom" open={repliesIsOpened}>
+				<RepliesPaper onClose={closeReplies} />
+			</Drawer>
 		</PreviewReplyContainer>
 	);
 }
+
+ReplyArea.PropTypes = {
+	replies: PropTypes.array,
+};
