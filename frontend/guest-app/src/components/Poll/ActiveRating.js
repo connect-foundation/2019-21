@@ -11,6 +11,8 @@ const ColumnWrapper = styled.div`
 	flex: 1;
 	width: 80%;
 	box-sizing: border-box;
+	padding: 1rem 0 0 0;
+	border: ${props => (props.border ? "1px solid #adb5bd" : "none")};
 `;
 
 const RowWrapper = styled.div`
@@ -22,7 +24,7 @@ const RowWrapper = styled.div`
 	height: ${props => (props.thin ? "1.5rem" : "4rem")};
 	padding: 0.5rem;
 	box-sizing: border-box;
-	border: ${props => (props.border ? "1px solid #dee2e6" : "none")};
+	border: ${props => (props.border ? "1px solid #adb5bd" : "none")};
 `;
 
 function ActiveRating({
@@ -35,13 +37,14 @@ function ActiveRating({
 	onCancelRating,
 }) {
 	return (
-		<ColumnWrapper>
-			<RowWrapper left thin>
+		<ColumnWrapper border>
+			<RowWrapper thin>
+				{!rated && "별 갯수로 평가해주세요"}
 				{rated && `투표했음: ${ratingValue}점`}
 			</RowWrapper>
 			<RowWrapper>
 				<Rating
-					name="simple-controlled"
+					name={id.toString()}
 					value={ratingValue}
 					max={max}
 					onChange={(_, newValue) => {
@@ -49,8 +52,9 @@ function ActiveRating({
 					}}
 				/>
 			</RowWrapper>
-			<RowWrapper border>
+			<RowWrapper>
 				<Button
+					disabled={!rated}
 					variant="contained"
 					color="default"
 					onClick={() => onCancelRating(id, state)}
