@@ -13,11 +13,10 @@ import {
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 import {QuestionsRepliesProvider} from "./QuestionsRepliesContext.js";
 import PaddingArea from "./QuestionInputArea/PaddingArea.js";
-import {ContainerProvider} from "./ContainerContext.js";
-import useToggleReducer from "./useToggleReducer.js";
 import QuestionEditMenuDrawer from "./QuestionCard/QuestionEditMenuDrawer.js";
 import NewQuestionInputDrawer from "./NewQuestionInputDrawer.js";
 import EditQuestionInputDrawer from "./EditQuestionInputDrawer.js";
+import {useUIControllerContext} from "../UIController/UIController.js";
 
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
@@ -89,9 +88,13 @@ function QuestionContainer() {
 		[],
 	);
 	const [replies, repliesDispatch] = useReducer(QuestionsRepliesReducer, []);
-	const newQuestionInputDrawerReducer = useToggleReducer();
-	const EditQuestionInputDrawerReducer = useToggleReducer();
-	const questionEditMenuReducer = useToggleReducer();
+
+	const {
+		newQuestionInputDrawer,
+		editQuestionInputDrawer,
+		questionEditMenuReducer,
+	} = useUIControllerContext();
+
 	const {tabIdx, selectTabIdx} = useTabs(RECENT_TAB_IDX);
 	const userNameRef = useRef(null);
 	const questionRef = useRef(null);
@@ -120,48 +123,39 @@ function QuestionContainer() {
 				repliesDispatch,
 			}}
 		>
-			<ContainerProvider
-				value={{
-					questionInputDrawerReducer: newQuestionInputDrawerReducer,
-					questionEditMenuReducer,
+			<QuestionContainerTabBar
+				tabIdx={tabIdx}
+				onSelectTab={onContainerSelectTab}
+			/>
+			<QuestionCardList />
+			<PaddingArea />
+			<AddQuestionInputButton
+				onClick={() => newQuestionInputDrawer.setOn()}
+			/>
+			<NewQuestionInputDrawer
+				userNameRef={userNameRef}
+				questionRef={questionRef}
+				toggleReducer={newQuestionInputDrawer}
+			/>
+			<EditQuestionInputDrawer
+				userNameRef={userNameRef}
+				questionRef={questionRef}
+				toggleReducer={editQuestionInputDrawer}
+			/>
+			<QuestionEditMenuDrawer
+				isOpen={questionEditMenuReducer.state}
+				onClose={() => questionEditMenuReducer.setOff()}
+				onDelete={() => {
+					socketClient.emit(
+						"question/remove",
+						questionEditMenuReducer.data,
+					);
+					questionEditMenuReducer.setOff();
 				}}
-			>
-				<QuestionContainerTabBar
-					tabIdx={tabIdx}
-					onSelectTab={onContainerSelectTab}
-				/>
-				<QuestionCardList />
-				<PaddingArea />
-				<AddQuestionInputButton
-					onClick={() => newQuestionInputDrawerReducer.setOn()}
-				/>
-				<NewQuestionInputDrawer
-					userNameRef={userNameRef}
-					questionRef={questionRef}
-					toggleReducer={newQuestionInputDrawerReducer}
-				/>
-				<EditQuestionInputDrawer
-					userNameRef={userNameRef}
-					questionRef={questionRef}
-					toggleReducer={EditQuestionInputDrawerReducer}
-				/>
-				<QuestionEditMenuDrawer
-					isOpen={questionEditMenuReducer.state}
-					onClose={() => questionEditMenuReducer.setOff()}
-					onDelete={() => {
-						socketClient.emit(
-							"question/remove",
-							questionEditMenuReducer.data,
-						);
-						questionEditMenuReducer.setOff();
-					}}
-					onEdit={() => {
-						EditQuestionInputDrawerReducer.setOn(
-							questionEditMenuReducer.data,
-						);
-					}}
-				/>
-			</ContainerProvider>
+				onEdit={() => {
+					editQuestionInputDrawer.setOn(questionEditMenuReducer.data);
+				}}
+			/>
 		</QuestionsRepliesProvider>
 	);
 }

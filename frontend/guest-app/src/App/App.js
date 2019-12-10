@@ -8,6 +8,7 @@ import {GuestGlobalProvider} from "../libs/guestGlobalContext.js";
 import TopProgressBar from "../components/TopProcessBar.js";
 import config from "../config";
 import {GET_GUEST_APP_GLOBAL_DATA} from "../apollo/gqlSchemes.js";
+import {UIController} from "../components/UIController/UIController.js";
 
 const AppStyle = styled.div`
 	height: 100vh;
@@ -29,11 +30,13 @@ export default function App() {
 	const {event, guest} = data.guestInEvent;
 
 	return (
-		<GuestGlobalProvider value={{event, guest}}>
-			<AppStyle>
-				<NavBar title={event.eventName} />
-				<TabGroup />
-			</AppStyle>
-		</GuestGlobalProvider>
+		<UIController>
+			<GuestGlobalProvider value={{event, guest}}>
+				<AppStyle>
+					<NavBar title={event.eventName} />
+					<TabGroup />
+				</AppStyle>
+			</GuestGlobalProvider>
+		</UIController>
 	);
 }

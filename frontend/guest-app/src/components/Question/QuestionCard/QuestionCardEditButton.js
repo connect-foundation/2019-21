@@ -1,8 +1,8 @@
-import React, {useContext} from "react";
+import React from "react";
 import styled from "styled-components";
 import {Typography} from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz.js";
-import {ContainerContext} from "../ContainerContext.js";
+import {useUIControllerContext} from "../../UIController/UIController.js";
 
 const QuestionEditButtonStyle = styled.div`
 	float: right;
@@ -12,7 +12,7 @@ const QuestionEditButtonStyle = styled.div`
 
 function QuestionEditButton(props) {
 	const question = props;
-	const {questionEditMenuReducer} = useContext(ContainerContext);
+	const {questionEditMenuReducer} = useUIControllerContext();
 
 	return (
 		<span>
