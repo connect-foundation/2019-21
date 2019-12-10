@@ -1,10 +1,10 @@
-import { getPollsByEventId } from "../../../DB/queries/poll.js";
-import { getCandidatesByPollId } from "../../../DB/queries/candidate.js";
-import { getVotersByCandidateList } from "../../../DB/queries/vote.js";
+import {getPollsByEventId} from "../../../DB/queries/poll.js";
+import {getCandidatesByPollId} from "../../../DB/queries/candidate.js";
+import {getVotersByCandidateList} from "../../../DB/queries/vote.js";
 // import { getCandidatesByGuestId } from "../../../DB/queries/vote.js";
 
 const simplifyList = list => {
-	return list.map(n => n.get({ plain: true }));
+	return list.map(n => n.get({plain: true}));
 };
 
 /**
@@ -50,14 +50,6 @@ async function getItems(pollId, candidates) {
 
 	return nItems;
 }
-
-// const setPollDates = polls => {
-// 	polls.forEach(poll => {
-// 		poll.pollDate = poll.createdAt;
-// 	});
-
-// 	return polls;
-// };
 
 /**
  *
@@ -121,7 +113,6 @@ async function pollHostResolver(EventId) {
 	let polls = await getPollsByEventId(EventId);
 
 	polls = simplifyList(polls);
-	// polls = setPollDates(polls);
 
 	const candidates = await getCandidatesByPolls(polls);
 
@@ -133,6 +124,6 @@ async function pollHostResolver(EventId) {
 // noinspection JSUnusedGlobalSymbols
 export default {
 	Query: {
-		pollHost: (_, { EventId }) => pollHostResolver(EventId),
+		pollHost: (_, {EventId}) => pollHostResolver(EventId),
 	},
 };
