@@ -70,12 +70,23 @@ const updateTotalVoters = (notVoted, totalVoters, items) => {
 	return result;
 };
 
-function reducer(state, action) {
-	const notVoted = true; //state.nItems.every(item => item.voted === false);
+function reducer(polls, action) {
+	let thePoll;
+	if (action.id) {
+		thePoll = polls.filter(poll => poll.id === action.id)[0];
+	}
 
 	switch (action.type) {
 		case "OPEN":
-			return [action.poll, ...state];
+			return [action.poll, ...polls];
+		case "SOMEONE_RATE":
+			thePoll.totalVoters = action.poll.totalVoters;
+			thePoll.nItems[action.index].voters++;
+			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
+		case "SOMEONE_CANCEL_RATE":
+			thePoll.totalVoters = action.poll.totalVoters;
+			thePoll.nItems[action.index].voters--;
+			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
 		// case "VOTE":
 		// 	return {
 		// 		...state,
@@ -174,6 +185,26 @@ function PollContainer({data}) {
 		socketClient.emit("poll/notify_open", req);
 	});
 
+	useSocket("rate/on", res => {
+		// console.log("useSocket rate/on", res);
+		// const index = parseInt(res.poll.ratingValue) - 1;
+		dispatch({
+			type: "SOMEONE_RATE",
+			id: res.poll.id,
+			poll: res.poll,
+			index: res.index,
+		});
+	});
+
+	useSocket("rate/off", res => {
+		// console.log("useSocket rate/off", res);
+		dispatch({
+			type: "SOMEONE_CANCEL_RATE",
+			id: res.poll.id,
+			poll: res.poll,
+			index: res.index,
+		});
+	});
 	// const onVote = (id, state) => {
 	// 	if (state !== "running") return;
 

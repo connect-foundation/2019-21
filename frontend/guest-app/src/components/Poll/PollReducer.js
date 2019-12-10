@@ -79,12 +79,13 @@ const emitVoteData = (vote, poll, candidateToDelete) => {
 	socketClient.emit(`vote/${action}`, data);
 };
 
-const emitRateData = (rate, poll, candidateId) => {
+const emitRateData = (rate, poll, candidateId, index) => {
 	const action = rate.type === "RATE" ? "on" : "off"; // "on" or "off"
 	const data = {
 		GuestId: rate.GuestId,
 		CandidateId: candidateId,
 		poll: poll,
+		index: index,
 	};
 
 	socketClient.emit(`rate/${action}`, data);
@@ -153,7 +154,7 @@ export default function reducer(polls, action) {
 			// console.log("RATE", action, thePoll);
 			index = parseInt(action.value) - 1;
 			candidateId = thePoll.nItems[index].id;
-			emitRateData(action, thePoll, candidateId);
+			emitRateData(action, thePoll, candidateId, index);
 			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
 
 		case "CANCEL_RATING":
@@ -174,7 +175,7 @@ export default function reducer(polls, action) {
 			};
 			// console.log("CANCEL_RATE", action, thePoll);
 			candidateId = thePoll.nItems[index].id;
-			emitRateData(action, thePoll, candidateId);
+			emitRateData(action, thePoll, candidateId, index);
 			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
 
 		default:
