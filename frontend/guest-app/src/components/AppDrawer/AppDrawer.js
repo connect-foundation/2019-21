@@ -18,7 +18,7 @@ function AppDrawer(props) {
 	return (
 		<Drawer open={isOpen} anchor={anchor} onClose={onClose}>
 			<Paper style={{width: "100vw", height: "100vh"}}>
-				<AppDrawerNavBar onClick={onClose} title={title}/>
+				<AppDrawerNavBar onClick={onClose} title={title} />
 				<AppDrawerBody>{children}</AppDrawerBody>
 			</Paper>
 		</Drawer>
@@ -29,14 +29,14 @@ AppDrawer.propTypes = {
 	isOpen: PropTypes.bool,
 	onClose: PropTypes.func,
 	anchor: PropTypes.string,
-	props: PropTypes.string,
+	title: PropTypes.string,
 };
 
 AppDrawer.defaultProps = {
 	isOpen: false,
 	onClose: undefined,
 	anchor: "right",
-	props: "",
+	title: "",
 };
 
 export default AppDrawer;

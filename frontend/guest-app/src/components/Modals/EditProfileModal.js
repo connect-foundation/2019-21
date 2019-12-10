@@ -8,29 +8,23 @@ import UserAvatar from "../UserAvatar/UserAvatar.js";
 import CommonModal from "../CommonComponent/CommonModal/CommonModal.js";
 import CommonTextInput from "../CommonComponent/CommonTextInput/CommonTextInput.js";
 import useCommonTextInput from "../CommonComponent/CommonTextInput/useCommonTextInput.js";
-import useUserAvatar from "../UserAvatar/useUserAvatar.js";
+import useStringState from "../UserAvatar/useStringState.js";
 
 function UserNameInput() {
-	const {userName, isAnonymous, setState} = useUserAvatar();
+	const {state, setState} = useStringState();
 
 	const onUserNameChange = e => {
-		const newValue = e.target.value;
-
-		if (newValue.length > 0) {
-			setState({userName: newValue, isAnonymous: false});
-		} else {
-			setState({userName: newValue, isAnonymous: true});
-		}
+		setState(e.target.value);
 	};
 
 	return (
 		<Grid container direction={"column"} alignItems={"center"}>
-			<UserAvatar userName={userName} isAnonymous={isAnonymous} />
+			<UserAvatar userName={state} />
 
 			<CommonTextInput
 				icon={<PersonIcon />}
 				label={"이름"}
-				value={userName}
+				value={state}
 				onChange={onUserNameChange}
 			/>
 		</Grid>

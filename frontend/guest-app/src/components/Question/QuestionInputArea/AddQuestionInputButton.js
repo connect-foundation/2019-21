@@ -15,13 +15,13 @@ const cardStyle = {
 
 const cardContentStyle = {paddingBottom: "1rem"};
 
-function QuestionInputButton(props) {
+function AddQuestionInputButton(props) {
 	const {onClick} = props;
 
 	return (
-		<Card style={cardStyle}>
+		<Card style={cardStyle} onClick={onClick}>
 			<CardContent style={cardContentStyle}>
-				<div onClick={onClick} style={{color: "white"}}>
+				<div style={{color: "white"}}>
 					<EditIcon style={{marginRight: "8px"}} />
 					질문하기
 				</div>
@@ -30,8 +30,8 @@ function QuestionInputButton(props) {
 	);
 }
 
-QuestionInputButton.propTypes = {
+AddQuestionInputButton.propTypes = {
 	onClick: PropTypes.func,
 };
 
-export default QuestionInputButton;
+export default AddQuestionInputButton;
