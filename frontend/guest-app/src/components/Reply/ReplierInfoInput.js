@@ -31,4 +31,10 @@ function UserInfoInput(props) {
 	);
 }
 
+UserInfoInput.propTypes = {
+	userNameRef: PropTypes.any,
+	userName: PropTypes.string,
+	setUserName: PropTypes.func,
+};
+
 export default UserInfoInput;

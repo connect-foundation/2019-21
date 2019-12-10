@@ -8,6 +8,7 @@ function QuestionContentInput(props) {
 	const {onChange, value, maxTextLength = 160} = useCommonTextInput(
 		initValue,
 	);
+
 	return (
 		<TextField
 			multiline

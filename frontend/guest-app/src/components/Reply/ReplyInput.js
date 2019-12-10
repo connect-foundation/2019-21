@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import {Button} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
-import UserInfoInput from "../Question/QuestionInputArea/UserInfoInput";
 import ReplyContentInput from "./ReplyContentInput";
 import ReplierInfoInput from "./ReplierInfoInput";
 
@@ -24,6 +23,7 @@ function ReplyInput(props) {
 	const {onConfirm, userNameRef, questionRef, confirmButtonText} = props;
 	const [replyContent, setReplyContent] = useState("");
 	const [userName, setUserName] = useState("");
+
 	return (
 		<Grid container direction={"column"}>
 			<ReplyContentInput
@@ -56,5 +56,12 @@ function ReplyInput(props) {
 		</Grid>
 	);
 }
+
+ReplyInput.propTypes = {
+	onConfirm: PropTypes.func,
+	userNameRef: PropTypes.any,
+	questionRef: PropTypes.any,
+	confirmButtonText: PropTypes.string,
+};
 
 export default ReplyInput;

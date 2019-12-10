@@ -33,6 +33,7 @@ export default function ReplyArea(props) {
 	const repliers = extractUniqueReplier(replies);
 	const repliersNum = repliers.length;
 	const showingReplierList = repliers.slice(0, MAX_SHOWING_AVATAR);
+
 	return (
 		<PreviewReplyContainer>
 			{replies.length !== 0 &&

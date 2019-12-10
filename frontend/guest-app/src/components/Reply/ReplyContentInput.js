@@ -8,6 +8,7 @@ function ReplyContentInput(props) {
 	const onChange = e => {
 		setContent(e.target.value);
 	};
+
 	return (
 		<TextField
 			multiline
@@ -25,5 +26,11 @@ function ReplyContentInput(props) {
 		/>
 	);
 }
+
+ReplyContentInput.propTypes = {
+	questionRef: PropTypes.any,
+	content: PropTypes.string,
+	setContent: PropTypes.func,
+};
 
 export default ReplyContentInput;

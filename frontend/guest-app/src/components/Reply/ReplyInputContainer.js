@@ -6,16 +6,20 @@ import ReplyInput from "./ReplyInput";
 import {socketClient} from "../../libs/socket.io-Client-wrapper";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 
-const createNewReply = ({EventId, GuestId, guestName, content, QuestionId}) => {
-	return {
-		guestName,
-		EventId,
-		GuestId,
-		content,
-		QuestionId,
-		isAnonymous: guestName.length === 0,
-	};
-};
+const createNewReply = ({
+	EventId,
+	GuestId,
+	guestName,
+	content,
+	QuestionId,
+}) => ({
+	guestName,
+	EventId,
+	GuestId,
+	content,
+	QuestionId,
+	isAnonymous: guestName.length === 0,
+});
 
 function ReplyInputContainer(props) {
 	const {id} = props;
@@ -50,5 +54,9 @@ function ReplyInputContainer(props) {
 		</Card>
 	);
 }
+
+ReplyInputContainer.propTypes = {
+	id: PropTypes.string,
+};
 
 export default ReplyInputContainer;
