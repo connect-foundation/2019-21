@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import CommonModal from "../../CommonComponent/CommonModal/CommonModal.js";
@@ -18,5 +19,16 @@ function DeleteQuestionCardModal(props) {
 		</CommonModal>
 	);
 }
+
+DeleteQuestionCardModal.propTypes = {
+	isOpened: PropTypes.bool,
+	closeModal: PropTypes.func,
+	onCancel: PropTypes.func,
+	onDelete: PropTypes.func,
+};
+
+DeleteQuestionCardModal.defaultProps = {
+	isOpened: PropTypes.bool,
+};
 
 export default DeleteQuestionCardModal;

@@ -4,7 +4,7 @@ import ModerationQuestionCard from "./ModerationQuestionCard.js";
 import LiveQuestionCard from "./LiveQuestionCard";
 import CompleteQuestionCard from "./CompleteQuestionCard";
 import PollApollo from "../Poll/PollApollo.js";
-import {filterQuestion} from "../../libs/utils";
+import {filterQuestion, filterReplies} from "../../libs/utils";
 
 const QuestionDiv = styled.div`
 	width: 100%;
@@ -38,6 +38,7 @@ function QuestionContainer({datas, type, dataHandler, handleStar}) {
 							dataHandler={dataHandler}
 							type={type}
 							handleStar={handleStar}
+							replies={filterReplies(question.id, datas).questions}
 						/>
 					))}
 			{type === "newQuestion" &&
@@ -50,6 +51,7 @@ function QuestionContainer({datas, type, dataHandler, handleStar}) {
 							dataHandler={dataHandler}
 							type={type}
 							handleStar={handleStar}
+							replies={filterReplies(question.id, datas).questions}
 						/>
 					))}
 			{type === "completeQuestion" &&
@@ -60,6 +62,7 @@ function QuestionContainer({datas, type, dataHandler, handleStar}) {
 						dataHandler={dataHandler}
 						type={type}
 						handleStar={handleStar}
+						replies={filterReplies(question.id, datas).questions}
 					/>
 				))}
 			{type === "poll" && <PollApollo />}
