@@ -11,6 +11,8 @@ import EditQuestionInputDrawer from "./EditQuestionInputDrawer.js";
 import {useUIControllerContext} from "../UIController/UIController.js";
 import {useQuestions} from "./QuestionsContext.js";
 
+import MyQuestionsDrawer from "./MyQuestionDrawer.js";
+
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
 
@@ -26,6 +28,7 @@ function QuestionContainer() {
 		newQuestionInputDrawer,
 		editQuestionInputDrawer,
 		questionEditMenuReducer,
+		myQuestionDrawerReducer,
 	} = useUIControllerContext();
 	const {tabIdx, selectTabIdx} = useTabs(RECENT_TAB_IDX);
 	const userNameRef = useRef(null);
@@ -50,7 +53,7 @@ function QuestionContainer() {
 				tabIdx={tabIdx}
 				onSelectTab={onContainerSelectTab}
 			/>
-			<QuestionCardList />
+			<QuestionCardList questions={questions} replies={replies} />
 			<PaddingArea />
 			<AddQuestionInputButton
 				onClick={() => newQuestionInputDrawer.setOn()}
@@ -77,6 +80,13 @@ function QuestionContainer() {
 				}}
 				onEdit={() => {
 					editQuestionInputDrawer.setOn(questionEditMenuReducer.data);
+				}}
+			/>
+
+			<MyQuestionsDrawer
+				isOpen={myQuestionDrawerReducer.state}
+				onClose={() => {
+					myQuestionDrawerReducer.setOff();
 				}}
 			/>
 		</>

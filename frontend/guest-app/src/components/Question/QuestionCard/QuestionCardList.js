@@ -1,7 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import gray from "@material-ui/core/colors/grey.js";
 import QuestionCard from "./QuestionCard.js";
-import {useQuestions} from "../QuestionsContext.js";
 
 const style = {
 	backgroundColor: gray[300],
@@ -12,13 +12,15 @@ const style = {
 };
 
 function getReplisInQuestion(questionId, replies) {
-	const repliesInQuestion = replies.filter(reply => reply.QuestionId === questionId);
+	const repliesInQuestion = replies.filter(
+		reply => reply.QuestionId === questionId,
+	);
 
 	return repliesInQuestion;
 }
 
-function QuestionCardList() {
-	const {questions, replies} = useQuestions();
+const QuestionCardList = React.memo(props => {
+	const {questions, replies} = props;
 
 	return (
 		<div style={style}>
@@ -31,8 +33,16 @@ function QuestionCardList() {
 			))}
 		</div>
 	);
-}
+});
 
-QuestionCardList.propTypes = {};
+QuestionCardList.propTypes = {
+	questions: PropTypes.array,
+	replies: PropTypes.array,
+};
+
+QuestionCardList.defualtProps = {
+	questions: [],
+	replies: [],
+};
 
 export default QuestionCardList;

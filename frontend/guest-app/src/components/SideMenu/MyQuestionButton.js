@@ -1,24 +1,21 @@
 import React from "react";
 import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer.js";
-import useCommonModal from "../CommonComponent/CommonModal/useCommonModal.js";
 import SideMenuItem from "./SideMenuItem.js";
-import MyQuestionModal from "../Modals/MyQuestionModal.js";
+import {useUIControllerContext} from "../UIController/UIController.js";
+
+const MY_QUESTION_BUTTON_TEXT = "내 질문들";
 
 function MyQuestionButton() {
-	const modalState = useCommonModal();
+	const {myQuestionDrawerReducer} = useUIControllerContext();
 
 	return (
-		<div>
-			<SideMenuItem
-				icon={<QuestionAnswerIcon/>}
-				itemText={"내 질문들"}
-				onClick={modalState.openModal}
-			/>
-			<MyQuestionModal
-				isOpened={modalState.isOpened}
-				onCancelClick={modalState.closeModal}
-			/>
-		</div>
+		<SideMenuItem
+			icon={<QuestionAnswerIcon />}
+			itemText={MY_QUESTION_BUTTON_TEXT}
+			onClick={() => {
+				myQuestionDrawerReducer.setOn();
+			}}
+		/>
 	);
 }
 
