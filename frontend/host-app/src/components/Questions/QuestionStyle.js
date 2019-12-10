@@ -18,6 +18,14 @@ const QuestionInfo = styled.div`
 	margin-left: 1rem;
 `;
 
+const ReplyInfo = styled.div`
+	display: flex;
+	width: 90%;
+	align-items: center;
+	margin-left: 0.3rem;
+	margin-top: 0.3rem;
+`;
+
 const QuestionBody = styled.div`
 	font-size: 0.9rem;
 	margin: 1rem 0;
@@ -27,4 +35,28 @@ const QuestionButtons = styled.div`
 	margin-left:auto;
 `;
 
-export {QuestionHeader, QuestionMeta, QuestionInfo, QuestionBody, QuestionButtons};
+const ThumbUpContainer = styled.div`
+	display: flex;
+	margin-top: 0.1rem;
+	align-items: center;
+`;
+
+const ReplyContainer = styled.div`
+	margin-left: auto;
+`;
+
+const ReplyBody = styled.div`
+	margin: 0.5rem 1rem;
+`;
+
+export {
+	QuestionHeader,
+	QuestionMeta,
+	QuestionInfo,
+	QuestionBody,
+	QuestionButtons,
+	ThumbUpContainer,
+	ReplyContainer,
+	ReplyBody,
+	ReplyInfo,
+};

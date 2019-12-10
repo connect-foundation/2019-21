@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useReducer, useRef} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import QuestionContainerTabBar from "./QuestionContainerTabBar.js";
 import useTabs from "../../materialUIHooks/useTabs.js";
-import QuestionInputButton from "./QuestionInputArea/QuestionInputButton.js";
+import AddQuestionInputButton from "./QuestionInputArea/AddQuestionInputButton.js";
 import QuestionCardList from "./QuestionCard/QuestionCardList.js";
 import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
 import QuestionsRepliesReducer from "./QuestionsRepliesReducer.js";
@@ -12,10 +12,12 @@ import {
 } from "../../libs/useQueryQuestions.js";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 import {QuestionsRepliesProvider} from "./QuestionsRepliesContext.js";
-import PaddingArea from "./PaddingArea.js";
-import ContainerReducer from "./ContainerReducer.js";
+import PaddingArea from "./QuestionInputArea/PaddingArea.js";
 import {ContainerProvider} from "./ContainerContext.js";
-import QuestionInputDrawer from "./QuestionInputDrawer.js";
+import useToggleReducer from "./useToggleReducer.js";
+import QuestionEditMenuDrawer from "./QuestionCard/QuestionEditMenuDrawer.js";
+import NewQuestionInputDrawer from "./NewQuestionInputDrawer.js";
+import EditQuestionInputDrawer from "./EditQuestionInputDrawer.js";
 
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
@@ -73,12 +75,16 @@ const useSocketHandler = (dispatch, guestGlobal) => {
 		req.guestGlobal = guestGlobal;
 		dispatch({type: "removeQuestionEmoji", data: req});
 	});
-};
 
-const containerInitialState = {
-	QuestionInputDrawer: {
-		isOpen: false,
-	},
+	useSocket("question/remove", req => {
+		req.guestGlobal = guestGlobal;
+		dispatch({type: "removeQuestion", data: req});
+	});
+
+	useSocket("question/update", req => {
+		req.guestGlobal = guestGlobal;
+		dispatch({type: "updateQuestion", data: req});
+	});
 };
 
 function QuestionContainer() {
@@ -86,33 +92,20 @@ function QuestionContainer() {
 	const {data, loading, error} = useQuery(QUERY_INIT_QUESTIONS, {
 		variables: {EventId: event.id, GuestId: guest.id},
 	});
-	const [containerState, containerDispatch] = useReducer(
-		ContainerReducer,
-		containerInitialState,
-	);
 	const [questions, questionsDispatch] = useReducer(
 		QuestionsRepliesReducer,
 		[],
 	);
 	const [replies, repliesDispatch] = useReducer(QuestionsRepliesReducer, []);
+	const newQuestionInputDrawerReducer = useToggleReducer();
+	const EditQuestionInputDrawerReducer = useToggleReducer();
+	const questionEditMenuReducer = useToggleReducer();
 	const {tabIdx, selectTabIdx} = useTabs(RECENT_TAB_IDX);
 	const userNameRef = useRef(null);
 	const questionRef = useRef(null);
 
 	useDataLoadEffect(questionsDispatch, repliesDispatch, data);
 	useSocketHandler(questionsDispatch, guest);
-
-	const onAskQuestion = () => {
-		socketClient.emit(
-			"question/create",
-			getNewQuestion({
-				guestName: userNameRef.current.value,
-				EventId: event.id,
-				GuestId: guest.id,
-				content: questionRef.current.value,
-			}),
-		);
-	};
 
 	const onContainerSelectTab = (event, newValue) => {
 		if (newValue === RECENT_TAB_IDX) {
@@ -136,7 +129,10 @@ function QuestionContainer() {
 			}}
 		>
 			<ContainerProvider
-				value={{container: containerState, dispatch: containerDispatch}}
+				value={{
+					questionInputDrawerReducer: newQuestionInputDrawerReducer,
+					questionEditMenuReducer,
+				}}
 			>
 				<QuestionContainerTabBar
 					tabIdx={tabIdx}
@@ -144,19 +140,34 @@ function QuestionContainer() {
 				/>
 				<QuestionCardList />
 				<PaddingArea />
-				<QuestionInputButton
-					onClick={() =>
-						containerDispatch({type: "openQuestionInputDrawer"})
-					}
+				<AddQuestionInputButton
+					onClick={() => newQuestionInputDrawerReducer.setOn()}
 				/>
-				<QuestionInputDrawer
-					isOpen={containerState.QuestionInputDrawer.isOpen}
-					onClose={() =>
-						containerDispatch({type: "closeQuestionInputDrawer"})
-					}
+				<NewQuestionInputDrawer
 					userNameRef={userNameRef}
-					onAskQuestion={onAskQuestion}
 					questionRef={questionRef}
+					toggleReducer={newQuestionInputDrawerReducer}
+				/>
+				<EditQuestionInputDrawer
+					userNameRef={userNameRef}
+					questionRef={questionRef}
+					toggleReducer={EditQuestionInputDrawerReducer}
+				/>
+				<QuestionEditMenuDrawer
+					isOpen={questionEditMenuReducer.state}
+					onClose={() => questionEditMenuReducer.setOff()}
+					onDelete={() => {
+						socketClient.emit(
+							"question/remove",
+							questionEditMenuReducer.data,
+						);
+						questionEditMenuReducer.setOff();
+					}}
+					onEdit={() => {
+						EditQuestionInputDrawerReducer.setOn(
+							questionEditMenuReducer.data,
+						);
+					}}
 				/>
 			</ContainerProvider>
 		</QuestionsRepliesProvider>

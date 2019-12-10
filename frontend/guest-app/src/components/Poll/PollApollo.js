@@ -40,7 +40,7 @@ function PollApollo() {
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
 
-	return <PollContainer data={data.pollGuest} />;
+	return <PollContainer data={data.pollGuest} GuestId={guest.id} />;
 }
 
 export default PollApollo;

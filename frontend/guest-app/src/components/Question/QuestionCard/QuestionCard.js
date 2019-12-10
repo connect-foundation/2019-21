@@ -7,7 +7,7 @@ import QuestionBody from "./QuestionCardBody.js";
 import EmojiArea from "../../Emoji/EmojiArea.js";
 import ReplyArea from "../../Reply/ReplyArea";
 
-function QuestionCard(props) {
+const QuestionCard = React.memo(props => {
 	const {replies} = props;
 	return (
 		<Card style={{margin: "0.5rem"}}>
@@ -22,7 +22,7 @@ function QuestionCard(props) {
 			</CardContent>
 		</Card>
 	);
-}
+});
 
 QuestionCard.proptypes = {};
 

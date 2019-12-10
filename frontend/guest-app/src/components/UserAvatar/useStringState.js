@@ -1,15 +1,13 @@
 import {useState} from "react";
 
-function useUserAvatar(initialState = {isAnonymous: false, userName: "dummy"}) {
+function useStringState(initialState = "") {
 	const [state, setState] = useState(initialState);
 
 	return {
 		state,
-		isAnonymous: state.isAnonymous,
-		userName: state.userName,
 		setState: newState => setState(newState),
 		reset: () => setState(initialState),
 	};
 }
 
-export default useUserAvatar;
+export default useStringState;

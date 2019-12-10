@@ -29,14 +29,24 @@ function AnonymousAvatar() {
 }
 
 function UserAvatar(props) {
-	const {isAnonymous = false, userName = "Anonymous"} = props;
+	const {userNameRef = {current: null}, userName = ""} = props;
+	const name = userNameRef.current ? userNameRef.current.value : userName;
 
-	return isAnonymous ? <AnonymousAvatar /> : <NamedAvatar {...{userName}} />;
+	return name.length === 0 ? (
+		<AnonymousAvatar />
+	) : (
+		<NamedAvatar userName={name} />
+	);
 }
 
 UserAvatar.propTypes = {
 	userName: PropTypes.string,
-	isAnonymous: PropTypes.bool,
+	userNameRef: PropTypes.any,
+};
+
+UserAvatar.defaultProps = {
+	userName: "",
+	userNameRef: {current: null},
 };
 
 export default UserAvatar;

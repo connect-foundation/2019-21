@@ -16,10 +16,21 @@ function QuestionContainerTabBar(props) {
 
 	return (
 		<Paper style={{backgroundColor: gray[300]}}>
-			<Tabs value={tabIdx} onChange={onSelectTab}>
+			<Tabs
+				value={tabIdx}
+				onChange={onSelectTab}
+				indicatorColor="primary"
+				textColor="primary"
+			>
 				<Tab disabled style={{minWidth: "1rem"}} />
-				<Tab label={"최근순"} selected={tabIdx === RECENT_TAB_IDX} />
-				<Tab label={"인기순"} selected={tabIdx === POPULAR_TAB_IDX} />
+				<Tab
+					label={<Typography>최근순</Typography>}
+					selected={tabIdx === RECENT_TAB_IDX}
+				/>
+				<Tab
+					label={<Typography>인기순</Typography>}
+					selected={tabIdx === POPULAR_TAB_IDX}
+				/>
 				<Tab
 					disabled
 					icon={
