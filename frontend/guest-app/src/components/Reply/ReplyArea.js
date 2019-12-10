@@ -33,7 +33,6 @@ export default function ReplyArea(props) {
 	const repliers = extractUniqueReplier(replies);
 	const repliersNum = repliers.length;
 	const showingReplierList = repliers.slice(0, MAX_SHOWING_AVATAR);
-
 	return (
 		<PreviewReplyContainer>
 			{showingReplierList.map((userName, idx) => {
@@ -54,12 +53,12 @@ export default function ReplyArea(props) {
 				{replies.length}
 			</CurrentRepliesTextField>
 			<Drawer anchor="bottom" open={repliesIsOpened}>
-				<RepliesPaper onClose={closeReplies} />
+				<RepliesPaper onClose={closeReplies} {...props} />
 			</Drawer>
 		</PreviewReplyContainer>
 	);
 }
 
-ReplyArea.PropTypes = {
+ReplyArea.propTypes = {
 	replies: PropTypes.array,
 };
