@@ -34,9 +34,6 @@ function QuestionContainer() {
 	const userNameRef = useRef(null);
 	const questionRef = useRef(null);
 
-	useDataLoadEffect(questionsDispatch, repliesDispatch, data);
-	useSocketHandler(questionsDispatch, repliesDispatch, guest);
-
 	const onContainerSelectTab = (event, newValue) => {
 		if (newValue === RECENT_TAB_IDX) {
 			questionsDispatch({type: "sortByRecent"});
