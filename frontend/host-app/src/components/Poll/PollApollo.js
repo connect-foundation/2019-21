@@ -40,7 +40,7 @@ function PollApollo() {
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
 
-	console.log(data.pollHost);
+	// console.log(data.pollHost);
 	return <PollContainer data={data.pollHost} />;
 }
 
