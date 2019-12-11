@@ -1,9 +1,9 @@
 import React from "react";
+import Tooltip from "@material-ui/core/Tooltip";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import {Icon} from "@material-ui/core";
 import useStyles from "./useStyles";
-import Tooltip from "@material-ui/core/Tooltip";
 
 const ITEM_HEIGHT = 48;
 
