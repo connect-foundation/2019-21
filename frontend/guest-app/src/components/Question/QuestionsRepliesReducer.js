@@ -9,7 +9,7 @@ const onReset = () => [];
 const onLoad = (state, data) => [...state, ...data];
 
 const onAddNewQuestion = (state, data) =>
-	data.status === "active" ? [...state, data] : [...state];
+	(data.status === "active" ? [...state, data] : [...state]);
 
 const onSortByRecent = state => [...state.sort(compareByDate)];
 
@@ -133,12 +133,10 @@ const onRemoveQuestionEmoji = (state, data) => {
 	return newState;
 };
 
-const onRemoveQuestion = (state, data) => {
-	return _.cloneDeep(state).filter(x => x.id !== data.id);
-};
+const onRemoveQuestion = (state, data) => _.cloneDeep(state).filter(x => x.id !== data.id);
 
 const onUpdateQuestion = (state, data) => {
-	let newState = _.cloneDeep(state);
+	const newState = _.cloneDeep(state);
 
 	newState.map(x => {
 		if (x.id !== data.id) {

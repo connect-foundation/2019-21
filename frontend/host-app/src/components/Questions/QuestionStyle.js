@@ -49,6 +49,15 @@ const ReplyBody = styled.div`
 	margin: 0.5rem 1rem;
 `;
 
+const FocusedDiv = styled.div`
+	width: 100%;
+`;
+
+const UnFocusedDiv = styled.div`
+	width: 100%;
+	overflow: auto;
+`;
+
 export {
 	QuestionHeader,
 	QuestionMeta,
@@ -59,4 +68,6 @@ export {
 	ReplyContainer,
 	ReplyBody,
 	ReplyInfo,
+	FocusedDiv,
+	UnFocusedDiv,
 };

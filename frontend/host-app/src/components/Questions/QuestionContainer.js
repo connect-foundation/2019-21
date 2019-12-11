@@ -1,21 +1,19 @@
 import React from "react";
-import styled from "styled-components";
 import ModerationQuestionCard from "./ModerationQuestionCard.js";
 import LiveQuestionCard from "./LiveQuestionCard";
 import CompleteQuestionCard from "./CompleteQuestionCard";
 import PollApollo from "../Poll/PollApollo.js";
 import {filterQuestion, filterReplies} from "../../libs/utils";
-
-const QuestionDiv = styled.div`
-	width: 100%;
-`;
+import {FocusedDiv, UnFocusedDiv} from "./QuestionStyle";
 
 const compareByCreateAt = (a, b) =>
 	a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0;
 const compareByLikeCount = (a, b) =>
 	a.likeCount < b.likeCount ? 1 : a.likeCount > b.likeCount ? -1 : 0;
 
-function QuestionContainer({datas, type, dataHandler, handleStar}) {
+function QuestionContainer({datas, type, dataHandler, handleStar, containerType}) {
+	const QuestionDiv = containerType === "focus" ? FocusedDiv : UnFocusedDiv;
+
 	return (
 		<QuestionDiv>
 			{type === "moderation" &&
@@ -65,7 +63,7 @@ function QuestionContainer({datas, type, dataHandler, handleStar}) {
 						replies={filterReplies(question.id, datas).questions}
 					/>
 				))}
-			{type === "poll" && <PollApollo />}
+			{(type === "poll" && containerType !== "focus") && <PollApollo />}
 		</QuestionDiv>
 	);
 }

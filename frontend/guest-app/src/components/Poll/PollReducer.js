@@ -5,6 +5,7 @@ const getCandidateToDelete = (items, candidateId) => {
 	const candidate = items.filter(
 		item => item.voted && item.id !== candidateId,
 	)[0];
+
 	return candidate ? candidate.id : null;
 };
 
@@ -71,16 +72,30 @@ const emitVoteData = (vote, poll, candidateToDelete) => {
 		GuestId: vote.GuestId,
 		CandidateId: vote.candidateId,
 		allowDuplication: poll.allowDuplication,
-		poll: poll,
-		candidateToDelete: candidateToDelete,
+		poll,
+		candidateToDelete,
 	};
 
 	// console.log("emitVoteData", data);
 	socketClient.emit(`vote/${action}`, data);
 };
 
+const emitRateData = (rate, poll, candidateId, index) => {
+	const action = rate.type === "RATE" ? "on" : "off"; // "on" or "off"
+	const data = {
+		GuestId: rate.GuestId,
+		CandidateId: candidateId,
+		poll: poll,
+		index: index,
+	};
+
+	socketClient.emit(`rate/${action}`, data);
+};
+
 export default function reducer(polls, action) {
 	let thePoll;
+	let index;
+	let candidateId;
 
 	if (action.id) {
 		thePoll = polls.filter(poll => poll.id === action.id)[0];
@@ -97,9 +112,14 @@ export default function reducer(polls, action) {
 			});
 			// console.log("SOMEONE_VOTE", thePoll);
 			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
+		case "SOMEONE_RATE":
+			thePoll.totalVoters = action.poll.totalVoters;
+			// console.log("SOMEONE_RATE", thePoll);
+			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
 		case "VOTE":
 			const notVoted = thePoll.nItems.every(item => item.voted === false);
 			let candidateToDelete = null;
+
 			if (!thePoll.allowDuplication) {
 				candidateToDelete = getCandidateToDelete(
 					thePoll.nItems,
@@ -133,12 +153,17 @@ export default function reducer(polls, action) {
 				ratingValue: action.value,
 				totalVoters: thePoll.totalVoters + 1,
 			};
+			// console.log("RATE", action, thePoll);
+			index = parseInt(action.value) - 1;
+			candidateId = thePoll.nItems[index].id;
+			emitRateData(action, thePoll, candidateId, index);
 			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
 
 		case "CANCEL_RATING":
 			if (!thePoll.rated) {
 				return polls;
 			}
+			index = parseInt(thePoll.ratingValue) - 1;
 			thePoll = {
 				...thePoll,
 				nItems: updateRatingItem(
@@ -150,19 +175,11 @@ export default function reducer(polls, action) {
 				ratingValue: 0,
 				totalVoters: thePoll.totalVoters - 1,
 			};
+			// console.log("CANCEL_RATE", action, thePoll);
+			candidateId = thePoll.nItems[index].id;
+			emitRateData(action, thePoll, candidateId, index);
 			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
-		// if (notVoted && thePoll.nItems[0].value === 0) {
-		// 	return thePoll;
-		// }
-		// return {
-		// 	...thePoll,
-		// 	nItems: updateRatingItem(thePoll.nItems, 0, false),
-		// 	totalVoters: updateTotalVoters(
-		// 		notVoted,
-		// 		thePoll.totalVoters,
-		// 		thePoll.nItems,
-		// 	),
-		// };
+
 		default:
 			throw new Error("Unhandled action.");
 	}

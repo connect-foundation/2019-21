@@ -16,6 +16,7 @@ import MyQuestionsDrawer from "./MyQuestionDrawer.js";
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
 
+
 function QuestionContainer() {
 	const {
 		questionsDispatch,
@@ -32,8 +33,8 @@ function QuestionContainer() {
 	} = useUIControllerContext();
 	const {tabIdx, selectTabIdx} = useTabs(RECENT_TAB_IDX);
 	const userNameRef = useRef(null);
-
 	const questionRef = useRef(null);
+
 
 	const onContainerSelectTab = (event, newValue) => {
 		if (newValue === RECENT_TAB_IDX) {

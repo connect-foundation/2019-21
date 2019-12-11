@@ -31,7 +31,6 @@ function LiveQuestionCard(props) {
 								onClick={() => props.handleStar(props.id)}>
 								stars
 							</Icon>
-							<Icon className={classes.upwardButton}>publish</Icon>
 							<Icon
 								className={classes.approveButton}
 								onClick={() => props.dataHandler(props.id, props.type, "completeQuestion")}>

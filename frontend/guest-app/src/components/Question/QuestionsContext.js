@@ -30,40 +30,49 @@ const useDataLoadEffect = (questionsDispatch, repliesDispatch, data) => {
 	}, [data, questionsDispatch, repliesDispatch]);
 };
 
-const useSocketHandler = (dispatch, guestGlobal) => {
+const useSocketHandler = (questionDispatch, repliesDispatch, guestGlobal) => {
 	useSocket("question/create", req => {
 		req.guestGlobal = guestGlobal;
-		dispatch({type: "addNewQuestion", data: req});
+		questionDispatch({type: "addNewQuestion", data: req});
 	});
 
 	useSocket("questionLike/create", req => {
 		req.guestGlobal = guestGlobal;
-		dispatch({type: "LikeQuestion", data: req});
+		questionDispatch({type: "LikeQuestion", data: req});
+		repliesDispatch({type: "LikeQuestion", data: req});
 	});
 
 	useSocket("questionLike/remove", req => {
 		req.guestGlobal = guestGlobal;
-		dispatch({type: "undoLikeQuestion", data: req});
+		questionDispatch({type: "undoLikeQuestion", data: req});
+		repliesDispatch({type: "undoLikeQuestion", data: req});
 	});
 
 	useSocket("questionEmoji/create", req => {
 		req.guestGlobal = guestGlobal;
-		dispatch({type: "addQuestionEmoji", data: req});
+		questionDispatch({type: "addQuestionEmoji", data: req});
+		repliesDispatch({type: "addQuestionEmoji", data: req});
 	});
 
 	useSocket("questionEmoji/remove", req => {
 		req.guestGlobal = guestGlobal;
-		dispatch({type: "removeQuestionEmoji", data: req});
+		questionDispatch({type: "removeQuestionEmoji", data: req});
+		repliesDispatch({type: "removeQuestionEmoji", data: req});
 	});
 
 	useSocket("question/remove", req => {
 		req.guestGlobal = guestGlobal;
-		dispatch({type: "removeQuestion", data: req});
+		questionDispatch({type: "removeQuestion", data: req});
 	});
 
 	useSocket("question/update", req => {
 		req.guestGlobal = guestGlobal;
-		dispatch({type: "updateQuestion", data: req});
+		questionDispatch({type: "updateQuestion", data: req});
+	});
+
+	useSocket("reply/create", req => {
+		req.guestGlobal = guestGlobal;
+		repliesDispatch({type: "addNewQuestion", data: req});
 	});
 };
 
@@ -81,7 +90,7 @@ export function QuestionsProvider(props) {
 	const [replies, repliesDispatch] = useReducer(QuestionsRepliesReducer, []);
 
 	useDataLoadEffect(questionsDispatch, repliesDispatch, data);
-	useSocketHandler(questionsDispatch, guest);
+	useSocketHandler(questionsDispatch, repliesDispatch, guest);
 
 	const value = {
 		loading,

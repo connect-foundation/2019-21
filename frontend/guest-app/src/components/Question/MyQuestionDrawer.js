@@ -28,7 +28,7 @@ function MyQuestionsDrawer(props) {
 		>
 			<Scrollbars style={fullSizeCardStyle}>
 				<QuestionCardList
-					questions={questions.filter(x => x.GuestId === guest.d)}
+					questions={questions.filter(x => x.GuestId === guest.id)}
 					replies={replies}
 				/>
 				<PaddingArea />
