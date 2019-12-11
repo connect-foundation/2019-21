@@ -17,12 +17,7 @@ const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
 
 function QuestionContainer() {
-	const {
-		questionsDispatch,
-		questions,
-		replies,
-		repliesDispatch,
-	} = useQuestions();
+	const {dispatch, questions, replies} = useQuestions();
 
 	const {
 		newQuestionInputDrawer,
@@ -36,11 +31,11 @@ function QuestionContainer() {
 
 	const onContainerSelectTab = (event, newValue) => {
 		if (newValue === RECENT_TAB_IDX) {
-			questionsDispatch({type: "sortByRecent"});
+			dispatch({type: "sortByRecent"});
 		}
 
 		if (newValue === POPULAR_TAB_IDX) {
-			questionsDispatch({type: "sortByLikeCount"});
+			dispatch({type: "sortByLikeCount"});
 		}
 
 		selectTabIdx(event, newValue);

@@ -27,7 +27,7 @@ function ReplyQuestionDivider(props) {
 
 	return (
 		<Container>
-			<ReplieNumField>{`${replies.length} replies`}</ReplieNumField>
+			<ReplieNumField>{`${replies.length}개 댓글`}</ReplieNumField>
 			<CustomDivider></CustomDivider>
 		</Container>
 	);

@@ -10,69 +10,49 @@ import QuestionsRepliesReducer from "./QuestionsRepliesReducer.js";
 
 const QuestionsContext = createContext([]);
 
-const useDataLoadEffect = (questionsDispatch, repliesDispatch, data) => {
+const useDataLoadEffect = (dispatch, data) => {
 	useEffect(() => {
 		if (data) {
-			const questions = [];
-			const replies = [];
 			const buildData = buildQuestions(data);
-
-			buildData.forEach(question => {
-				if (question.QuestionId) {
-					replies.push(question);
-				} else {
-					questions.push(question);
-				}
-			});
-			questionsDispatch({type: "load", data: questions});
-			repliesDispatch({type: "load", data: replies});
+			dispatch({type: "load", data: buildData});
 		}
-	}, [data, questionsDispatch, repliesDispatch]);
+	}, [data, dispatch]);
 };
 
-const useSocketHandler = (questionDispatch, repliesDispatch, guestGlobal) => {
+const useSocketHandler = (dispatch, guestGlobal) => {
 	useSocket("question/create", req => {
 		req.guestGlobal = guestGlobal;
-		questionDispatch({type: "addNewQuestion", data: req});
+		dispatch({type: "addNewQuestion", data: req});
 	});
 
 	useSocket("questionLike/create", req => {
 		req.guestGlobal = guestGlobal;
-		questionDispatch({type: "LikeQuestion", data: req});
-		repliesDispatch({type: "LikeQuestion", data: req});
+		dispatch({type: "LikeQuestion", data: req});
 	});
 
 	useSocket("questionLike/remove", req => {
 		req.guestGlobal = guestGlobal;
-		questionDispatch({type: "undoLikeQuestion", data: req});
-		repliesDispatch({type: "undoLikeQuestion", data: req});
+		dispatch({type: "undoLikeQuestion", data: req});
 	});
 
 	useSocket("questionEmoji/create", req => {
 		req.guestGlobal = guestGlobal;
-		questionDispatch({type: "addQuestionEmoji", data: req});
-		repliesDispatch({type: "addQuestionEmoji", data: req});
+		dispatch({type: "addQuestionEmoji", data: req});
 	});
 
 	useSocket("questionEmoji/remove", req => {
 		req.guestGlobal = guestGlobal;
-		questionDispatch({type: "removeQuestionEmoji", data: req});
-		repliesDispatch({type: "removeQuestionEmoji", data: req});
+		dispatch({type: "removeQuestionEmoji", data: req});
 	});
 
 	useSocket("question/remove", req => {
 		req.guestGlobal = guestGlobal;
-		questionDispatch({type: "removeQuestion", data: req});
+		dispatch({type: "removeQuestion", data: req});
 	});
 
 	useSocket("question/update", req => {
 		req.guestGlobal = guestGlobal;
-		questionDispatch({type: "updateQuestion", data: req});
-	});
-
-	useSocket("reply/create", req => {
-		req.guestGlobal = guestGlobal;
-		repliesDispatch({type: "addNewQuestion", data: req});
+		dispatch({type: "updateQuestion", data: req});
 	});
 };
 
@@ -82,23 +62,24 @@ export function QuestionsProvider(props) {
 	const {data, loading, error} = useQuery(QUERY_INIT_QUESTIONS, {
 		variables: {EventId: event.id, GuestId: guest.id},
 	});
+	const [state, dispatch] = useReducer(QuestionsRepliesReducer, []);
 
-	const [questions, questionsDispatch] = useReducer(
-		QuestionsRepliesReducer,
-		[],
-	);
-	const [replies, repliesDispatch] = useReducer(QuestionsRepliesReducer, []);
+	useDataLoadEffect(dispatch, data);
+	useSocketHandler(dispatch, guest);
 
-	useDataLoadEffect(questionsDispatch, repliesDispatch, data);
-	useSocketHandler(questionsDispatch, repliesDispatch, guest);
+	const questions = state.filter(question => {
+		return question.QuestionId === null;
+	});
+	const replies = state.filter(question => {
+		return question.QuestionId !== null;
+	});
 
 	const value = {
 		loading,
 		error,
 		questions,
-		questionsDispatch,
 		replies,
-		repliesDispatch,
+		dispatch,
 	};
 
 	return (
