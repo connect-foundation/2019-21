@@ -1,7 +1,7 @@
 import devConfig from "./env.dev.config.js";
 import prodConfig from "./env.prod.config.js";
 
-function configLoader() {
+function index() {
 	if (process.env.NODE_ENV === "development") {
 		return devConfig;
 	} else {
@@ -9,4 +9,5 @@ function configLoader() {
 	}
 }
 
-export default configLoader;
+const config = index()
+export default config;

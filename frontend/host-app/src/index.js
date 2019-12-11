@@ -6,11 +6,8 @@ import "./index.css";
 import App from "./App/App.js";
 import * as serviceWorker from "./libs/serviceWorker.js";
 import {initSocketIoClientWrapper} from "./libs/socket.io-Client-wrapper.js";
-import configLoader from "./config/configLoader.js";
-
+import config from "./config";
 import creaetApolloClient from "./libs/createApolloClient";
-
-const config = configLoader();
 
 const webSocketNameSpace = "defaultRoom";
 

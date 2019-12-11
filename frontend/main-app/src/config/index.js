@@ -9,4 +9,6 @@ function configLoader() {
 	}
 }
 
-export default configLoader;
+const config = configLoader();
+
+export default config;

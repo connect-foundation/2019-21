@@ -12,9 +12,7 @@ import HashTagsField from "./HashTagsField";
 import {generalSettingReducer} from "../../settingReducer/settingReducer";
 import ButtonField from "../ButtonField";
 import {HostContext} from "../../../../libs/hostContext";
-import configLoader from "../../../../config/configLoader";
-
-const config = configLoader();
+import config from "../../../../config";
 
 const PopUpLayOutStyle = styled.div`
 	display: flex;

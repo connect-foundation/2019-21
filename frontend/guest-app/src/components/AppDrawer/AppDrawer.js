@@ -7,7 +7,7 @@ import AppDrawerNavBar from "./AppDrawerNavBar.js";
 
 const AppDrawerBody = styled.div`
 	position: fixed;
-	top: 4rem;
+	top: 3.5rem;
 	width: 100%;
 	z-index: 1;
 `;

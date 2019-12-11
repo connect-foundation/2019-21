@@ -5,9 +5,8 @@ import { TextField, Button } from "@material-ui/core";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
-import configLoader from "../config/configLoader.js";
+import config from "../config";
 
-const config = configLoader();
 const EventFormStyle = styled.div`
 	display: flex;
 	flex-direction: column;

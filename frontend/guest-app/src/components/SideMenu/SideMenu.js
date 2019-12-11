@@ -3,6 +3,7 @@ import Drawer from "@material-ui/core/Drawer";
 import SideMenuHeader from "./SideMenuHeader.js";
 import SideMenuBody from "./SideMenuBody.js";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
+import SideMenuFooter from "./SideMenuFooter.js";
 
 export function SideMenu({isOpen = false, toggleNavMenu}) {
 	const {event} = useContext(GuestGlobalContext);
@@ -16,6 +17,8 @@ export function SideMenu({isOpen = false, toggleNavMenu}) {
 				endAt={event.endAt}
 			/>
 			<SideMenuBody {...{toggleNavMenu}} />
+
+			<SideMenuFooter />
 		</Drawer>
 	);
 }
