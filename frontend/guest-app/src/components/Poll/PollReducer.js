@@ -104,6 +104,8 @@ export default function reducer(polls, action) {
 	switch (action.type) {
 		case "NOTIFY_OPEN":
 			return [action.poll, ...polls];
+		case "NOTIFY_CLOSE":
+			return polls.filter(poll => poll.id !== action.id);
 		case "SOMEONE_VOTE":
 			thePoll.totalVoters = action.poll.totalVoters;
 			thePoll.nItems.forEach((item, index) => {
