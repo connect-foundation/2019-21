@@ -154,12 +154,21 @@ const onUpdateQuestion = (state, data) => {
 };
 
 const onMoveQuestion = (state, data) => {
-	const newState = state.map(e => {
+	const newState = _.cloneDeep(state);
+
+	if (data.from === "moderation") { newState.push(data.questionData); }
+	console.log(data);
+	if (data.id === "all") {
+		return newState.map(e => {
+			if (e.state === data.from) { e.state = data.to; }
+			return e;
+		});
+	}
+
+	return newState.map(e => {
 		if (e.id === data.id) { e.state = data.to; }
 		return e;
 	});
-	console.log(newState);
-	return newState;
 };
 
 const QuestionsRepliesReducer = (state, action) => {
