@@ -17,43 +17,43 @@ import {
 const AppStyle = styled.div`
 	height: 100vh;
 	width: 100vw;
-	// overflow:hidden;
 `;
 
 export default function App() {
 	const {data, loading, error, refetch} = useQuery(GET_GUEST_APP_GLOBAL_DATA);
 
 	if (loading) {
-		return <TopProgressBar/>;
+		return <TopProgressBar />;
 	}
 
 	if (error) {
 		window.location.href = config.inValidGuestRedirectURL;
-		return <div/>;
+		return <div />;
 	}
 
 	const {event, guest} = data.guestInEvent;
 	const client = createSocketIOClient({
 		host: config.socketIOHost,
 		port: config.socketIOPort,
-		nameSpace: event.id,
+		namespace: "event",
+		room: event.id,
 	});
+
+	client.on("connect", () => {
+		client.emit("joinRoom", {room: event.id,});
+	});
+
+	const globalData = {event, guest, refetch};
 
 	return (
 		<AppStyle>
 			<SocketIoClientProvider client={client}>
-				<UIController>
-					<GuestGlobalProvider
-						value={{
-							event,
-							guest,
-							refetch,
-						}}
-					>
-						<NavBar title={event.eventName}/>
-						<TabGroup/>
-					</GuestGlobalProvider>
-				</UIController>
+				<GuestGlobalProvider value={globalData}>
+					<UIController>
+						<NavBar title={event.eventName} />
+						<TabGroup />
+					</UIController>
+				</GuestGlobalProvider>
 			</SocketIoClientProvider>
 		</AppStyle>
 	);
