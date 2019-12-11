@@ -9,6 +9,7 @@ const Container = styled(Box)({
 	marginBottom: "1rem",
 	display: "flex",
 	flexDirection: "row",
+	flex: 1,
 });
 
 const ReplieNumField = styled(Box)({
@@ -17,7 +18,7 @@ const ReplieNumField = styled(Box)({
 
 const CustomDivider = styled(Divider)({
 	marginLeft: "2rem",
-	width: "90%",
+	width: "80%",
 	height: "0.2rem",
 	marginTop: "0.8rem",
 });
