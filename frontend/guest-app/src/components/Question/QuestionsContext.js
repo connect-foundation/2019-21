@@ -5,7 +5,7 @@ import {
 	buildQuestions,
 	QUERY_INIT_QUESTIONS,
 } from "../../libs/useQueryQuestions.js";
-import {useSocket} from "../../libs/socket.io-Client-wrapper.js";
+import {useSocket} from "../../libs/socketIoClientProvider.js";
 import QuestionsRepliesReducer from "./QuestionsRepliesReducer.js";
 
 const QuestionsContext = createContext([]);

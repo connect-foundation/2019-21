@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import ReplyInput from "./ReplyInput";
-import {socketClient} from "../../libs/socket.io-Client-wrapper";
+import {socketClient} from "../../libs/socketIoClientProvider.js";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 
 const createNewReply = ({

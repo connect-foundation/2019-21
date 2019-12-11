@@ -7,19 +7,12 @@ import creaetApolloClient from "./libs/createApolloClient";
 import "./index.css";
 import App from "./App/App.js";
 import * as serviceWorker from "./libs/serviceWorker.js";
-import {initSocketIoClientWrapper} from "./libs/socket.io-Client-wrapper.js";
 import config from "./config";
 
 const cookieName = "vaagle-guest";
 const token = Cookies.get(cookieName);
 const client = creaetApolloClient(config.apolloURI, token);
-const webSocketNameSpace = "defaultRoom";
 
-initSocketIoClientWrapper(
-	config.socketIOHost,
-	config.socketIOPort,
-	webSocketNameSpace,
-);
 
 ReactDOM.render(
 	<ApolloProvider client={client}>

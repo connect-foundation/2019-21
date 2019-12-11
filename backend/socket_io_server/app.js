@@ -20,11 +20,13 @@ const httpServer = http.createServer(app).listen(port, () => {
 
 const socketServer = io(httpServer);
 
-function BindSocketListener(socket, server) {
+function BindSocketListener(socket, server, nameSpace) {
+	console.log(nameSpace);
 	return (eventName, handler) => {
 		socket.on(eventName, data => {
 			const emit = res => {
-				server.emit(eventName, res);
+				console.log(`emit to ${nameSpace}`);
+				server.to(nameSpace).emit(eventName, res);
 			};
 
 			try {
@@ -48,9 +50,16 @@ socketServer.use(authenticate());
 nameSpaceServer.on("connection", async socket => {
 	const nameSpace = socket.nsp.name;
 	const id = socket.id;
-	logger.info(`id ${id} connected to nameSpace ${nameSpace}`);
 
-	const addSocketListener = BindSocketListener(socket, nameSpaceServer);
+	logger.info(`id ${id} connected to room ${nameSpace}`);
+
+	socket.join(nameSpace);
+
+	const addSocketListener = BindSocketListener(
+		socket,
+		nameSpaceServer,
+		nameSpace
+	);
 
 	socketHandlers.forEach(({eventName, handler}) => {
 		addSocketListener(eventName, handler);
