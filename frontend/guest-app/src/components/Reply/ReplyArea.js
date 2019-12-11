@@ -5,6 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import Drawer from "@material-ui/core/Drawer";
 import ReplyAvatar from "./ReplyAvatar";
 import RepliesPaper from "./RepliesPaper";
+import AddReplyRow from "./AddReplyRow";
 import useReplies from "./useReplies";
 
 import CurrentRepliesTextField from "./CurrentRepliesTextField";
@@ -35,32 +36,40 @@ export default function ReplyArea(props) {
 	const showingReplierList = repliers.slice(0, MAX_SHOWING_AVATAR);
 
 	return (
-		<PreviewReplyContainer>
-			{replies.length !== 0 &&
-				showingReplierList.map((userName, idx) => {
-					if (idx === MAX_SHOWING_AVATAR - 1) {
+		<>
+			{replies.length !== 0 ? (
+				<PreviewReplyContainer>
+					{showingReplierList.map((userName, idx) => {
+						if (idx === MAX_SHOWING_AVATAR - 1) {
+							return (
+								<ReplyAvatar
+									userName={userName}
+									remainder={
+										repliersNum - MAX_SHOWING_AVATAR + 1
+									}
+									key={idx}
+								></ReplyAvatar>
+							);
+						}
 						return (
 							<ReplyAvatar
 								userName={userName}
-								remainder={repliersNum - MAX_SHOWING_AVATAR + 1}
 								key={idx}
 							></ReplyAvatar>
 						);
-					}
-					return (
-						<ReplyAvatar
-							userName={userName}
-							key={idx}
-						></ReplyAvatar>
-					);
-				})}
-			<CurrentRepliesTextField openReplies={openReplies}>
-				{replies.length ? `${replies.length} replies` : "답글달기"}
-			</CurrentRepliesTextField>
+					})}
+
+					<CurrentRepliesTextField openReplies={openReplies}>
+						{`${replies.length}개 댓글`}
+					</CurrentRepliesTextField>
+				</PreviewReplyContainer>
+			) : (
+				<AddReplyRow openReplies={openReplies}></AddReplyRow>
+			)}
 			<Drawer anchor="bottom" open={repliesIsOpened}>
 				<RepliesPaper onClose={closeReplies} {...props} />
 			</Drawer>
-		</PreviewReplyContainer>
+		</>
 	);
 }
 
