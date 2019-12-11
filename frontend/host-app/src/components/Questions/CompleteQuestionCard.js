@@ -28,7 +28,7 @@ function CompleteQuestionCard(props) {
 						<QuestionButtons>
 							<Icon
 								className={classes.restoreButton}
-								onClick={() => {}}>
+								onClick={() => props.dataHandler(props.id, props.type, "active")}>
 								restore
 							</Icon>
 							<QuestionMenu id={props.id} type={props.type} handler={props.dataHandler}/>
