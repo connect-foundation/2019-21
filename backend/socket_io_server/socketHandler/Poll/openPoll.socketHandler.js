@@ -1,21 +1,21 @@
-import { openPoll } from "../../../DB/queries/poll";
+import {openPoll} from "../../../DB/queries/poll";
 
 const openPollSocketHandler = async (data, emit) => {
 	try {
-		const { pollId } = data;
+		const {pollId} = data;
 
-		let result = await openPoll(pollId);
+		const result = await openPoll(pollId);
 
 		if (result[0] != 1) {
 			console.log(
-				`Something wrong with poll/open: affected number of rows = ${result[0]}`
+				`Something wrong with poll/open: affected number of rows = ${result[0]}`,
 			);
 			return;
 		}
 		emit(pollId);
 	} catch (e) {
 		console.error(e);
-		emit({ status: "error", e });
+		emit({status: "error", e});
 	}
 };
 

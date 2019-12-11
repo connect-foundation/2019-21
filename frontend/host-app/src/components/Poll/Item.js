@@ -37,7 +37,7 @@ const GraphWrapper = styled.div`
 	top: 0;
 	left: 0;
 	background-color: ${props =>
-		props.firstPlace ? "yellow" : "#ced4da"}; /* Gray4 */
+		(props.firstPlace ? "yellow" : "#ced4da")}; /* Gray4 */
 	height: 100%;
 	width: ${props => props.ratio};
 	box-sizing: border-box;

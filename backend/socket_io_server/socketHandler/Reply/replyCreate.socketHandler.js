@@ -12,7 +12,8 @@ function getNewQuestion({
 	content,
 	emojis = [],
 	isAnonymous = false,
-	createdAt = new Date().getTime().toString(),
+	createdAt = new Date().getTime()
+		.toString(),
 	isShowEditButton = true,
 	didILike = false,
 	likeCount = 0,
@@ -48,6 +49,7 @@ const replyCreateSocketHandler = async (data, emit, socket, server) => {
 			QuestionId,
 			isAnonymous,
 		} = newQuestion;
+
 		logger.debug(data);
 
 		const event = await eventCache.get(EventId);
@@ -63,14 +65,14 @@ const replyCreateSocketHandler = async (data, emit, socket, server) => {
 				content,
 				GuestId,
 				QuestionId,
-				QUESTION_STATE_MODERATION
+				QUESTION_STATE_MODERATION,
 			);
 		} else {
 			newData = await createQuestion(
 				EventId,
 				content,
 				GuestId,
-				QuestionId
+				QuestionId,
 			);
 		}
 

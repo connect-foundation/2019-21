@@ -1,4 +1,4 @@
-import styled ,{keyframes} from "styled-components";
+import styled, {keyframes} from "styled-components";
 
 const Open = keyframes`
 	0% { 
@@ -81,7 +81,7 @@ const QuestionStyle = styled.div`
 	background-color: #f1f3f5;
 	border: 1px solid #e9ecef;
 	min-width: 20rem;
-	height: ${props => props.height || "100%" };
+	height: ${props => props.height || "100%"};
 	box-sizing: border-box;
 	margin-left: 8px;
 `;
@@ -99,7 +99,7 @@ const ModerationStyle = styled.div`
 	background-color: #f1f3f5;
 	border: 1px solid #e9ecef;
 	min-width: ${props => ((props.state) ? "20rem" : "8rem")};
-	height: ${props => props.height || "100%" };
+	height: ${props => props.height || "100%"};
 	box-sizing: border-box;
 	& + & {
 		margin-left: 8px;

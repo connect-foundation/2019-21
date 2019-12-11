@@ -9,7 +9,7 @@ export async function createQuestion(
 	content,
 	GuestId,
 	QuestionId,
-	state = "active"
+	state = "active",
 ) {
 	return Question.create({
 		content,
@@ -49,7 +49,7 @@ export async function updateQuestionById({id, content, state, isStared}) {
 			state,
 			isStared,
 		},
-		{where: {id}}
+		{where: {id}},
 	);
 }
 
@@ -58,7 +58,7 @@ export async function updateEveryState(from, {state}) {
 		{
 			state,
 		},
-		{where: {state: from}}
+		{where: {state: from}},
 	);
 }
 

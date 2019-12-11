@@ -12,8 +12,8 @@ export async function openPoll(pollId) {
 			pollDate: now,
 		},
 		{
-			where: { id: pollId },
-		}
+			where: {id: pollId},
+		},
 	);
 
 	// result should be == [1], 1개의 row가 성공했다는 의미
@@ -22,7 +22,7 @@ export async function openPoll(pollId) {
 
 export async function getPollsByEventId(eventId) {
 	const result = await models.Poll.findAll({
-		where: { EventId: eventId },
+		where: {EventId: eventId},
 		order: [["id", "DESC"]],
 	});
 
@@ -31,8 +31,9 @@ export async function getPollsByEventId(eventId) {
 
 const makeCandidateRows = (id, pollType, candidates) => {
 	let i = 0;
-	let nItems = [];
-	for (let value of candidates) {
+	const nItems = [];
+
+	for (const value of candidates) {
 		nItems.push({
 			PollId: id,
 			number: i,
@@ -50,7 +51,7 @@ export async function createPoll(
 	selectionType,
 	allowDuplication,
 	state,
-	candidates
+	candidates,
 ) {
 	let transaction;
 	let poll;
@@ -70,12 +71,13 @@ export async function createPoll(
 				allowDuplication,
 				state,
 			},
-			{ transaction }
+			{transaction},
 		);
 
 		// step 2
 		const rows = makeCandidateRows(poll.id, pollType, candidates);
-		nItems = await Candidate.bulkCreate(rows, { transaction });
+
+		nItems = await Candidate.bulkCreate(rows, {transaction});
 
 		// commit
 		await transaction.commit();
@@ -86,8 +88,8 @@ export async function createPoll(
 	}
 
 	if (poll && nItems) {
-		poll = poll.get({ plain: true });
-		poll.nItems = nItems.map(item => item.get({ plain: true }));
+		poll = poll.get({plain: true});
+		poll.nItems = nItems.map(item => item.get({plain: true}));
 	}
 
 	return poll;

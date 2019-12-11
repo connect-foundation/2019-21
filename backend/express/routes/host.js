@@ -1,8 +1,8 @@
 import express from "express";
 import loadConfig from "../config/configLoader";
-import { hostAuthenticate } from "../middleware/authenticate";
+import {hostAuthenticate} from "../middleware/authenticate";
 
-const { routePage } = loadConfig();
+const {routePage} = loadConfig();
 const router = express.Router();
 const cookieName = "vaagle-host";
 

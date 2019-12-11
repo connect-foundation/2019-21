@@ -1,4 +1,4 @@
-import { updateEventById } from "../../../DB/queries/event";
+import {updateEventById} from "../../../DB/queries/event";
 import eventCache from "../../EventCache";
 
 const toggleModerationSocketHandler = async (data, emit) => {

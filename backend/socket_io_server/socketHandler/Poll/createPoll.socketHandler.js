@@ -1,4 +1,4 @@
-import { createPoll } from "../../../DB/queries/poll";
+import {createPoll} from "../../../DB/queries/poll";
 
 const createPollSocketHandler = async (data, emit) => {
 	try {
@@ -13,20 +13,20 @@ const createPollSocketHandler = async (data, emit) => {
 
 		const state = "standby";
 
-		let result = await createPoll(
+		const result = await createPoll(
 			EventId,
 			pollName,
 			pollType,
 			selectionType,
 			allowDuplication,
 			state,
-			candidates
+			candidates,
 		);
 
 		emit(result);
 	} catch (e) {
 		console.error(e);
-		emit({ status: "error", e });
+		emit({status: "error", e});
 	}
 };
 

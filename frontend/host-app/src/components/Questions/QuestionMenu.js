@@ -20,9 +20,9 @@ export default function QuestionMenu({id, type, handler}) {
 	};
 
 	const handleDelete = () => {
-		handler(id,type,"deleted");
+		handler(id, type, "deleted");
 		handleClose();
-	}
+	};
 
 	return (
 		<>
@@ -43,7 +43,7 @@ export default function QuestionMenu({id, type, handler}) {
 				<MenuItem key={"편집"} onClick={handleClose}>
 					{"편집"}
 				</MenuItem>
-				<MenuItem key={"삭제"} onClick={() => {handleDelete()} }>
+				<MenuItem key={"삭제"} onClick={() => { handleDelete(); } }>
 					{"삭제"}
 				</MenuItem>
 			</Menu>

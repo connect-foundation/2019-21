@@ -1,17 +1,17 @@
-import React, { useReducer, useContext } from "react";
-import { Modal } from "@material-ui/core";
+import React, {useReducer, useContext} from "react";
+import {Modal} from "@material-ui/core";
 import styled from "styled-components";
 import moment from "moment";
 import InputEventName from "./InputEventName";
 import InputStartDate from "./InputStartDate";
-import { useMutation } from "@apollo/react-hooks";
+import {useMutation} from "@apollo/react-hooks";
 import InputHashTag from "./InputHashTag";
 import EndDateField from "./EndDateField";
 import HashTagsField from "./HashTagsField";
 import ButtonField from "./ButtonField";
-import { eventModalReducer, initialEventInfo } from "./eventModalReducer";
-import { createEvent } from "../../libs/gql";
-import { HostContext } from "../../libs/hostContext";
+import {eventModalReducer, initialEventInfo} from "./eventModalReducer";
+import {createEvent} from "../../libs/gql";
+import {HostContext} from "../../libs/hostContext";
 
 const modalHeight = 37;
 const modalWidth = 28.125;
@@ -45,13 +45,13 @@ function formattingDate(date) {
 	return moment(date).format("YYYY-MM-DD HH:mm:ss");
 }
 
-function CreateEventModal({ open, handleClose }) {
-	const { hostInfo, events, setEvents } = useContext(HostContext);
+function CreateEventModal({open, handleClose}) {
+	const {hostInfo, events, setEvents} = useContext(HostContext);
 	const [eventInfo, dispatchEventInfo] = useReducer(
 		eventModalReducer,
 		initialEventInfo,
 	);
-	const [sendToServer, { data }] = useMutation(createEvent(), {
+	const [sendToServer, {data}] = useMutation(createEvent(), {
 		variables: {
 			info: {
 				HostId: hostInfo.id,
@@ -118,7 +118,7 @@ function CreateEventModal({ open, handleClose }) {
 					<InputStartDate
 						endDate={eventInfo.endDate}
 						startDate={eventInfo.startDate}
-						dispatch={{ setStartDate, setEndDate }}
+						dispatch={{setStartDate, setEndDate}}
 					/>
 					<EndDateField endDate={eventInfo.endDate} />
 					<InputHashTag

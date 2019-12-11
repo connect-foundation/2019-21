@@ -7,8 +7,8 @@ const voteOffSocketHandler = async (data, emit) => {
 		await deleteVoteBy({GuestId, CandidateId});
 
 		emit({
-			GuestId: GuestId,
-			poll: poll,
+			GuestId,
+			poll,
 		});
 	} catch (e) {
 		console.error(e);

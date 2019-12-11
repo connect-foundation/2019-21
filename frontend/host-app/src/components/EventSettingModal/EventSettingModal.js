@@ -29,6 +29,7 @@ const AlertLayOut = styled.div`
 function EventSettingModal(props) {
 	const {events} = useContext(HostContext);
 	const eventNum = events.length;
+
 	return (
 		<Modal
 			aria-labelledby="createEvent-modal-title"

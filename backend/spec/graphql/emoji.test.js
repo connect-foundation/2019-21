@@ -1,5 +1,5 @@
-import { describe, it } from "mocha";
-import { GQLClient } from "./graphqlTestClient.js";
+import {describe, it} from "mocha";
+import {GQLClient} from "./graphqlTestClient.js";
 
 describe("graphql yoga emoji model", () => {
 	it("able query emoji", async () => {

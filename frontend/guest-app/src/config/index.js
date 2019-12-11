@@ -9,5 +9,6 @@ function index() {
 	}
 }
 
-const config = index()
+const config = index();
+
 export default config;

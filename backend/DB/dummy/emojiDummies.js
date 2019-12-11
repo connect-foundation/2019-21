@@ -24,7 +24,7 @@ export default async function makeEmojiDummy(number = 500) {
 			name,
 			createdAt,
 			updatedAt,
-			EventId: res.dataValues.EventId
+			EventId: res.dataValues.EventId,
 		});
 	}
 	return bulkEmoji;
