@@ -16,7 +16,6 @@ import MyQuestionsDrawer from "./MyQuestionDrawer.js";
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
 
-
 function QuestionContainer() {
 	const {
 		questionsDispatch,
@@ -35,6 +34,8 @@ function QuestionContainer() {
 	const userNameRef = useRef(null);
 	const questionRef = useRef(null);
 
+	useDataLoadEffect(questionsDispatch, repliesDispatch, data);
+	useSocketHandler(questionsDispatch, repliesDispatch, guest);
 
 	const onContainerSelectTab = (event, newValue) => {
 		if (newValue === RECENT_TAB_IDX) {
