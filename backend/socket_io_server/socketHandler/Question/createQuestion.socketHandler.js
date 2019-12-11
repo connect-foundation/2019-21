@@ -37,7 +37,7 @@ function getNewQuestion({
 	};
 }
 
-const questionCreateSocketHandler = async (data, emit, socket, server) => {
+const createQuestionSocketHandler = async (data, emit, socket, server) => {
 	try {
 		const newQuestion = getNewQuestion(data);
 		const {
@@ -100,5 +100,5 @@ const eventName = "question/create";
 
 export default {
 	eventName,
-	handler: questionCreateSocketHandler,
+	handler: createQuestionSocketHandler,
 };
