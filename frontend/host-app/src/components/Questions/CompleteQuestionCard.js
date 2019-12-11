@@ -26,6 +26,11 @@ function CompleteQuestionCard(props) {
 							<QuestionDate {...props} />
 						</QuestionInfo>
 						<QuestionButtons>
+							<Icon
+								className={classes.restoreButton}
+								onClick={() => {}}>
+								restore
+							</Icon>
 							<QuestionMenu id={props.id} type={props.type} handler={props.dataHandler}/>
 						</QuestionButtons>
 					</QuestionMeta>

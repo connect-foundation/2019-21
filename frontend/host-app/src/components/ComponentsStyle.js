@@ -91,7 +91,7 @@ const ModerationStyle = styled.div`
 	flex-direction: column;
 	flex: 1;
 	animation: ${props => ((props.state) ? Open : Close)};
-    animation-duration: 2s;
+    animation-duration: 0.2s;
     animation-fill-mode: forwards;
 	justify-content: flex-start;
 	align-items: center;
