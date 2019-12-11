@@ -9,7 +9,10 @@ import {UIController} from "../components/UIController/UIController.js";
 import {GuestGlobalProvider} from "../libs/guestGlobalContext.js";
 import NavBar from "../components/NavBar/NavBar.js";
 import TabGroup from "../components/TabGroup/TabGroup.js";
-import {createSocketIOClient, SocketIoClientProvider} from "../libs/socketIoClientProvider.js";
+import {
+	createSocketIOClient,
+	SocketIoClientProvider,
+} from "../libs/socketIoClientProvider.js";
 
 const AppStyle = styled.div`
 	height: 100vh;
@@ -35,23 +38,23 @@ export default function App() {
 		port: config.socketIOPort,
 		nameSpace: event.id,
 	});
-	console.log("app")
+
 	return (
-		<SocketIoClientProvider client={client}>
-			<UIController>
-				<GuestGlobalProvider
-					value={{
-						event,
-						guest,
-						refetch,
-					}}
-				>
-					<AppStyle>
+		<AppStyle>
+			<SocketIoClientProvider client={client}>
+				<UIController>
+					<GuestGlobalProvider
+						value={{
+							event,
+							guest,
+							refetch,
+						}}
+					>
 						<NavBar title={event.eventName}/>
 						<TabGroup/>
-					</AppStyle>
-				</GuestGlobalProvider>
-			</UIController>
-		// </SocketIoClientProvider>
+					</GuestGlobalProvider>
+				</UIController>
+			</SocketIoClientProvider>
+		</AppStyle>
 	);
 }
