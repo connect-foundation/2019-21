@@ -28,7 +28,7 @@ function ReplyInputContainer(props) {
 	const questionRef = useRef(null);
 	const onConfirmNewReply = () => {
 		socketClient.emit(
-			"reply/create",
+			"question/create",
 			createNewReply({
 				guestName: userNameRef.current.value,
 				EventId: event.id,
