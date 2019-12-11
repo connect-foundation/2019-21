@@ -1,5 +1,6 @@
 import React from "react";
-import {Button} from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+import EventCreateButton from "./Event/EventCreateButton.js";
 import CreateEventModal from "./CreateEventModal/CreateEventModal";
 import useModal from "../customhook/useModal";
 import {EmptyContentBox, EmptyContentDiv} from "./ComponentsStyle";
@@ -10,15 +11,9 @@ function EmptyContent() {
 	return (
 		<EmptyContentBox>
 			<EmptyContentDiv>
-				현재 진행중인 이벤트가 없습니다
-				<Button
-					size="medium"
-					variant="contained"
-					color="primary"
-					onClick={handleOpen}
-				>
-					이벤트 만들기
-				</Button>
+				<Typography>현재 진행중인 이벤트가 없습니다</Typography>
+
+				<EventCreateButton onClick={handleOpen} />
 				{eventModalOpen && (
 					<CreateEventModal
 						open={eventModalOpen}
