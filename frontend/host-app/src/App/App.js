@@ -21,10 +21,10 @@ function App() {
 	let eventNum = 0;
 
 	if (loading) {
-		return (<>
+		return (<Skeleton>
 			<SkeletonTitle/>
 			<SkeletonContent/>
-		</>);
+		</Skeleton>);
 	} else if (error) {
 		return <p>error-page...</p>;
 	} else {
@@ -40,16 +40,17 @@ function App() {
 		if (eventNum) {
 			const eventId = events[0].id;
 
+			socketClient.emit("joinRoom", {room: eventId});
 			socketClient.emit("event/initOption", eventId); // dummy Event Id:2
 		}
 
 		return (
 			<HostProvider value={{hostInfo, events, setEvents}}>
 				<div className="App">
-					<Header />
-					<Nav />
-					{modal && <NewPollModal />}
-					{eventNum ? <Content event={event} /> : <EmptyContent />}
+					<Header/>
+					<Nav/>
+					{modal && <NewPollModal/>}
+					{eventNum ? <Content event={event}/> : <EmptyContent/>}
 				</div>
 			</HostProvider>
 		);
