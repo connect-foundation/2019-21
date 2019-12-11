@@ -5,6 +5,7 @@ const getCandidateToDelete = (items, candidateId) => {
 	const candidate = items.filter(
 		item => item.voted && item.id !== candidateId,
 	)[0];
+
 	return candidate ? candidate.id : null;
 };
 
@@ -71,8 +72,8 @@ const emitVoteData = (vote, poll, candidateToDelete) => {
 		GuestId: vote.GuestId,
 		CandidateId: vote.candidateId,
 		allowDuplication: poll.allowDuplication,
-		poll: poll,
-		candidateToDelete: candidateToDelete,
+		poll,
+		candidateToDelete,
 	};
 
 	// console.log("emitVoteData", data);
@@ -118,6 +119,7 @@ export default function reducer(polls, action) {
 		case "VOTE":
 			const notVoted = thePoll.nItems.every(item => item.voted === false);
 			let candidateToDelete = null;
+
 			if (!thePoll.allowDuplication) {
 				candidateToDelete = getCandidateToDelete(
 					thePoll.nItems,

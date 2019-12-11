@@ -17,6 +17,7 @@ function getNewQuestion({
 	didILike = false,
 	likeCount = 0,
 	status = "active",
+	QuestionId,
 	isStared = false,
 }) {
 	return {
@@ -31,15 +32,22 @@ function getNewQuestion({
 		didILike,
 		likeCount,
 		status,
+		QuestionId,
 		isStared,
 	};
 }
 
-const questionCreateSocketHandler = async (data, emit, socket, server) => {
+const replyCreateSocketHandler = async (data, emit, socket, server) => {
 	try {
 		const newQuestion = getNewQuestion(data);
-		const {EventId, content, GuestId, guestName, isAnonymous} = newQuestion;
-
+		const {
+			EventId,
+			content,
+			GuestId,
+			guestName,
+			QuestionId,
+			isAnonymous,
+		} = newQuestion;
 		logger.debug(data);
 
 		const event = await eventCache.get(EventId);
@@ -54,10 +62,16 @@ const questionCreateSocketHandler = async (data, emit, socket, server) => {
 				EventId,
 				content,
 				GuestId,
+				QuestionId,
 				QUESTION_STATE_MODERATION
 			);
 		} else {
-			newData = await createQuestion(EventId, content, GuestId);
+			newData = await createQuestion(
+				EventId,
+				content,
+				GuestId,
+				QuestionId
+			);
 		}
 
 		await updateGuestById({
@@ -65,11 +79,8 @@ const questionCreateSocketHandler = async (data, emit, socket, server) => {
 			name: guestName,
 			isAnonymous,
 		});
-
 		reqData.id = newData.get({plain: true}).id;
-		reqData.QuestionId = null;
-
-		// todo 성능 개선: moderation기능이 on인경우 host에만 send 하도록 수정
+		reqData.QuestionId = QuestionId;
 		emit(reqData);
 	} catch (e) {
 		logger.error(`${e.toString()}\n${e.stack}`);
@@ -77,9 +88,9 @@ const questionCreateSocketHandler = async (data, emit, socket, server) => {
 	}
 };
 
-const eventName = "question/create";
+const eventName = "reply/create";
 
 export default {
 	eventName,
-	handler: questionCreateSocketHandler,
+	handler: replyCreateSocketHandler,
 };

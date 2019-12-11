@@ -7,7 +7,6 @@ function useReplies(initialState = REPLIES_CLOSED) {
 	const [repliesIsOpened, setRepliesOpened] = useState(initialState);
 	const openReplies = () => {
 		setRepliesOpened(REPLIES_OPENED);
-		console.log("BBu");
 	};
 	const closeReplies = () => {
 		setRepliesOpened(REPLIES_CLOSED);
