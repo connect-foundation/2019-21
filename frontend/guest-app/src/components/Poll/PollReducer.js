@@ -71,10 +71,9 @@ const updateFirstPlace = poll => {
 	const newPoll = {...poll};
 
 	let firstPlaceIndex = [];
-	let index = 0;
 	let firstPlaceValue = 0;
 
-	for (let item of newPoll.nItems) {
+	newPoll.nItems.forEach((item, index) => {
 		if (item.voters == firstPlaceValue) {
 			firstPlaceIndex.push(index);
 		} else if (item.voters > firstPlaceValue) {
@@ -82,13 +81,18 @@ const updateFirstPlace = poll => {
 			firstPlaceIndex.push(index);
 			firstPlaceValue = item.voters;
 		}
-		index++;
-	}
+	});
 
+	// 우선 초기화
+	newPoll.nItems.forEach(item => {
+		item.firstPlace = false;
+	});
+	// 위에서 계산된 index 의 firstPlace 값만 변경함
 	firstPlaceIndex.forEach(i => {
 		newPoll.nItems[i].firstPlace = true;
 	});
 
+	console.log("firstPlace", firstPlaceIndex, newPoll.nItems);
 	return newPoll;
 };
 
