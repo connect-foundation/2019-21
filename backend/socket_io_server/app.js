@@ -14,18 +14,16 @@ const {port} = configLoader();
 const app = express();
 const httpServer = http.createServer(app).listen(port, () => {
 	logger.info(
-		`start socket.io server at ${port} with ${process.env.NODE_ENV} mode`
+		`start socket.io server at ${port} with ${process.env.NODE_ENV} mode`,
 	);
 });
 
 const socketServer = io(httpServer);
 
-function BindSocketListener(socket, server, nameSpace) {
-	console.log(nameSpace);
+function BindAddSocketListener(socket, server, nameSpace) {
 	return (eventName, handler) => {
 		socket.on(eventName, data => {
 			const emit = res => {
-				console.log(`emit to ${nameSpace}`);
 				server.to(nameSpace).emit(eventName, res);
 			};
 
@@ -35,7 +33,7 @@ function BindSocketListener(socket, server, nameSpace) {
 				console.error(
 					`while handing ${eventName} error raise,\n ${e.toString()}\n${
 						e.stack
-					}`
+					}`,
 				);
 				socket.send({status: "error", error: e});
 			}
@@ -51,19 +49,31 @@ nameSpaceServer.on("connection", async socket => {
 	const nameSpace = socket.nsp.name;
 	const id = socket.id;
 
-	logger.info(`id ${id} connected to room ${nameSpace}`);
+	logger.info(`id ${id} connected, room at ${nameSpace}`);
 
 	socket.join(nameSpace);
 
-	const addSocketListener = BindSocketListener(
+	const addSocketListener = BindAddSocketListener(
 		socket,
 		nameSpaceServer,
-		nameSpace
+		nameSpace,
 	);
 
 	socketHandlers.forEach(({eventName, handler}) => {
 		addSocketListener(eventName, handler);
 	});
+
+	socket.on("disconnect", reason => {
+		logger.info(`socket id ${id} disconnected, room at ${nameSpace}, reason: ${reason}`);
+	});
+
+	socket.on("error", error =>
+		logger.info(
+			`error occur at socket id ${id} disconnected, room at ${nameSpace},\n ${error.toString()}\n${
+				error.stack
+			}`,
+		),
+	);
 });
 
 export default app;
