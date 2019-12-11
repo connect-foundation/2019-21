@@ -25,6 +25,7 @@ function InputEventCode(props) {
 			id="eventName"
 			label="이벤트 코드"
 			color="primary"
+			disabled={true}
 			value={eventCode}
 			onChange={validateEventCode}
 		/>

@@ -6,6 +6,7 @@ import {
 	updateEventById,
 	getEventOptionByEventId,
 } from "../../../DB/queries/event.js";
+import {createHashtag} from "../../../DB/queries/hashtag.js";
 
 const moderationResolver = async (eventId, moderationOption) => {
 	const updatedEvent = await updateEventById(eventId, {moderationOption});
@@ -31,10 +32,17 @@ export default {
 
 			throw new Error("AuthenticationError");
 		},
-		getEventOption: async (_, {EventId}) =>
-			getEventOptionResolver(EventId),
+		getEventOption: async (_, {EventId}) => getEventOptionResolver(EventId),
 	},
 	Mutation: {
+		createHashTags: async (_, {hashTags}, authority) => {
+			for (let hashTag of hashTags) {
+				await createHashtag({
+					name: hashTag.name,
+					EventId: hashTag.EventId,
+				});
+			}
+		},
 		createEvent: async (_, {info}, authority) => {
 			if (authority.sub === "host") {
 				let eventCode = faker.random.alphaNumeric(4);
@@ -42,7 +50,9 @@ export default {
 				const existCode = events.map(event => event.eventCode);
 
 				while (true) {
-					const exist = existCode.some(someCode => eventCode === someCode);
+					const exist = existCode.some(
+						someCode => eventCode === someCode
+					);
 
 					if (!exist) break;
 					eventCode = faker.random.alphaNumeric(4);

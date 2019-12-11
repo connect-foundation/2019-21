@@ -8,6 +8,7 @@ import {styled} from "@material-ui/core/styles";
 import DateFnsUtils from "@date-io/date-fns";
 import Container from "@material-ui/core/Container";
 import moment from "moment";
+import {validStartDate} from "../../libs/eventValidation";
 
 const marginTopLength = 20;
 
@@ -27,6 +28,7 @@ const CustomTimePicker = styled(TimePicker)({
 });
 
 function InputStartDate(props) {
+	const {errorState} = props;
 	const {setStartDate, setEndDate} = props.dispatch;
 	const [lastTime, handleLastTimeChange] = useState(
 		new Date().setHours(0, 0),
@@ -53,6 +55,7 @@ function InputStartDate(props) {
 				<CustomDateTimePicker
 					label="시작날짜"
 					value={props.startDate}
+					error={errorState}
 					format={"yyyy년 MM월 dd일 HH시 mm분"}
 					onChange={setStartDate}
 				/>
