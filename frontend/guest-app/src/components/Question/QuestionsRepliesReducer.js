@@ -8,8 +8,7 @@ const onReset = () => [];
 
 const onLoad = (state, data) => [...state, ...data];
 
-const onAddNewQuestion = (state, data) =>
-	(data.status === [...state, data]);
+const onAddNewQuestion = (state, data) => [...state, data];
 
 const onSortByRecent = state => [...state.sort(compareByDate)];
 
@@ -156,8 +155,11 @@ const onUpdateQuestion = (state, data) => {
 const onMoveQuestion = (state, data) => {
 	const newState = _.cloneDeep(state);
 
-	if (data.from === "moderation") { newState.push(data.questionData); }
-	console.log(data);
+	if (data.from === "moderation") {
+		data.data.emojis = [];
+		newState.push(data.data);
+	}
+
 	if (data.id === "all") {
 		return newState.map(e => {
 			if (e.state === data.from) { e.state = data.to; }
