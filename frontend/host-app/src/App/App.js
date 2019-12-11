@@ -10,6 +10,8 @@ import {HostProvider} from "../libs/hostContext";
 import {getEventsByHost} from "../libs/gql";
 import EmptyContent from "../components/EmptyContent";
 import {socketClient} from "../libs/socket.io-Client-wrapper";
+import SkeletonContent from "../components/SkeletonContent";
+import SkeletonTitle from "../components/SkeletionTitle";
 
 
 function App() {
@@ -17,8 +19,12 @@ function App() {
 	const {data, loading, error} = useQuery(getEventsByHost());
 	const [events, setEvents] = useState("");
 	let eventNum = 0;
+
 	if (loading) {
-		return (<Skeleton variant="rect" width={1500} height={104} />);
+		return (<>
+			<SkeletonTitle/>
+			<SkeletonContent/>
+		</>);
 	} else if (error) {
 		return <p>error-page...</p>;
 	} else {
@@ -29,9 +35,11 @@ function App() {
 			);
 		}
 		const hostInfo = data.init.host;
+
 		eventNum = events.length;
 		if (eventNum) {
 			const eventId = events[0].id;
+
 			socketClient.emit("event/initOption", eventId); // dummy Event Id:2
 		}
 

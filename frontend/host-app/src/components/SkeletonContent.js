@@ -1,25 +1,25 @@
 import {Skeleton} from "@material-ui/lab";
 import React from "react";
-import {ContentStyle, ColumnStyle} from "./ComponentsStyle";
+import {ContentStyle, SkeletonColumnStyle} from "./ComponentsStyle";
 
 function SkeletonContent() {
 	return (
 		<ContentStyle>
-			<ColumnStyle>
+			<SkeletonColumnStyle>
 				<Skeleton variant="rect" width={318} height={817} />
-			</ColumnStyle>
-			<ColumnStyle>
+			</SkeletonColumnStyle>
+			<SkeletonColumnStyle>
 				<Skeleton variant="rect" width={318} height={817} />
-			</ColumnStyle>
-			<ColumnStyle>
+			</SkeletonColumnStyle>
+			<SkeletonColumnStyle>
 				<Skeleton variant="rect" width={318} height={817} />
-			</ColumnStyle>
-			<ColumnStyle>
+			</SkeletonColumnStyle>
+			<SkeletonColumnStyle>
 				<Skeleton variant="rect" width={318} height={817} />
-			</ColumnStyle>
-			<ColumnStyle>
+			</SkeletonColumnStyle>
+			<SkeletonColumnStyle>
 				<Skeleton variant="rect" width={318} height={817} />
-			</ColumnStyle>
+			</SkeletonColumnStyle>
 		</ContentStyle>
 	);
 }

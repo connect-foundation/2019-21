@@ -1,6 +1,9 @@
 const QuestionsReducer = (state, action) => {
 	const actionTable = {
-		addNewQuestion: () => ({questions: [...state.questions, action.data]}),
+		addNewQuestion: () => {
+			console.log([...state.questions, action.data]);
+			return ({questions: [...state.questions, action.data]});
+		},
 		toggleStar: () => {
 			const newData = state.questions.map(e => (e.id === action.data.id ? action.data : e));
 

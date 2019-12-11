@@ -36,6 +36,14 @@ const useStyles = makeStyles(theme => ({
 			color: "#ef0046",
 		},
 	},
+	footerButton: {
+		color: "rgb(121,121,121)",
+		margin: " 0.1rem",
+		transform: "scale(0.6)",
+		"&:hover": {
+			color: "#ef0046",
+		},
+	},
 	thumbUpButton: {
 		color: "#7f7f7f",
 		transform: "scale(0.7)",
