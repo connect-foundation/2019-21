@@ -2,11 +2,13 @@ import {updateQuestionById} from "../../../DB/queries/question";
 
 const toggleStarSocketHandler = async (data, emit) => {
 	try {
-		const id = data.id;
-		const isStared = data.isStared;
+		const from = data.from[0];
+		const to = data.to[0];
 
-		await updateQuestionById({id, isStared});
-		emit(data);
+		if (from) { await updateQuestionById({id: from.id, isStared: from.isStared}); }
+		await updateQuestionById({id: to.id, isStared: to.isStared});
+
+		emit(to);
 	} catch (e) {
 		console.log(e);
 		emit({status: "error", e});
