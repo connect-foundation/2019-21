@@ -85,8 +85,8 @@ const emitRateData = (rate, poll, candidateId, index) => {
 	const data = {
 		GuestId: rate.GuestId,
 		CandidateId: candidateId,
-		poll: poll,
-		index: index,
+		poll,
+		index,
 	};
 
 	socketClient.emit(`rate/${action}`, data);

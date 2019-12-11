@@ -19,6 +19,7 @@ const ColumnWrapper = styled.div`
 
 function reducer(polls, action) {
 	let thePoll;
+
 	if (action.id) {
 		thePoll = polls.filter(poll => poll.id === action.id)[0];
 	}
@@ -81,6 +82,7 @@ function PollContainer({data}) {
 
 	useSocket("poll/open", pollId => {
 		const thePoll = standbyPollData.filter(poll => poll.id === pollId)[0];
+
 		// DB에는 바뀌어 있지만, 여기서는 바뀌지 않은 상태이므로 강제로 바꿈
 		thePoll.state = "running";
 		// 설정되지 않은 값들을 초기화
@@ -100,6 +102,7 @@ function PollContainer({data}) {
 		// Host 에서 Guests 모두에게 새로운 Poll 이 open 되었음을 알려줌
 		// "poll/open"을 전달받고 나서 "poll/notify_open"를 emit 함
 		const req = {poll: thePoll};
+
 		socketClient.emit("poll/notify_open", req);
 	});
 

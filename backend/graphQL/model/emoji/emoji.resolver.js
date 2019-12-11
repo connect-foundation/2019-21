@@ -1,8 +1,6 @@
-import {getEmojiGroupByQuestionId, getEmojiPick,} from "../../../DB/queries/emoji.js";
+import {getEmojiGroupByQuestionId, getEmojiPick} from "../../../DB/queries/emoji.js";
 
-const emojiResolver = async EventId => {
-	return  getEmojiGroupByQuestionId({EventId});
-};
+const emojiResolver = async EventId => getEmojiGroupByQuestionId({EventId});
 
 const emojiPickResolver = async (EventId, GuestId) =>
 	getEmojiPick({EventId, GuestId});

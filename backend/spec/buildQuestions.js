@@ -1,4 +1,4 @@
-import { describe, it } from "mocha";
+import {describe, it} from "mocha";
 import data from "./testcase.js";
 
 function toMapped(data, attr) {
@@ -84,7 +84,7 @@ function joinQuestionAndEmoji(questions, emojis) {
 }
 
 function buildQuestions(data) {
-	let { questions, emojis, emojiPicks, guests, didILikes } = data;
+	let {questions, emojis, emojiPicks, guests, didILikes} = data;
 
 	questions = joinGuest(questions, guests);
 	questions = joinDidILikes(questions, didILikes);

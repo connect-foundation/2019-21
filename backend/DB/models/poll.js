@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.DATE,
 			},
 		},
-		{}
+		{},
 	);
 
 	Poll.associate = function(models) {

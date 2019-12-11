@@ -24,8 +24,8 @@ const voteOnSocketHandler = async (data, emit) => {
 		}
 
 		emit({
-			GuestId: GuestId,
-			poll: poll,
+			GuestId,
+			poll,
 		});
 	} catch (e) {
 		console.error(e);

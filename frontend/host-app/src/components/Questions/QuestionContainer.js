@@ -7,9 +7,9 @@ import {filterQuestion, filterReplies} from "../../libs/utils";
 import {FocusedDiv, UnFocusedDiv} from "./QuestionStyle";
 
 const compareByCreateAt = (a, b) =>
-	a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0;
+	(a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0);
 const compareByLikeCount = (a, b) =>
-	a.likeCount < b.likeCount ? 1 : a.likeCount > b.likeCount ? -1 : 0;
+	(a.likeCount < b.likeCount ? 1 : a.likeCount > b.likeCount ? -1 : 0);
 
 function QuestionContainer({datas, type, dataHandler, handleStar, containerType}) {
 	const QuestionDiv = containerType === "focus" ? FocusedDiv : UnFocusedDiv;

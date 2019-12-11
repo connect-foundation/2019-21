@@ -1,11 +1,9 @@
 import {getPollsByEventId} from "../../../DB/queries/poll.js";
 import {getCandidatesByPollId} from "../../../DB/queries/candidate.js";
-import {getVotersByCandidateList} from "../../../DB/queries/vote.js";
-import {getCandidatesByGuestId} from "../../../DB/queries/vote.js";
+import {getVotersByCandidateList, getCandidatesByGuestId} from "../../../DB/queries/vote.js";
 
-const simplifyList = list => {
-	return list.map(n => n.get({plain: true}));
-};
+
+const simplifyList = list => list.map(n => n.get({plain: true}));
 
 /**
  *
@@ -23,12 +21,13 @@ async function getItems(pollId, candidates) {
 	let index = 0;
 	let firstPlaceValue = 0;
 
-	for (let n of candidates) {
+	for (const n of candidates) {
 		if (n.PollId === pollId) {
 			const voters = await getVotersByCandidateList([n.id]);
+
 			nItems.push({
 				...n,
-				voters: voters,
+				voters,
 				voted: false,
 				firstPlace: false,
 			});
@@ -60,6 +59,7 @@ async function getItems(pollId, candidates) {
 async function getCandidatesByPolls(polls) {
 	const pollIdList = polls.map(poll => poll.id);
 	let candidates = await getCandidatesByPollId(pollIdList);
+
 	candidates = simplifyList(candidates);
 
 	return candidates;
@@ -71,9 +71,7 @@ async function getCandidatesByPolls(polls) {
  *
  * CandidateId (int) 만 읽어서 array로 반환해주는 함수
  */
-const getCandidateList = items => {
-	return items.map(n => n.id);
-};
+const getCandidateList = items => items.map(n => n.id);
 
 /**
  *
@@ -86,9 +84,10 @@ const getCandidateList = items => {
  * 그리고 해당 poll에 속한 모든 candidates들에 투표한 투표자수를 unique하게 더한 총투표수를 구함
  */
 async function setPollItems(polls, candidates) {
-	for (let poll of polls) {
+	for (const poll of polls) {
 		poll.nItems = await getItems(poll.id, candidates);
 		const candidateList = getCandidateList(poll.nItems);
+
 		poll.totalVoters = await getVotersByCandidateList(candidateList);
 	}
 
@@ -118,9 +117,10 @@ const setVotedOnCandidate = (items, votedList) => {
  * 특정 guest가 poll에 속한 여러 candidate들 중에서 투표한 candidate가 있는지 확인하고 투표여부를 저장함
  */
 async function setVotedOnPolls(polls, guestId) {
-	for (let poll of polls) {
+	for (const poll of polls) {
 		const candidateList = getCandidateList(poll.nItems);
 		let votedList = await getCandidatesByGuestId(candidateList, guestId);
+
 		votedList = simplifyList(votedList);
 		votedList = votedList.map(n => n.CandidateId);
 		setVotedOnCandidate(poll.nItems, votedList);

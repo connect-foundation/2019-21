@@ -1,7 +1,7 @@
 import faker from "faker";
 import config from "./initialConfig";
 
-const { INIT_SEED, EVENT_NUM, POLL_NUM } = config;
+const {INIT_SEED, EVENT_NUM, POLL_NUM} = config;
 
 faker.seed(INIT_SEED);
 
@@ -11,9 +11,10 @@ export default function makePollDummy(number = POLL_NUM) {
 	for (let i = 1; i <= number; ++i) {
 		const pollName = faker.lorem.sentence();
 		// 0: N지선다(text), 1: N지선다(date), 2: 별점매기기
-		let type = i % 3;
+		const type = i % 3;
 		let pollType;
 		let selectionType;
+
 		if (type === 0) {
 			pollType = "nItems";
 			selectionType = "text";
@@ -23,7 +24,8 @@ export default function makePollDummy(number = POLL_NUM) {
 		} else {
 			pollType = "rating";
 			// let number = faker.random.number({ min: 2, max: 10 });
-			let number = 10;
+			const number = 10;
+
 			selectionType = number.toString();
 		}
 
@@ -32,7 +34,7 @@ export default function makePollDummy(number = POLL_NUM) {
 		const createdAt = faker.date.past(1);
 		const updatedAt = createdAt;
 		const pollDate = createdAt;
-		const EventId = faker.random.number({ min: 1, max: EVENT_NUM });
+		const EventId = faker.random.number({min: 1, max: EVENT_NUM});
 
 		bulkPoll.push({
 			pollName,

@@ -58,16 +58,16 @@ function NewPollModal({open, handleClose}) {
 			result = false;
 		}
 		setPollName(
-			pollName.value.length === 0
-				? {
-						...pollName,
-						error: true,
-						helperText: "투표 제목을 입력하세요",
-				  }
-				: {
-						...pollName,
-						error: false,
-						helperText: "",
+			pollName.value.length === 0 ?
+				{
+					...pollName,
+					error: true,
+					helperText: "투표 제목을 입력하세요",
+				  } :
+				{
+					...pollName,
+					error: false,
+					helperText: "",
 				  },
 		);
 
@@ -87,17 +87,17 @@ function NewPollModal({open, handleClose}) {
 		}
 		setTexts(
 			texts.map(text =>
-				text.value.length === 0
-					? {
-							...text,
-							error: true,
-							helperText: "항목을 입력하세요",
-					  }
-					: {
-							...text,
-							error: false,
-							helperText: "",
-					  },
+				(text.value.length === 0 ?
+					{
+						...text,
+						error: true,
+						helperText: "항목을 입력하세요",
+					  } :
+					{
+						...text,
+						error: false,
+						helperText: "",
+					  }),
 			),
 		);
 
@@ -127,14 +127,14 @@ function NewPollModal({open, handleClose}) {
 	const onTextChange = (event, id) => {
 		setTexts(
 			texts.map((text, index) =>
-				index === id
-					? {
-							...text,
-							value: event.target.value,
-							error: false,
-							helperText: "",
-					  }
-					: text,
+				(index === id ?
+					{
+						...text,
+						value: event.target.value,
+						error: false,
+						helperText: "",
+					  } :
+					text),
 			),
 		);
 	};
@@ -182,7 +182,7 @@ function NewPollModal({open, handleClose}) {
 	};
 
 	const getSelectionType = () =>
-		pollType === "rating" ? ratingValue.toString() : selectionType;
+		(pollType === "rating" ? ratingValue.toString() : selectionType);
 
 	const getCandidates = (pollType, selectionType) => {
 		if (pollType === "rating") {

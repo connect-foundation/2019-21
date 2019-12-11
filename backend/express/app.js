@@ -1,4 +1,4 @@
-import { config } from "dotenv";
+import {config} from "dotenv";
 import express from "express";
 import passport from "passport";
 import cors from "cors";
@@ -13,7 +13,7 @@ import hostRouter from "./routes/host";
 
 config();
 
-const { port, publicPath, routePage } = loadConfig();
+const {port, publicPath, routePage} = loadConfig();
 const app = express();
 
 applyStaticAppServing(app, publicPath);
@@ -33,7 +33,7 @@ app.get("/", (req, res, next) => {
 
 app.listen(port, () => {
 	console.log(
-		`start express server at ${port} with ${process.env.NODE_ENV} mode`
+		`start express server at ${port} with ${process.env.NODE_ENV} mode`,
 	);
 	console.log(`public path = ${publicPath}`);
 });

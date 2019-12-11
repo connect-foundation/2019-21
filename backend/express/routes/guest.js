@@ -12,7 +12,7 @@ const cookieName = "vaagle-guest";
 
 async function pathToCode(path) {
 	const eventCode = Buffer.from(path, "base64").toString();
-	let eventId = await getEventIdByEventCode(eventCode);
+	const eventId = await getEventIdByEventCode(eventCode);
 
 	return eventId.dataValues.id;
 }
@@ -31,6 +31,7 @@ router.get("/:path", guestAuthenticate(), async (req, res, next) => {
 		const eventId = await pathToCode(path);
 		const guest = await createGuest("Anonymous", eventId);
 		const accessToken = generateAccessToken(guest.guestSid, "guest");
+
 		res.cookie(cookieName, accessToken, {
 			expires: getTokenExpired(24),
 		});
