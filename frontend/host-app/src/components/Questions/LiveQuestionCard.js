@@ -10,6 +10,7 @@ import useStyles from "./useStyles";
 import QuestionMenu from "./QuestionMenu";
 import ThumbUpButton from "./ThumbUpButton";
 import Replies from "./Replies";
+import Tooltip from "@material-ui/core/Tooltip";
 
 function LiveQuestionCard(props) {
 	const classes = useStyles();
@@ -26,16 +27,20 @@ function LiveQuestionCard(props) {
 							<QuestionDate {...props} />
 						</QuestionInfo>
 						<QuestionButtons>
-							<Icon
-								className={classes.starButton}
-								onClick={() => props.handleStar(props.id)}>
-								stars
-							</Icon>
-							<Icon
-								className={classes.approveButton}
-								onClick={() => props.dataHandler(props.id, props.type, "completeQuestion")}>
-								check_circle_outline
-							</Icon>
+							<Tooltip title="상단 고정">
+								<Icon
+									className={classes.starButton}
+									onClick={() => props.handleStar(props.id)}>
+									stars
+								</Icon>
+							</Tooltip>
+							<Tooltip title="답변 완료">
+								<Icon
+									className={classes.approveButton}
+									onClick={() => props.dataHandler(props.id, props.type, "completeQuestion")}>
+									check_circle_outline
+								</Icon>
+							</Tooltip>
 							<QuestionMenu id={props.id} type={props.type} handler={props.dataHandler}/>
 						</QuestionButtons>
 					</QuestionMeta>

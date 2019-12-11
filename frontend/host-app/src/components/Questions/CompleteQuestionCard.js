@@ -10,6 +10,7 @@ import useStyles from "./useStyles";
 import QuestionMenu from "./QuestionMenu";
 import ThumbUpButton from "./ThumbUpButton";
 import Replies from "./Replies";
+import Tooltip from "@material-ui/core/Tooltip";
 
 function CompleteQuestionCard(props) {
 	const classes = useStyles();
@@ -26,11 +27,13 @@ function CompleteQuestionCard(props) {
 							<QuestionDate {...props} />
 						</QuestionInfo>
 						<QuestionButtons>
-							<Icon
-								className={classes.restoreButton}
-								onClick={() => props.dataHandler(props.id, props.type, "active")}>
-								restore
-							</Icon>
+							<Tooltip title="질문 되살리기">
+								<Icon
+									className={classes.restoreButton}
+									onClick={() => props.dataHandler(props.id, props.type, "active")}>
+									restore
+								</Icon>
+							</Tooltip>
 							<QuestionMenu id={props.id} type={props.type} handler={props.dataHandler}/>
 						</QuestionButtons>
 					</QuestionMeta>
