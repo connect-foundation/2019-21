@@ -9,7 +9,7 @@ const onReset = () => [];
 const onLoad = (state, data) => [...state, ...data];
 
 const onAddNewQuestion = (state, data) =>
-	(data.status === "active" ? [...state, data] : [...state]);
+	(data.status === [...state, data]);
 
 const onSortByRecent = state => [...state.sort(compareByDate)];
 
@@ -153,6 +153,15 @@ const onUpdateQuestion = (state, data) => {
 	return newState;
 };
 
+const onMoveQuestion = (state, data) => {
+	const newState = state.map(e => {
+		if (e.id === data.id) { e.state = data.to; }
+		return e;
+	});
+	console.log(newState);
+	return newState;
+};
+
 const QuestionsRepliesReducer = (state, action) => {
 	const {type, data} = action;
 
@@ -168,6 +177,7 @@ const QuestionsRepliesReducer = (state, action) => {
 		removeQuestionEmoji: onRemoveQuestionEmoji,
 		removeQuestion: onRemoveQuestion,
 		updateQuestion: onUpdateQuestion,
+		moveQuestion: onMoveQuestion,
 	};
 
 	if (!(type in actionTable)) {

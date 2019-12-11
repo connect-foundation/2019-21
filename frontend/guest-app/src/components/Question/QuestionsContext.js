@@ -54,6 +54,11 @@ const useSocketHandler = (dispatch, guestGlobal) => {
 		req.guestGlobal = guestGlobal;
 		dispatch({type: "updateQuestion", data: req});
 	});
+
+	useSocket("question/move", req => {
+		req.guestGlobal = guestGlobal;
+		dispatch({type: "moveQuestion", data: req});
+	});
 };
 
 export function QuestionsProvider(props) {
@@ -68,7 +73,7 @@ export function QuestionsProvider(props) {
 	useSocketHandler(dispatch, guest);
 
 	const questions = state.filter(question => {
-		return question.QuestionId === null;
+		return (question.QuestionId === null && question.state === "active");
 	});
 	const replies = state.filter(question => {
 		return question.QuestionId !== null;
