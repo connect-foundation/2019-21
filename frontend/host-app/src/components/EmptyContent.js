@@ -1,8 +1,16 @@
 import React from "react";
 import {Button} from "@material-ui/core";
+import {withStyles} from "@material-ui/core/styles";
 import CreateEventModal from "./CreateEventModal/CreateEventModal";
 import useModal from "../customhook/useModal";
 import {EmptyContentBox, EmptyContentDiv} from "./ComponentsStyle";
+
+const StyledButton = withStyles({
+	root: {
+		width: "300px",
+		fontSize: "1.4rem",
+	},
+})(Button);
 
 function EmptyContent() {
 	const [eventModalOpen, handleOpen, handleClose] = useModal();
@@ -11,14 +19,14 @@ function EmptyContent() {
 		<EmptyContentBox>
 			<EmptyContentDiv>
 				현재 진행중인 이벤트가 없습니다
-				<Button
-					size="medium"
+				<StyledButton
+					size="large"
 					variant="contained"
 					color="primary"
 					onClick={handleOpen}
 				>
 					이벤트 만들기
-				</Button>
+				</StyledButton>
 				{eventModalOpen && (
 					<CreateEventModal
 						open={eventModalOpen}
