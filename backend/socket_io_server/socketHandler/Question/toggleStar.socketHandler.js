@@ -1,9 +1,12 @@
+import {updateIsStared} from "../../../DB/queries/question";
 
 const toggleStarSocketHandler = async (data, emit) => {
 	try {
-		console.log(data);
+		const from = data.from[0];
+		const to = data.to[0];
 
-		emit(data);
+		await updateIsStared(from, to);
+		emit(to);
 	} catch (e) {
 		console.log(e);
 		emit({status: "error", e});

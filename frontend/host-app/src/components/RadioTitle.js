@@ -1,6 +1,7 @@
 import React from "react";
 import Radio from "@material-ui/core/Radio";
 import Badge from "@material-ui/core/Badge";
+import Tooltip from '@material-ui/core/Tooltip';
 import {makeStyles} from "@material-ui/core/styles";
 import {Icon} from "@material-ui/core";
 import {TitleStyle, TitleBox, RightSide} from "./ComponentsStyle";
@@ -34,12 +35,14 @@ function RadioTitle({titleName, state, stateHandler, idx, data, dataHandler, typ
 					checked={state[idx] === SELECTED}
 					onClick={stateHandler.bind(this, idx)}
 				/>
-				<Icon
-					className={classes.icon}
-					onClick={() => dataHandler("all", "active", "completeQuestion")}
-				>
-					delete_outlined_icon
-				</Icon>
+				<Tooltip title="모든 질문 완료">
+					<Icon
+						className={classes.icon}
+						onClick={() => dataHandler("all", "active", "completeQuestion")}
+					>
+						launch
+					</Icon>
+				</Tooltip>
 			</RightSide>
 		</TitleBox>
 	) : (

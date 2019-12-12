@@ -1,15 +1,5 @@
-const initialEventInfo = {
-	eventName: "",
-	startDate: new Date(),
-	endDate: new Date(),
-	hashTags: [],
-};
-
 const eventModalReducer = (state, action) => {
 	switch (action.type) {
-		case "reset": {
-			return {...initialEventInfo};
-		}
 		case "setEventName": {
 			return {...state, eventName: action.eventName};
 		}
@@ -28,4 +18,4 @@ const eventModalReducer = (state, action) => {
 	}
 };
 
-export {eventModalReducer, initialEventInfo};
+export {eventModalReducer};

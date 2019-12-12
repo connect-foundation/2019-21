@@ -5,6 +5,7 @@ import io from "socket.io";
 import configLoader from "./config/configLoader.js";
 import socketHandlers from "./socketHandler";
 import logger from "./logger.js";
+import authenticate from "./middleware/authenticate";
 
 dotenv.config();
 
@@ -13,7 +14,7 @@ const {port} = configLoader();
 const app = express();
 const httpServer = http.createServer(app).listen(port, () => {
 	logger.info(
-		`start socket.io server at ${port} with ${process.env.NODE_ENV} mode`,
+		`start socket.io server at ${port} with ${process.env.NODE_ENV} mode`
 	);
 });
 
@@ -32,7 +33,7 @@ function BindSocketListener(socket, server) {
 				console.error(
 					`while handing ${eventName} error raise,\n ${e.toString()}\n${
 						e.stack
-					}`,
+					}`
 				);
 				socket.send({status: "error", error: e});
 			}
@@ -42,10 +43,11 @@ function BindSocketListener(socket, server) {
 
 const nameSpaceServer = socketServer.of(/.*/);
 
+socketServer.use(authenticate());
+
 nameSpaceServer.on("connection", async socket => {
 	const nameSpace = socket.nsp.name;
 	const id = socket.id;
-
 	logger.info(`id ${id} connected to nameSpace ${nameSpace}`);
 
 	const addSocketListener = BindSocketListener(socket, nameSpaceServer);

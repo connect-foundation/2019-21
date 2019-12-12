@@ -1,6 +1,7 @@
 import Sequelize from "sequelize";
 import models from "../models";
 
+const sequelize = models.sequelize;
 const Op = Sequelize.Op;
 const Question = models.Question;
 
@@ -51,6 +52,27 @@ export async function updateQuestionById({id, content, state, isStared}) {
 		},
 		{where: {id}},
 	);
+}
+
+export async function updateIsStared(from, to) {
+	const transaction = await sequelize.transaction();
+
+	try {
+		if (from) {
+			await Question.update({isStared: to.isStared},
+				{where: {id: from.id}},
+				{transaction},
+			);
+		}
+		await Question.update({isStared: to.isStared},
+			{where: {id: to.id}},
+			{transaction},
+		);
+		await transaction.commit();
+	} catch (err) {
+		if (transaction) await transaction.rollback();
+		console.log("Transaction rollback", err);
+	}
 }
 
 export async function updateEveryState(from, {state}) {
