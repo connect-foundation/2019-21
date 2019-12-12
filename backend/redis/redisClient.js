@@ -4,7 +4,7 @@ import getLogger from "../libs/logger.js";
 import loadConfig from "./config/configLoader.js";
 
 const config = loadConfig();
-const client = redis.createClient();
+const client = redis.createClient(config.port, config.host);
 const asyncRedisClient = asyncRedis.decorate(client);
 
 const logger = getLogger("socket.io-redis");
