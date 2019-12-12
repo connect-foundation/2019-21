@@ -4,7 +4,7 @@ import {useQuery} from "@apollo/react-hooks";
 import "./App.css";
 import Header from "../components/Header";
 import Nav from "../components/Nav";
-import Content from "../components/Content";
+import EventMonitor from "../components/EventMonitor.js";
 import NewPollModal from "../components/Poll/NewPollModal";
 import {HostProvider} from "../libs/hostContext";
 import {getEventsByHost} from "../libs/gql";
@@ -40,7 +40,7 @@ let App = props => {
 					onChange={(e, newTabIdx) => setTabIdx(newTabIdx)}
 				/>
 				<NewPollModal open={modal} />
-				<Content event={event} />
+				<EventMonitor event={event} />
 			</HostProvider>
 		</div>
 	);

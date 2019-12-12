@@ -1,4 +1,4 @@
-import React, {useState, useContext, useReducer} from "react";
+import React, {useContext, useReducer, useState} from "react";
 import Column from "./Column";
 import {socketClient} from "../libs/socket.io-Client-wrapper";
 import useQueryQuestions from "../libs/useQueryQuestions";
@@ -8,18 +8,22 @@ import QuestionsReducer from "./Questions/QuestionReducer";
 import SkeletonContent from "./Skeleton/SkeletonContent.js";
 import useSocketHandler from "./useSocketHandler";
 
-
 function Inner({data, event, option}) {
 	const SELECTED = true;
 	const UNSELECTED = false;
 	const [radioState, setRadioState] = useState([SELECTED, UNSELECTED, UNSELECTED, UNSELECTED]);
 	const [moderationState, setModeration] = useState(option.moderationOption);
-	const [questions, dispatch] = useReducer(QuestionsReducer, {questions: data});
+	const [questions, dispatch] = useReducer(QuestionsReducer, {
+		questions: data,
+	});
 	const [pollNumberStatus] = useState(0);
 
 	const handleRadioState = buttonIndex => {
-		setRadioState([UNSELECTED, UNSELECTED, UNSELECTED, UNSELECTED]
-			.map((_, idx) => (idx === buttonIndex ? SELECTED : UNSELECTED)));
+		setRadioState(
+			[UNSELECTED, UNSELECTED, UNSELECTED, UNSELECTED].map((_, idx) =>
+				(idx === buttonIndex ? SELECTED : UNSELECTED),
+			),
+		);
 	};
 
 	const typeMap = {
@@ -38,28 +42,34 @@ function Inner({data, event, option}) {
 	};
 
 	const handleStar = id => {
-		const toggleMsg = questions.questions.reduce((acc, e) => {
-			if (e.isStared) { acc.from.push({id: e.id, isStared: !e.isStared}); }
-			if (e.id === id) { acc.to.push({id: e.id, isStared: !e.isStared}); }
-			return acc;
-		}, {from: [], to: []});
+		const toggleMsg = questions.questions.reduce(
+			(acc, e) => {
+				if (e.isStared) {
+					acc.from.push({id: e.id, isStared: !e.isStared});
+				}
+				if (e.id === id) {
+					acc.to.push({id: e.id, isStared: !e.isStared});
+				}
+				return acc;
+			},
+			{from: [], to: []},
+		);
 
 		socketClient.emit("question/toggleStar", toggleMsg);
 	};
 
 	return (
 		<ContentStyle>
-			{Object.keys(typeMap)
-				.map(e => (
-					<Column
-						type={e}
-						state={typeMap[e].state}
-						stateHandler={typeMap[e].stateHandler}
-						data={questions}
-						dataHandler={handleQuestionDatas}
-						handleStar={handleStar}
-					/>
-				))}
+			{Object.keys(typeMap).map(e => (
+				<Column
+					type={e}
+					state={typeMap[e].state}
+					stateHandler={typeMap[e].stateHandler}
+					data={questions}
+					dataHandler={handleQuestionDatas}
+					handleStar={handleStar}
+				/>
+			))}
 			<Column
 				type="poll"
 				state={radioState}
@@ -71,13 +81,13 @@ function Inner({data, event, option}) {
 	);
 }
 
-function Content({event}) {
+function EventMonitor({event}) {
 	const {events} = useContext(HostContext);
 	const {loading, error, data} = useQueryQuestions({
 		variables: {EventId: events[0].id},
 	});
 
-	if (loading) return <SkeletonContent/>;
+	if (loading) return <SkeletonContent />;
 	if (error) return <p>Error :(</p>;
 
 	return (
@@ -87,4 +97,4 @@ function Content({event}) {
 	);
 }
 
-export default Content;
+export default EventMonitor;
