@@ -3,57 +3,57 @@ import express from "express";
 import http from "http";
 import io from "socket.io";
 import configLoader from "./config/configLoader.js";
-import socketHandlers from "./socketHandler";
 import logger from "./logger.js";
 import authenticate from "./middleware/authenticate";
+import IORoomManager from "./IORoomManager.js";
+import {addBulkSocketIOHandlers, removeBulkSocketIOHandlers} from "./SocketIOBulkHandlerManager.js";
+import socketHandlers from "./socketHandler";
 
 dotenv.config();
 
+const NAME_SPACE = "event";
 const {port} = configLoader();
-
 const app = express();
 const httpServer = http.createServer(app).listen(port, () => {
 	logger.info(
 		`start socket.io server at ${port} with ${process.env.NODE_ENV} mode`
 	);
 });
-
 const socketServer = io(httpServer);
-
-function BindSocketListener(socket, server) {
-	return (eventName, handler) => {
-		socket.on(eventName, data => {
-			const emit = res => {
-				server.emit(eventName, res);
-			};
-
-			try {
-				handler(data, emit, {socket, server});
-			} catch (e) {
-				console.error(
-					`while handing ${eventName} error raise,\n ${e.toString()}\n${
-						e.stack
-					}`
-				);
-				socket.send({status: "error", error: e});
-			}
-		});
-	};
-}
-
-const nameSpaceServer = socketServer.of(/.*/);
+const namedServer = socketServer.of(NAME_SPACE);
 
 socketServer.use(authenticate());
-
-nameSpaceServer.on("connection", async socket => {
-	const nameSpace = socket.nsp.name;
+namedServer.on("connection", async socket => {
 	const id = socket.id;
-	logger.info(`id ${id} connected to nameSpace ${nameSpace}`);
+	let bulkHandlers = null;
 
-	const addSocketListener = BindSocketListener(socket, nameSpaceServer);
+	logger.info(`id ${id} connected at /${NAME_SPACE}`);
 
-	socketHandlers.forEach(({eventName, handler}) => {
-		addSocketListener(eventName, handler);
+	IORoomManager({
+		bulkHandlers,
+		socket,
+		afterJoinRoom: (room, socket) => {
+			bulkHandlers = addBulkSocketIOHandlers({
+				handlers: socketHandlers,
+				socket,
+				server: namedServer,
+				room,
+			});
+		},
+		afterLeaveRoom: (room, socket) => {
+			removeBulkSocketIOHandlers(bulkHandlers);
+			bulkHandlers = null;
+		},
+	});
+
+	socket.on("error", error =>
+		logger.info(`error occur at socket id ${id} disconnected ${error}`)
+	);
+	socket.on("disconnecting", reason => {
+		logger.info(`disconnecting at id ${id}, reason:${reason}`);
+	});
+	socket.on("disconnect", reason => {
+		logger.info(`socket id ${id} disconnected reason:${reason}`);
 	});
 });
 

@@ -3,7 +3,7 @@ import QuestionContainerTabBar from "./QuestionContainerTabBar.js";
 import useTabs from "../../materialUIHooks/useTabs.js";
 import AddQuestionInputButton from "./QuestionInputArea/AddQuestionInputButton.js";
 import QuestionCardList from "./QuestionCard/QuestionCardList.js";
-import {socketClient} from "../../libs/socket.io-Client-wrapper.js";
+import {socketClient} from "../../libs/socketIoClientProvider.js";
 import PaddingArea from "./QuestionInputArea/PaddingArea.js";
 import QuestionEditMenuDrawer from "./QuestionCard/QuestionEditMenuDrawer.js";
 import NewQuestionInputDrawer from "./NewQuestionInputDrawer.js";

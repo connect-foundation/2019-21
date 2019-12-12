@@ -8,7 +8,9 @@ function getRand() {
 	return parseInt(Math.random() * 150 + 100, 10);
 }
 
-const randomRGB = [getRand(), getRand(), getRand()];
+function getRandomRGB() {
+	return [getRand(), getRand(), getRand()];
+}
 
 // reference from https://mungmungdog.tistory.com/34
 // add colorize https://github.com/winstonjs/winston/issues/1135
@@ -20,6 +22,8 @@ const randomRGB = [getRand(), getRand(), getRand()];
  * @return {function}
  */
 export default (header = "", level = "info") => {
+	const RGB = getRandomRGB();
+
 	const format = winston.format.combine(
 		winston.format.colorize(),
 		winston.format.timestamp(),
@@ -29,17 +33,17 @@ export default (header = "", level = "info") => {
 
 			const ts = timestamp.slice(0, 19).replace("T", " ");
 
-			const head = chalk.rgb(...randomRGB)(`${ts} | ${header}`);
-			const msg = chalk.rgb(...randomRGB)(
+			const head = chalk.rgb(...RGB)(`${ts} | ${header} |`);
+			const msg = chalk.rgb(...RGB)(
 				`${message} ${
-					Object.keys(args).length ?
-						JSON.stringify(args, null, 2) :
-						""
-				}`,
+					Object.keys(args).length
+						? JSON.stringify(args, null, 2)
+						: ""
+				}`
 			);
 
-			return `${head} | [${level}]: ${msg} `;
-		}),
+			return `${head} [${level}]: ${msg} `;
+		})
 	);
 
 	return winston.createLogger({
@@ -49,7 +53,8 @@ export default (header = "", level = "info") => {
 				filename: "log/system.log", // log 폴더에 system.log 이름으로 저장
 				zippedArchive: true, // 압축여부
 				format,
-			}), new winston.transports.Console({
+			}),
+			new winston.transports.Console({
 				format,
 			}),
 		],

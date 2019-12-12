@@ -5,7 +5,7 @@ import InsertEmoticonOutlinedIcon from "@material-ui/icons/InsertEmoticonOutline
 import EmojiInstance from "./EmojiInstance";
 import EmojiPickerModal from "./EmojiPickerModal";
 import useCommonModal from "../CommonComponent/CommonModal/useCommonModal";
-import {socketClient} from "../../libs/socket.io-Client-wrapper.js";
+import {socketClient} from "../../libs/socketIoClientProvider.js";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 
 const RowWrapper = styled.div`
