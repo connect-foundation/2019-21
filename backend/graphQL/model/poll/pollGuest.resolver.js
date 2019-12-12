@@ -1,7 +1,9 @@
 import {getPollsByEventId} from "../../../DB/queries/poll.js";
 import {getCandidatesByPollId} from "../../../DB/queries/candidate.js";
-import {getVotersByCandidateList, getCandidatesByGuestId} from "../../../DB/queries/vote.js";
-
+import {
+	getVotersByCandidateList,
+	getCandidatesByGuestId,
+} from "../../../DB/queries/vote.js";
 
 const simplifyList = list => list.map(n => n.get({plain: true}));
 
@@ -101,10 +103,15 @@ async function setPollItems(polls, candidates) {
  *
  * 특정 guest가 poll에 속한 여러 candidate들 중에서 투표한 candidate가 있는지 확인하고 투표여부를 저장함
  */
-const setVotedOnCandidate = (items, votedList) => {
-	items.forEach(n => {
-		if (votedList.includes(n.id)) {
-			n.voted = true;
+const setVotedOnCandidate = (poll, votedList) => {
+	poll.nItems.forEach((item, index) => {
+		if (votedList.includes(item.id)) {
+			item.voted = true;
+			if (poll.pollType === "rating") {
+				poll.rated = true;
+				poll.ratingValue = index + 1;
+				// console.log("Rated", poll.id, poll.ratingValue, poll.rated);
+			}
 		}
 	});
 };
@@ -118,33 +125,18 @@ const setVotedOnCandidate = (items, votedList) => {
  */
 async function setVotedOnPolls(polls, guestId) {
 	for (const poll of polls) {
+		poll.ratingValue = 0;
+		poll.rated = false;
 		const candidateList = getCandidateList(poll.nItems);
 		let votedList = await getCandidatesByGuestId(candidateList, guestId);
 
 		votedList = simplifyList(votedList);
 		votedList = votedList.map(n => n.CandidateId);
-		setVotedOnCandidate(poll.nItems, votedList);
+		setVotedOnCandidate(poll, votedList);
 	}
 
 	return polls;
 }
-
-const setRatingInfoOnPolls = polls => {
-	polls.forEach(poll => {
-		poll.ratingValue = 0;
-		poll.rated = false;
-		if (poll.pollType === "rating") {
-			poll.nItems.forEach((item, index) => {
-				if (item.voted) {
-					poll.ratingValue = index + 1;
-					poll.rated = true;
-				}
-			});
-		}
-	});
-
-	return polls;
-};
 
 /**
  *
@@ -169,8 +161,6 @@ async function pollGuestResolver(EventId, guestId) {
 
 	polls = await setPollItems(polls, candidates);
 	polls = await setVotedOnPolls(polls, guestId);
-
-	polls = setRatingInfoOnPolls(polls);
 
 	return polls;
 }

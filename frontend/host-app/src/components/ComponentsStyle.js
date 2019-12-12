@@ -3,7 +3,7 @@ import styled, {keyframes} from "styled-components";
 const Open = keyframes`
 	0% { 
 		min-width: 8rem; 
-		height: 15%;
+		height: 13%;
 	}
 	100% { 
 		min-width: 20rem;
@@ -18,7 +18,7 @@ const Close = keyframes`
 	}
 	100% { 
 		min-width: 8rem; 
-		height: 15%;
+		height: 13%;
 	}
 `;
 
@@ -27,6 +27,15 @@ const TitleBox = styled.div`
 	align-items: center;
 	width: 100%;
 	justify-content: space-around;
+	min-height: 2.5rem;
+`;
+
+const FooterBox = styled.div`
+	display: flex;
+	align-items: center;
+	width: 100%;
+	justify-content: space-around;
+	height: 1rem;
 `;
 
 const TitleStyle = styled.div`
@@ -95,9 +104,9 @@ const ModerationStyle = styled.div`
 	display: flex;
 	flex-direction: column;
 	flex: 1;
-	animation: ${props => (props.state ? Open : Close)};
-	animation-duration: 2s;
-	animation-fill-mode: forwards;
+	animation: ${props => ((props.state) ? Open : Close)};
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
 	justify-content: flex-start;
 	align-items: center;
 	border-radius: 8px;
@@ -105,6 +114,7 @@ const ModerationStyle = styled.div`
 	border: 1px solid #e9ecef;
 	min-width: ${props => (props.state ? "20rem" : "8rem")};
 	height: ${props => props.height || "100%"};
+	min-height: 2.5rem;
 	box-sizing: border-box;
 	& + & {
 		margin-left: 8px;
@@ -142,4 +152,5 @@ export {
 	FooterStyle,
 	SkeletonColumnStyle,
 	ModerationStyle,
+	FooterBox,
 };

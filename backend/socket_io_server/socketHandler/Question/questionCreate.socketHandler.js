@@ -12,12 +12,12 @@ function getNewQuestion({
 	content,
 	emojis = [],
 	isAnonymous = false,
-	createdAt = new Date().getTime()
-		.toString(),
+	createdAt = new Date().getTime().toString(),
 	isShowEditButton = true,
 	didILike = false,
 	likeCount = 0,
 	status = "active",
+	QuestionId = null,
 	isStared = false,
 }) {
 	return {
@@ -32,6 +32,7 @@ function getNewQuestion({
 		didILike,
 		likeCount,
 		status,
+		QuestionId,
 		isStared,
 	};
 }
@@ -39,7 +40,14 @@ function getNewQuestion({
 const questionCreateSocketHandler = async (data, emit, socket, server) => {
 	try {
 		const newQuestion = getNewQuestion(data);
-		const {EventId, content, GuestId, guestName, isAnonymous} = newQuestion;
+		const {
+			EventId,
+			content,
+			GuestId,
+			guestName,
+			isAnonymous,
+			QuestionId,
+		} = newQuestion;
 
 		logger.debug(data);
 
@@ -55,10 +63,16 @@ const questionCreateSocketHandler = async (data, emit, socket, server) => {
 				EventId,
 				content,
 				GuestId,
-				QUESTION_STATE_MODERATION,
+				QuestionId,
+				QUESTION_STATE_MODERATION
 			);
 		} else {
-			newData = await createQuestion(EventId, content, GuestId);
+			newData = await createQuestion(
+				EventId,
+				content,
+				GuestId,
+				QuestionId
+			);
 		}
 
 		await updateGuestById({
@@ -68,7 +82,11 @@ const questionCreateSocketHandler = async (data, emit, socket, server) => {
 		});
 
 		reqData.id = newData.get({plain: true}).id;
-		reqData.QuestionId = null;
+		if (QuestionId) {
+			reqData.QuestionId = QuestionId;
+		} else {
+			reqData.QuestionId = null;
+		}
 
 		// todo 성능 개선: moderation기능이 on인경우 host에만 send 하도록 수정
 		emit(reqData);

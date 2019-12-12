@@ -15,6 +15,8 @@ const POLL_QUERY = gql`
 			state
 			totalVoters
 			pollDate
+			rated
+			ratingValue
 			nItems {
 				id
 				number

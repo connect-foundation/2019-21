@@ -45,6 +45,12 @@ const onOpenPoll = id => {
 	socketClient.emit("poll/open", req);
 };
 
+const onClosePoll = id => {
+	const req = {pollId: id};
+
+	socketClient.emit("poll/close", req);
+};
+
 function PollCard(props) {
 	const {
 		id,
@@ -68,9 +74,9 @@ function PollCard(props) {
 				<div>{state === "closed" && "(종료됨)"}</div>
 			</RowWrapper>
 			<RowWrapper left small>
-				{allowDuplication ?
-					`복수선택 | ${localePollDate}` :
-					`${localePollDate}`}
+				{allowDuplication
+					? `복수선택 | ${localePollDate}`
+					: `${localePollDate}`}
 			</RowWrapper>
 			{pollType === "nItems" && (
 				<SelectionItems
@@ -92,6 +98,17 @@ function PollCard(props) {
 						onClick={() => onOpenPoll(id)}
 					>
 						개시하기
+					</Button>
+				</>
+			)}
+			{state === "running" && (
+				<>
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={() => onClosePoll(id)}
+					>
+						종료하기
 					</Button>
 				</>
 			)}

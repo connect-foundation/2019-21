@@ -66,6 +66,36 @@ const updateTotalVoters = (notVoted, totalVoters, items) => {
 	return result;
 };
 
+// 가장 많은 투표수를 받은 항목을 다시 계산하는 부분
+const updateFirstPlace = poll => {
+	const newPoll = {...poll};
+
+	let firstPlaceIndex = [];
+	let firstPlaceValue = 0;
+
+	newPoll.nItems.forEach((item, index) => {
+		if (item.voters == firstPlaceValue) {
+			firstPlaceIndex.push(index);
+		} else if (item.voters > firstPlaceValue) {
+			firstPlaceIndex = [];
+			firstPlaceIndex.push(index);
+			firstPlaceValue = item.voters;
+		}
+	});
+
+	// 우선 초기화
+	newPoll.nItems.forEach(item => {
+		item.firstPlace = false;
+	});
+	// 위에서 계산된 index 의 firstPlace 값만 변경함
+	firstPlaceIndex.forEach(i => {
+		newPoll.nItems[i].firstPlace = true;
+	});
+
+	console.log("firstPlace", firstPlaceIndex, newPoll.nItems);
+	return newPoll;
+};
+
 const emitVoteData = (vote, poll, candidateToDelete) => {
 	const action = poll.nItems[vote.number].voted ? "on" : "off";
 	const data = {
@@ -104,6 +134,8 @@ export default function reducer(polls, action) {
 	switch (action.type) {
 		case "NOTIFY_OPEN":
 			return [action.poll, ...polls];
+		case "NOTIFY_CLOSE":
+			return polls.filter(poll => poll.id !== action.id);
 		case "SOMEONE_VOTE":
 			thePoll.totalVoters = action.poll.totalVoters;
 			thePoll.nItems.forEach((item, index) => {
@@ -139,6 +171,8 @@ export default function reducer(polls, action) {
 					thePoll.nItems,
 				),
 			};
+			thePoll = updateFirstPlace(thePoll);
+
 			emitVoteData(action, thePoll, candidateToDelete);
 			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
 
