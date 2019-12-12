@@ -1,4 +1,4 @@
-import {addVote, deleteVoteBy} from "../../../DB/queries/vote";
+import {addVote, deleteVoteBy, addAndDelete} from "../../../DB/queries/vote";
 
 // const data = {
 //     GuestId: guest.id,
@@ -17,10 +17,18 @@ const voteOnSocketHandler = async (data, emit) => {
 			candidateToDelete,
 		} = data;
 
-		await addVote({GuestId, CandidateId});
+		// if (!allowDuplication && candidateToDelete) {
+		// 	await addAndDelete(GuestId, CandidateId, candidateToDelete);
+		// } else {
+		// 	await addVote({GuestId, CandidateId});
+		// }
 
+		await addVote({GuestId, CandidateId});
 		if (!allowDuplication && candidateToDelete) {
-			await deleteVoteBy({GuestId, CandidateId: candidateToDelete});
+			await deleteVoteBy({
+				GuestId,
+				CandidateId: candidateToDelete,
+			});
 		}
 
 		emit({

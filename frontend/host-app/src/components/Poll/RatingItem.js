@@ -24,7 +24,7 @@ const RowWrapper = styled.div`
 function RatingItem({nItems, state, selectionType}) {
 	return (
 		<ColumnWrapper>
-			{state === "running" &&
+			{state !== "standby" && // running, closed 일때 동일하게 보여야함
 				nItems.map((item, index) => (
 					<RowWrapper key={index}>
 						<div>{item.voters}</div>
