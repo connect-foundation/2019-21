@@ -1,6 +1,6 @@
 import React from "react";
 import {Icon} from "@material-ui/core";
-import {TitleBox, FooterStyle} from "./ComponentsStyle";
+import {FooterBox, FooterStyle} from "./ComponentsStyle";
 import useStyles from "./Questions/useStyles";
 
 function ColumnFooter({data, handler}) {
@@ -10,14 +10,14 @@ function ColumnFooter({data, handler}) {
 
 	return (
 		<FooterStyle>
-			<TitleBox>
+			<FooterBox>
 				<Icon className={classes.footerButton} onClick={() => { decreaseHeight(); }}>
 					remove
 				</Icon>
 				<Icon className={classes.footerButton} onClick={() => { increaseHeight(); }}>
 					add
 				</Icon>
-			</TitleBox>
+			</FooterBox>
 		</FooterStyle>
 	);
 }

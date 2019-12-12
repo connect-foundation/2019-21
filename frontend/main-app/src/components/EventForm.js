@@ -65,9 +65,13 @@ function EventForm() {
 
 	return (
 		<EventFormStyle>
-			<h1>바글바글</h1>
-			<div>익명으로 질문할 수 있습니다.</div>
-			<div>강의 중 궁금한 것들을 편하게 질문하세요.</div>
+			{/* <h1>바글바글</h1> */}
+			<img src="vaagle.png" width="200" height="auto" />
+			<p>
+				익명으로 질문할 수 있습니다.
+				<br />
+				강의 중 궁금한 것들을 편하게 질문하세요.
+			</p>
 			<form autoComplete="off">
 				<div>
 					<StyledTextField

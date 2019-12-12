@@ -1,4 +1,5 @@
 import React from "react";
+import Tooltip from "@material-ui/core/Tooltip";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import {Icon} from "@material-ui/core";
@@ -26,7 +27,9 @@ export default function QuestionMenu({id, type, handler}) {
 
 	return (
 		<>
-			<Icon className={classes.moreButton} onClick={handleClick}>more_vert</Icon>
+			<Tooltip title="메뉴">
+				<Icon className={classes.moreButton} onClick={handleClick}>more_vert</Icon>
+			</Tooltip>
 			<Menu
 				id="long-menu"
 				anchorEl={anchorEl}
@@ -40,9 +43,6 @@ export default function QuestionMenu({id, type, handler}) {
 					},
 				}}
 			>
-				<MenuItem key={"편집"} onClick={handleClose}>
-					{"편집"}
-				</MenuItem>
 				<MenuItem key={"삭제"} onClick={() => { handleDelete(); } }>
 					{"삭제"}
 				</MenuItem>

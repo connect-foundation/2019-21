@@ -8,8 +8,7 @@ const onReset = () => [];
 
 const onLoad = (state, data) => [...state, ...data];
 
-const onAddNewQuestion = (state, data) =>
-	(data.status === "active" ? [...state, data] : [...state]);
+const onAddNewQuestion = (state, data) => [...state, data];
 
 const onSortByRecent = state => [...state.sort(compareByDate)];
 
@@ -153,6 +152,27 @@ const onUpdateQuestion = (state, data) => {
 	return newState;
 };
 
+const onMoveQuestion = (state, data) => {
+	const newState = _.cloneDeep(state);
+
+	if (data.from === "moderation") {
+		data.data.emojis = [];
+		newState.push(data.data);
+	}
+
+	if (data.id === "all") {
+		return newState.map(e => {
+			if (e.state === data.from) { e.state = data.to; }
+			return e;
+		});
+	}
+
+	return newState.map(e => {
+		if (e.id === data.id) { e.state = data.to; }
+		return e;
+	});
+};
+
 const QuestionsRepliesReducer = (state, action) => {
 	const {type, data} = action;
 
@@ -168,6 +188,7 @@ const QuestionsRepliesReducer = (state, action) => {
 		removeQuestionEmoji: onRemoveQuestionEmoji,
 		removeQuestion: onRemoveQuestion,
 		updateQuestion: onUpdateQuestion,
+		moveQuestion: onMoveQuestion,
 	};
 
 	if (!(type in actionTable)) {

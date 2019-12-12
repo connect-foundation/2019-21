@@ -1,4 +1,4 @@
-import React, {useReducer, useContext} from "react";
+import React, {useReducer, useState} from "react";
 import styled from "styled-components";
 import PollCard from "./PollCard";
 import {useSocket} from "../../libs/socket.io-Client-wrapper";
@@ -17,7 +17,7 @@ const ColumnWrapper = styled.div`
 
 function PollContainer({data, GuestId}) {
 	let activePollData = null;
-	let closedPollData = null;
+	let clPollData = null;
 
 	if (data) {
 		const initialPollData = data;
@@ -25,12 +25,11 @@ function PollContainer({data, GuestId}) {
 		activePollData = initialPollData.filter(
 			poll => poll.state === "running",
 		);
-		closedPollData = initialPollData.filter(
-			poll => poll.state === "closed",
-		);
+		clPollData = initialPollData.filter(poll => poll.state === "closed");
 	}
 
 	const [pollData, dispatch] = useReducer(reducer, activePollData);
+	const [closedPollData, setClosedPollData] = useState(clPollData);
 
 	const onVote = (id, candidateId, number, state) => {
 		if (state !== "running") return;
@@ -71,6 +70,18 @@ function PollContainer({data, GuestId}) {
 			type: "NOTIFY_OPEN",
 			poll: thePoll,
 			GuestId,
+		});
+	});
+
+	useSocket("poll/notify_close", id => {
+		// console.log("Guest received poll/notify_close", id);
+		const thePoll = pollData.filter(poll => poll.id === id)[0];
+		thePoll.state = "closed";
+		setClosedPollData([thePoll].concat(closedPollData));
+
+		dispatch({
+			type: "NOTIFY_CLOSE",
+			id: id,
 		});
 	});
 

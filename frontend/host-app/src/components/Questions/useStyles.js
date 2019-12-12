@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
 			color: "#EF0046",
 		},
 	},
-	upwardButton: {
+	restoreButton: {
 		color: "#5a7ec4",
 		marginLeft: "0.25rem",
 		"&:hover": {

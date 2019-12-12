@@ -12,10 +12,11 @@ function InputEventName(props) {
 	return (
 		<CustomTextField
 			id="eventName"
-			label="이벤트 이름"
+			label="이벤트 이름을 입력해주세요"
 			color="primary"
 			error={errorState}
 			onChange={dispatch}
+			autoFocus
 		/>
 	);
 }

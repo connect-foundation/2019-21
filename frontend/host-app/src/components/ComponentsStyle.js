@@ -3,7 +3,7 @@ import styled, {keyframes} from "styled-components";
 const Open = keyframes`
 	0% { 
 		min-width: 8rem; 
-		height: 15%;
+		height: 13%;
 	}
 	100% { 
 		min-width: 20rem;
@@ -18,7 +18,7 @@ const Close = keyframes`
 	}
 	100% { 
 		min-width: 8rem; 
-		height: 15%;
+		height: 13%;
 	}
 `;
 
@@ -27,6 +27,15 @@ const TitleBox = styled.div`
 	align-items: center;
 	width: 100%;
 	justify-content: space-around;
+	min-height: 2.5rem;
+`;
+
+const FooterBox = styled.div`
+	display: flex;
+	align-items: center;
+	width: 100%;
+	justify-content: space-around;
+	height: 1rem;
 `;
 
 const TitleStyle = styled.div`
@@ -54,9 +63,14 @@ const EmptyContentBox = styled.div`
 
 const EmptyContentDiv = styled.div`
 	display: flex;
+	align-items: center;
+	justify-content: center;
 	flex-direction: column;
-	font-size: 2rem;
+	font-size: 1.5rem;
 	margin: auto 0;
+	button {
+		margin-top: 1rem;
+	}
 `;
 
 const ContentStyle = styled.div`
@@ -91,15 +105,16 @@ const ModerationStyle = styled.div`
 	flex-direction: column;
 	flex: 1;
 	animation: ${props => ((props.state) ? Open : Close)};
-    animation-duration: 2s;
+    animation-duration: 0.2s;
     animation-fill-mode: forwards;
 	justify-content: flex-start;
 	align-items: center;
 	border-radius: 8px;
 	background-color: #f1f3f5;
 	border: 1px solid #e9ecef;
-	min-width: ${props => ((props.state) ? "20rem" : "8rem")};
+	min-width: ${props => (props.state ? "20rem" : "8rem")};
 	height: ${props => props.height || "100%"};
+	min-height: 2.5rem;
 	box-sizing: border-box;
 	& + & {
 		margin-left: 8px;
@@ -114,7 +129,7 @@ const SkeletonColumnStyle = styled.div`
 	align-items: center;
 	border-radius: 8px;
 	min-width: "20rem";
-	height:"100%";
+	height: "100%";
 	box-sizing: border-box;
 	& + & {
 		margin-left: 8px;
@@ -137,4 +152,5 @@ export {
 	FooterStyle,
 	SkeletonColumnStyle,
 	ModerationStyle,
+	FooterBox,
 };
