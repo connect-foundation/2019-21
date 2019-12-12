@@ -18,7 +18,7 @@ const ReplieNumField = styled(Box)({
 
 const CustomDivider = styled(Divider)({
 	marginLeft: "2rem",
-	width: "80%",
+	width: "70%",
 	height: "0.2rem",
 	marginTop: "0.8rem",
 });
