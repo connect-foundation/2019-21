@@ -1,4 +1,6 @@
 import React from "react";
+import Typography from "@material-ui/core/Typography";
+import EventCreateButton from "./Event/EventCreateButton.js";
 import {Button} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import CreateEventModal from "./CreateEventModal/CreateEventModal";
@@ -18,6 +20,9 @@ function EmptyContent() {
 	return (
 		<EmptyContentBox>
 			<EmptyContentDiv>
+				<Typography>현재 진행중인 이벤트가 없습니다</Typography>
+
+				<EventCreateButton onClick={handleOpen} />
 				현재 진행중인 이벤트가 없습니다
 				<StyledButton
 					size="large"
