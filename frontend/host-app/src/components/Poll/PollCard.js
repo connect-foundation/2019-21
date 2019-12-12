@@ -63,7 +63,18 @@ function PollCard(props) {
 		...others
 	} = props;
 
-	const localePollDate = pollDate || new Date();
+	// socket.io, sequelize, graphQL 을 거치면서 format이 변경되어서 그때그때 처리하기 위함
+	let localePollDate = pollDate;
+	if (localePollDate.includes("-")) {
+		localePollDate = new Date(localePollDate);
+	} else {
+		localePollDate = new Date(parseInt(localePollDate));
+	}
+	localePollDate = `
+		${localePollDate.getMonth() + 1}월 
+		${localePollDate.getDate()}일 
+		${localePollDate.getHours()}시 
+		${localePollDate.getMinutes()}분`;
 
 	return (
 		<ColumnWrapper>
