@@ -16,7 +16,7 @@ function getNewQuestion({
 	isShowEditButton = true,
 	didILike = false,
 	likeCount = 0,
-	status = "active",
+	state = "active",
 	QuestionId = null,
 	isStared = false,
 }) {
@@ -31,7 +31,7 @@ function getNewQuestion({
 		isAnonymous,
 		didILike,
 		likeCount,
-		status,
+		state,
 		QuestionId,
 		isStared,
 	};
@@ -58,7 +58,7 @@ const createQuestionSocketHandler = async (data, emit, socket, server) => {
 
 		// todo 성능 개선: 위해 여러개의 DB query를 promise.all 처리해야함
 		if (currentModerationOption) {
-			reqData.status = QUESTION_STATE_MODERATION;
+			reqData.state = QUESTION_STATE_MODERATION;
 			newData = await createQuestion(
 				EventId,
 				content,
