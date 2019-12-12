@@ -1,3 +1,11 @@
+type HashTag {
+	id: Int!
+	name: String!
+	createdAt: String!
+	updatedAt: String!
+	EventId: ID!
+}
+
 type Event {
 	id: Int!
 	eventCode: String!
@@ -37,14 +45,20 @@ input EventInfo {
 	endAt: String!
 }
 
+input HashTagInput {
+	name: String!
+	EventId: ID!
+}
+
 type Mutation {
 	createEvent(info: EventInfo!): Event
+	createHashTags(hashTags: [HashTagInput]!): HashTag
 }
 
 type Query {
 	events: [Event]!
 	init: InitData!
-	getEventOption(EventId:ID!): EventOption!
+	getEventOption(EventId: ID!): EventOption!
 }
 
 type Mutation {

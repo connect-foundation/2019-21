@@ -42,6 +42,16 @@ function createEvent() {
 	`;
 }
 
+function createHashTags() {
+	return gql`
+		mutation Mutation($hashTags: [HashTagInput]!) {
+			createHashTags(hashTags: $hashTags) {
+				id
+			}
+		}
+	`;
+}
+
 function setModerationOptionById(eventId, moderationOption) {
 	return gql`
 	mutation{
@@ -72,4 +82,5 @@ export {
 	getQuestionsByEventCodeAndGuestId,
 	createEvent,
 	setModerationOptionById,
+	createHashTags,
 };

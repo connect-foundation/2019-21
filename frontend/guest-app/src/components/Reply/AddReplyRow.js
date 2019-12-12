@@ -1,9 +1,9 @@
 import React from "react";
-import Fab from "@material-ui/core/Fab";
+import Button from "@material-ui/core/Button";
 import ChatBubble from "@material-ui/icons/ChatBubble";
 import {styled} from "@material-ui/core/styles";
 
-const StyledFab = styled(Fab)({
+const StyledButton = styled(Button)({
 	height: "2rem",
 	marginBottom: "1rem",
 });
@@ -11,10 +11,10 @@ const StyledFab = styled(Fab)({
 function AddReplyRow(props) {
 	const {openReplies} = props;
 	return (
-		<StyledFab color="primary" variant="extended" onClick={openReplies}>
+		<StyledButton onClick={openReplies}>
 			<ChatBubble style={{marginRight: "0.5rem"}} />
 			<strong>댓글달기</strong>
-		</StyledFab>
+		</StyledButton>
 	);
 }
 
