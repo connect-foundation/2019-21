@@ -6,7 +6,10 @@ import {
 	updateEventById,
 	getEventOptionByEventId,
 } from "../../../DB/queries/event.js";
-import {createHashtag} from "../../../DB/queries/hashtag.js";
+import {
+	createHashtag,
+	getHashtagByEventIds,
+} from "../../../DB/queries/hashtag.js";
 
 const moderationResolver = async (eventId, moderationOption) => {
 	const updatedEvent = await updateEventById(eventId, {moderationOption});
@@ -25,8 +28,21 @@ export default {
 		init: async (_, {param}, authority) => {
 			if (authority.sub === "host") {
 				const host = authority.info;
-				const events = await getEventsByHostId(host.id);
-
+				let events = await getEventsByHostId(host.id);
+				events = events.map(event => event.get({plain: true}));
+				const eventMap = new Map();
+				const eventIdList = events.map(event => {
+					eventMap.set(event.id, []);
+					return event.id;
+				});
+				let hashTags = await getHashtagByEventIds(eventIdList);
+				hashTags.forEach(hashTag => {
+					const hashTagObject = hashTag.get({plain: true});
+					eventMap.get(hashTagObject.EventId).push(hashTagObject);
+				});
+				events.forEach(event => {
+					Object.assign(event, {HashTags: eventMap.get(event.id)});
+				});
 				return {events, host};
 			}
 
