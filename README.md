@@ -49,6 +49,10 @@ yarn start
 -   Back-end: Nginx, nodejs, MySQL2, Sequelize, GraphQL(Yoga), socket.io, Oauth, Docker
 -   Env & etc: Eslint, babel, webpack, prettier, yarn, github, slack
 
+## DataFlow
+![vaagleDataFlow](https://user-images.githubusercontent.com/52785648/70682492-6885b080-1ce2-11ea-9f46-609338d4e8d7.jpg)
+
+
 ## 사용자 집단
 
 -   컨퍼런스/세미나/수업 참가자 및 운영자
