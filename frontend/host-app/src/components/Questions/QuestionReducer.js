@@ -1,7 +1,6 @@
 const QuestionsReducer = (state, action) => {
 	const actionTable = {
 		addNewQuestion: () => {
-			console.log([...state.questions, action.data]);
 			return ({questions: [...state.questions, action.data]});
 		},
 		toggleStar: () => {
@@ -26,6 +25,24 @@ const QuestionsReducer = (state, action) => {
 					return e;
 				});
 			}
+
+			return {questions: [...newData]};
+		},
+		createLike: () => {
+			const targetId = action.data.QuestionId;
+			const newData = state.questions.map(e => {
+				if (e.id === targetId) e.likeCount++;
+				return e;
+			});
+
+			return {questions: [...newData]};
+		},
+		removeLike: () => {
+			const targetId = action.data.QuestionId;
+			const newData = state.questions.map(e => {
+				if (e.id === targetId) e.likeCount--;
+				return e;
+			});
 
 			return {questions: [...newData]};
 		},
