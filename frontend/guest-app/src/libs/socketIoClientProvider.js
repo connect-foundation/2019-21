@@ -1,14 +1,16 @@
 import io from "socket.io-client";
 import React, {createContext} from "react";
+import Cookie from "js-cookie";
 
 function combineURL(host, port, nameSpace) {
 	return nameSpace ? `${host}:${port}/${nameSpace}` : `${host}:${port}`;
 }
 
 export function createSocketIOClient({host, port, namespace, room}) {
-
+	const cookieName = "vaagle-host";
+	const token = Cookie.get(cookieName);
 	const URL = combineURL(host, port, namespace);
-	const socket = io(URL);
+	const socket = io(URL, {query: {token: token}});
 
 	socket.on("connect", async () => {
 		console.log(
