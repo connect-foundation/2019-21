@@ -15,12 +15,17 @@ import AppSkeleton from "../components/Skeleton/AppSkeleton.js";
 import HOCChaining from "../HOC/HOCChaining.js";
 import AppErrorComponent from "../components/ErrorComponent.js";
 
+const EVENT_LIST_TAB_IDX = 0;
+// const LIVE_EVENT_TAB_IDX = 1;
+// const DEFAULT_TAB_IDX = EVENT_LIST_TAB_IDX;
+
 let App = props => {
 	const {data} = props;
 	const [events, setEvents] = useState(data.init.events);
 	const hostInfo = data.init.host;
 	const eventId = events[0].id;
 
+	const [tabIdx, setTabIdx] = React.useState(EVENT_LIST_TAB_IDX);
 	const modal = false;
 
 	socketClient.emit("joinRoom", {room: eventId});
@@ -29,10 +34,13 @@ let App = props => {
 	return (
 		<div className="App">
 			<HostProvider value={{hostInfo, events, setEvents}}>
-				<Header/>
-				<Nav/>
-				<NewPollModal open={modal}/>
-				<Content event={event}/>
+				<Header />
+				<Nav
+					tabIdx={tabIdx}
+					onChange={(e, newTabIdx) => setTabIdx(newTabIdx)}
+				/>
+				<NewPollModal open={modal} />
+				<Content event={event} />
 			</HostProvider>
 		</div>
 	);
