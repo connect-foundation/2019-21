@@ -75,6 +75,9 @@ function PollContainer({data}) {
 	// socket.io server 통신 부분
 	// onCreatePoll에 의해 신규로 생성된 Poll은 DB에 socket.io server에 요청하여 DB에 write 함
 	useSocket("poll/create", res => {
+		if (res.error) {
+			return;
+		}
 		// console.log("useSocket: Poll created.", res);
 		res.pollDate = res.createdAt;
 		res.totalVoters = 0;
@@ -82,6 +85,9 @@ function PollContainer({data}) {
 	});
 
 	useSocket("poll/open", pollId => {
+		if (pollId.error) {
+			return;
+		}
 		const thePoll = standbyPollData.filter(poll => poll.id === pollId)[0];
 
 		// DB에는 바뀌어 있지만, 여기서는 바뀌지 않은 상태이므로 강제로 바꿈
@@ -108,6 +114,9 @@ function PollContainer({data}) {
 	});
 
 	useSocket("poll/close", pollId => {
+		if (pollId.error) {
+			return;
+		}
 		const thePoll = pollData.filter(poll => poll.id === pollId)[0];
 
 		// DB에는 바뀌어 있지만, 여기서는 바뀌지 않은 상태이므로 강제로 바꿈
@@ -128,6 +137,9 @@ function PollContainer({data}) {
 	});
 
 	useSocket("vote/on", res => {
+		if (res.error) {
+			return;
+		}
 		// console.log("useSocket vote/on", res);
 		dispatch({
 			type: "SOMEONE_VOTE",
@@ -137,6 +149,9 @@ function PollContainer({data}) {
 	});
 
 	useSocket("vote/off", res => {
+		if (res.error) {
+			return;
+		}
 		dispatch({
 			type: "SOMEONE_VOTE",
 			id: res.poll.id,
@@ -145,6 +160,9 @@ function PollContainer({data}) {
 	});
 
 	useSocket("rate/on", res => {
+		if (res.error) {
+			return;
+		}
 		// console.log("useSocket rate/on", res);
 		// const index = parseInt(res.poll.ratingValue) - 1;
 		dispatch({
@@ -156,6 +174,9 @@ function PollContainer({data}) {
 	});
 
 	useSocket("rate/off", res => {
+		if (res.error) {
+			return;
+		}
 		// console.log("useSocket rate/off", res);
 		dispatch({
 			type: "SOMEONE_CANCEL_RATE",
