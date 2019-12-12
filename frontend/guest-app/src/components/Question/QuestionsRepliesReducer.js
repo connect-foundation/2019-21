@@ -173,6 +173,17 @@ const onMoveQuestion = (state, data) => {
 	});
 };
 
+const onToggleStarQuestion = (state, data) => {
+	const newState = _.cloneDeep(state);
+
+	newState.map(e => {
+		if (e.id === data.id) { e.isStared = data.isStared; }
+		return e;
+	});
+
+	return newState;
+};
+
 const QuestionsRepliesReducer = (state, action) => {
 	const {type, data} = action;
 
@@ -189,6 +200,7 @@ const QuestionsRepliesReducer = (state, action) => {
 		removeQuestion: onRemoveQuestion,
 		updateQuestion: onUpdateQuestion,
 		moveQuestion: onMoveQuestion,
+		toggleStarQuestion: onToggleStarQuestion,
 	};
 
 	if (!(type in actionTable)) {

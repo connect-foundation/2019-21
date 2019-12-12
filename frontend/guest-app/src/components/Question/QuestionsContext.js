@@ -59,6 +59,11 @@ const useSocketHandler = (dispatch, guestGlobal) => {
 		req.guestGlobal = guestGlobal;
 		dispatch({type: "moveQuestion", data: req});
 	});
+
+	useSocket("question/toggleStar", req => {
+		req.guestGlobal = guestGlobal;
+		dispatch({type: "toggleStarQuestion", data: req});
+	});
 };
 
 export function QuestionsProvider(props) {
