@@ -6,7 +6,7 @@ import configLoader from "./config/configLoader.js";
 import logger from "./logger.js";
 import authenticate from "./middleware/authenticate";
 import IORoomManager from "./IORoomManager.js";
-import {addBulkSocketIOHandlers} from "./SocketIOBulkHandlerManager.js";
+import {addBulkSocketIOHandlers, removeBulkSocketIOHandlers} from "./SocketIOBulkHandlerManager.js";
 import socketHandlers from "./socketHandler";
 
 dotenv.config();
@@ -41,7 +41,7 @@ namedServer.on("connection", async socket => {
 			});
 		},
 		afterLeaveRoom: (room, socket) => {
-			bulkHandlers();
+			removeBulkSocketIOHandlers(bulkHandlers);
 			bulkHandlers = null;
 		},
 	});

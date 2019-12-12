@@ -37,3 +37,5 @@ export const addBulkSocketIOHandlers = ({handlers, socket, server, room}) => {
 
 	return () => AttachedHandlers.map(removeHandler => removeHandler());
 };
+
+export const removeBulkSocketIOHandlers = handlers => handlers();
