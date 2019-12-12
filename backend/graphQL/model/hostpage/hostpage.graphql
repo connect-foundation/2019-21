@@ -17,6 +17,7 @@ type Event {
 	startAt: String!
 	endAt: String!
 	HostId: ID!
+	HashTags: [HashTag]
 }
 
 type EventOption {

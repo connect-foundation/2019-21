@@ -12,6 +12,11 @@ function getEventsByHost() {
 					endAt
 					moderationOption
 					replyOption
+					HashTags {
+						id
+						name
+						EventId
+					}
 				}
 				host {
 					oauthId

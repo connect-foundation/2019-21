@@ -5,7 +5,7 @@ const Hashtag = models.Hashtag;
 export async function createHashtag({name, EventId}) {
 	return Hashtag.create(
 		{name, EventId},
-		{default: {updateAt: new Date(), createAt: new Date()}},
+		{default: {updateAt: new Date(), createAt: new Date()}}
 	);
 }
 
@@ -19,4 +19,8 @@ export async function deleteHashTagById(id) {
 
 export async function getHashtagByEventId(EventId) {
 	return Hashtag.findAll({where: {EventId}});
+}
+
+export async function getHashtagByEventIds(EventIdList) {
+	return Hashtag.findAll({where: {EventId: EventIdList}});
 }

@@ -13,7 +13,6 @@ import {socketClient} from "../libs/socket.io-Client-wrapper";
 import SkeletonContent from "../components/SkeletonContent";
 import SkeletonTitle from "../components/SkeletionTitle";
 
-
 function App() {
 	const modal = false;
 	const {data, loading, error} = useQuery(getEventsByHost());
@@ -21,10 +20,12 @@ function App() {
 	let eventNum = 0;
 
 	if (loading) {
-		return (<Skeleton>
-			<SkeletonTitle/>
-			<SkeletonContent/>
-		</Skeleton>);
+		return (
+			<Skeleton>
+				<SkeletonTitle />
+				<SkeletonContent />
+			</Skeleton>
+		);
 	} else if (error) {
 		return <p>error-page...</p>;
 	} else {
@@ -34,6 +35,7 @@ function App() {
 				() => (eventNum = data.init.events.length),
 			);
 		}
+		console.log(events);
 		const hostInfo = data.init.host;
 
 		eventNum = events.length;
@@ -47,10 +49,10 @@ function App() {
 		return (
 			<HostProvider value={{hostInfo, events, setEvents}}>
 				<div className="App">
-					<Header/>
-					<Nav/>
-					{modal && <NewPollModal/>}
-					{eventNum ? <Content event={event}/> : <EmptyContent/>}
+					<Header />
+					<Nav />
+					{modal && <NewPollModal />}
+					{eventNum ? <Content event={event} /> : <EmptyContent />}
 				</div>
 			</HostProvider>
 		);
