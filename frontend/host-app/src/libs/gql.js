@@ -65,6 +65,23 @@ function setModerationOptionById(eventId, moderationOption) {
 `;
 }
 
+function updateEvent() {
+	return gql`
+		mutation Mutation($event: EventUpdate!) {
+			updateEvent(event: $event) {
+				id
+				eventCode
+				eventName
+				moderationOption
+				replyOption
+				endAt
+				startAt
+				HostId
+			}
+		}
+	`;
+}
+
 function getQuestionsByEventCodeAndGuestId() {
 	return gql`
     {
@@ -88,4 +105,5 @@ export {
 	createEvent,
 	setModerationOptionById,
 	createHashTags,
+	updateEvent,
 };

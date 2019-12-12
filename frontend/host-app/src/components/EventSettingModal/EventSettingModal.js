@@ -5,7 +5,7 @@ import TabNavigation from "./EventSettingTab/TabNavigation";
 import {HostContext} from "../../libs/hostContext";
 
 const modalHeight = 41;
-const modalWidth = 60;
+const modalWidth = 45;
 const alertHeight = 2;
 const alertWidth = 12;
 const PopUpLayOutStyle = styled.div`

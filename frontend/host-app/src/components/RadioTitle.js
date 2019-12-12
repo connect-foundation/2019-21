@@ -1,7 +1,7 @@
 import React from "react";
 import Radio from "@material-ui/core/Radio";
 import Badge from "@material-ui/core/Badge";
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from "@material-ui/core/Tooltip";
 import {makeStyles} from "@material-ui/core/styles";
 import {Icon} from "@material-ui/core";
 import {TitleStyle, TitleBox, RightSide} from "./ComponentsStyle";

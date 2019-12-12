@@ -31,7 +31,6 @@ router.get("/:path", guestAuthenticate(), async (req, res, next) => {
 		const eventId = await pathToCode(path);
 		const guest = await createGuest("Anonymous", eventId);
 		const accessToken = generateAccessToken(guest.guestSid, "guest");
-
 		res.cookie(cookieName, accessToken, {
 			expires: getTokenExpired(24),
 		});

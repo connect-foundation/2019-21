@@ -51,9 +51,17 @@ input HashTagInput {
 	EventId: ID!
 }
 
+input EventUpdate {
+	eventName: String!
+	startAt: String!
+	endAt: String!
+	EventId: ID!
+}
+
 type Mutation {
 	createEvent(info: EventInfo!): Event
 	createHashTags(hashTags: [HashTagInput]!): HashTag
+	updateEvent(event: EventUpdate!): Event
 }
 
 type Query {

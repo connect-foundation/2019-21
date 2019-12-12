@@ -27,7 +27,7 @@ function InputHashTag(props) {
 	return (
 		<CustomTextField
 			id="eventName"
-			label="해시태그를 입력 후 Enter키를 눌러주세요" //"Press Enter"
+			label="해시태그를 입력 후 Enter키를 눌러주세요" // "Press Enter"
 			color="primary"
 			onKeyDown={addHashTag}
 		/>

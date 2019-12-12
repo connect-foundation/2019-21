@@ -82,12 +82,13 @@ function PollContainer({data, GuestId}) {
 		}
 		// console.log("Guest received poll/notify_close", id);
 		const thePoll = pollData.filter(poll => poll.id === id)[0];
+
 		thePoll.state = "closed";
 		setClosedPollData([thePoll].concat(closedPollData));
 
 		dispatch({
 			type: "NOTIFY_CLOSE",
-			id: id,
+			id,
 		});
 	});
 

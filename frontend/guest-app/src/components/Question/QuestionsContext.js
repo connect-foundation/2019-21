@@ -14,6 +14,7 @@ const useDataLoadEffect = (dispatch, data) => {
 	useEffect(() => {
 		if (data) {
 			const buildData = buildQuestions(data);
+
 			dispatch({type: "load", data: buildData});
 		}
 	}, [data, dispatch]);
@@ -77,12 +78,8 @@ export function QuestionsProvider(props) {
 	useDataLoadEffect(dispatch, data);
 	useSocketHandler(dispatch, guest);
 
-	const questions = state.filter(question => {
-		return (question.QuestionId === null && question.state === "active");
-	});
-	const replies = state.filter(question => {
-		return question.QuestionId !== null;
-	});
+	const questions = state.filter(question => (question.QuestionId === null && question.state === "active"));
+	const replies = state.filter(question => question.QuestionId !== null);
 
 	const value = {
 		loading,

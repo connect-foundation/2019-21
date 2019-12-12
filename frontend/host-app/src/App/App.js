@@ -35,7 +35,6 @@ function App() {
 				() => (eventNum = data.init.events.length),
 			);
 		}
-		console.log(events);
 		const hostInfo = data.init.host;
 
 		eventNum = events.length;
