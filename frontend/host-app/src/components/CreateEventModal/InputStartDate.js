@@ -13,23 +13,25 @@ const marginTopLength = 20;
 
 const CustomContainer = styled(Container)({
 	display: "flex",
-	margin: 0,
+	margin: "1rem 0 0 0",
 	padding: 0,
 });
 
 const CustomDateTimePicker = styled(DateTimePicker)({
 	marginTop: marginTopLength,
-	width: 220,
+	width: 250,
 });
 
 const CustomTimePicker = styled(TimePicker)({
 	marginTop: marginTopLength,
+	marginLeft: 30,
+	width: 120,
 });
 
 function InputStartDate(props) {
 	const {setStartDate, setEndDate} = props.dispatch;
 	const [lastTime, handleLastTimeChange] = useState(
-		new Date().setHours(0, 0),
+		new Date().setHours(1, 0),
 	);
 
 	const calcEndDate = inputTime => {
@@ -62,6 +64,7 @@ function InputStartDate(props) {
 					label="유효시간"
 					value={lastTime}
 					onChange={calcEndDate}
+					format={"HH시간 mm분"}
 					minutesStep={5}
 				/>
 			</MuiPickersUtilsProvider>
