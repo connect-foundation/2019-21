@@ -5,7 +5,7 @@ import useQueryQuestions from "../libs/useQueryQuestions";
 import {HostContext} from "../libs/hostContext";
 import {ContentStyle} from "./ComponentsStyle";
 import QuestionsReducer from "./Questions/QuestionReducer";
-import SkeletonContent from "./SkeletonContent";
+import SkeletonContent from "./Skeleton/SkeletonContent.js";
 import useSocketHandler from "./useSocketHandler";
 
 

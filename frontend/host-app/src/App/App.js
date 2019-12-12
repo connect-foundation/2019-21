@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {Skeleton} from "@material-ui/lab";
 import {useQuery} from "@apollo/react-hooks";
 import "./App.css";
 import Header from "../components/Header";
@@ -10,8 +9,7 @@ import {HostProvider} from "../libs/hostContext";
 import {getEventsByHost} from "../libs/gql";
 import EmptyContent from "../components/EmptyContent";
 import {socketClient} from "../libs/socket.io-Client-wrapper";
-import SkeletonContent from "../components/SkeletonContent";
-import SkeletonTitle from "../components/SkeletionTitle";
+import AppSkeleton from "../components/Skeleton/AppSkeleton.js";
 
 function App() {
 	const modal = false;
@@ -20,42 +18,37 @@ function App() {
 	let eventNum = 0;
 
 	if (loading) {
-		return (
-			<Skeleton>
-				<SkeletonTitle />
-				<SkeletonContent />
-			</Skeleton>
-		);
-	} else if (error) {
-		return <p>error-page...</p>;
-	} else {
-		if (events === "") {
-			setEvents(
-				data.init.events,
-				() => (eventNum = data.init.events.length),
-			);
-		}
-		const hostInfo = data.init.host;
-
-		eventNum = events.length;
-		if (eventNum) {
-			const eventId = events[0].id;
-
-			socketClient.emit("joinRoom", {room: eventId});
-			socketClient.emit("event/initOption", eventId); // dummy Event Id:2
-		}
-
-		return (
-			<HostProvider value={{hostInfo, events, setEvents}}>
-				<div className="App">
-					<Header />
-					<Nav />
-					{modal && <NewPollModal />}
-					{eventNum ? <Content event={event} /> : <EmptyContent />}
-				</div>
-			</HostProvider>
-		);
+		return <AppSkeleton />;
 	}
+
+	if (error) {
+		return <p>error-page...</p>;
+	}
+
+	if (events === "") {
+		setEvents(data.init.events, () => (eventNum = data.init.events.length));
+	}
+
+	const hostInfo = data.init.host;
+
+	eventNum = events.length;
+	if (eventNum) {
+		const eventId = events[0].id;
+
+		socketClient.emit("joinRoom", {room: eventId});
+		socketClient.emit("event/initOption", eventId);
+	}
+
+	return (
+		<HostProvider value={{hostInfo, events, setEvents}}>
+			<div className="App">
+				<Header />
+				<Nav />
+				{modal && <NewPollModal />}
+				{eventNum ? <Content event={event} /> : <EmptyContent />}
+			</div>
+		</HostProvider>
+	);
 }
 
 export default App;

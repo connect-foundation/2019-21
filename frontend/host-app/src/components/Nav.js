@@ -41,21 +41,26 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function Nav() {
+function Nav(props) {
+	const {onChangeTab} = props;
 	const classes = useStyles();
 	const [value, setValue] = React.useState(0);
 
-	const handleChange = (event, newValue) => {
+	const onChange = (event, newValue) => {
 		setValue(newValue);
+		onChangeTab(newValue);
 	};
 
 	return (
 		<div className={classes.root}>
 			<div className={classes.navBar}>
-				<AntTabs value={value} onChange={handleChange} aria-label="ant example">
-					<AntTab label="이벤트" />
-					<AntTab label="과거 기록" />
-					<AntTab label="통계" />
+				<AntTabs
+					value={value}
+					onChange={onChange}
+					aria-label="ant example"
+				>
+					<AntTab label="이벤트 목록"/>
+					<AntTab label="라이브 이벤트"/>
 				</AntTabs>
 			</div>
 		</div>
