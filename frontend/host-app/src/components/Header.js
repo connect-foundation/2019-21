@@ -21,7 +21,6 @@ const useStyles = makeStyles(() => ({
 function Header() {
 	const [settingModalOpen, handleOpen, handleClose] = useModal();
 	const classes = useStyles();
-	const userName = "홍";
 
 	return (
 		<AppBar position="static">
@@ -35,7 +34,7 @@ function Header() {
 							handleClose={handleClose}
 						/>
 					)}
-					<HeaderAccountAvatar userName={userName} />
+					<HeaderAccountAvatar />
 				</div>
 			</Toolbar>
 		</AppBar>
