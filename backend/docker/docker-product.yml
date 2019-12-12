@@ -71,6 +71,16 @@ services:
     networks:
       - backend
 
+  redis:
+    container_name: ${REDIS_PROD_CONTAINER_NAME}
+    image: redis
+    ports:
+      - ${REDIS_PROD_PORT}:6379
+    volumes:
+      - ${DOCKER_VOLUMNS_PATH}/${REDIS_PROD_CONTAINER_NAME}:/data
+    networks:
+      - backend
+
 networks:
   backend:
     driver: "bridge"
