@@ -23,7 +23,7 @@ function EmptyContent() {
 				<Typography>현재 진행중인 이벤트가 없습니다</Typography>
 
 				<EventCreateButton onClick={handleOpen} />
-				현재 진행중인 이벤트가 없습니다
+				{/* 현재 진행중인 이벤트가 없습니다
 				<StyledButton
 					size="large"
 					variant="contained"
@@ -31,7 +31,7 @@ function EmptyContent() {
 					onClick={handleOpen}
 				>
 					이벤트 만들기
-				</StyledButton>
+				</StyledButton> */}
 				{eventModalOpen && (
 					<CreateEventModal
 						open={eventModalOpen}

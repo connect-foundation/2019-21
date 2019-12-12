@@ -33,7 +33,7 @@ function InputStartDate(props) {
 	const {errorState} = props;
 	const {setStartDate, setEndDate} = props.dispatch;
 	const [lastTime, handleLastTimeChange] = useState(
-		new Date().setHours(1, 0),
+		new Date().setHours(0, 0),
 	);
 
 	const calcEndDate = inputTime => {
