@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Cookie from "js-cookie";
-import {TextField, Button} from "@material-ui/core";
+import { TextField, Button, Typography } from "@material-ui/core";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import {withStyles} from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import config from "../config";
 
 const EventFormStyle = styled.div`
@@ -14,6 +14,9 @@ const EventFormStyle = styled.div`
 	overflow: auto;
 	justify-content: center;
 	align-items: center;
+	h1 {
+		margin-bottom: 1rem;
+	}
 `;
 
 const ErrorStyle = styled.div`
@@ -65,13 +68,13 @@ function EventForm() {
 
 	return (
 		<EventFormStyle>
-			{/* <h1>바글바글</h1> */}
-			<img src="vaagle.png" width="200" height="auto" />
-			<p>
-				익명으로 질문할 수 있습니다.
-				<br />
-				강의 중 궁금한 것들을 편하게 질문하세요.
-			</p>
+			<Typography variant="h3" component="h1">
+				바글바글
+			</Typography>
+			{/* <img src="vaagle.png" width="200" height="auto" /> */}
+			<Typography>익명으로 질문할 수 있습니다.</Typography>
+			<Typography>강의 중 궁금한 것들을 편하게 질문하세요.</Typography>
+
 			<form autoComplete="off">
 				<div>
 					<StyledTextField
