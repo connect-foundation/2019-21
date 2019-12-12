@@ -10,6 +10,7 @@ const StyledButton = styled(Button)({
 
 function AddReplyRow(props) {
 	const {openReplies} = props;
+
 	return (
 		<StyledButton onClick={openReplies}>
 			<ChatBubble style={{marginRight: "0.5rem"}} />

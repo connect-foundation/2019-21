@@ -8,7 +8,6 @@ import {styled} from "@material-ui/core/styles";
 import DateFnsUtils from "@date-io/date-fns";
 import Container from "@material-ui/core/Container";
 import moment from "moment";
-import {validStartDate} from "../../libs/eventValidation";
 
 const marginTopLength = 20;
 

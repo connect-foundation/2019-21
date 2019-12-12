@@ -1,7 +1,7 @@
 import React, {useReducer, useContext} from "react";
 import styled from "styled-components";
-import moment from "moment";
 import uuidv1 from "uuid/v1";
+import {useMutation} from "@apollo/react-hooks";
 import TabHeader from "../TabHeader";
 import InputEventName from "./InputEventName";
 import InputStartDate from "./InputStartDate";
@@ -14,6 +14,7 @@ import {generalSettingReducer} from "../../settingReducer/settingReducer";
 import ButtonField from "../ButtonField";
 import {HostContext} from "../../../../libs/hostContext";
 import config from "../../../../config";
+import {updateEvent} from "../../../../libs/gql";
 
 const PopUpLayOutStyle = styled.div`
 	display: flex;
@@ -31,9 +32,7 @@ function convertDataToView(eventInfo) {
 	return {
 		eventName: eventInfo.eventName,
 		startDate: new Date(parseInt(eventInfo.startAt)),
-		endDate: moment(new Date(parseInt(eventInfo.endAt))).format(
-			"YYYY년 MM월 DD일 HH시 mm분",
-		),
+		endDate: new Date(parseInt(eventInfo.endAt)),
 		eventCode: eventInfo.eventCode,
 		hashTags: eventHashTags,
 		eventLink: `${config.url}/${window.btoa(eventInfo.eventCode)}`,
@@ -41,6 +40,7 @@ function convertDataToView(eventInfo) {
 }
 
 export default function GeneralSetting({handleClose}) {
+	const [mutaionUpdateEvent, {updatedEvent}] = useMutation(updateEvent());
 	const {hostInfo, events, setEvents} = useContext(HostContext);
 	const initialGeneralState = convertDataToView(events[0]);
 	const [generalSettingState, dispatch] = useReducer(
@@ -93,7 +93,19 @@ export default function GeneralSetting({handleClose}) {
 	};
 
 	const sendData = () => {
-		console.log(generalSettingState);
+		mutaionUpdateEvent({
+			variables: {
+				event: {
+					eventName: generalSettingState.eventName,
+					startAt: generalSettingState.startDate,
+					endAt: generalSettingState.endDate,
+					EventId: events[0].id,
+				},
+			},
+		}).then(res => {
+			Object.assign(events[0], res.data.updateEvent);
+			setEvents([...events]);
+		});
 		handleClose();
 	};
 	const updateHashTag = hashTagList => {

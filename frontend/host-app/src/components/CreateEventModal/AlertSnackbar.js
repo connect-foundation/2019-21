@@ -11,6 +11,7 @@ const ERROR_MESSAGE = {
 function AlertSnackbar(props) {
 	const {handleClose, open, errorState} = props;
 	let message = ERROR_MESSAGE.dateError;
+
 	if (errorState.eventName === true) {
 		message = ERROR_MESSAGE.nameError;
 	}

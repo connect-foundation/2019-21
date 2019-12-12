@@ -9,25 +9,14 @@ const CustomTextField = styled(TextField)({
 
 function InputEventCode(props) {
 	const eventCode = props.eventCode;
-	const MAX_EVENT_CODE_LEN = 4;
-
-	const validateEventCode = event => {
-		const input = event.target.value;
-
-		if (input.length > MAX_EVENT_CODE_LEN) {
-			return;
-		}
-		props.dispatch(event);
-	};
 
 	return (
 		<CustomTextField
 			id="eventName"
 			label="이벤트 코드"
 			color="primary"
-			disabled={true}
+			readOnly={true}
 			value={eventCode}
-			onChange={validateEventCode}
 		/>
 	);
 }

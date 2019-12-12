@@ -28,11 +28,11 @@ export async function createEvent({
 
 export async function updateEventById(
 	id,
-	{eventCode, moderationOption, replyOption, startAt, endAt},
+	{eventName, moderationOption, replyOption, startAt, endAt}
 ) {
 	return models.Event.update(
-		{eventCode, moderationOption, replyOption, startAt, endAt},
-		{where: {id}},
+		{eventName, moderationOption, replyOption, startAt, endAt},
+		{where: {id}}
 	);
 }
 
@@ -96,7 +96,7 @@ export async function getQuestionsByEventCodeAndGuestId(
 	eventCode,
 	guestId,
 	limit = 70,
-	offset,
+	offset
 ) {
 	// const event = await models.Event.findOne({where: {eventCode}});
 	// const EventId = event.dataValues.id
@@ -107,9 +107,11 @@ export async function getQuestionsByEventCodeAndGuestId(
 		include: [
 			{
 				model: models.Like,
-			}, {
+			},
+			{
 				model: models.Emoji,
-			}, {
+			},
+			{
 				model: models.Guest,
 			},
 		],
@@ -122,7 +124,7 @@ export async function raw_getQuestionsByEventCodeAndGuestId(
 	eventCode,
 	guestId,
 	limit = 100,
-	offset = 0,
+	offset = 0
 ) {
 	// const event = await models.Event.findOne({where: {eventCode}});
 	// const EventId = event.dataValues.id

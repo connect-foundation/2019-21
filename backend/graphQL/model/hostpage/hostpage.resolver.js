@@ -5,6 +5,7 @@ import {
 	getAllEvents,
 	updateEventById,
 	getEventOptionByEventId,
+	getEventById,
 } from "../../../DB/queries/event.js";
 import {
 	createHashtag,
@@ -30,11 +31,13 @@ export default {
 				const host = authority.info;
 				let events = await getEventsByHostId(host.id);
 				events = events.map(event => event.get({plain: true}));
+
 				const eventMap = new Map();
 				const eventIdList = events.map(event => {
 					eventMap.set(event.id, []);
 					return event.id;
 				});
+
 				let hashTags = await getHashtagByEventIds(eventIdList);
 				hashTags.forEach(hashTag => {
 					const hashTagObject = hashTag.get({plain: true});
@@ -43,6 +46,7 @@ export default {
 				events.forEach(event => {
 					Object.assign(event, {HashTags: eventMap.get(event.id)});
 				});
+
 				return {events, host};
 			}
 
@@ -85,6 +89,16 @@ export default {
 				return {...event};
 			}
 			throw new Error("AuthenticationError");
+		},
+		updateEvent: async (_, {event}, authority) => {
+			let updatedEvent = await updateEventById(event.EventId, {
+				eventName: event.eventName,
+				startAt: event.startAt,
+				endAt: event.endAt,
+			});
+			updatedEvent = await getEventById(event.EventId);
+
+			return updatedEvent.get({plain: true});
 		},
 		moderation: (_, {eventId, moderationOption}) =>
 			moderationResolver(eventId, moderationOption),
