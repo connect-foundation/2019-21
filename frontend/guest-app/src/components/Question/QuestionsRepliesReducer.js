@@ -155,11 +155,6 @@ const onUpdateQuestion = (state, data) => {
 const onMoveQuestion = (state, data) => {
 	const newState = _.cloneDeep(state);
 
-	if (data.from === "moderation") {
-		data.data.emojis = [];
-		newState.push(data.data);
-	}
-
 	if (data.id === "all") {
 		return newState.map(e => {
 			if (e.state === data.from) { e.state = data.to; }
@@ -171,6 +166,17 @@ const onMoveQuestion = (state, data) => {
 		if (e.id === data.id) { e.state = data.to; }
 		return e;
 	});
+};
+
+const onToggleStarQuestion = (state, data) => {
+	const newState = _.cloneDeep(state);
+
+	newState.map(e => {
+		if (e.id === data.id) { e.isStared = data.isStared; }
+		return e;
+	});
+
+	return newState;
 };
 
 const QuestionsRepliesReducer = (state, action) => {
@@ -189,6 +195,7 @@ const QuestionsRepliesReducer = (state, action) => {
 		removeQuestion: onRemoveQuestion,
 		updateQuestion: onUpdateQuestion,
 		moveQuestion: onMoveQuestion,
+		toggleStarQuestion: onToggleStarQuestion,
 	};
 
 	if (!(type in actionTable)) {

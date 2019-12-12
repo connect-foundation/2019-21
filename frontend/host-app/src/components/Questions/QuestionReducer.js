@@ -1,6 +1,7 @@
 const QuestionsReducer = (state, action) => {
 	const actionTable = {
 		addNewQuestion: () => {
+			console.log(action.data);
 			return ({questions: [...state.questions, action.data]});
 		},
 		toggleStar: () => {

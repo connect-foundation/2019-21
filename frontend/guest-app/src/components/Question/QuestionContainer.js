@@ -47,7 +47,8 @@ function QuestionContainer() {
 				tabIdx={tabIdx}
 				onSelectTab={onContainerSelectTab}
 			/>
-			<QuestionCardList questions={questions} replies={replies} />
+			<QuestionCardList questions={questions.filter(e => e.isStared)} replies={replies} />
+			<QuestionCardList questions={questions.filter(e => !e.isStared)} replies={replies} />
 			<PaddingArea />
 			<AddQuestionInputButton
 				onClick={() => newQuestionInputDrawer.setOn()}
