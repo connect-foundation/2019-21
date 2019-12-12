@@ -35,6 +35,7 @@ function Inner({data, event, option}) {
 
 	const handleQuestionDatas = (id, from, to) => socketClient.emit("question/move", {id, from, to});
 	const handleStar = id => {
+		/*
 		questions.questions.some(e => {
 			if (e.id === id) {
 				e.isStared = !e.isStared;
@@ -42,7 +43,14 @@ function Inner({data, event, option}) {
 				return true;
 			}
 			return false;
-		});
+		}); // {from: [id,바뀐토글] , to:[id,바뀐토글] }*/
+		const re = questions.questions.reduce((acc, e) => {
+			if (e.isStared) { acc.from.push({id: e.id, isStared: !e.isStared}); }
+			if (e.id === id) { acc.to.push({id: e.id, isStared: !e.isStared}); }
+			return acc;
+		}, {from: [], to: []});
+
+		socketClient.emit("question/toggleStar", re);
 	};
 
 	return (
