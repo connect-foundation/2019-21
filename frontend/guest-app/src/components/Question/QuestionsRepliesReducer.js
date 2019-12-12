@@ -172,7 +172,7 @@ const onToggleStarQuestion = (state, data) => {
 	const newState = _.cloneDeep(state);
 
 	newState.map(e => {
-		if (e.id === data.id) { e.isStared = data.isStared; }
+		if (e.id === data.id) { e.isStared = data.isStared; } else { e.isStared = false; }
 		return e;
 	});
 
