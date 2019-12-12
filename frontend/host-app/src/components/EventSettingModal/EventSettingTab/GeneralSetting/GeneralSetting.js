@@ -1,6 +1,7 @@
 import React, {useReducer, useContext} from "react";
 import styled from "styled-components";
 import moment from "moment";
+import uuidv1 from "uuid/v1";
 import TabHeader from "../TabHeader";
 import InputEventName from "./InputEventName";
 import InputStartDate from "./InputStartDate";
@@ -21,6 +22,9 @@ const PopUpLayOutStyle = styled.div`
 `;
 
 function convertDataToView(eventInfo) {
+	const eventHashTags = eventInfo.HashTags.map(hashtag => {
+		return {key: uuidv1(), label: hashtag.name};
+	});
 	return {
 		eventName: eventInfo.eventName,
 		startDate: new Date(parseInt(eventInfo.startAt)),
@@ -28,7 +32,7 @@ function convertDataToView(eventInfo) {
 			"YYYY년 MM월 DD일 HH시 mm분",
 		),
 		eventCode: eventInfo.eventCode,
-		hashTags: [{key: "sadfsadf", label: "부스트캠프"}, {key: "asdfuuu", label: "자바스크립트"}],
+		hashTags: eventHashTags,
 		eventLink: `${config.url}/${window.btoa(eventInfo.eventCode)}`,
 	};
 }
