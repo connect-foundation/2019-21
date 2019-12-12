@@ -15,7 +15,7 @@ import {createEvent, createHashTags} from "../../libs/gql";
 import {HostContext} from "../../libs/hostContext";
 import {validEventName, validDate} from "../../libs/eventValidation";
 
-const modalHeight = 31; // 37;
+const modalHeight = 38; // 37;
 const modalWidth = 28.125;
 const PopUpLayOutStyle = styled.div`
 	position: relative;
@@ -35,14 +35,14 @@ const StyledForm = styled.form`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	height: 85%;
+	height: 75%;
 `;
 
 const Header = styled.div`
 	// margin-left: 0;
 	// margin-top: 2rem;
 	// margin-bottom: 2rem;
-	margin: 2rem 0 1rem 0;
+	margin: 1rem 0 0.5rem 0;
 	font-size: 2rem;
 	color: #139ffb;
 	text-align: center;
@@ -195,8 +195,8 @@ function CreateEventModal({open, handleClose}) {
 						hashTags={eventInfo.hashTags}
 						dispatch={updateHashTag}
 					/>
-					<ButtonField createEvent={sendData} onClose={reset} />
 				</StyledForm>
+				<ButtonField createEvent={sendData} onClose={reset} />
 				<AlertSnackbar
 					errorState={errorState}
 					handleClose={snackBarHandleClose}

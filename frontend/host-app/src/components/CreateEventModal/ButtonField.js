@@ -9,7 +9,7 @@ const Container = styled.div`
 	justify-content: space-evenly;
 	align-items: flex-end;
 	// margin-left: 10rem;
-	height: 5rem;
+	height: 3rem;
 `;
 
 // const CancelTextButton = styled.div`
