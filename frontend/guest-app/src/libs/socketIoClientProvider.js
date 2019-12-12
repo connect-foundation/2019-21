@@ -7,7 +7,7 @@ function combineURL(host, port, nameSpace) {
 }
 
 export function createSocketIOClient({host, port, namespace, room}) {
-	const cookieName = "vaagle-host";
+	const cookieName = "vaagle-guest";
 	const token = Cookie.get(cookieName);
 	const URL = combineURL(host, port, namespace);
 	const socket = io(URL, {query: {token: token}});
