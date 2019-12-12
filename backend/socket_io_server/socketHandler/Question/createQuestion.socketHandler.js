@@ -64,7 +64,7 @@ const createQuestionSocketHandler = async (data, emit, socket, server) => {
 				content,
 				GuestId,
 				QuestionId,
-				QUESTION_STATE_MODERATION
+				QUESTION_STATE_MODERATION,
 			);
 		} else {
 			newData = await createQuestion(

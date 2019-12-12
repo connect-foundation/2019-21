@@ -155,11 +155,6 @@ const onUpdateQuestion = (state, data) => {
 const onMoveQuestion = (state, data) => {
 	const newState = _.cloneDeep(state);
 
-	if (data.from === "moderation") {
-		data.data.emojis = [];
-		newState.push(data.data);
-	}
-
 	if (data.id === "all") {
 		return newState.map(e => {
 			if (e.state === data.from) { e.state = data.to; }

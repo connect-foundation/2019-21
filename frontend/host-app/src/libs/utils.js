@@ -7,7 +7,7 @@ export function makeNewData(req) {
 		guestName: req.guestName,
 		id: req.id,
 		likeCount: req.likeCount,
-		state: req.status,
+		state: req.state,
 		QuestionId: req.QuestionId,
 		isStared: false,
 	};
