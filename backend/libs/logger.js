@@ -49,11 +49,6 @@ export default (header = "", level = "info") => {
 	return winston.createLogger({
 		level, // 최소 레벨
 		transports: [
-			new winston.transports.DailyRotateFile({
-				filename: "log/system.log", // log 폴더에 system.log 이름으로 저장
-				zippedArchive: true, // 압축여부
-				format,
-			}),
 			new winston.transports.Console({
 				format,
 			}),
