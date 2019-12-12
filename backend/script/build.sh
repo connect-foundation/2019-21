@@ -8,6 +8,7 @@ cp -r ./DB ./build/DB
 cp -r ./express ./build/express
 cp -r ./socket_io_server ./build/socket_io_server
 cp -r ./graphQL ./build/graphQL
+cp -r ./libs ./build/libs
 cp .env ./build/.env
 
 source_dir="./build"
