@@ -13,7 +13,21 @@ export async function openPoll(pollId) {
 		},
 		{
 			where: {id: pollId},
+		}
+	);
+
+	// result should be == [1], 1개의 row가 성공했다는 의미
+	return result;
+}
+
+export async function closePoll(pollId) {
+	const result = await models.Poll.update(
+		{
+			state: "closed",
 		},
+		{
+			where: {id: pollId},
+		}
 	);
 
 	// result should be == [1], 1개의 row가 성공했다는 의미
@@ -51,7 +65,7 @@ export async function createPoll(
 	selectionType,
 	allowDuplication,
 	state,
-	candidates,
+	candidates
 ) {
 	let transaction;
 	let poll;
@@ -71,7 +85,7 @@ export async function createPoll(
 				allowDuplication,
 				state,
 			},
-			{transaction},
+			{transaction}
 		);
 
 		// step 2

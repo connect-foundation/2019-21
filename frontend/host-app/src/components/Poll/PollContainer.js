@@ -12,7 +12,7 @@ const ColumnWrapper = styled.div`
 	align-items: center;
 	justify-content: flex-start;
 	box-sizing: border-box;
-	border: 1px solid #dee2e6; /* Gray3 */
+	// border: 1px solid #dee2e6; /* Gray3 */
 	padding: 1rem;
 	width: 100%;
 `;
@@ -27,6 +27,8 @@ function reducer(polls, action) {
 	switch (action.type) {
 		case "OPEN":
 			return [action.poll, ...polls];
+		case "CLOSE":
+			return polls.filter(poll => poll.id !== action.id);
 		case "SOMEONE_VOTE":
 			thePoll.totalVoters = action.poll.totalVoters;
 			thePoll.nItems.forEach((item, index) => {
@@ -54,7 +56,7 @@ function PollContainer({data}) {
 
 	let activePollData = null;
 	let sbPollData = null;
-	let closedPollData = null;
+	let clPollData = null;
 
 	if (data) {
 		const initialPollData = data;
@@ -63,13 +65,12 @@ function PollContainer({data}) {
 			poll => poll.state === "running",
 		);
 		sbPollData = initialPollData.filter(poll => poll.state === "standby");
-		closedPollData = initialPollData.filter(
-			poll => poll.state === "closed",
-		);
+		clPollData = initialPollData.filter(poll => poll.state === "closed");
 	}
 
 	const [pollData, dispatch] = useReducer(reducer, activePollData);
 	const [standbyPollData, setStandbyPollData] = useState(sbPollData);
+	const [closedPollData, setClosedPollData] = useState(clPollData);
 
 	// socket.io server 통신 부분
 	// onCreatePoll에 의해 신규로 생성된 Poll은 DB에 socket.io server에 요청하여 DB에 write 함
@@ -104,6 +105,26 @@ function PollContainer({data}) {
 		const req = {poll: thePoll};
 
 		socketClient.emit("poll/notify_open", req);
+	});
+
+	useSocket("poll/close", pollId => {
+		const thePoll = pollData.filter(poll => poll.id === pollId)[0];
+
+		// DB에는 바뀌어 있지만, 여기서는 바뀌지 않은 상태이므로 강제로 바꿈
+		thePoll.state = "closed";
+		// console.log("useSocket: Poll closed.", thePoll);
+		setClosedPollData([thePoll].concat(closedPollData));
+
+		dispatch({
+			type: "CLOSE",
+			id: pollId,
+		});
+
+		// Host 에서 Guests 모두에게 새로운 Poll 이 close 되었음을 알려줌
+		// "poll/open"을 전달받고 나서 "poll/notify_close"를 emit 함
+		const req = {id: pollId};
+
+		socketClient.emit("poll/notify_close", req);
 	});
 
 	useSocket("vote/on", res => {

@@ -11,7 +11,7 @@ const RowWrapper = styled.div`
 	width: 100%;
 	height: 3rem;
 	box-sizing: border-box;
-	background-color: #f8f9fa; /* Gray1 */
+	background-color: white; //#f8f9fa; /* Gray1 */
 	& + & {
 		margin-top: 0.5rem;
 	}
@@ -37,7 +37,7 @@ const GraphWrapper = styled.div`
 	top: 0;
 	left: 0;
 	background-color: ${props =>
-		(props.firstPlace ? "yellow" : "#ced4da")}; /* Gray4 */
+		props.firstPlace ? "yellow" : "#ced4da"}; /* Gray4 */
 	height: 100%;
 	width: ${props => props.ratio};
 	box-sizing: border-box;

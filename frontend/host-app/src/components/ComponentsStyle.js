@@ -63,9 +63,14 @@ const EmptyContentBox = styled.div`
 
 const EmptyContentDiv = styled.div`
 	display: flex;
+	align-items: center;
+	justify-content: center;
 	flex-direction: column;
-	font-size: 2rem;
+	font-size: 1.5rem;
 	margin: auto 0;
+	button {
+		margin-top: 1rem;
+	}
 `;
 
 const ContentStyle = styled.div`
@@ -107,7 +112,7 @@ const ModerationStyle = styled.div`
 	border-radius: 8px;
 	background-color: #f1f3f5;
 	border: 1px solid #e9ecef;
-	min-width: ${props => ((props.state) ? "20rem" : "8rem")};
+	min-width: ${props => (props.state ? "20rem" : "8rem")};
 	height: ${props => props.height || "100%"};
 	min-height: 2.5rem;
 	box-sizing: border-box;
@@ -124,7 +129,7 @@ const SkeletonColumnStyle = styled.div`
 	align-items: center;
 	border-radius: 8px;
 	min-width: "20rem";
-	height:"100%";
+	height: "100%";
 	box-sizing: border-box;
 	& + & {
 		margin-left: 8px;

@@ -13,7 +13,7 @@ import {eventModalReducer, initialEventInfo} from "./eventModalReducer";
 import {createEvent} from "../../libs/gql";
 import {HostContext} from "../../libs/hostContext";
 
-const modalHeight = 37;
+const modalHeight = 31; // 37;
 const modalWidth = 28.125;
 const PopUpLayOutStyle = styled.div`
 	position: relative;
@@ -24,7 +24,9 @@ const PopUpLayOutStyle = styled.div`
 	width: ${modalWidth}rem;
 	height: ${modalHeight}rem;
 	background-color: white;
-	padding-left: 1.25rem;
+	// padding-left: 1.25rem;
+	padding: 0 1.5rem;
+	box-sizing: border-box;
 `;
 
 const StyledForm = styled.form`
@@ -35,10 +37,13 @@ const StyledForm = styled.form`
 `;
 
 const Header = styled.div`
-	margin-left: 0;
-	margin-top: 2rem;
+	// margin-left: 0;
+	// margin-top: 2rem;
+	// margin-bottom: 2rem;
+	margin: 2rem 0 1rem 0;
 	font-size: 2rem;
 	color: #139ffb;
+	text-align: center;
 `;
 
 function formattingDate(date) {
