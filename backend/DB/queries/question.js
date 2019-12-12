@@ -59,7 +59,7 @@ export async function updateIsStared(from, to) {
 
 	try {
 		if (from) {
-			await Question.update({isStared: to.isStared},
+			await Question.update({isStared: from.isStared},
 				{where: {id: from.id}},
 				{transaction},
 			);
