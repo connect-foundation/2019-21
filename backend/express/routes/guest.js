@@ -36,6 +36,7 @@ router.get("/:path", guestAuthenticate(), async (req, res, next) => {
 		});
 		res.redirect(routePage.guest);
 	} catch (e) {
+		console.log(e);
 		res.redirect(routePage.main);
 	}
 });

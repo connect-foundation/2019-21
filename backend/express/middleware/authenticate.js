@@ -56,6 +56,7 @@ export function hostAuthenticate() {
 			}
 			res.redirect(routePage.host);
 		} catch (e) {
+			console.log(e);
 			return next();
 		}
 	};
