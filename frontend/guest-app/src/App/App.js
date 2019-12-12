@@ -20,7 +20,7 @@ const AppStyle = styled.div`
 `;
 
 export default function App() {
-	const {data, loading, error, refetch} = useQuery(GET_GUEST_APP_GLOBAL_DATA);
+	const {data, loading, error} = useQuery(GET_GUEST_APP_GLOBAL_DATA);
 
 	if (loading) {
 		return <TopProgressBar />;
@@ -40,10 +40,10 @@ export default function App() {
 	});
 
 	client.on("connect", () => {
-		client.emit("joinRoom", {room: event.id,});
+		client.emit("joinRoom", {room: event.id});
 	});
 
-	const globalData = {event, guest, refetch};
+	const globalData = {event, guest};
 
 	return (
 		<AppStyle>
