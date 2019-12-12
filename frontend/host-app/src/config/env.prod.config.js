@@ -1,5 +1,5 @@
 const config = {
-	url: "http://vaagle.com/guest",
+	url: "http://www.vaagle.com/guest",
 	websocketHost: "http://www.vaagle.com",
 	websocketPort: 4000,
 	apolloURI: "http://www.vaagle.com:8000/graphql",
