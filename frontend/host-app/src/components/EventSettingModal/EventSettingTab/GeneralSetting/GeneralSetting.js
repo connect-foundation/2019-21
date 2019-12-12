@@ -22,9 +22,12 @@ const PopUpLayOutStyle = styled.div`
 `;
 
 function convertDataToView(eventInfo) {
-	const eventHashTags = eventInfo.HashTags.map(hashtag => {
-		return {key: uuidv1(), label: hashtag.name};
-	});
+	let eventHashTags = [];
+	if (eventInfo.HashTags) {
+		eventHashTags = eventInfo.HashTags.map(hashtag => {
+			return {key: uuidv1(), label: hashtag.name};
+		});
+	}
 	return {
 		eventName: eventInfo.eventName,
 		startDate: new Date(parseInt(eventInfo.startAt)),

@@ -49,9 +49,8 @@ const Header = styled.div`
 `;
 
 function verifyInputData(errorState) {
-	const isInValid = Object.values(errorState).some(inputValue => {
-		return inputValue;
-	});
+	const isInValid = Object.values(errorState).some(inputValue => inputValue);
+
 	return isInValid;
 }
 
@@ -98,7 +97,8 @@ function CreateEventModal({open, handleClose}) {
 	};
 
 	const setEventName = event => {
-		const isError = validEventName(event.target.value) ? false : true;
+		const isError = !validEventName(event.target.value);
+
 		setErrorState({...errorState, eventName: isError});
 		dispatchEventInfo({
 			type: "setEventName",
@@ -107,7 +107,8 @@ function CreateEventModal({open, handleClose}) {
 	};
 
 	const setStartDate = event => {
-		const isError = validDate(event, eventInfo.endDate) ? false : true;
+		const isError = !validDate(event, eventInfo.endDate);
+
 		setErrorState({...errorState, startDate: isError});
 		dispatchEventInfo({
 			type: "setStartDate",
@@ -116,7 +117,8 @@ function CreateEventModal({open, handleClose}) {
 	};
 
 	const setEndDate = event => {
-		const isError = validDate(eventInfo.startDate, event) ? false : true;
+		const isError = !validDate(eventInfo.startDate, event);
+
 		setErrorState({...errorState, startDate: isError});
 		dispatchEventInfo({
 			type: "setEndDate",
@@ -140,6 +142,7 @@ function CreateEventModal({open, handleClose}) {
 
 	const sendData = () => {
 		const isInValid = verifyInputData(errorState);
+
 		if (isInValid) {
 			setSnackBarOpen(true);
 			return;
@@ -147,25 +150,24 @@ function CreateEventModal({open, handleClose}) {
 
 		mutaionEvent()
 			.then(res => {
-				setEvents([...events, res.data.createEvent]);
-				const hashTagList = eventInfo.hashTags.map(hashTag => {
-					return {
-						name: hashTag.label,
-						EventId: res.data.createEvent.id,
-					};
-				});
+				const hashTagList = eventInfo.hashTags.map(hashTag => ({
+					name: hashTag.label,
+					EventId: res.data.createEvent.id,
+				}));
+
 				mutationHashTags({variables: {hashTags: hashTagList}}).catch(
 					e => {
 						console.log("해쉬태그 생성 실패");
 					},
 				);
+				Object.assign(res.data.createEvent, {HashTags: hashTagList});
+				setEvents([...events, res.data.createEvent]);
 			})
 			.catch(e => {
 				console.error("이벤트 생성 실패");
 			});
 		reset();
 	};
-	console.log(eventInfo.hashTags);
 	return (
 		<Modal
 			aria-labelledby="createEvent-modal-title"
