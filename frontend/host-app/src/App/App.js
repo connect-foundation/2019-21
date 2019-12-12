@@ -10,20 +10,27 @@ import {getEventsByHost} from "../libs/gql";
 import EmptyContent from "../components/EmptyContent";
 import {socketClient} from "../libs/socket.io-Client-wrapper";
 import AppSkeleton from "../components/Skeleton/AppSkeleton.js";
+import WithApolloProvider from "../HOC/WithApolloProvider.js";
+import WithLoadingAndErrorComponent from "../HOC/WithLoadingAndErrorComponent.js";
 
-function App() {
-	const modal = false;
-	const {data, loading, error} = useQuery(getEventsByHost());
+function ErrorPage() {
+	return <p>error-page...</p>;
+}
+
+function WithEventProvider(Component) {
+	return props => {
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		const query = useQuery(getEventsByHost());
+
+		return <Component {...props} {...query} />;
+	};
+}
+
+let App = props => {
+	const {data} = props;
 	const [events, setEvents] = useState("");
+	const modal = false;
 	let eventNum = 0;
-
-	if (loading) {
-		return <AppSkeleton />;
-	}
-
-	if (error) {
-		return <p>error-page...</p>;
-	}
 
 	if (events === "") {
 		setEvents(data.init.events, () => (eventNum = data.init.events.length));
@@ -49,6 +56,10 @@ function App() {
 			</div>
 		</HostProvider>
 	);
-}
+};
+
+App = WithLoadingAndErrorComponent(App, AppSkeleton, ErrorPage);
+App = WithEventProvider(App);
+App = WithApolloProvider(App);
 
 export default App;
