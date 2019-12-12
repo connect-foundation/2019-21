@@ -1,12 +1,12 @@
 import React, {useState, useContext, useReducer} from "react";
 import Column from "./Column";
-import {socketClient, useSocket} from "../libs/socket.io-Client-wrapper";
+import {socketClient} from "../libs/socket.io-Client-wrapper";
 import useQueryQuestions from "../libs/useQueryQuestions";
 import {HostContext} from "../libs/hostContext";
-import {makeNewData} from "../libs/utils";
 import {ContentStyle} from "./ComponentsStyle";
 import QuestionsReducer from "./Questions/QuestionReducer";
 import SkeletonContent from "./SkeletonContent";
+import useSocketHandler from "./useSocketHandler";
 
 
 function Inner({data, event, option}) {
@@ -29,9 +29,7 @@ function Inner({data, event, option}) {
 		completeQuestion: {state: radioState, stateHandler: handleRadioState},
 	};
 
-	useSocket("question/create", req => dispatch({type: "addNewQuestion", data: makeNewData(req)}));
-	useSocket("question/toggleStar", req => dispatch({type: "toggleStar", data: req}));
-	useSocket("question/move", req => dispatch({type: "moveQuestion", data: req}));
+	useSocketHandler(dispatch);
 
 	const handleQuestionDatas = (id, from, to) => {
 		const questionData = questions.questions.find(e => e.id === id);
