@@ -66,6 +66,7 @@ function PollCard(props) {
 	} = props;
 
 	let localePollDate;
+
 	// socket.io, sequelize, graphQL 을 거치면서 format이 변경되어서 그때그때 처리하기 위함
 	// pollDate는 poll 생성시 null 임. poll/open에 의해 값이 정해지는데 그 전까지는 일단 이렇게 처리함
 	if (pollDate) {

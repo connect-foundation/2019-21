@@ -1,19 +1,19 @@
-import React, {useReducer, useContext, useState} from "react";
-import {Modal} from "@material-ui/core";
+import React, {useContext, useReducer, useState} from "react";
 import styled from "styled-components";
 import moment from "moment";
+import {Modal} from "@material-ui/core";
+import {useMutation} from "@apollo/react-hooks";
 import InputEventName from "./InputEventName";
 import InputStartDate from "./InputStartDate";
-import {useMutation} from "@apollo/react-hooks";
 import InputHashTag from "./InputHashTag";
 import EndDateField from "./EndDateField";
 import HashTagsField from "./HashTagsField";
 import ButtonField from "./ButtonField";
 import AlertSnackbar from "./AlertSnackbar";
-import {eventModalReducer} from "./eventModalReducer";
+import eventModalReducer from "./eventModalReducer";
 import {createEvent, createHashTags} from "../../libs/gql";
 import {HostContext} from "../../libs/hostContext";
-import {validEventName, validDate} from "../../libs/eventValidation";
+import {validDate, validEventName} from "../../libs/eventValidation";
 
 const modalHeight = 38; // 37;
 const modalWidth = 28.125;
@@ -168,6 +168,7 @@ function CreateEventModal({open, handleClose}) {
 			});
 		reset();
 	};
+
 	return (
 		<Modal
 			aria-labelledby="createEvent-modal-title"

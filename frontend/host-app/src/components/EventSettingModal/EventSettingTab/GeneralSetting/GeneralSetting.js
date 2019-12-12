@@ -1,4 +1,4 @@
-import React, {useReducer, useContext} from "react";
+import React, {useContext, useReducer} from "react";
 import styled from "styled-components";
 import uuidv1 from "uuid/v1";
 import {useMutation} from "@apollo/react-hooks";
@@ -24,15 +24,14 @@ const PopUpLayOutStyle = styled.div`
 
 function convertDataToView(eventInfo) {
 	let eventHashTags = [];
+
 	if (eventInfo.HashTags) {
-		eventHashTags = eventInfo.HashTags.map(hashtag => {
-			return {key: uuidv1(), label: hashtag.name};
-		});
+		eventHashTags = eventInfo.HashTags.map(hashtag => ({key: uuidv1(), label: hashtag.name}));
 	}
 	return {
 		eventName: eventInfo.eventName,
-		startDate: new Date(parseInt(eventInfo.startAt)),
-		endDate: new Date(parseInt(eventInfo.endAt)),
+		startDate: new Date(parseInt(eventInfo.startAt, 10)),
+		endDate: new Date(parseInt(eventInfo.endAt, 10)),
 		eventCode: eventInfo.eventCode,
 		hashTags: eventHashTags,
 		eventLink: `${config.url}/${window.btoa(eventInfo.eventCode)}`,
@@ -40,8 +39,8 @@ function convertDataToView(eventInfo) {
 }
 
 export default function GeneralSetting({handleClose}) {
-	const [mutaionUpdateEvent, {updatedEvent}] = useMutation(updateEvent());
-	const {hostInfo, events, setEvents} = useContext(HostContext);
+	const [mutaionUpdateEvent] = useMutation(updateEvent());
+	const {events, setEvents} = useContext(HostContext);
 	const initialGeneralState = convertDataToView(events[0]);
 	const [generalSettingState, dispatch] = useReducer(
 		generalSettingReducer,
@@ -117,19 +116,19 @@ export default function GeneralSetting({handleClose}) {
 
 	return (
 		<PopUpLayOutStyle>
-			<TabHeader type="general" />
-			<InputEventName eventName={eventName} dispatch={setEventName} />
+			<TabHeader type="general"/>
+			<InputEventName eventName={eventName} dispatch={setEventName}/>
 			<InputStartDate
 				endDate={endDate}
 				startDate={startDate}
 				dispatch={{setStartDate, setEndDate}}
 			/>
-			<EndDateField endDate={endDate} />
-			<InputEventCode eventCode={eventCode} dispatch={setEventCode} />
-			<InputEventLink eventLink={eventLink} />
-			<InputHashTag hashTags={hashTags} dispatch={updateHashTag} />
-			<HashTagsField hashTags={hashTags} dispatch={updateHashTag} />
-			<ButtonField submit={sendData} onClose={reset} />
+			<EndDateField endDate={endDate}/>
+			<InputEventCode eventCode={eventCode} dispatch={setEventCode}/>
+			<InputEventLink eventLink={eventLink}/>
+			<InputHashTag hashTags={hashTags} dispatch={updateHashTag}/>
+			<HashTagsField hashTags={hashTags} dispatch={updateHashTag}/>
+			<ButtonField submit={sendData} onClose={reset}/>
 		</PopUpLayOutStyle>
 	);
 }

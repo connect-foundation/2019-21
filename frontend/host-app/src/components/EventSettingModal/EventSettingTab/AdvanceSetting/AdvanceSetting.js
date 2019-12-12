@@ -6,8 +6,8 @@ import TabHeader from "../TabHeader";
 import ButtonField from "../ButtonField";
 import SettingSwitch from "./SettingSwitch";
 import {
-	initialAdavanceState,
 	advanceSettingReducer,
+	initialAdavanceState,
 } from "../../settingReducer/settingReducer";
 
 const LayOutStyle = styled.div`
@@ -73,7 +73,6 @@ export default function AdvanceSetting({handleClose}) {
 	};
 
 	const sendData = () => {
-		console.log(advanceSettingState);
 		reset();
 	};
 

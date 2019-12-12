@@ -25,7 +25,7 @@ function HeaderAccountAvata() {
 
 	return (
 		<Avatar className={classes.headerAvatar}>
-			<img className={classes.avatarImage} src={hostInfo.image}></img>
+			<img className={classes.avatarImage} src={hostInfo.image} alt={"avatar"}/>
 		</Avatar>
 	);
 }

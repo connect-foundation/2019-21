@@ -18,4 +18,4 @@ const eventModalReducer = (state, action) => {
 	}
 };
 
-export {eventModalReducer};
+export default eventModalReducer;
