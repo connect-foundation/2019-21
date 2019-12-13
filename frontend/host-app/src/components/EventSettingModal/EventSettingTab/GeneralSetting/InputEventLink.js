@@ -4,7 +4,7 @@ import {TextField, Box} from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
 
 const InputWithIcon = styled(Box)({
-	width: 400,
+	width: "25rem",
 	position: "relative",
 	padding: 0,
 	margin: 0,
@@ -13,13 +13,13 @@ const InputWithIcon = styled(Box)({
 const InsideIcon = styled(SaveIcon)({
 	cursor: "pointer",
 	position: "absolute",
-	right: 5,
-	bottom: 10,
+	right: "0.3rem",
+	bottom: "0.6rem",
 });
 
 const CustomTextField = styled(TextField)({
-	marginTop: 20,
-	width: 400,
+	marginTop: "1.3rem",
+	width: "25rem",
 });
 
 function InputEventLink(props) {

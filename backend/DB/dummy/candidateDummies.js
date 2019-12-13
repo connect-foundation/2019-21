@@ -1,7 +1,7 @@
 import faker from "faker";
 import config from "./initialConfig";
 
-const { INIT_SEED, POLL_NUM } = config;
+const {INIT_SEED, POLL_NUM} = config;
 
 faker.seed(INIT_SEED);
 
@@ -14,7 +14,7 @@ export default function makeCandidateDummy(number = POLL_NUM) {
 		// 0: N지선다(text), 1: N지선다(date), 2: 별점매기기
 		if (index % 3 === 0) {
 			const LIMIT =
-				numberOfCandidates[faker.random.number({ min: 0, max: 9 })];
+				numberOfCandidates[faker.random.number({min: 0, max: 9})];
 
 			for (
 				let candidateNumber = 0;
@@ -36,7 +36,7 @@ export default function makeCandidateDummy(number = POLL_NUM) {
 			}
 		} else if (index % 3 === 1) {
 			const LIMIT =
-				numberOfCandidates[faker.random.number({ min: 0, max: 9 })];
+				numberOfCandidates[faker.random.number({min: 0, max: 9})];
 
 			for (
 				let candidateNumber = 0;

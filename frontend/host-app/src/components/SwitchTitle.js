@@ -1,21 +1,10 @@
 import React, {useContext} from "react";
 import Switch from "@material-ui/core/Switch";
-import styled from "styled-components";
 import Badge from "@material-ui/core/Badge";
 import {makeStyles} from "@material-ui/core";
 import {socketClient, useSocket} from "../libs/socket.io-Client-wrapper";
 import {HostContext} from "../libs/hostContext";
-
-const TitleBox = styled.div`
-	display: flex;
-	align-items: center;
-	width: 100%;
-	justify-content: space-around;
-`;
-
-const TitleStyle = styled.div`
-	font-weight: bold;
-`;
+import {TitleStyle, TitleBox} from "./ComponentsStyle";
 
 const useStyles = makeStyles(theme => ({
 	margin: {
@@ -23,7 +12,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function SwitchTitle({titleName, state, stateHandler, badgeState}) {
+function SwitchTitle({titleName, state, stateHandler, data}) {
 	const {events} = useContext(HostContext);
 	const classes = useStyles();
 	const eventId = events[0].id; // dummyEventId
@@ -40,7 +29,7 @@ function SwitchTitle({titleName, state, stateHandler, badgeState}) {
 		<TitleBox>
 			<Badge
 				color="secondary"
-				badgeContent={badgeState[0]}
+				badgeContent={data.length}
 				showZero
 				className={classes.margin}
 			/>
@@ -48,7 +37,7 @@ function SwitchTitle({titleName, state, stateHandler, badgeState}) {
 			<Switch
 				checked={state}
 				onClick={() => moderationEventEmit()}
-			></Switch>
+			/>
 		</TitleBox>
 	);
 }

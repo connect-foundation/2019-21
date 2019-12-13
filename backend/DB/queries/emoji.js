@@ -3,11 +3,12 @@ import models from "../models";
 
 const Emoji = models.Emoji;
 
-export async function createEmoji({GuestId, QuestionId, name}) {
+export async function createEmoji({GuestId, QuestionId, name, EventId}) {
 	return Emoji.create({
 		GuestId,
 		QuestionId,
 		name,
+		EventId,
 	});
 }
 
@@ -31,7 +32,7 @@ export async function getEmojiCountBy({name, QuestionId}) {
 
 export async function getEmojiGroupByQuestionId({EventId}) {
 	return Emoji.findAll({
-		attributes: ["QuestionId", "name", [sequelize.fn("count", "id"), "count"]],
+		attributes: ["QuestionId", "name", [sequelize.fn("count", "id"), "count"], [sequelize.literal("MIN(createdAt)"), "createdAt"]],
 		where: {EventId},
 		group: ["QuestionId", "name"],
 		raw: true,

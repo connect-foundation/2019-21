@@ -7,6 +7,7 @@ import useTabs from "../../materialUIHooks/useTabs.js";
 import TabBody from "./TabBody.js";
 import QuestionContainer from "../Question/QuestionContainer.js";
 import PollApollo from "../Poll/PollApollo.js";
+import {QuestionsProvider} from "../Question/QuestionsContext.js";
 
 const TabGroupStyle = styled.div`
 	position: fixed;
@@ -28,7 +29,9 @@ function TabGroup({showQnABadge = true, showPollBadge}) {
 				<Tab icon={<PollTabIcon showBadge={showPollBadge} />} />
 			</Tabs>
 			<TabBody hidden={tabIdx !== QUESTION_TAB_IDX}>
-				<QuestionContainer />
+				<QuestionsProvider>
+					<QuestionContainer />
+				</QuestionsProvider>
 			</TabBody>
 			<TabBody hidden={tabIdx !== POLL_TAB_IDX}>
 				<PollApollo />

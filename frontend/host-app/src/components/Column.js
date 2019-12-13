@@ -1,37 +1,38 @@
-import React from "react";
-import styled from "styled-components";
+import React, {useState} from "react";
 import Title from "./Title";
 import QuestionContainer from "./Questions/QuestionContainer";
+import ColumnFooter from "./ColumnFooter";
+import {QuestionStyle, ModerationStyle} from "./ComponentsStyle";
+import {filterStared} from "../libs/utils";
 
-const ColumnStyle = styled.div`
-	display: flex;
-	flex-direction: column;
-	flex: 1;
-	min-width: 20rem;
-	overflow: auto;
-	justify-content: flex-start;
-	align-items: center;
-	border-radius: 8px;
-	background-color: #f1f3f5;
-	border: 1px solid #e9ecef;
-	height: 100%;
-	box-sizing: border-box;
-	& + & {
-		margin-left: 8px;
-	}
-`;
+function Column({type, state, stateHandler, data, dataHandler, handleStar}) {
+	const [heightWeight, setHeightWeight] = useState(0);
+	const ColumnStyle = ((type === "moderation") ? ModerationStyle : QuestionStyle);
 
-function Column({type, state, stateHandler, badgeState, data, dataHandler, handleStar}) {
 	return (
-		<ColumnStyle>
+		<ColumnStyle height={`${100 + (heightWeight * 50)}%`} state={state}>
 			<Title
 				type={type}
 				state={state}
 				stateHandler={stateHandler}
-				badgeState={badgeState}
+				data={data}
 				dataHandler={dataHandler}
 			/>
-			<QuestionContainer type={type} datas={data} dataHandler={dataHandler} handleStar={handleStar}/>
+			<QuestionContainer
+				type={type}
+				datas={filterStared(true, data)}
+				dataHandler={dataHandler}
+				handleStar={handleStar}
+				containerType={"focus"}
+			/>
+			<QuestionContainer
+				type={type}
+				datas={filterStared(false, data)}
+				dataHandler={dataHandler}
+				handleStar={handleStar}
+				containerType={"unFocus"}
+			/>
+			<ColumnFooter data={heightWeight} handler={setHeightWeight}/>
 		</ColumnStyle>
 	);
 }

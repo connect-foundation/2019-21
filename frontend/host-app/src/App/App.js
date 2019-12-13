@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {Skeleton} from "@material-ui/lab";
 import {useQuery} from "@apollo/react-hooks";
 import "./App.css";
 import Header from "../components/Header";
@@ -9,14 +10,22 @@ import {HostProvider} from "../libs/hostContext";
 import {getEventsByHost} from "../libs/gql";
 import EmptyContent from "../components/EmptyContent";
 import {socketClient} from "../libs/socket.io-Client-wrapper";
+import SkeletonContent from "../components/SkeletonContent";
+import SkeletonTitle from "../components/SkeletionTitle";
 
 function App() {
 	const modal = false;
 	const {data, loading, error} = useQuery(getEventsByHost());
 	const [events, setEvents] = useState("");
 	let eventNum = 0;
+
 	if (loading) {
-		return <p>loading...</p>;
+		return (
+			<Skeleton>
+				<SkeletonTitle />
+				<SkeletonContent />
+			</Skeleton>
+		);
 	} else if (error) {
 		return <p>error-page...</p>;
 	} else {
@@ -27,9 +36,12 @@ function App() {
 			);
 		}
 		const hostInfo = data.init.host;
+
 		eventNum = events.length;
 		if (eventNum) {
 			const eventId = events[0].id;
+
+			socketClient.emit("joinRoom", {room: eventId});
 			socketClient.emit("event/initOption", eventId); // dummy Event Id:2
 		}
 

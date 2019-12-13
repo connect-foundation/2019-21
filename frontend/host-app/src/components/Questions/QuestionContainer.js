@@ -1,24 +1,23 @@
 import React from "react";
-import styled from "styled-components";
 import ModerationQuestionCard from "./ModerationQuestionCard.js";
 import LiveQuestionCard from "./LiveQuestionCard";
 import CompleteQuestionCard from "./CompleteQuestionCard";
 import PollApollo from "../Poll/PollApollo.js";
-
-const QuestionDiv = styled.div`
-	width: 100%;
-`;
+import {filterQuestion, filterReplies} from "../../libs/utils";
+import {FocusedDiv, UnFocusedDiv} from "./QuestionStyle";
 
 const compareByCreateAt = (a, b) =>
-	a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0;
+	(a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0);
 const compareByLikeCount = (a, b) =>
-	a.likeCount < b.likeCount ? 1 : a.likeCount > b.likeCount ? -1 : 0;
+	(a.likeCount < b.likeCount ? 1 : a.likeCount > b.likeCount ? -1 : 0);
 
-function QuestionContainer({ datas, type, dataHandler, handleStar }) {
+function QuestionContainer({datas, type, dataHandler, handleStar, containerType}) {
+	const QuestionDiv = containerType === "focus" ? FocusedDiv : UnFocusedDiv;
+
 	return (
 		<QuestionDiv>
 			{type === "moderation" &&
-				datas.questions.map(question => (
+				filterQuestion("moderation", datas).questions.map(question => (
 					<ModerationQuestionCard
 						{...question}
 						id={question.id}
@@ -28,7 +27,7 @@ function QuestionContainer({ datas, type, dataHandler, handleStar }) {
 					/>
 				))}
 			{type === "popularQuestion" &&
-				datas.questions
+				filterQuestion("active", datas).questions
 					.sort(compareByLikeCount)
 					.map(question => (
 						<LiveQuestionCard
@@ -37,10 +36,11 @@ function QuestionContainer({ datas, type, dataHandler, handleStar }) {
 							dataHandler={dataHandler}
 							type={type}
 							handleStar={handleStar}
+							replies={filterReplies(question.id, datas).questions}
 						/>
 					))}
 			{type === "newQuestion" &&
-				datas.questions
+				filterQuestion("active", datas).questions
 					.sort(compareByCreateAt)
 					.map(question => (
 						<LiveQuestionCard
@@ -49,19 +49,21 @@ function QuestionContainer({ datas, type, dataHandler, handleStar }) {
 							dataHandler={dataHandler}
 							type={type}
 							handleStar={handleStar}
+							replies={filterReplies(question.id, datas).questions}
 						/>
 					))}
 			{type === "completeQuestion" &&
-				datas.questions.map(question => (
+				filterQuestion("completeQuestion", datas).questions.map(question => (
 					<CompleteQuestionCard
 						{...question}
 						id={question.id}
 						dataHandler={dataHandler}
 						type={type}
 						handleStar={handleStar}
+						replies={filterReplies(question.id, datas).questions}
 					/>
 				))}
-			{type === "poll" && <PollApollo />}
+			{(type === "poll" && containerType !== "focus") && <PollApollo />}
 		</QuestionDiv>
 	);
 }

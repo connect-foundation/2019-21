@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import {gql} from "apollo-boost";
 import PollContainer from "./PollContainer";
-import {GuestContext} from "../../libs/guestContext";
+import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 
 const POLL_QUERY = gql`
 	query PollGuest($EventId: ID!, $guestId: ID!) {
@@ -15,6 +15,8 @@ const POLL_QUERY = gql`
 			state
 			totalVoters
 			pollDate
+			rated
+			ratingValue
 			nItems {
 				id
 				number
@@ -28,7 +30,7 @@ const POLL_QUERY = gql`
 `;
 
 function PollApollo() {
-	const {event, guest} = useContext(GuestContext);
+	const {event, guest} = useContext(GuestGlobalContext);
 	const options = {
 		variables: {
 			EventId: event.id,
@@ -40,7 +42,7 @@ function PollApollo() {
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error :(</p>;
 
-	return <PollContainer data={data.pollGuest} />;
+	return <PollContainer data={data.pollGuest} GuestId={guest.id} />;
 }
 
 export default PollApollo;

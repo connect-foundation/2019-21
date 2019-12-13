@@ -5,14 +5,14 @@ import Paper from "@material-ui/core/Paper";
 import {BookmarkBorderRounded} from "@material-ui/icons";
 
 const MyPaper = styled(Paper)({
-	marginTop: 10,
+	marginTop: "0.6rem",
 	overflowY: "auto",
-	height: 120,
-	width: 400,
+	height: "4.5rem",
+	width: "25rem",
 });
 
 const CustomChip = styled(Chip)({
-	margin: 5,
+	margin: "0.3rem",
 });
 
 function HashTagsField(props) {

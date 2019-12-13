@@ -26,7 +26,7 @@ function Header() {
 	return (
 		<AppBar position="static">
 			<Toolbar variant="dense" className={classes.header}>
-				<Typography variant="h6">Vaggle</Typography>
+				<Typography variant="h6">바글바글</Typography>
 				<div className={classes.rightSide}>
 					<HeaderConfigAvatar onClick={handleOpen} />
 					{settingModalOpen && (

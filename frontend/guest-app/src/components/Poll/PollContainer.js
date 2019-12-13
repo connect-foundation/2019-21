@@ -1,7 +1,8 @@
-import React, {useReducer} from "react";
+import React, {useReducer, useState} from "react";
 import styled from "styled-components";
 import PollCard from "./PollCard";
-// import PollDummyData from "./PollDummyData";
+import {useSocket} from "../../libs/socketIoClientProvider.js";
+import reducer from "./PollReducer";
 
 const ColumnWrapper = styled.div`
 	display: flex;
@@ -14,161 +15,172 @@ const ColumnWrapper = styled.div`
 	width: 100%;
 `;
 
-// 복수선택이 아닌 투표의 경우, 다른 선택된 항목을 uncheck 하는 함수
-const uncheckOtherItems = items => {
-	items.forEach(item => {
-		if (item.voted) {
-			item.voted = false;
-			item.voters--;
-		}
-	});
-};
-
-// N지선다형 투표에서 CLICK 으로 인해 상태 변화가 발생한 경우 처리하는 함수
-const updateItems = (items, number, allowDuplication) => {
-	const newItems = [...items];
-
-	if (newItems[number].voted) {
-		newItems[number].voted = false;
-		newItems[number].voters--;
-	} else {
-		if (!allowDuplication) {
-			uncheckOtherItems(newItems);
-		}
-		newItems[number].voted = true;
-		newItems[number].voters++;
-	}
-	return newItems;
-};
-
-// 별점 투표는 목록이 1개 이므로 항상 index가 0 임
-const updateRatingItem = (items, value, voted) => {
-	const newItems = [...items];
-
-	newItems[0].value = value;
-	newItems[0].voted = voted;
-	return newItems;
-};
-
-// 투표의 참여 총인원수를 계산하는 함수 (복수선택 고려함)
-const updateTotalVoters = (notVoted, totalVoters, items) => {
-	let result = totalVoters;
-
-	if (notVoted) {
-		if (items.some(item => item.voted)) {
-			result = totalVoters + 1;
-		}
-	} else if (items.every(item => item.voted === false)) {
-		result = totalVoters - 1;
-	}
-
-	return result;
-};
-
-function reducer(state, action) {
-	const notVoted = state.nItems.every(item => item.voted === false);
-
-	switch (action.type) {
-		case "VOTE":
-			return {
-				...state,
-				nItems: updateItems(
-					state.nItems,
-					action.number,
-					state.allowDuplication,
-				),
-				totalVoters: updateTotalVoters(
-					notVoted,
-					state.totalVoters,
-					state.nItems,
-				),
-			};
-		case "RATE":
-			return {
-				...state,
-				nItems: updateRatingItem(state.nItems, action.value, true),
-				totalVoters: updateTotalVoters(
-					notVoted,
-					state.totalVoters,
-					state.nItems,
-				),
-			};
-		case "CANCEL_RATING":
-			// 이전 상태도 투표하지 않은 상태라면 서버에 요청을 보내지 않도록 처리하는 루틴
-			if (notVoted && state.nItems[0].value === 0) {
-				return state;
-			}
-			return {
-				...state,
-				nItems: updateRatingItem(state.nItems, 0, false),
-				totalVoters: updateTotalVoters(
-					notVoted,
-					state.totalVoters,
-					state.nItems,
-				),
-			};
-		default:
-			throw new Error("Unhandled action.");
-	}
-}
-
-function PollContainer({data}) {
-	console.log(data);
-
+function PollContainer({data, GuestId}) {
 	let activePollData = null;
-	let closedPollData = null;
+	let clPollData = null;
 
 	if (data) {
 		const initialPollData = data;
 
 		activePollData = initialPollData.filter(
 			poll => poll.state === "running",
-		)[0];
-		closedPollData = initialPollData.filter(
-			poll => poll.state === "closed",
 		);
+		clPollData = initialPollData.filter(poll => poll.state === "closed");
 	}
 
 	const [pollData, dispatch] = useReducer(reducer, activePollData);
+	const [closedPollData, setClosedPollData] = useState(clPollData);
 
-	const onVote = (id, number, state) => {
+	const onVote = (id, candidateId, number, state) => {
 		if (state !== "running") return;
 
 		dispatch({
 			type: "VOTE",
 			id,
+			candidateId,
 			number,
+			GuestId,
 		});
 	};
 
-	const onChange = (value, state) => {
+	const onChange = (value, state, id) => {
 		if (state !== "running") return;
 
 		dispatch({
 			type: "RATE",
 			value,
+			id,
+			GuestId,
 		});
 	};
 
-	const onCancelRating = () => {
+	const onCancelRating = (id, state) => {
+		if (state !== "running") return;
+
 		dispatch({
 			type: "CANCEL_RATING",
+			id,
+			GuestId,
 		});
 	};
+
+	useSocket("poll/notify_open", thePoll => {
+		if (thePoll.error) {
+			return;
+		}
+		// console.log("Guest received poll/notify_open", thePoll);
+		dispatch({
+			type: "NOTIFY_OPEN",
+			poll: thePoll,
+			GuestId,
+		});
+	});
+
+	useSocket("poll/notify_close", id => {
+		if (id.error) {
+			return;
+		}
+		// console.log("Guest received poll/notify_close", id);
+		const thePoll = pollData.filter(poll => poll.id === id)[0];
+
+		thePoll.state = "closed";
+		setClosedPollData([thePoll].concat(closedPollData));
+
+		dispatch({
+			type: "NOTIFY_CLOSE",
+			id,
+		});
+	});
+
+	useSocket("vote/on", res => {
+		if (res.error) {
+			return;
+		}
+		// 하나의 브라우저에서 여러개의 tab으로 guest들을 생성한 경우,
+		// 해당 guest를 제외한 나머지 guest에 상태가 적용되지 않아서 comment 처리했음
+		// console.log("useSocket vote/on", res);
+		// if (res.GuestId === GuestId) {
+		// 	console.log("My vote!");
+		// 	// return;
+		// }
+		dispatch({
+			type: "SOMEONE_VOTE",
+			id: res.poll.id,
+			poll: res.poll,
+			GuestId,
+		});
+	});
+
+	useSocket("vote/off", res => {
+		if (res.error) {
+			return;
+		}
+		// 하나의 브라우저에서 여러개의 tab으로 guest들을 생성한 경우,
+		// 해당 guest를 제외한 나머지 guest에 상태가 적용되지 않아서 comment 처리했음
+		// if (res.GuestId === GuestId) {
+		// 	console.log("My vote!");
+		// 	// return;
+		// }
+		dispatch({
+			type: "SOMEONE_VOTE",
+			id: res.poll.id,
+			poll: res.poll,
+			GuestId,
+		});
+	});
+
+	useSocket("rate/on", res => {
+		if (res.error) {
+			return;
+		}
+		// 하나의 브라우저에서 여러개의 tab으로 guest들을 생성한 경우,
+		// 해당 guest를 제외한 나머지 guest에 상태가 적용되지 않아서 comment 처리했음
+		// console.log("useSocket vote/on", res);
+		// if (res.GuestId === GuestId) {
+		// 	console.log("My rate!");
+		// 	// return;
+		// }
+		dispatch({
+			type: "SOMEONE_RATE",
+			id: res.poll.id,
+			poll: res.poll,
+			GuestId,
+		});
+	});
+
+	useSocket("rate/off", res => {
+		if (res.error) {
+			return;
+		}
+		// 하나의 브라우저에서 여러개의 tab으로 guest들을 생성한 경우,
+		// 해당 guest를 제외한 나머지 guest에 상태가 적용되지 않아서 comment 처리했음
+		// if (res.GuestId === GuestId) {
+		// 	console.log("My rate!");
+		// 	// return;
+		// }
+		dispatch({
+			type: "SOMEONE_RATE",
+			id: res.poll.id,
+			poll: res.poll,
+			GuestId,
+		});
+	});
 
 	return (
 		<ColumnWrapper>
-			{pollData && (
-				<PollCard
-					{...pollData}
-					onVote={onVote}
-					onChange={onChange}
-					onCancelRating={onCancelRating}
-				/>
-			)}
+			{pollData &&
+				pollData.map(poll => (
+					<PollCard
+						{...poll}
+						key={poll.id}
+						onVote={onVote}
+						onChange={onChange}
+						onCancelRating={onCancelRating}
+					/>
+				))}
 			{closedPollData &&
-				closedPollData.map((poll, index) => (
-					<PollCard {...poll} key={index} onVote={onVote} />
+				closedPollData.map(poll => (
+					<PollCard {...poll} key={poll.id} onVote={onVote} />
 				))}
 		</ColumnWrapper>
 	);

@@ -11,7 +11,7 @@ const RowWrapper = styled.div`
 	width: 100%;
 	height: 3rem;
 	box-sizing: border-box;
-	background-color: #f8f9fa; /* Gray1 */
+	background-color: white; //#f8f9fa; /* Gray1 */
 	& + & {
 		margin-top: 0.5rem;
 	}
@@ -44,17 +44,17 @@ const GraphWrapper = styled.div`
 `;
 
 function Item({
-	id,
+	// id,
 	content,
 	voters,
 	voted,
 	totalVoters,
 	firstPlace,
-	onVote,
+	// onVote,
 	state,
 }) {
 	return (
-		<RowWrapper left onClick={() => onVote(id, state)}>
+		<RowWrapper left /* onClick={() => onVote(id, state)} */>
 			<div>{voted && <MdDone />}</div>
 			<div className="selection-name">{content}</div>
 			<RightEnd>

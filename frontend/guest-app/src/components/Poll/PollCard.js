@@ -10,7 +10,8 @@ const ColumnWrapper = styled.div`
 	align-items: center;
 	justify-content: flex-start;
 	box-sizing: border-box;
-	border: 1px solid #dee2e6; /* Gray3 */
+	border: 1px solid #adb5bd; /* Gray5 */
+	// box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
 	width: 100%;
 	& + & {
 		margin-top: 1rem;
@@ -48,15 +49,29 @@ function PollCard(props) {
 		...others
 	} = props;
 
-	// const localePollDate = pollDate.toLocaleString();
-	const localePollDate = pollDate;
-
-	// console.log(pollName, pollDate, totalVoters);
+	let localePollDate;
+	// socket.io, sequelize, graphQL 을 거치면서 format이 변경되어서 그때그때 처리하기 위함
+	if (pollDate) {
+		localePollDate = pollDate;
+		if (localePollDate.includes("-")) {
+			localePollDate = new Date(localePollDate);
+		} else {
+			localePollDate = new Date(parseInt(localePollDate));
+		}
+		localePollDate = `
+			${localePollDate.getMonth() + 1}월 
+			${localePollDate.getDate()}일 
+			${localePollDate.getHours()}시 
+			${localePollDate.getMinutes()}분`;
+	} else {
+		localePollDate = new Date();
+	}
 
 	return (
 		<ColumnWrapper>
 			<RowWrapper left bold>
 				{pollName}
+				<div>{state === "running" && "(투표중)"}</div>
 				<div>{state === "closed" && "(종료됨)"}</div>
 			</RowWrapper>
 			<RowWrapper left small>

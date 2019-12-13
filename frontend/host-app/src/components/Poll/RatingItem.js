@@ -1,7 +1,6 @@
 import React from "react";
 import Rating from "@material-ui/lab/Rating";
 import styled from "styled-components";
-import ActiveRating from "./ActiveRating";
 
 const ColumnWrapper = styled.div`
 	display: flex;
@@ -15,22 +14,33 @@ const ColumnWrapper = styled.div`
 	border: 1px solid #dee2e6; /* Gray3 */
 `;
 
-function RatingItem({nItems, state, onChange, onCancelRating}) {
+const RowWrapper = styled.div`
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+`;
+
+function RatingItem({nItems, state, selectionType}) {
 	return (
 		<ColumnWrapper>
-			{state === "running" ? (
-				<ActiveRating
-					{...nItems[0]}
-					state={state}
-					onChange={onChange}
-					onCancelRating={onCancelRating}
-				/>
-			) : (
-				<Rating
-					readOnly
-					value={nItems[0].value}
-					max={nItems[0].maxStars}
-				/>
+			{state !== "standby" && // running, closed 일때 동일하게 보여야함
+				nItems.map((item, index) => (
+					<RowWrapper key={index}>
+						<div>{item.voters}</div>
+						<Rating
+							readOnly
+							value={+item.content}
+							max={nItems.length}
+							size="small"
+						/>
+					</RowWrapper>
+				))}
+			{state === "standby" && (
+				<>
+					<div>{`최대 별점갯수: ${selectionType}`}</div>
+					<Rating readOnly value={0} max={nItems.length} />
+				</>
 			)}
 		</ColumnWrapper>
 	);

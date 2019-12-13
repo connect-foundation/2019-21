@@ -1,162 +1,61 @@
-import React, {useState, useContext} from "react";
-import styled from "styled-components";
+import React, {useState, useContext, useReducer} from "react";
 import Column from "./Column";
-import {socketClient, useSocket} from "../libs/socket.io-Client-wrapper";
+import {socketClient} from "../libs/socket.io-Client-wrapper";
 import useQueryQuestions from "../libs/useQueryQuestions";
 import {HostContext} from "../libs/hostContext";
-import {makeNewData} from "../libs/utils";
+import {ContentStyle} from "./ComponentsStyle";
+import QuestionsReducer from "./Questions/QuestionReducer";
+import SkeletonContent from "./SkeletonContent";
+import useSocketHandler from "./useSocketHandler";
 
-const ContentStyle = styled.div`
-	display: flex;
-	flex-direction: row;
-	flex: 1;
-	overflow: auto;
-	justify-content: left;
-	align-items: center;
-	padding: 4px 8px;
-	overflow-x: auto;
-	flex-wrap: nowrap;
-`;
-
-const filterQuestion = (option, data) => data.filter(e => e.state === option);
 
 function Inner({data, event, option}) {
 	const SELECTED = true;
 	const UNSELECTED = false;
-
 	const [radioState, setRadioState] = useState([SELECTED, UNSELECTED, UNSELECTED, UNSELECTED]);
-	const [moderationState, setModeration] = useState(option.moderationOption); // get from DB
-	const [modeartionDatas, setModerationDatas] = useState({
-		questions: filterQuestion("moderation", data),
-	});
-	const [newQuestionDatas, setNewQuestionDatas] = useState({
-		questions: filterQuestion("active", data),
-	});
-	const [completeQuestionDatas, setCompleteQuestionDatas] = useState({
-		questions: filterQuestion("completeQuestion", data),
-	});
-	const [questionNumber, setQuestionNumber] = useState([modeartionDatas.questions.length, newQuestionDatas.questions.length, newQuestionDatas.questions.length, completeQuestionDatas.questions.length]);
+	const [moderationState, setModeration] = useState(option.moderationOption);
+	const [questions, dispatch] = useReducer(QuestionsReducer, {questions: data});
 	const [pollNumberStatus] = useState(0);
 
 	const handleRadioState = buttonIndex => {
-		const newState = [UNSELECTED, UNSELECTED, UNSELECTED, UNSELECTED].map((_, idx) => (idx === buttonIndex ? SELECTED : UNSELECTED));
-
-		setRadioState(newState);
+		setRadioState([UNSELECTED, UNSELECTED, UNSELECTED, UNSELECTED]
+			.map((_, idx) => (idx === buttonIndex ? SELECTED : UNSELECTED)));
 	};
 
 	const typeMap = {
-		moderation: {
-			state: moderationState,
-			stateHandler: setModeration,
-			data: modeartionDatas,
-			handler: setModerationDatas,
-		},
-		newQuestion: {
-			state: radioState,
-			stateHandler: handleRadioState,
-			data: newQuestionDatas,
-			handler: setNewQuestionDatas,
-		},
-		popularQuestion: {
-			state: radioState,
-			stateHandler: handleRadioState,
-			data: newQuestionDatas,
-			handler: setNewQuestionDatas,
-		},
-		completeQuestion: {
-			state: radioState,
-			stateHandler: handleRadioState,
-			data: completeQuestionDatas,
-			handler: setCompleteQuestionDatas,
-		},
-		deleted: {
-			data: {
-				questions: [],
-			},
-			handler: e => typeMap.deleted.data.questions.push(e),
-		},
-		active: {
-			data: newQuestionDatas,
-			handler: setNewQuestionDatas,
-		},
+		moderation: {state: moderationState, stateHandler: setModeration},
+		newQuestion: {state: radioState, stateHandler: handleRadioState},
+		popularQuestion: {state: radioState, stateHandler: handleRadioState},
+		completeQuestion: {state: radioState, stateHandler: handleRadioState},
 	};
 
-	useSocket("question/create", req => {
-		const newData = makeNewData(req);
+	useSocketHandler(dispatch);
 
-		switch (req.status) {
-			case "moderation":
-				return setModerationDatas({
-					questions: [...modeartionDatas.questions, newData],
-				});
-			case "active":
-				return setNewQuestionDatas({
-					questions: [...newQuestionDatas.questions, newData],
-				});
-			default:
-				return "err";
-		}
-	});
+	const handleQuestionDatas = (id, from, to) => {
+		const questionData = questions.questions.find(e => e.id === id);
 
-	useSocket("question/toggleStar", req => {
-		const targetColumn = typeMap[req.state];
-		const newData = targetColumn.data.questions.map(e =>
-			(e.id === req.id ? req : e),
-		);
+		socketClient.emit("question/move", {id, from, to, data: questionData});
+	};
 
-		targetColumn.handler({questions: [...newData]});
-	});
+	const handleStar = id => {
+		const toggleMsg = questions.questions.reduce((acc, e) => {
+			if (e.isStared) { acc.from.push({id: e.id, isStared: !e.isStared}); }
+			if (e.id === id) { acc.to.push({id: e.id, isStared: !e.isStared}); }
+			return acc;
+		}, {from: [], to: []});
 
-	useSocket("question/move", req => {
-		const fromObject = typeMap[req.from];
-		const toObject = typeMap[req.to];
-
-		if (req.id === "all") {
-			const newCompleteData = [...toObject.data.questions, ...fromObject.data.questions];
-
-			fromObject.handler({questions: []});
-			toObject.handler({questions: newCompleteData});
-			return setQuestionNumber([modeartionDatas.questions.length, 0, 0, newCompleteData.length]);
-		}
-
-		fromObject.handler({
-			questions: fromObject.data.questions.filter(e => e.id !== req.id),
-		});
-		toObject.handler({
-			questions: [...toObject.data.questions, fromObject.data.questions.find(e => e.id === req.id)],
-		});
-
-		return setQuestionNumber([modeartionDatas.questions.length, newQuestionDatas.questions.length, newQuestionDatas.questions.length, completeQuestionDatas.questions.length]);
-		// bug: state 가 한박자 늦게 update. 아직 handler 로 인한 state 변화가 update 되지 않았기 때문으로 추정함.
-	});
-
-	const handleQuestionDatas = (id, from, to) =>
-		socketClient.emit("question/move", {id, from, to});
-
-	const handleStar = (id, type) => {
-		const targetObject = typeMap[type];
-
-		targetObject.data.questions.some(e => {
-			if (e.id === id) {
-				e.isStared = !e.isStared;
-				socketClient.emit("question/toggleStar", e);
-				return true;
-			}
-			return false;
-		});
+		socketClient.emit("question/toggleStar", toggleMsg);
 	};
 
 	return (
 		<ContentStyle>
 			{Object.keys(typeMap)
-				.splice(0, Object.keys(typeMap).length - 2)
 				.map(e => (
 					<Column
 						type={e}
 						state={typeMap[e].state}
 						stateHandler={typeMap[e].stateHandler}
-						data={typeMap[e].data}
-						badgeState={questionNumber}
+						data={questions}
 						dataHandler={handleQuestionDatas}
 						handleStar={handleStar}
 					/>
@@ -166,6 +65,7 @@ function Inner({data, event, option}) {
 				state={radioState}
 				stateHandler={handleRadioState}
 				badgeState={pollNumberStatus}
+				data={{questions: []}}
 			/>
 		</ContentStyle>
 	);
@@ -174,14 +74,12 @@ function Inner({data, event, option}) {
 function Content({event}) {
 	const {events} = useContext(HostContext);
 	const {loading, error, data} = useQueryQuestions({
-		variables: {
-			EventId: events[0].id,
-		},
+		variables: {EventId: events[0].id},
 	});
 
-	if (loading) return <p>Loading...</p>;
+	if (loading) return <SkeletonContent/>;
 	if (error) return <p>Error :(</p>;
-	console.log(data);
+
 	return (
 		<>
 			<Inner data={data.newData} event={event} option={data.newOption} />

@@ -7,8 +7,9 @@ type Question {
 	state: String!
 	isStared: Boolean!
 	likeCount: Int!
+	QuestionId: ID
 }
 
 type Query {
-    questions(EventId:ID!): [Question]!,
-},
+	questions(EventId: ID!): [Question]!
+}

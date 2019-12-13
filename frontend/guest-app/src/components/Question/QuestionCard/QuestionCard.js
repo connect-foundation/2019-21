@@ -5,23 +5,31 @@ import Divider from "@material-ui/core/Divider";
 import QuestionHeader from "./QuestionCardHeader.js";
 import QuestionBody from "./QuestionCardBody.js";
 import EmojiArea from "../../Emoji/EmojiArea.js";
+import ReplyArea from "../../Reply/ReplyArea";
 
-function QuestionCard(props) {
-	const {isShowEditButton = false, content} = props;
+const cardColor = {
+	focused: "rgb(242,248,255)",
+	unfocused: "rgba(255,255,255,100)",
+};
+
+const QuestionCard = React.memo(props => {
+	const backgroundColor = (props.isStared ? cardColor.focused : cardColor.unfocused);
 
 	return (
-		<Card style={{margin: "0.5rem"}}>
+		<Card style={{margin: "0.5rem", backgroundColor}}>
 			<CardContent style={{paddingTop: "1rem", paddingBottom: "0"}}>
 				<QuestionHeader {...props} />
-				<Divider style={{marginTop: "0.5rem", marginBottom: "0.5rem"}} />
-				<QuestionBody
-					question={content}
-					isMyQuestion={isShowEditButton}
+				<Divider
+					style={{marginTop: "0.5rem", marginBottom: "0.5rem"}}
 				/>
-				<EmojiArea />
+				<QuestionBody {...props} />
+				<EmojiArea {...props} />
+				<ReplyArea {...props} />
 			</CardContent>
 		</Card>
 	);
-}
+});
+
+QuestionCard.proptypes = {};
 
 export default QuestionCard;

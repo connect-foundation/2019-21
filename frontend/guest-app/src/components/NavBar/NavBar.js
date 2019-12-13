@@ -1,5 +1,5 @@
 import React from "react";
-import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar/AppBar.js";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -13,14 +13,20 @@ function NavBar(props) {
 		<AppBar>
 			<Toolbar>
 				<NavBarMenuButton />
-				<Box m="0.5rem" />
-				<Typography variant="h6">{title}</Typography>
+				<Grid
+					container
+					direction="row"
+					justify="center"
+					alignItems="center"
+				>
+					<Typography variant="h6">{title}</Typography>
+				</Grid>
 			</Toolbar>
 		</AppBar>
 	);
 }
 
-NavBar.defaultProps = {title: "이벤트 이름"};
+NavBar.defaultProps = {title: ""};
 
 NavBar.propTypes = {
 	title: PropTypes.string,

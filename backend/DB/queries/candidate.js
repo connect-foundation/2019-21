@@ -1,5 +1,7 @@
 import models from "../models";
+
 const Sequelize = require("sequelize");
+
 const Op = Sequelize.Op;
 
 export async function getCandidatesByPollId(pollIdList) {

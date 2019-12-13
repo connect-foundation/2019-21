@@ -5,7 +5,6 @@ import generateAccessToken from "../authentication/token";
 import loadConfig from "../config/configLoader";
 
 const {routePage} = loadConfig();
-
 const router = express.Router();
 
 router.get(
@@ -17,11 +16,6 @@ router.get(
 	}),
 );
 
-router.get("/logout", (req, res, next) => {
-	req.logOut();
-	res.redirect("/");
-});
-
 router.get(
 	"/google/callback",
 	passport.authenticate("google", {
@@ -30,7 +24,7 @@ router.get(
 	(req, res) => {
 		const accessToken = generateAccessToken(req.user.oauthId, "host");
 
-		res.cookie("vaagle", accessToken, {expires: getTokenExpired(1)});
+		res.cookie("vaagle-host", accessToken, {expires: getTokenExpired(24)});
 		res.redirect(routePage.host);
 	},
 );

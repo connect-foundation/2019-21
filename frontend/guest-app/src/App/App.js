@@ -1,55 +1,60 @@
 import React from "react";
 import styled from "styled-components";
 import {useQuery} from "@apollo/react-hooks";
-import {gql} from "apollo-boost";
 import "./App.css";
+import {GET_GUEST_APP_GLOBAL_DATA} from "../apollo/gqlSchemes.js";
+import TopProgressBar from "../components/TopProcessBar.js";
+import config from "../config";
+import {UIController} from "../components/UIController/UIController.js";
+import {GuestGlobalProvider} from "../libs/guestGlobalContext.js";
 import NavBar from "../components/NavBar/NavBar.js";
 import TabGroup from "../components/TabGroup/TabGroup.js";
-import {GuestProvider} from "../libs/guestContext";
+import {
+	createSocketIOClient,
+	SocketIoClientProvider,
+} from "../libs/socketIoClientProvider.js";
 
 const AppStyle = styled.div`
 	height: 100vh;
 	width: 100vw;
 `;
 
-const GET_EVENT = gql`
-	query {
-		guestInEvent {
-			event {
-				id
-				eventCode
-				startAt
-				endAt
-				eventName
-				HostId
-			}
-			guest {
-				id
-				name
-				email
-				company
-			}
-		}
-	}
-`;
-
 export default function App() {
-	const {data, loading, error} = useQuery(GET_EVENT);
+	const {data, loading, error} = useQuery(GET_GUEST_APP_GLOBAL_DATA);
 
 	if (loading) {
-		return <p>loading...</p>;
-	} else if (error) {
-		return <p>error-page...</p>;
-	} else {
-		const {event, guest} = data.guestInEvent;
-
-		return (
-			<GuestProvider value={{event, guest}}>
-				<AppStyle>
-					<NavBar />
-					<TabGroup />
-				</AppStyle>
-			</GuestProvider>
-		);
+		return <TopProgressBar />;
 	}
+
+	if (error) {
+		window.location.href = config.inValidGuestRedirectURL;
+		return <div />;
+	}
+
+	const {event, guest} = data.guestInEvent;
+	const client = createSocketIOClient({
+		host: config.socketIOHost,
+		port: config.socketIOPort,
+		namespace: "event",
+		room: event.id,
+	});
+
+	client.on("connect", () => {
+		client.emit("joinRoom", {room: event.id});
+	});
+
+	const globalData = {event, guest};
+
+	return (
+		<AppStyle>
+			<SocketIoClientProvider client={client}>
+				<GuestGlobalProvider value={globalData}>
+					<UIController>
+						<NavBar title={event.eventName} />
+						<TabGroup />
+					</UIController>
+				</GuestGlobalProvider>
+			</SocketIoClientProvider>
+		</AppStyle>
+	);
 }

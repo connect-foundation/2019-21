@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useContext} from "react";
 import Button from "@material-ui/core/Button";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import useCommonModal from "../CommonComponent/CommonModal/useCommonModal.js";
-
 import UndoLikeConfirmModal from "./UndoLikeModal.js";
+import {socketClient} from "../../libs/socketIoClientProvider.js";
+import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 
 function LikeButtonAtom({isLikeClicked, onLikeButtonClicked, likeCount}) {
 	return (
@@ -17,19 +18,35 @@ function LikeButtonAtom({isLikeClicked, onLikeButtonClicked, likeCount}) {
 				justifyContent: "space-between",
 			}}
 		>
-			<ThumbUpIcon />
+			<ThumbUpIcon/>
 			{likeCount}
 		</Button>
 	);
 }
 
-function LikeButton({likeCount, isLikeClicked, onLike, onUndoLike}) {
+function emitQuestionLikeCreate(GuestId, QuestionId) {
+	socketClient.emit("questionLike/create", {
+		GuestId,
+		QuestionId,
+	});
+}
+
+function emitQuestionLikeRemove(GuestId, QuestionId) {
+	socketClient.emit("questionLike/remove", {
+		GuestId,
+		QuestionId,
+	});
+}
+
+function LikeButton(props) {
+	const {likeCount, didILike, id} = props;
+	const {guest} = useContext(GuestGlobalContext);
 	const modalState = useCommonModal();
 	const onLikeButtonClicked = () => {
-		if (isLikeClicked) {
+		if (didILike) {
 			modalState.openModal();
 		} else {
-			onLike();
+			emitQuestionLikeCreate(guest.id, id);
 		}
 	};
 
@@ -37,7 +54,7 @@ function LikeButton({likeCount, isLikeClicked, onLike, onUndoLike}) {
 		modalState.closeModal();
 	};
 	const onConfirmClick = () => {
-		onUndoLike();
+		emitQuestionLikeRemove(guest.id, id);
 		modalState.closeModal();
 	};
 
@@ -46,7 +63,7 @@ function LikeButton({likeCount, isLikeClicked, onLike, onUndoLike}) {
 			<LikeButtonAtom
 				onLikeButtonClicked={onLikeButtonClicked}
 				likeCount={likeCount}
-				isLikeClicked={isLikeClicked}
+				isLikeClicked={didILike}
 			/>
 			<UndoLikeConfirmModal
 				{...{onCancelClick, onConfirmClick, ...modalState}}

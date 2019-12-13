@@ -1,7 +1,9 @@
 const config = {
-	websocketHost: "http://www.vaagle.com",
-	websocketPort: 4000,
+	socketIOHost: "http://www.vaagle.com",
+	socketIOPort: 4000,
 	apolloURI: "http://www.vaagle.com:8000/graphql",
+	logoutRedirectURL: "http://www.vaagle.com/guest/logout",
+	inValidGuestRedirectURL: "http://www.vaagle.com",
 };
 
 export default config;

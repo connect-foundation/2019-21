@@ -1,12 +1,11 @@
-import { getEventIdByEventCode } from "../../../DB/queries/event.js";
-import { getPollsByEventId } from "../../../DB/queries/poll.js";
-import { getCandidatesByPollId } from "../../../DB/queries/candidate.js";
-import { getVotersByCandidateList } from "../../../DB/queries/vote.js";
-import { getCandidatesByGuestId } from "../../../DB/queries/vote.js";
+import {getPollsByEventId} from "../../../DB/queries/poll.js";
+import {getCandidatesByPollId} from "../../../DB/queries/candidate.js";
+import {
+	getVotersByCandidateList,
+	getCandidatesByGuestId,
+} from "../../../DB/queries/vote.js";
 
-const simplifyList = list => {
-	return list.map(n => n.get({ plain: true }));
-};
+const simplifyList = list => list.map(n => n.get({plain: true}));
 
 /**
  *
@@ -24,12 +23,13 @@ async function getItems(pollId, candidates) {
 	let index = 0;
 	let firstPlaceValue = 0;
 
-	for (let n of candidates) {
+	for (const n of candidates) {
 		if (n.PollId === pollId) {
 			const voters = await getVotersByCandidateList([n.id]);
+
 			nItems.push({
 				...n,
-				voters: voters,
+				voters,
 				voted: false,
 				firstPlace: false,
 			});
@@ -56,43 +56,12 @@ async function getItems(pollId, candidates) {
  *
  * @param {array of object} polls
  *
- * MySQL에서 선언한 field명과 frontend에서 사용하는 field명이 서로 달라서
- * 이런 부분을 처리해주는 함수
- */
-const setPollTypes = polls => {
-	polls.forEach(poll => {
-		// switch (poll.pollType) {
-		// 	case 0:
-		// 		poll.pollType = "nItems";
-		// 		poll.selectionType = "text";
-		// 		break;
-		// 	case 1:
-		// 		poll.pollType = "nItems";
-		// 		poll.selectionType = "date";
-		// 		break;
-		// 	case 2:
-		// 		poll.pollType = "rating";
-		// 		poll.selectionType = "rating";
-		// 		break;
-		// 	default:
-		// 		console.error(`unknown pollType ${poll.pollType}`);
-		// 		break;
-		// }
-		poll.pollDate = poll.createdAt;
-	});
-
-	return polls;
-};
-
-/**
- *
- * @param {array of object} polls
- *
  * 하나의 poll에 속한 candidates들을 DB에서 읽어오는 함수
  */
 async function getCandidatesByPolls(polls) {
 	const pollIdList = polls.map(poll => poll.id);
 	let candidates = await getCandidatesByPollId(pollIdList);
+
 	candidates = simplifyList(candidates);
 
 	return candidates;
@@ -104,9 +73,7 @@ async function getCandidatesByPolls(polls) {
  *
  * CandidateId (int) 만 읽어서 array로 반환해주는 함수
  */
-const getCandidateList = items => {
-	return items.map(n => n.id);
-};
+const getCandidateList = items => items.map(n => n.id);
 
 /**
  *
@@ -119,9 +86,10 @@ const getCandidateList = items => {
  * 그리고 해당 poll에 속한 모든 candidates들에 투표한 투표자수를 unique하게 더한 총투표수를 구함
  */
 async function setPollItems(polls, candidates) {
-	for (let poll of polls) {
+	for (const poll of polls) {
 		poll.nItems = await getItems(poll.id, candidates);
 		const candidateList = getCandidateList(poll.nItems);
+
 		poll.totalVoters = await getVotersByCandidateList(candidateList);
 	}
 
@@ -135,10 +103,15 @@ async function setPollItems(polls, candidates) {
  *
  * 특정 guest가 poll에 속한 여러 candidate들 중에서 투표한 candidate가 있는지 확인하고 투표여부를 저장함
  */
-const setVotedOnCandidate = (items, votedList) => {
-	items.forEach(n => {
-		if (votedList.includes(n.id)) {
-			n.voted = true;
+const setVotedOnCandidate = (poll, votedList) => {
+	poll.nItems.forEach((item, index) => {
+		if (votedList.includes(item.id)) {
+			item.voted = true;
+			if (poll.pollType === "rating") {
+				poll.rated = true;
+				poll.ratingValue = index + 1;
+				// console.log("Rated", poll.id, poll.ratingValue, poll.rated);
+			}
 		}
 	});
 };
@@ -151,12 +124,15 @@ const setVotedOnCandidate = (items, votedList) => {
  * 특정 guest가 poll에 속한 여러 candidate들 중에서 투표한 candidate가 있는지 확인하고 투표여부를 저장함
  */
 async function setVotedOnPolls(polls, guestId) {
-	for (let poll of polls) {
+	for (const poll of polls) {
+		poll.ratingValue = 0;
+		poll.rated = false;
 		const candidateList = getCandidateList(poll.nItems);
 		let votedList = await getCandidatesByGuestId(candidateList, guestId);
+
 		votedList = simplifyList(votedList);
 		votedList = votedList.map(n => n.CandidateId);
-		setVotedOnCandidate(poll.nItems, votedList);
+		setVotedOnCandidate(poll, votedList);
 	}
 
 	return polls;
@@ -164,7 +140,7 @@ async function setVotedOnPolls(polls, guestId) {
 
 /**
  *
- * @param {string} eventCode
+ * @param {int} EventId
  * @param {int} guestId
  *
  * Yoga Resolver
@@ -176,26 +152,23 @@ async function pollGuestResolver(EventId, guestId) {
 	 * 해당 guestId가 어떻게 투표를 했는지에 대한 정보를 가져옴(active 여부와 상관없이)
 	 *
 	 */
-	// const event = await getEventIdByEventCode(eventCode);
 
 	let polls = await getPollsByEventId(EventId);
 
 	polls = simplifyList(polls);
-	polls = setPollTypes(polls);
 
 	const candidates = await getCandidatesByPolls(polls);
 
 	polls = await setPollItems(polls, candidates);
 	polls = await setVotedOnPolls(polls, guestId);
 
-	console.log("resolver", polls);
 	return polls;
 }
 
 // noinspection JSUnusedGlobalSymbols
 export default {
 	Query: {
-		pollGuest: (_, { EventId, guestId }) =>
+		pollGuest: (_, {EventId, guestId}) =>
 			pollGuestResolver(EventId, guestId),
 	},
 };

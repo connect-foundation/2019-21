@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "@material-ui/core/Modal";
 import makeStyles from "@material-ui/core/styles/makeStyles.js";
 import PropTypes from "prop-types";
+import Paper from "@material-ui/core/Paper";
 
 function getModalStyle() {
 	return {
@@ -28,9 +29,9 @@ function CommonModal(props) {
 
 	return (
 		<Modal open={isOpened} onClose={onCancelClick}>
-			<div style={modalStyle} className={classes.paper}>
+			<Paper style={modalStyle} className={classes.paper}>
 				{props.children}
-			</div>
+			</Paper>
 		</Modal>
 	);
 }

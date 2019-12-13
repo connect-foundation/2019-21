@@ -1,93 +1,30 @@
-import React from "react";
-import styled from "styled-components";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import {Typography} from "@material-ui/core";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import useDrawer from "../../../materialUIHooks/useDrawer.js";
-import CommonModal from "../../CommonComponent/CommonModal/CommonModal.js";
-import useCommonModal from "../../CommonComponent/CommonModal/useCommonModal.js";
-import SideMenuItem from "../../SideMenu/SideMenuItem.js";
+import React, {useContext} from "react";
+import PropTypes from "prop-types";
+import QuestionEditButton from "./QuestionCardEditButton.js";
+import {GuestGlobalContext} from "../../../libs/guestGlobalContext.js";
 
-const QuestionEditButtonStyle = styled.div`
-	float: right;
-	text-align: right;
-	margin-right: 1rem;
-`;
+function QuestionBody(props) {
+	const {guest} = useContext(GuestGlobalContext);
+	const {content, GuestId} = props;
 
-function DeleteQuestionCardModal({isOpened, closeModal, onCancel, onDelete}) {
-	return (
-		<CommonModal isOpened={isOpened} onCancelClick={closeModal}>
-			<p>질문을 삭제하겠습니까?</p>
-			<Grid container direction={"row"} justify="flex-end">
-				<Button onClick={onCancel || closeModal}>취소</Button>
-				<Button color="secondary" onClick={onDelete}>
-          삭제
-				</Button>
-			</Grid>
-		</CommonModal>
-	);
-}
-
-function DeleteQuestionCardMenuButton() {
-	const {isOpened, openModal, closeModal} = useCommonModal();
-
-	return (
-		<>
-			<SideMenuItem
-				icon={<DeleteIcon/>}
-				itemText={"질문 삭제"}
-				onClick={openModal}
-			/>
-			<DeleteQuestionCardModal
-				isOpened={isOpened}
-				closeModal={closeModal}
-			/>
-		</>
-	);
-}
-
-function QuestionCardDrawer({isOpen, toggleDrawer}) {
-	return (
-		<Drawer open={isOpen} anchor={"bottom"} onClose={toggleDrawer}>
-			<List>
-				<SideMenuItem
-					icon={<EditIcon/>}
-					itemText={"질문 수정"}
-					onClick={toggleDrawer}
-				/>
-				<DeleteQuestionCardMenuButton onClick={toggleDrawer}/>
-			</List>
-		</Drawer>
-	);
-}
-
-function QuestionEditButton() {
-	const {isOpen, toggleDrawer} = useDrawer();
+	const isMyQuestion = guest.id === GuestId;
 
 	return (
 		<span>
-			<QuestionEditButtonStyle onClick={toggleDrawer}>
-				<Typography color={"textSecondary"}>
-					<MoreHorizIcon/>
-				</Typography>
-			</QuestionEditButtonStyle>
-			<QuestionCardDrawer {...{isOpen, toggleDrawer}} />
+			{content}
+			{isMyQuestion && <QuestionEditButton {...props} />}
 		</span>
 	);
 }
 
-function QuestionBody({question, isMyQuestion}) {
-	return (
-		<span>
-			{question}
-			{isMyQuestion && <QuestionEditButton/>}
-		</span>
-	);
-}
+QuestionBody.propTypes = {
+	content: PropTypes.string,
+	isMyQuestion: PropTypes.bool,
+};
+
+QuestionBody.defualtProps = {
+	content: "",
+	isMyQuestion: false,
+};
 
 export default QuestionBody;

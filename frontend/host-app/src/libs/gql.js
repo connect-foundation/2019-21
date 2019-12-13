@@ -12,6 +12,11 @@ function getEventsByHost() {
 					endAt
 					moderationOption
 					replyOption
+					HashTags {
+						id
+						name
+						EventId
+					}
 				}
 				host {
 					oauthId
@@ -42,12 +47,39 @@ function createEvent() {
 	`;
 }
 
+function createHashTags() {
+	return gql`
+		mutation Mutation($hashTags: [HashTagInput]!) {
+			createHashTags(hashTags: $hashTags) {
+				id
+			}
+		}
+	`;
+}
+
 function setModerationOptionById(eventId, moderationOption) {
 	return gql`
 	mutation{
   		moderation(eventId: 2, moderationOption: ${moderationOption})
 	}
 `;
+}
+
+function updateEvent() {
+	return gql`
+		mutation Mutation($event: EventUpdate!) {
+			updateEvent(event: $event) {
+				id
+				eventCode
+				eventName
+				moderationOption
+				replyOption
+				endAt
+				startAt
+				HostId
+			}
+		}
+	`;
 }
 
 function getQuestionsByEventCodeAndGuestId() {
@@ -72,4 +104,6 @@ export {
 	getQuestionsByEventCodeAndGuestId,
 	createEvent,
 	setModerationOptionById,
+	createHashTags,
+	updateEvent,
 };

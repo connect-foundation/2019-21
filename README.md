@@ -35,11 +35,6 @@
    - Host는 투표를 생성하여 Guest들에게 실시간 투표 참여를 요청할 수 있음
    - Guest들은 투표를 할 수 있고, 투표 상황은 실시간 공유됨
 
-## start local dev mode
-```sh
-yarn start
-```
-
 ## 위키 링크
 
 [wiki](https://github.com/connect-foundation/2019-21/wiki)

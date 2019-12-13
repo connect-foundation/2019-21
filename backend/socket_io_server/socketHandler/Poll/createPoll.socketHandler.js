@@ -1,19 +1,7 @@
-import { createPoll } from "../../../DB/queries/poll";
-
-/**
- * data format은 아래 내용 중 가능한 것들은 모두 있어야 함
- * {
- *      EventId:
- *      PollId:
- *      CandidateId:
- *      GuestId:
- * }
- *
- */
+import {createPoll} from "../../../DB/queries/poll";
 
 const createPollSocketHandler = async (data, emit) => {
 	try {
-		console.log(data);
 		const {
 			EventId,
 			pollName,
@@ -23,24 +11,22 @@ const createPollSocketHandler = async (data, emit) => {
 			candidates,
 		} = data;
 
-		const state = "running";
+		const state = "standby";
 
-		const poll = await createPoll(
+		const result = await createPoll(
 			EventId,
 			pollName,
 			pollType,
 			selectionType,
 			allowDuplication,
 			state,
-			candidates
+			candidates,
 		);
 
-		console.log("delayed");
-
-		emit(data);
+		emit(result);
 	} catch (e) {
 		console.error(e);
-		emit({ status: "error", e });
+		emit({status: "error", e});
 	}
 };
 

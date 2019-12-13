@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "@material-ui/core/Card";
 import {CardContent, Icon} from "@material-ui/core";
+import Tooltip from "@material-ui/core/Tooltip";
 import UserAvata from "./UserAvata.js";
 import {QuestionHeader, QuestionBody, QuestionInfo, QuestionMeta, QuestionButtons} from "./QuestionStyle";
 import QuestionDate from "./QuestionDate";
@@ -21,21 +22,20 @@ function ModerationQuestionCard(props) {
 							<QuestionDate {...props} />
 						</QuestionInfo>
 						<QuestionButtons>
-							<Icon
-								className={classes.starButton}
-								onClick={() => props.handleStar(props.id, props.type)}>
-								stars
-							</Icon>
-							<Icon
-								className={classes.approveButton}
-								onClick={() => props.dataHandler(props.id, props.type, "newQuestion")}>
-								check_circle_outline
-							</Icon>
-							<Icon
-								className={classes.cancelButton}
-								onClick={() => props.dataHandler(props.id, props.type, "deleted")}>
-								highlight_off
-							</Icon>
+							<Tooltip title="승인">
+								<Icon
+									className={classes.approveButton}
+									onClick={() => props.dataHandler(props.id, props.type, "active")}>
+									check_circle_outline
+								</Icon>
+							</Tooltip>
+							<Tooltip title="거절">
+								<Icon
+									className={classes.cancelButton}
+									onClick={() => props.dataHandler(props.id, props.type, "deleted")}>
+									highlight_off
+								</Icon>
+							</Tooltip>
 						</QuestionButtons>
 					</QuestionMeta>
 				</QuestionHeader>

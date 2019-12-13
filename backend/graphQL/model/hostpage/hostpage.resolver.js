@@ -5,9 +5,16 @@ import {
 	getAllEvents,
 	updateEventById,
 	getEventOptionByEventId,
+	getEventById,
 } from "../../../DB/queries/event.js";
+import {
+	createHashtag,
+	getHashtagByEventIds,
+} from "../../../DB/queries/hashtag.js";
+
 const moderationResolver = async (eventId, moderationOption) => {
-	const updatedEvent = await updateEventById(eventId, { moderationOption });
+	const updatedEvent = await updateEventById(eventId, {moderationOption});
+
 	return updatedEvent[0];
 };
 
@@ -19,31 +26,54 @@ const getEventOptionResolver = async eventId => {
 
 export default {
 	Query: {
-		init: async (_, { param }, authority) => {
+		init: async (_, {param}, authority) => {
 			if (authority.sub === "host") {
 				const host = authority.info;
-				const events = await getEventsByHostId(host.id);
+				let events = await getEventsByHostId(host.id);
+				events = events.map(event => event.get({plain: true}));
 
-				return { events, host };
+				const eventMap = new Map();
+				const eventIdList = events.map(event => {
+					eventMap.set(event.id, []);
+					return event.id;
+				});
+
+				let hashTags = await getHashtagByEventIds(eventIdList);
+				hashTags.forEach(hashTag => {
+					const hashTagObject = hashTag.get({plain: true});
+					eventMap.get(hashTagObject.EventId).push(hashTagObject);
+				});
+				events.forEach(event => {
+					Object.assign(event, {HashTags: eventMap.get(event.id)});
+				});
+
+				return {events, host};
 			}
 
 			throw new Error("AuthenticationError");
 		},
-		getEventOption: async (_, { EventId }) =>
-			getEventOptionResolver(EventId),
+		getEventOption: async (_, {EventId}) => getEventOptionResolver(EventId),
 	},
 	Mutation: {
-		createEvent: async (_, { info }, authority) => {
+		createHashTags: async (_, {hashTags}, authority) => {
+			for (let hashTag of hashTags) {
+				await createHashtag({
+					name: hashTag.name,
+					EventId: hashTag.EventId,
+				});
+			}
+		},
+		createEvent: async (_, {info}, authority) => {
 			if (authority.sub === "host") {
 				let eventCode = faker.random.alphaNumeric(4);
-				let events = await getAllEvents();
-				const existCode = events.map(event => {
-					return event.eventCode;
-				});
+				const events = await getAllEvents();
+				const existCode = events.map(event => event.eventCode);
+
 				while (true) {
-					const exist = existCode.some(someCode => {
-						return eventCode === someCode;
-					});
+					const exist = existCode.some(
+						someCode => eventCode === someCode
+					);
+
 					if (!exist) break;
 					eventCode = faker.random.alphaNumeric(4);
 				}
@@ -54,12 +84,23 @@ export default {
 					startAt: info.startAt,
 					endAt: info.endAt,
 				});
+
 				event = event[0].dataValues;
-				return { ...event };
+				return {...event};
 			}
 			throw new Error("AuthenticationError");
 		},
-		moderation: (_, { eventId, moderationOption }) =>
+		updateEvent: async (_, {event}, authority) => {
+			let updatedEvent = await updateEventById(event.EventId, {
+				eventName: event.eventName,
+				startAt: event.startAt,
+				endAt: event.endAt,
+			});
+			updatedEvent = await getEventById(event.EventId);
+
+			return updatedEvent.get({plain: true});
+		},
+		moderation: (_, {eventId, moderationOption}) =>
 			moderationResolver(eventId, moderationOption),
 	},
 };

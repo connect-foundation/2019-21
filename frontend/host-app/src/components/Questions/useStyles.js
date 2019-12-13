@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
 			color: "#EF0046",
 		},
 	},
-	upwardButton: {
+	restoreButton: {
 		color: "#5a7ec4",
 		marginLeft: "0.25rem",
 		"&:hover": {
@@ -36,11 +36,33 @@ const useStyles = makeStyles(theme => ({
 			color: "#ef0046",
 		},
 	},
+	footerButton: {
+		color: "rgb(121,121,121)",
+		margin: " 0.1rem",
+		transform: "scale(0.6)",
+		"&:hover": {
+			color: "#ef0046",
+		},
+	},
+	thumbUpButton: {
+		color: "#7f7f7f",
+		transform: "scale(0.7)",
+		marginLeft: "0.5rem",
+	},
+	replyIcon: {
+		color: "#7f7f7f",
+		transform: "scale(0.7)",
+	},
 	staredQuestion: {
 		backgroundColor: "rgb(242,248,255)",
 	},
 	normalQuestion: {
 		backgroundColor: "rgba(255,255,255,100)",
+	},
+	cardContentPadding: {
+		"&:last-child": {
+			paddingBottom: "0.7rem",
+		},
 	},
 }
 ));

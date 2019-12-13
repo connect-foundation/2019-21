@@ -7,6 +7,7 @@ import resolvers from "./resolvers.js";
 import typeDefs from "./typeDefs.js";
 import config from "./config.js";
 import {findHostByAuthId} from "../DB/queries/host";
+import logger from "./logger.js";
 
 const authenticate = async (resolve, root, args, context, info) => {
 	let audience = "anonymous";
@@ -61,5 +62,5 @@ server.express.use(morgan("dev"));
 server.express.use(cookieParser());
 
 server.start(config, ({port}) => {
-	console.log(`graphQL yoga Server is running on localhost:${port}`);
+	logger.info(`graphQL yoga Server is running on localhost:${port}`);
 });
