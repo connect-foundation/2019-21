@@ -4,7 +4,7 @@ import Badge from "@material-ui/core/Badge";
 import Tooltip from "@material-ui/core/Tooltip";
 import {makeStyles} from "@material-ui/core/styles";
 import {Icon} from "@material-ui/core";
-import {RightSide, TitleStyle} from "../StyledComponent/ComponentsStyle.js";
+import {RightSide, BoldTitleStyle} from "../StyledComponent/ComponentsStyle.js";
 import TitleBox from "../StyledComponent/TitleBox.js";
 
 const useStyles = makeStyles(theme => ({
@@ -39,7 +39,7 @@ function RadioTitle({
 				className={classes.margin}
 				children={undefined}
 			/>
-			<TitleStyle>{titleName}</TitleStyle>
+			<BoldTitleStyle>{titleName}</BoldTitleStyle>
 			<RightSide>
 				<Radio
 					checked={state[idx] === SELECTED}
@@ -66,7 +66,7 @@ function RadioTitle({
 				className={classes.margin}
 				children={undefined}
 			/>
-			<TitleStyle>{titleName}</TitleStyle>
+			<BoldTitleStyle>{titleName}</BoldTitleStyle>
 			<Radio
 				checked={state[idx] === SELECTED}
 				onClick={stateHandler.bind(this, idx)}

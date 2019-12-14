@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const TitleStyle = styled.div`
+const BoldTitleStyle = styled.div`
 	font-weight: bold;
 `;
 
@@ -23,7 +23,7 @@ const ContentStyle = styled.div`
 `;
 
 export {
-	TitleStyle,
+	BoldTitleStyle,
 	RightSide,
 	ContentStyle,
 };

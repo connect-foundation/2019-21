@@ -4,7 +4,7 @@ import Badge from "@material-ui/core/Badge";
 import {makeStyles} from "@material-ui/core";
 import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper.js";
 import {HostContext} from "../../libs/hostContext.js";
-import {TitleStyle} from "../StyledComponent/ComponentsStyle.js";
+import {BoldTitleStyle} from "../StyledComponent/ComponentsStyle.js";
 import TitleBox from "../StyledComponent/TitleBox.js";
 
 const useStyles = makeStyles(theme => ({
@@ -32,12 +32,10 @@ function SwitchTitle({titleName, state, stateHandler, data}) {
 				badgeContent={data.length}
 				showZero
 				className={classes.margin}
+				children={undefined}
 			/>
-			<TitleStyle>{titleName}</TitleStyle>
-			<Switch
-				checked={state}
-				onClick={() => moderationEventEmit()}
-			/>
+			<BoldTitleStyle>{titleName}</BoldTitleStyle>
+			<Switch checked={state} onClick={() => moderationEventEmit()} />
 		</TitleBox>
 	);
 }

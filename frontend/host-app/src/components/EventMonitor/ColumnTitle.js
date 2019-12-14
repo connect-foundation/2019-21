@@ -1,16 +1,61 @@
 import React from "react";
-import Title from "./Title.js";
+import ModerationColumnTitle from "./ModerationColumnTitle.js";
+import {filterQuestion} from "../../libs/utils.js";
+import CompleteQuestionColumnTitle from "./CompleteQuestionColumnTitle.js";
+import NewQuestionColumnTitle from "./NewQuestionColumnTitle.js";
+import PopularQuestionColumnTitle from "./PopularQuestionColumnTitle.js";
+import PollColumnTitle from "./PollColumnTitle.js";
 
 function ColumnTitle({type, state, dataHandler, data, stateHandler}) {
-	return (
-		<Title
-			type={type}
-			state={state}
-			stateHandler={stateHandler}
-			data={data}
-			dataHandler={dataHandler}
-		/>
-	);
+	if (type === "moderation") {
+		return (
+			<ModerationColumnTitle
+				state={state}
+				stateHandler={stateHandler}
+				data={filterQuestion(type, data).questions}
+			/>
+		);
+	} else if (type === "completeQuestion") {
+		return (
+			<CompleteQuestionColumnTitle
+				state={state}
+				stateHandler={stateHandler}
+				data={filterQuestion(type, data).questions}
+				dataHandler={dataHandler}
+				type={type}
+			/>
+		);
+	} else if (type === "newQuestion") {
+		return (
+			<NewQuestionColumnTitle
+				state={state}
+				stateHandler={stateHandler}
+				data={filterQuestion("active", data).questions}
+				dataHandler={dataHandler}
+				type={type}
+			/>
+		);
+	} else if (type === "popularQuestion") {
+		return (
+			<PopularQuestionColumnTitle
+				state={state}
+				stateHandler={stateHandler}
+				data={filterQuestion("active", data).questions}
+				dataHandler={dataHandler}
+				type={type}
+			/>
+		);
+	} else if (type === "poll") {
+		return (
+			<PollColumnTitle
+				state={state}
+				stateHandler={stateHandler}
+				data={filterQuestion("active", data).questions}
+				dataHandler={dataHandler}
+				type={type}
+			/>
+		);
+	}
 }
 
 export default ColumnTitle;
