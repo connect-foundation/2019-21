@@ -17,7 +17,7 @@ const TitleSpan = styled.span`
 	margin-right: 0.5rem;
 `;
 
-function PollName({value, onChange, error, helperText}) {
+function PollTitleInput({value, onChange, error, helperText}) {
 	return (
 		<RowWrapper left>
 			<TitleSpan>투표 제목 :</TitleSpan>
@@ -35,4 +35,4 @@ function PollName({value, onChange, error, helperText}) {
 	);
 }
 
-export default PollName;
+export default PollTitleInput;
