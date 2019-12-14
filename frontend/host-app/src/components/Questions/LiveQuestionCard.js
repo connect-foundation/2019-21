@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import Divider from "@material-ui/core/Divider";
 import Card from "@material-ui/core/Card";
 import {CardContent} from "@material-ui/core";
 import UserAvata from "./UserAvata.js";
@@ -18,6 +17,7 @@ import ThumbUpButton from "./ThumbUpButton";
 import Replies from "./Replies";
 import FixOnTopIconButton from "./FixOnTopIconButton.js";
 import CompleteQuestionIconButton from "./CompleteQuestionIconButton.js";
+import QuestionCardInnerDivider from "./QuestionCardInnerDivider.js";
 
 function LiveQuestionCard(props) {
 	const classes = useStyles();
@@ -49,9 +49,7 @@ function LiveQuestionCard(props) {
 					</QuestionMeta>
 				</QuestionHeader>
 				<QuestionBody>{props.content}</QuestionBody>
-				<Divider
-					style={{marginTop: "0.5rem", marginBottom: "0.5rem"}}
-				/>
+				<QuestionCardInnerDivider/>
 				<ThumbUpButton
 					{...props}
 					replyOpenHandler={setOpenReplies}

@@ -1,8 +1,7 @@
 import React, {useState} from "react";
 import Card from "@material-ui/core/Card";
 import {CardContent} from "@material-ui/core";
-import Divider from "@material-ui/core/Divider";
-import UserAvata from "./UserAvata.js";
+import UserAvatar from "./UserAvata.js";
 import {
 	QuestionBody,
 	QuestionButtons,
@@ -17,6 +16,8 @@ import QuestionMenu from "./QuestionMenu";
 import ThumbUpButton from "./ThumbUpButton";
 import Replies from "./Replies";
 import RestoreQuestionIconButton from "./RestoreQuestionIconButton.js";
+import QuestionCardInnerDivider from "./QuestionCardInnerDivider.js";
+
 
 function CompleteQuestionCard(props) {
 	const classes = useStyles();
@@ -31,7 +32,7 @@ function CompleteQuestionCard(props) {
 			<CardContent className={classes.cardContentPadding}>
 				<QuestionHeader>
 					<QuestionMeta>
-						<UserAvata {...props} />
+						<UserAvatar {...props} />
 						<QuestionInfo>
 							<QuestionUserName {...props} />
 							<QuestionDate {...props} />
@@ -47,9 +48,7 @@ function CompleteQuestionCard(props) {
 					</QuestionMeta>
 				</QuestionHeader>
 				<QuestionBody>{props.content}</QuestionBody>
-				<Divider
-					style={{marginTop: "0.5rem", marginBottom: "0.5rem"}}
-				/>
+				<QuestionCardInnerDivider/>
 				<ThumbUpButton
 					{...props}
 					replyOpenHandler={setOpenReplies}
