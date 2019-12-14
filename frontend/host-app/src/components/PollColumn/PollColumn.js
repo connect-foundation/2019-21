@@ -1,7 +1,7 @@
 import React from "react";
-import {filterQuestion} from "../../../libs/utils.js";
+import {filterQuestion} from "../../libs/utils.js";
 import PollColumnTitle from "./PollColumnTitle.js";
-import PollApollo from "../../Poll/PollApollo.js";
+import PollApollo from "../Poll/PollApollo.js";
 import AdjustAbleColumn from "../AdjustAbleColumn/AdjustAbleColumn.js";
 
 function PollColumn({state, stateHandler, data}) {

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, {useState} from "react";
-import ColumnFooter from "../ColumnFooter.js";
+import ColumnFooter from "../EventMonitor/ColumnFooter.js";
 
 const AdjustAbleColumnStyle = styled.div`
 	display: flex;

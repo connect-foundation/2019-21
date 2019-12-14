@@ -7,7 +7,7 @@ import {ContentStyle} from "../StyledComponent/ComponentsStyle.js";
 import QuestionsReducer from "../Questions/QuestionReducer.js";
 import SkeletonContent from "../Skeleton/SkeletonContent.js";
 import useQuestionSocketEventHandler from "../../customhook/useQuestionSocketEventHandler.js";
-import PollColumn from "./PollColumn/PollColumn.js";
+import PollColumn from "../PollColumn/PollColumn.js";
 import useRadioState from "./useRadioState.js";
 
 function Inner({data, event, option}) {
