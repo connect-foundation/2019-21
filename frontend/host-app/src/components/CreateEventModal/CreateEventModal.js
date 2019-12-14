@@ -11,7 +11,7 @@ import HashTagsField from "./HashTagsField";
 import ButtonField from "./ButtonField";
 import AlertSnackbar from "./AlertSnackbar";
 import eventModalReducer from "./eventModalReducer";
-import {createEvent, createHashTags} from "../../libs/gql";
+import {createEventMutationScheme, createHashTagsMutationScheme} from "../../libs/gql";
 import {HostContext} from "../../libs/hostContext";
 import {validDate, validEventName} from "../../libs/eventValidation";
 
@@ -76,7 +76,7 @@ function CreateEventModal({open, handleClose}) {
 		eventModalReducer,
 		initialEventInfo,
 	);
-	const [mutaionEvent, {event}] = useMutation(createEvent(), {
+	const [mutaionEvent, {event}] = useMutation(createEventMutationScheme, {
 		variables: {
 			info: {
 				HostId: hostInfo.id,
@@ -86,7 +86,7 @@ function CreateEventModal({open, handleClose}) {
 			},
 		},
 	});
-	const [mutationHashTags, {hashTags}] = useMutation(createHashTags());
+	const [mutationHashTags, {hashTags}] = useMutation(createHashTagsMutationScheme);
 
 	const snackBarHandleClose = (event, reason) => {
 		if (reason === "clickaway") {

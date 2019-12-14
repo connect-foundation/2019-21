@@ -14,7 +14,7 @@ import {generalSettingReducer} from "../../settingReducer/settingReducer";
 import ButtonField from "../ButtonField";
 import {HostContext} from "../../../../libs/hostContext";
 import config from "../../../../config";
-import {updateEvent} from "../../../../libs/gql";
+import {updateEventMutationScheme} from "../../../../libs/gql";
 
 const PopUpLayOutStyle = styled.div`
 	display: flex;
@@ -39,7 +39,7 @@ function convertDataToView(eventInfo) {
 }
 
 export default function GeneralSetting({handleClose}) {
-	const [mutaionUpdateEvent] = useMutation(updateEvent());
+	const [mutaionUpdateEvent] = useMutation(updateEventMutationScheme);
 	const {events, setEvents} = useContext(HostContext);
 	const initialGeneralState = convertDataToView(events[0]);
 	const [generalSettingState, dispatch] = useReducer(

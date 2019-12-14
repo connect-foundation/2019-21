@@ -49,7 +49,7 @@ let App = props => {
 function WithEventProvider(Component) {
 	return props => {
 		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const query = useQuery(getEventsByHost());
+		const query = useQuery(getEventsByHost);
 
 		return <Component {...props} {...query} />;
 	};
