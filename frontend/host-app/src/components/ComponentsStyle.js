@@ -104,9 +104,9 @@ const ModerationStyle = styled.div`
 	display: flex;
 	flex-direction: column;
 	flex: 1;
-	animation: ${props => ((props.state) ? Open : Close)};
-    animation-duration: 0.2s;
-    animation-fill-mode: forwards;
+	animation: ${props => (props.state ? Open : Close)};
+	animation-duration: 0.2s;
+	animation-fill-mode: forwards;
 	justify-content: flex-start;
 	align-items: center;
 	border-radius: 8px;
@@ -115,21 +115,6 @@ const ModerationStyle = styled.div`
 	min-width: ${props => (props.state ? "20rem" : "8rem")};
 	height: ${props => props.height || "100%"};
 	min-height: 2.5rem;
-	box-sizing: border-box;
-	& + & {
-		margin-left: 8px;
-	}
-`;
-
-const SkeletonColumnStyle = styled.div`
-	display: flex;
-	flex-direction: column;
-	flex: 1;
-	justify-content: flex-start;
-	align-items: center;
-	border-radius: 8px;
-	min-width: "20rem";
-	height: "100%";
 	box-sizing: border-box;
 	& + & {
 		margin-left: 8px;
@@ -150,7 +135,6 @@ export {
 	ContentStyle,
 	QuestionStyle,
 	FooterStyle,
-	SkeletonColumnStyle,
 	ModerationStyle,
 	FooterBox,
 };
