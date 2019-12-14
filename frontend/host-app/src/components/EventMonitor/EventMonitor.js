@@ -8,24 +8,15 @@ import QuestionsReducer from "../Questions/QuestionReducer.js";
 import SkeletonContent from "../Skeleton/SkeletonContent.js";
 import useQuestionSocketEventHandler from "../../customhook/useQuestionSocketEventHandler.js";
 import PollColumn from "./PollColumn/PollColumn.js";
+import useRadioState from "./useRadioState.js";
 
 function Inner({data, event, option}) {
-	const SELECTED = true;
-	const UNSELECTED = false;
-	const [radioState, setRadioState] = useState([SELECTED, UNSELECTED, UNSELECTED, UNSELECTED]);
+	const {radioState, handleRadioState} = useRadioState();
 	const [moderationState, setModeration] = useState(option.moderationOption);
 	const [questions, dispatch] = useReducer(QuestionsReducer, {
 		questions: data,
 	});
 	const [pollNumberStatus] = useState(0);
-
-	const handleRadioState = buttonIndex => {
-		setRadioState(
-			[UNSELECTED, UNSELECTED, UNSELECTED, UNSELECTED].map((_, idx) =>
-				(idx === buttonIndex ? SELECTED : UNSELECTED),
-			),
-		);
-	};
 
 	const typeMap = {
 		moderation: {state: moderationState, stateHandler: setModeration},
