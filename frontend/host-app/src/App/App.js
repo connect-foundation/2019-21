@@ -4,7 +4,7 @@ import {useQuery} from "@apollo/react-hooks";
 import "./App.css";
 import Header from "../components/Header/Header.js";
 import NavBar from "../components/NavBar/NavBar.js";
-import EventMonitor from "../components/EventMonitor.js";
+import EventMonitor from "../components/EventMonitor/EventMonitor.js";
 import NewPollModal from "../components/Poll/NewPollModal";
 import {HostProvider} from "../libs/hostContext";
 import {getEventsByHost} from "../libs/gql";
@@ -13,7 +13,7 @@ import WithApolloProvider from "../HOC/WithApolloProvider.js";
 import WithLoadingAndErrorComponent from "../HOC/WithLoadingAndErrorComponent.js";
 import AppSkeleton from "../components/Skeleton/AppSkeleton.js";
 import HOCChaining from "../HOC/HOCChaining.js";
-import AppErrorComponent from "../components/ErrorComponent.js";
+import AppErrorComponent from "../components/ErrorPage/ErrorComponent.js";
 
 const EVENT_LIST_TAB_IDX = 0;
 // const LIVE_EVENT_TAB_IDX = 1;

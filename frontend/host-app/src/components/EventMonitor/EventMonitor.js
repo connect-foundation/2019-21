@@ -1,12 +1,12 @@
 import React, {useContext, useReducer, useState} from "react";
-import Column from "./Column";
-import {socketClient} from "../libs/socket.io-Client-wrapper";
-import useQueryQuestions from "../libs/useQueryQuestions";
-import {HostContext} from "../libs/hostContext";
-import {ContentStyle} from "./StyledComponent/ComponentsStyle.js";
-import QuestionsReducer from "./Questions/QuestionReducer";
-import SkeletonContent from "./Skeleton/SkeletonContent.js";
-import useQuestionSocketEventHandler from "../customhook/useQuestionSocketEventHandler.js";
+import Column from "./Column.js";
+import {socketClient} from "../../libs/socket.io-Client-wrapper.js";
+import useQueryQuestions from "../../libs/useQueryQuestions.js";
+import {HostContext} from "../../libs/hostContext.js";
+import {ContentStyle} from "../StyledComponent/ComponentsStyle.js";
+import QuestionsReducer from "../Questions/QuestionReducer.js";
+import SkeletonContent from "../Skeleton/SkeletonContent.js";
+import useQuestionSocketEventHandler from "../../customhook/useQuestionSocketEventHandler.js";
 
 function Inner({data, event, option}) {
 	const SELECTED = true;

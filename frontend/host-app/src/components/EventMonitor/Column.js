@@ -1,9 +1,9 @@
 import React, {useState} from "react";
-import Title from "./Title";
-import QuestionContainer from "./Questions/QuestionContainer";
-import ColumnFooter from "./ColumnFooter";
-import {QuestionStyle, ModerationStyle} from "./StyledComponent/ComponentsStyle.js";
-import {filterStared} from "../libs/utils";
+import Title from "./Title.js";
+import QuestionContainer from "../Questions/QuestionContainer.js";
+import ColumnFooter from "./ColumnFooter.js";
+import {QuestionStyle, ModerationStyle} from "../StyledComponent/ComponentsStyle.js";
+import {filterStared} from "../../libs/utils.js";
 
 function Column({type, state, stateHandler, data, dataHandler, handleStar}) {
 	const [heightWeight, setHeightWeight] = useState(0);
