@@ -1,6 +1,6 @@
 import React, {useRef} from "react";
 import QuestionContainerTabBar from "./QuestionContainerTabBar.js";
-import useTabs from "../../materialUIHooks/useTabs.js";
+import useTabs from "../../hooks/useTabs.js";
 import AddQuestionInputButton from "./QuestionInputArea/AddQuestionInputButton.js";
 import QuestionCardList from "./QuestionCard/QuestionCardList.js";
 import {socketClient} from "../../libs/socketIoClientProvider.js";
