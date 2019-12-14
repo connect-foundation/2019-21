@@ -1,23 +1,33 @@
 import React, {useState} from "react";
 import Card from "@material-ui/core/Card";
-import {CardContent, Icon} from "@material-ui/core";
-import Tooltip from "@material-ui/core/Tooltip";
+import {CardContent} from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import UserAvata from "./UserAvata.js";
-import {QuestionHeader, QuestionBody, QuestionInfo, QuestionMeta, QuestionButtons} from "./QuestionStyle";
+import {
+	QuestionBody,
+	QuestionButtons,
+	QuestionHeader,
+	QuestionInfo,
+	QuestionMeta,
+} from "./QuestionStyle";
 import QuestionDate from "./QuestionDate";
 import QuestionUserName from "./QuestionUserName";
 import useStyles from "./useStyles";
 import QuestionMenu from "./QuestionMenu";
 import ThumbUpButton from "./ThumbUpButton";
 import Replies from "./Replies";
+import RestoreQuestionIconButton from "./RestoreQuestionIconButton.js";
 
 function CompleteQuestionCard(props) {
 	const classes = useStyles();
 	const [openReplies, setOpenReplies] = useState(false);
 
 	return (
-		<Card className={props.isStared ? classes.staredQuestion : classes.normalQuestion}>
+		<Card
+			className={
+				props.isStared ? classes.staredQuestion : classes.normalQuestion
+			}
+		>
 			<CardContent className={classes.cardContentPadding}>
 				<QuestionHeader>
 					<QuestionMeta>
@@ -27,14 +37,12 @@ function CompleteQuestionCard(props) {
 							<QuestionDate {...props} />
 						</QuestionInfo>
 						<QuestionButtons>
-							<Tooltip title="질문 되살리기">
-								<Icon
-									className={classes.restoreButton}
-									onClick={() => props.dataHandler(props.id, props.type, "active")}>
-									restore
-								</Icon>
-							</Tooltip>
-							<QuestionMenu id={props.id} type={props.type} handler={props.dataHandler}/>
+							<RestoreQuestionIconButton {...props} />
+							<QuestionMenu
+								id={props.id}
+								type={props.type}
+								handler={props.dataHandler}
+							/>
 						</QuestionButtons>
 					</QuestionMeta>
 				</QuestionHeader>
@@ -42,8 +50,12 @@ function CompleteQuestionCard(props) {
 				<Divider
 					style={{marginTop: "0.5rem", marginBottom: "0.5rem"}}
 				/>
-				<ThumbUpButton {...props} replyOpenHandler={setOpenReplies} replyOpenStatus={openReplies}/>
-				{(openReplies) && <Replies replies={props.replies}/> }
+				<ThumbUpButton
+					{...props}
+					replyOpenHandler={setOpenReplies}
+					replyOpenStatus={openReplies}
+				/>
+				{openReplies && <Replies replies={props.replies} />}
 			</CardContent>
 		</Card>
 	);
