@@ -1,6 +1,6 @@
-import React, {useState, useContext} from "react";
+import React, {useContext, useState} from "react";
 import styled from "styled-components";
-import {Button, Modal} from "@material-ui/core";
+import {Modal} from "@material-ui/core";
 import PollName from "./PollName";
 import PollType from "./PollType";
 import MultipleItems from "./MultipleItems";
@@ -8,6 +8,8 @@ import RatingBlock from "./RatingBlock";
 import Duplication from "./Duplication";
 import {socketClient} from "../../libs/socket.io-Client-wrapper";
 import {HostContext} from "../../libs/hostContext";
+import CancelButton from "../CommonButton/CancelButton.js";
+import ConfirmButton from "../CommonButton/ConfirmButton.js";
 
 const ModalWrapper = styled.div`
 	display: flex;
@@ -254,20 +256,8 @@ function NewPollModal({open, handleClose}) {
 					/>
 				)}
 				<RowWrapper>
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={onCreatePoll}
-					>
-						확인
-					</Button>
-					<Button
-						variant="contained"
-						color="secondary"
-						onClick={handleClose}
-					>
-						취소
-					</Button>
+					<ConfirmButton onClick={onCreatePoll}/>
+					<CancelButton onClick={handleClose} />
 				</RowWrapper>
 			</ModalWrapper>
 		</Modal>
