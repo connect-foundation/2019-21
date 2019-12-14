@@ -10,7 +10,7 @@ function UndoLikeConfirmModal({isOpened, onCancelClick, onConfirmClick}) {
 	return (
 		<CommonModal isOpened={isOpened}>
 			<Box p={1} />
-			<Typography>좋아하기를 취소하기겠습니까?</Typography>
+			<Typography>좋아하기를 취소하시겠습니까?</Typography>
 			<Box p={2} />
 			<Grid container direction={"row"} justify="flex-end">
 				<CancelButton onClick={onCancelClick} />
