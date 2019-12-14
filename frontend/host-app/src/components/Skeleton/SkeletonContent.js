@@ -1,6 +1,6 @@
 import React from "react";
 import {Skeleton} from "@material-ui/lab";
-import {ContentStyle} from "../ComponentsStyle.js";
+import {ContentStyle} from "../StyledComponent/ComponentsStyle.js";
 import SkeletonColumnStyle from "./SkeletonColumnStyleComponent.js";
 
 function SkeletonContent() {

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Title from "./Title";
 import QuestionContainer from "./Questions/QuestionContainer";
 import ColumnFooter from "./ColumnFooter";
-import {QuestionStyle, ModerationStyle} from "./ComponentsStyle";
+import {QuestionStyle, ModerationStyle} from "./StyledComponent/ComponentsStyle.js";
 import {filterStared} from "../libs/utils";
 
 function Column({type, state, stateHandler, data, dataHandler, handleStar}) {

@@ -3,7 +3,7 @@ import Column from "./Column";
 import {socketClient} from "../libs/socket.io-Client-wrapper";
 import useQueryQuestions from "../libs/useQueryQuestions";
 import {HostContext} from "../libs/hostContext";
-import {ContentStyle} from "./ComponentsStyle";
+import {ContentStyle} from "./StyledComponent/ComponentsStyle.js";
 import QuestionsReducer from "./Questions/QuestionReducer";
 import SkeletonContent from "./Skeleton/SkeletonContent.js";
 import useQuestionSocketEventHandler from "../customhook/useQuestionSocketEventHandler.js";
