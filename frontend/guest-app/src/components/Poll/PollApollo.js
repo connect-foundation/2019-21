@@ -1,33 +1,8 @@
 import React, {useContext} from "react";
 import {useQuery} from "@apollo/react-hooks";
-import {gql} from "apollo-boost";
 import PollContainer from "./PollContainer";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
-
-const POLL_QUERY = gql`
-	query PollGuest($EventId: ID!, $guestId: ID!) {
-		pollGuest(EventId: $EventId, guestId: $guestId) {
-			id
-			pollName
-			pollType
-			selectionType
-			allowDuplication
-			state
-			totalVoters
-			pollDate
-			rated
-			ratingValue
-			nItems {
-				id
-				number
-				content
-				voters
-				voted
-				firstPlace
-			}
-		}
-	}
-`;
+import {POLL_QUERY} from "../../apollo/gqlSchemes.js";
 
 function PollApollo() {
 	const {event, guest} = useContext(GuestGlobalContext);
