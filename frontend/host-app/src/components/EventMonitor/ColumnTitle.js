@@ -4,7 +4,6 @@ import {filterQuestion} from "../../libs/utils.js";
 import CompleteQuestionColumnTitle from "./CompleteQuestionColumnTitle.js";
 import NewQuestionColumnTitle from "./NewQuestionColumnTitle.js";
 import PopularQuestionColumnTitle from "./PopularQuestionColumnTitle.js";
-import PollColumnTitle from "./PollColumn/PollColumnTitle.js";
 
 function ColumnTitle({type, state, dataHandler, data, stateHandler}) {
 	if (type === "moderation") {
@@ -38,16 +37,6 @@ function ColumnTitle({type, state, dataHandler, data, stateHandler}) {
 	} else if (type === "popularQuestion") {
 		return (
 			<PopularQuestionColumnTitle
-				state={state}
-				stateHandler={stateHandler}
-				data={filterQuestion("active", data).questions}
-				dataHandler={dataHandler}
-				type={type}
-			/>
-		);
-	} else if (type === "poll") {
-		return (
-			<PollColumnTitle
 				state={state}
 				stateHandler={stateHandler}
 				data={filterQuestion("active", data).questions}
