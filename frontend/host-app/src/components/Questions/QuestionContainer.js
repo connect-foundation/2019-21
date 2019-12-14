@@ -2,7 +2,6 @@ import React from "react";
 import ModerationQuestionCard from "./ModerationQuestionCard.js";
 import LiveQuestionCard from "./LiveQuestionCard";
 import CompleteQuestionCard from "./CompleteQuestionCard";
-import PollApollo from "../Poll/PollApollo.js";
 import {filterQuestion, filterReplies} from "../../libs/utils";
 import {FocusedDiv, UnFocusedDiv} from "./QuestionStyle";
 
@@ -61,7 +60,6 @@ function QuestionContainer({datas, type, dataHandler, handleStar, containerType}
 						replies={filterReplies(question.id, datas).questions}
 					/>
 				))}
-			{(type === "poll" && containerType !== "focus") && <PollApollo />}
 		</QuestionDiv>
 	);
 }

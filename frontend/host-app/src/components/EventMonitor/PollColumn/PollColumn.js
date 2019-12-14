@@ -1,15 +1,21 @@
 import React from "react";
-import Column from "../Column.js";
+import {filterQuestion} from "../../../libs/utils.js";
+import PollColumnTitle from "./PollColumnTitle.js";
+import PollApollo from "../../Poll/PollApollo.js";
+import AdjustAbleColumn from "../AdjustAbleColumn/AdjustAbleColumn.js";
 
-function PollColumn({state, stateHandler, badgeHandler, data}) {
+function PollColumn({state, stateHandler, data}) {
 	return (
-		<Column
-			type="poll"
-			state={state}
-			stateHandler={stateHandler}
-			badgeState={badgeHandler}
-			data={data}
-		/>
+		<AdjustAbleColumn>
+			<PollColumnTitle
+				type={"poll"}
+				state={state}
+				stateHandler={stateHandler}
+				data={filterQuestion("active", data).questions}
+				dataHandler={undefined}
+			/>
+			<PollApollo />
+		</AdjustAbleColumn>
 	);
 }
 
