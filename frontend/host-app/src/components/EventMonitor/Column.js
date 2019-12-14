@@ -1,11 +1,10 @@
 import React, {useState} from "react";
 import QuestionContainer from "../Questions/QuestionContainer.js";
 import ColumnFooter from "./ColumnFooter.js";
-import {ModerationStyle} from "../StyledComponent/ComponentsStyle.js";
 import {filterStared} from "../../libs/utils.js";
 import QuestionStyle from "../StyledComponent/QuestionStyle.js";
 import ColumnTitle from "./ColumnTitle.js";
-
+import ModerationStyle from "../StyledComponent/ModerationStyle.js";
 
 function Column({type, state, stateHandler, data, dataHandler, handleStar}) {
 	const [heightWeight, setHeightWeight] = useState(0);
