@@ -2,7 +2,7 @@ import React, {useReducer, useState} from "react";
 import styled from "styled-components";
 import PollCard from "./PollCard";
 import {useSocket} from "../../libs/socketIoClientProvider.js";
-import reducer from "./PollReducer";
+import reducer from "../../reducer/PollReducer.js";
 
 const ColumnWrapper = styled.div`
 	display: flex;

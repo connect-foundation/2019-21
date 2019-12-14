@@ -1,4 +1,4 @@
-import {socketClient} from "../../libs/socketIoClientProvider.js";
+import {socketClient} from "../libs/socketIoClientProvider.js";
 
 // allowDuplication == false, 즉, 복수선택이 아닌 경우, 이전에 vote 한 candidate가 있으면 삭제해야 함
 const getCandidateToDelete = (items, candidateId) => {
