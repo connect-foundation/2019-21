@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import Card from "@material-ui/core/Card";
 import {CardContent} from "@material-ui/core";
-import UserAvata from "./UserAvata.js";
+import UserAvatar from "./UserAvatar.js";
 import {
 	QuestionBody,
 	QuestionButtons,
@@ -32,7 +32,7 @@ function LiveQuestionCard(props) {
 			<CardContent className={classes.cardContentPadding}>
 				<QuestionHeader>
 					<QuestionMeta>
-						<UserAvata {...props} />
+						<UserAvatar {...props} />
 						<QuestionInfo>
 							<QuestionUserName {...props} />
 							<QuestionDate {...props} />

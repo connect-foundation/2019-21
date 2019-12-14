@@ -3,7 +3,7 @@ import Avatar from "@material-ui/core/Avatar";
 import React from "react";
 import randomMC from "random-material-color";
 
-function NamedAvata({guestName}) {
+function NamedAvatar({guestName}) {
 	const useStyles = makeStyles({
 		avatar: {
 			margin: 10,
@@ -18,7 +18,7 @@ function NamedAvata({guestName}) {
 	return <Avatar className={classes.randomAvatar}>{inner}</Avatar>;
 }
 
-function AnonymousAvata() {
+function AnonymousAvatar() {
 	return (
 		<Avatar>
 			<i className="fa-user" />
@@ -26,8 +26,8 @@ function AnonymousAvata() {
 	);
 }
 
-function UserAvata({isAnonymous, guestName}) {
-	return isAnonymous ? <AnonymousAvata /> : <NamedAvata {...{guestName}} />;
+function UserAvatar({isAnonymous, guestName}) {
+	return isAnonymous ? <AnonymousAvatar /> : <NamedAvatar {...{guestName}} />;
 }
 
-export default UserAvata;
+export default UserAvatar;
