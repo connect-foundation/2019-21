@@ -74,7 +74,7 @@ const updateFirstPlace = poll => {
 	let firstPlaceValue = 0;
 
 	newPoll.nItems.forEach((item, index) => {
-		if (item.voters == firstPlaceValue) {
+		if (item.voters === firstPlaceValue) {
 			firstPlaceIndex.push(index);
 		} else if (item.voters > firstPlaceValue) {
 			firstPlaceIndex = [];
@@ -188,7 +188,7 @@ export default function reducer(polls, action) {
 				totalVoters: thePoll.totalVoters + 1,
 			};
 			// console.log("RATE", action, thePoll);
-			index = parseInt(action.value) - 1;
+			index = parseInt(action.value, 10) - 1;
 			candidateId = thePoll.nItems[index].id;
 			emitRateData(action, thePoll, candidateId, index);
 			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
@@ -197,7 +197,7 @@ export default function reducer(polls, action) {
 			if (!thePoll.rated) {
 				return polls;
 			}
-			index = parseInt(thePoll.ratingValue) - 1;
+			index = parseInt(thePoll.ratingValue, 10) - 1;
 			thePoll = {
 				...thePoll,
 				nItems: updateRatingItem(

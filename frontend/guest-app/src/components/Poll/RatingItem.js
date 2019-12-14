@@ -31,7 +31,7 @@ function RatingItem({
 					id={id}
 					rated={rated}
 					ratingValue={ratingValue}
-					max={parseInt(selectionType)}
+					max={parseInt(selectionType, 10)}
 					state={state}
 					onChange={onChange}
 					onCancelRating={onCancelRating}
@@ -44,7 +44,7 @@ function RatingItem({
 					<Rating
 						readOnly
 						value={ratingValue}
-						max={parseInt(selectionType)}
+						max={parseInt(selectionType, 10)}
 					/>
 				</>
 			)}
