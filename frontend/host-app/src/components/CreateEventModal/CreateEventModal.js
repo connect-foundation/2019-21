@@ -1,68 +1,46 @@
 import React, {useContext, useReducer, useState} from "react";
 import styled from "styled-components";
 import moment from "moment";
-import {Modal} from "@material-ui/core";
 import {useMutation} from "@apollo/react-hooks";
 import InputEventName from "./InputEventName";
 import InputStartDate from "./InputStartDate";
 import InputHashTag from "./InputHashTag";
 import EndDateField from "./EndDateField";
 import HashTagsField from "./HashTagsField";
-import ButtonField from "./ButtonField";
+import CreateModalButtonField from "./ButtonField";
 import AlertSnackbar from "./AlertSnackbar";
 import eventModalReducer from "./eventModalReducer";
-import {createEventMutationScheme, createHashTagsMutationScheme} from "../../libs/gql";
+import {
+	createEventMutationScheme,
+	createHashTagsMutationScheme,
+} from "../../libs/gql";
 import {HostContext} from "../../libs/hostContext";
 import {validDate, validEventName} from "../../libs/eventValidation";
+import CreateEventModalStyle from "./CreateEventModalStyle.js";
+import CreateEventModalContent from "./CreateEventModalContent.js";
+import CreateModalHeader from "./CreateModalHeaderStyle.js";
 
-const modalHeight = 38; // 37;
-const modalWidth = 28.125;
-const PopUpLayOutStyle = styled.div`
-	position: relative;
-	top: calc(50% - ${modalHeight / 2}rem);
-	left: calc(50% - ${modalWidth / 2}rem);
-	display: flex;
-	flex-direction: column;
-	width: ${modalWidth}rem;
-	height: ${modalHeight}rem;
-	background-color: white;
-	// padding-left: 1.25rem;
-	padding: 0 1.5rem;
-	box-sizing: border-box;
-`;
-
-const StyledForm = styled.form`
+const CreateModalBody = styled.form`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	height: 75%;
 `;
 
-const Header = styled.div`
-	// margin-left: 0;
-	// margin-top: 2rem;
-	// margin-bottom: 2rem;
-	margin: 1rem 0 0.5rem 0;
-	font-size: 2rem;
-	color: #139ffb;
-	text-align: center;
-`;
-
 function verifyInputData(errorState) {
-	const isInValid = Object.values(errorState).some(inputValue => inputValue);
-
-	return isInValid;
+	return Object.values(errorState).some(inputValue => inputValue);
 }
 
 function formattingDate(date) {
 	return moment(date).format("YYYY-MM-DD HH:mm:ss");
 }
 
+const initErrorState = {
+	eventName: true,
+	startDate: true,
+};
+
 function CreateEventModal({open, handleClose}) {
-	const initErrorState = {
-		eventName: true,
-		startDate: true,
-	};
 	const initialEventInfo = {
 		eventName: "",
 		startDate: new Date(),
@@ -76,7 +54,7 @@ function CreateEventModal({open, handleClose}) {
 		eventModalReducer,
 		initialEventInfo,
 	);
-	const [mutaionEvent, {event}] = useMutation(createEventMutationScheme, {
+	const [mutationEvent, {event}] = useMutation(createEventMutationScheme, {
 		variables: {
 			info: {
 				HostId: hostInfo.id,
@@ -86,7 +64,9 @@ function CreateEventModal({open, handleClose}) {
 			},
 		},
 	});
-	const [mutationHashTags, {hashTags}] = useMutation(createHashTagsMutationScheme);
+	const [mutationHashTags, {hashTags}] = useMutation(
+		createHashTagsMutationScheme,
+	);
 
 	const snackBarHandleClose = (event, reason) => {
 		if (reason === "clickaway") {
@@ -148,7 +128,7 @@ function CreateEventModal({open, handleClose}) {
 			return;
 		}
 
-		mutaionEvent()
+		mutationEvent()
 			.then(res => {
 				const hashTagList = eventInfo.hashTags.map(hashTag => ({
 					name: hashTag.label,
@@ -170,15 +150,10 @@ function CreateEventModal({open, handleClose}) {
 	};
 
 	return (
-		<Modal
-			aria-labelledby="createEvent-modal-title"
-			aria-describedby="createEvent-modal-description"
-			open={open}
-			onClose={reset}
-		>
-			<PopUpLayOutStyle>
-				<Header id="createEvent-modal-title">이벤트만들기</Header>
-				<StyledForm>
+		<CreateEventModalStyle open={open} onClose={reset}>
+			<CreateEventModalContent>
+				<CreateModalHeader />
+				<CreateModalBody>
 					<InputEventName
 						errorState={errorState.eventName}
 						dispatch={setEventName}
@@ -198,15 +173,15 @@ function CreateEventModal({open, handleClose}) {
 						hashTags={eventInfo.hashTags}
 						dispatch={updateHashTag}
 					/>
-				</StyledForm>
-				<ButtonField onConfirm={sendData} onClose={reset} />
+				</CreateModalBody>
+				<CreateModalButtonField onConfirm={sendData} onClose={reset} />
 				<AlertSnackbar
 					errorState={errorState}
 					handleClose={snackBarHandleClose}
 					open={snackBarOpen}
 				/>
-			</PopUpLayOutStyle>
-		</Modal>
+			</CreateEventModalContent>
+		</CreateEventModalStyle>
 	);
 }
 
