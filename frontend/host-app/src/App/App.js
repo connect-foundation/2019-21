@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import "./App.css";
 import Header from "../components/Header";
-import Nav from "../components/Nav";
+import NavBar from "../components/NavBar/NavBar.js";
 import EventMonitor from "../components/EventMonitor.js";
 import NewPollModal from "../components/Poll/NewPollModal";
 import {HostProvider} from "../libs/hostContext";
@@ -35,7 +35,7 @@ let App = props => {
 		<div className="App">
 			<HostProvider value={{hostInfo, events, setEvents}}>
 				<Header />
-				<Nav
+				<NavBar
 					tabIdx={tabIdx}
 					onChange={(e, newTabIdx) => setTabIdx(newTabIdx)}
 				/>
