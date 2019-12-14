@@ -199,7 +199,7 @@ function CreateEventModal({open, handleClose}) {
 						dispatch={updateHashTag}
 					/>
 				</StyledForm>
-				<ButtonField createEvent={sendData} onClose={reset} />
+				<ButtonField onConfirm={sendData} onClose={reset} />
 				<AlertSnackbar
 					errorState={errorState}
 					handleClose={snackBarHandleClose}

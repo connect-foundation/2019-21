@@ -1,20 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 import {Button} from "@material-ui/core";
+import PropTypes from "prop-types";
 
-const Container = styled.div`
-	// margin-top: auto;
+const ButtonFieldStyledComponent = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-evenly;
 	align-items: flex-end;
-	// margin-left: 10rem;
 	height: 3rem;
 `;
 
-function ButtonField({createEvent, onClose}) {
+function ButtonField(props) {
+	const {onConfirm, onClose} = props;
+
 	return (
-		<Container>
+		<ButtonFieldStyledComponent>
 			<Button
 				size="large"
 				variant="contained"
@@ -27,12 +28,22 @@ function ButtonField({createEvent, onClose}) {
 				size="large"
 				variant="contained"
 				color="primary"
-				onClick={createEvent}
+				onClick={onConfirm}
 			>
 				확인
 			</Button>
-		</Container>
+		</ButtonFieldStyledComponent>
 	);
 }
+
+ButtonField.propTypes = {
+	onConfirm: PropTypes.func,
+	onClose: PropTypes.func,
+};
+
+ButtonField.defaultProps = {
+	onConfirm: undefined,
+	onClose: undefined,
+};
 
 export default ButtonField;
