@@ -17,19 +17,19 @@ const voteOnSocketHandler = async (data, emit) => {
 			candidateToDelete,
 		} = data;
 
-		// if (!allowDuplication && candidateToDelete) {
-		// 	await addAndDelete(GuestId, CandidateId, candidateToDelete);
-		// } else {
-		// 	await addVote({GuestId, CandidateId});
-		// }
-
-		await addVote({GuestId, CandidateId});
 		if (!allowDuplication && candidateToDelete) {
-			await deleteVoteBy({
-				GuestId,
-				CandidateId: candidateToDelete,
-			});
+			await addAndDelete(GuestId, CandidateId, candidateToDelete);
+		} else {
+			await addVote({GuestId, CandidateId});
 		}
+
+		// await addVote({GuestId, CandidateId});
+		// if (!allowDuplication && candidateToDelete) {
+		// 	await deleteVoteBy({
+		// 		GuestId,
+		// 		CandidateId: candidateToDelete,
+		// 	});
+		// }
 
 		emit({
 			GuestId,
