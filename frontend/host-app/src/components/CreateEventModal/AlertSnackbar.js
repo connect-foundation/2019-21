@@ -15,6 +15,7 @@ function AlertSnackbar(props) {
 	if (errorState.eventName === true) {
 		message = ERROR_MESSAGE.nameError;
 	}
+
 	return (
 		<Snackbar
 			anchorOrigin={{
@@ -41,4 +42,5 @@ function AlertSnackbar(props) {
 		/>
 	);
 }
+
 export default AlertSnackbar;
