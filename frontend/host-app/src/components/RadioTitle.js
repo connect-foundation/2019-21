@@ -4,20 +4,28 @@ import Badge from "@material-ui/core/Badge";
 import Tooltip from "@material-ui/core/Tooltip";
 import {makeStyles} from "@material-ui/core/styles";
 import {Icon} from "@material-ui/core";
-import {TitleStyle, TitleBox, RightSide} from "./ComponentsStyle";
+import {RightSide, TitleBox, TitleStyle} from "./ComponentsStyle";
 
 const useStyles = makeStyles(theme => ({
 	margin: {
-		margin: theme.spacing(2)},
+		margin: theme.spacing(2),
+	},
 	icon: {
 		"&:hover": {
 			color: "#EF0046",
 		},
 	},
-}
-));
+}));
 
-function RadioTitle({titleName, state, stateHandler, idx, data, dataHandler, type}) {
+function RadioTitle({
+	titleName,
+	state,
+	stateHandler,
+	idx,
+	data,
+	dataHandler,
+	type,
+}) {
 	const SELECTED = true;
 	const classes = useStyles();
 
@@ -28,6 +36,7 @@ function RadioTitle({titleName, state, stateHandler, idx, data, dataHandler, typ
 				badgeContent={data.length}
 				showZero
 				className={classes.margin}
+				children={undefined}
 			/>
 			<TitleStyle>{titleName}</TitleStyle>
 			<RightSide>
@@ -38,7 +47,9 @@ function RadioTitle({titleName, state, stateHandler, idx, data, dataHandler, typ
 				<Tooltip title="모든 질문 완료">
 					<Icon
 						className={classes.icon}
-						onClick={() => dataHandler("all", "active", "completeQuestion")}
+						onClick={() =>
+							dataHandler("all", "active", "completeQuestion")
+						}
 					>
 						launch
 					</Icon>
@@ -52,6 +63,7 @@ function RadioTitle({titleName, state, stateHandler, idx, data, dataHandler, typ
 				badgeContent={data.length}
 				showZero
 				className={classes.margin}
+				children={undefined}
 			/>
 			<TitleStyle>{titleName}</TitleStyle>
 			<Radio

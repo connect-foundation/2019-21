@@ -6,7 +6,7 @@ import {HostContext} from "../libs/hostContext";
 import {ContentStyle} from "./ComponentsStyle";
 import QuestionsReducer from "./Questions/QuestionReducer";
 import SkeletonContent from "./Skeleton/SkeletonContent.js";
-import useSocketHandler from "./useSocketHandler";
+import useQuestionSocketEventHandler from "../customhook/useQuestionSocketEventHandler.js";
 
 function Inner({data, event, option}) {
 	const SELECTED = true;
@@ -33,7 +33,7 @@ function Inner({data, event, option}) {
 		completeQuestion: {state: radioState, stateHandler: handleRadioState},
 	};
 
-	useSocketHandler(dispatch);
+	useQuestionSocketEventHandler(dispatch);
 
 	const handleQuestionDatas = (id, from, to) => {
 		const questionData = questions.questions.find(e => e.id === id);
