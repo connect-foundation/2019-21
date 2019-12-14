@@ -1,17 +1,19 @@
 import React, {useState} from "react";
-import Title from "./Title.js";
 import QuestionContainer from "../Questions/QuestionContainer.js";
 import ColumnFooter from "./ColumnFooter.js";
-import {QuestionStyle, ModerationStyle} from "../StyledComponent/ComponentsStyle.js";
+import {ModerationStyle} from "../StyledComponent/ComponentsStyle.js";
 import {filterStared} from "../../libs/utils.js";
+import QuestionStyle from "../StyledComponent/QuestionStyle.js";
+import ColumnTitle from "./ColumnTitle.js";
+
 
 function Column({type, state, stateHandler, data, dataHandler, handleStar}) {
 	const [heightWeight, setHeightWeight] = useState(0);
-	const ColumnStyle = ((type === "moderation") ? ModerationStyle : QuestionStyle);
+	const ColumnStyle = type === "moderation" ? ModerationStyle : QuestionStyle;
 
 	return (
-		<ColumnStyle height={`${100 + (heightWeight * 50)}%`} state={state}>
-			<Title
+		<ColumnStyle height={`${100 + heightWeight * 50}%`} state={state}>
+			<ColumnTitle
 				type={type}
 				state={state}
 				stateHandler={stateHandler}
@@ -32,7 +34,7 @@ function Column({type, state, stateHandler, data, dataHandler, handleStar}) {
 				handleStar={handleStar}
 				containerType={"unFocus"}
 			/>
-			<ColumnFooter data={heightWeight} handler={setHeightWeight}/>
+			<ColumnFooter data={heightWeight} handler={setHeightWeight} />
 		</ColumnStyle>
 	);
 }
