@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import Card from "@material-ui/core/Card";
 import {CardContent, Icon} from "@material-ui/core";
+import Tooltip from "@material-ui/core/Tooltip";
 import Divider from "@material-ui/core/Divider";
 import UserAvata from "./UserAvata.js";
 import {QuestionHeader, QuestionBody, QuestionInfo, QuestionMeta, QuestionButtons} from "./QuestionStyle";
@@ -10,7 +11,6 @@ import useStyles from "./useStyles";
 import QuestionMenu from "./QuestionMenu";
 import ThumbUpButton from "./ThumbUpButton";
 import Replies from "./Replies";
-import Tooltip from "@material-ui/core/Tooltip";
 
 function CompleteQuestionCard(props) {
 	const classes = useStyles();

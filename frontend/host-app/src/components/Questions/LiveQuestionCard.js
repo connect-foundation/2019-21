@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import Divider from "@material-ui/core/Divider";
+import Tooltip from "@material-ui/core/Tooltip";
 import Card from "@material-ui/core/Card";
 import {CardContent, Icon} from "@material-ui/core";
 import UserAvata from "./UserAvata.js";
@@ -10,7 +11,6 @@ import useStyles from "./useStyles";
 import QuestionMenu from "./QuestionMenu";
 import ThumbUpButton from "./ThumbUpButton";
 import Replies from "./Replies";
-import Tooltip from "@material-ui/core/Tooltip";
 
 function LiveQuestionCard(props) {
 	const classes = useStyles();

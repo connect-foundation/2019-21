@@ -63,12 +63,12 @@ function NewPollModal({open, handleClose}) {
 					...pollName,
 					error: true,
 					helperText: "투표 제목을 입력하세요",
-				  } :
+				} :
 				{
 					...pollName,
 					error: false,
 					helperText: "",
-				  },
+				},
 		);
 
 		// 별점매기기의 경우는 투표제목만 입력되면 validity가 통과됨
@@ -92,12 +92,12 @@ function NewPollModal({open, handleClose}) {
 						...text,
 						error: true,
 						helperText: "항목을 입력하세요",
-					  } :
+					} :
 					{
 						...text,
 						error: false,
 						helperText: "",
-					  }),
+					}),
 			),
 		);
 
@@ -133,7 +133,7 @@ function NewPollModal({open, handleClose}) {
 						value: event.target.value,
 						error: false,
 						helperText: "",
-					  } :
+					} :
 					text),
 			),
 		);
