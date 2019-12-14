@@ -1,5 +1,5 @@
 import React from "react";
-import RadioTitle from "./RadioTitle.js";
+import RadioTitle from "../RadioTitle.js";
 
 function PollColumnTitle({type, state, stateHandler, data, dataHandler}) {
 	return (

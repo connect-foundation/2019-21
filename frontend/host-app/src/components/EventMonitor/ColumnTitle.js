@@ -4,7 +4,7 @@ import {filterQuestion} from "../../libs/utils.js";
 import CompleteQuestionColumnTitle from "./CompleteQuestionColumnTitle.js";
 import NewQuestionColumnTitle from "./NewQuestionColumnTitle.js";
 import PopularQuestionColumnTitle from "./PopularQuestionColumnTitle.js";
-import PollColumnTitle from "./PollColumnTitle.js";
+import PollColumnTitle from "./PollColumn/PollColumnTitle.js";
 
 function ColumnTitle({type, state, dataHandler, data, stateHandler}) {
 	if (type === "moderation") {

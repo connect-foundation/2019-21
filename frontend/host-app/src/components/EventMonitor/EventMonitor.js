@@ -7,6 +7,7 @@ import {ContentStyle} from "../StyledComponent/ComponentsStyle.js";
 import QuestionsReducer from "../Questions/QuestionReducer.js";
 import SkeletonContent from "../Skeleton/SkeletonContent.js";
 import useQuestionSocketEventHandler from "../../customhook/useQuestionSocketEventHandler.js";
+import PollColumn from "./PollColumn/PollColumn.js";
 
 function Inner({data, event, option}) {
 	const SELECTED = true;
@@ -70,8 +71,7 @@ function Inner({data, event, option}) {
 					handleStar={handleStar}
 				/>
 			))}
-			<Column
-				type="poll"
+			<PollColumn
 				state={radioState}
 				stateHandler={handleRadioState}
 				badgeState={pollNumberStatus}
