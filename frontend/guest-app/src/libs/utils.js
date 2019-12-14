@@ -1,41 +1,42 @@
 function mappingByKey(object, key) {
-  const mappped = {};
+	const mappped = {};
 
-  object.forEach(x => {
-    mappped[x[key]] = x;
-  });
+	object.forEach(x => {
+		mappped[x[key]] = x;
+	});
 
-  return mappped;
+	return mappped;
 }
 
 function unMappingByKey(object) {
-  return Object.values(object);
+	return Object.values(object);
 }
 
-export function JSONNestJoin(parents, childs, parentKey, childKey, func) {
-  const mapped = mappingByKey(parents, parentKey);
+export function JSONNestJoin(parents, children, parentKey, childKey, func) {
+	const mapped = mappingByKey(parents, parentKey);
 
-  childs.forEach(child => {
-    const joinValue = child[childKey];
+	children.forEach(child => {
+		const joinValue = child[childKey];
 
-    if (mapped[joinValue]) {
-      const parentElement = mapped[joinValue];
+		if (mapped[joinValue]) {
+			const parentElement = mapped[joinValue];
 
-      mapped[joinValue] = func(parentElement, child);
-    }
-  });
+			mapped[joinValue] = func(parentElement, child);
+		}
+	});
 
-  return unMappingByKey(mapped);
+	return unMappingByKey(mapped);
 }
 
-export function JSONNestJoin2(parents, childs, parentKey, childKey, func) {
-  const mapped = mappingByKey(childs, childKey);
-  parents.forEach(parent => {
-    const joinValue = parent[parentKey];
-    if (mapped[joinValue]) {
-      const childElement = mapped[joinValue];
-      parent = func(parent, childElement);
-    }
-  });
-  return parents;
+export function JSONNestJoin2(parents, children, parentKey, childKey, func) {
+	const mapped = mappingByKey(children, childKey);
+	parents.forEach(parent => {
+		const joinValue = parent[parentKey];
+		if (mapped[joinValue]) {
+			const childElement = mapped[joinValue];
+			parent = func(parent, childElement);
+		}
+	});
+
+	return parents;
 }
