@@ -19,7 +19,7 @@ function useUIControlReducers() {
 	};
 }
 
-export function UIController(props) {
+export function UIControllerProvider(props) {
 	const {children} = props;
 	const UIControlReducer = useUIControlReducers();
 
@@ -30,6 +30,6 @@ export function UIController(props) {
 	);
 }
 
-export function useUIControllerContext() {
+export function useUIController() {
 	return useContext(UIControlContext);
 }

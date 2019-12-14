@@ -5,7 +5,7 @@ import "./App.css";
 import {GET_GUEST_APP_GLOBAL_DATA} from "../apollo/gqlSchemes.js";
 import TopProgressBar from "../components/TopProcessBar.js";
 import config from "../config";
-import {UIController} from "../components/UIController/UIController.js";
+import {UIControllerProvider} from "../components/UIController/UIControllerProvider.js";
 import {GuestGlobalProvider} from "../libs/guestGlobalContext.js";
 import NavBar from "../components/NavBar/NavBar.js";
 import TabGroup from "../components/TabGroup/TabGroup.js";
@@ -49,10 +49,10 @@ export default function App() {
 		<AppStyle>
 			<SocketIoClientProvider client={client}>
 				<GuestGlobalProvider value={globalData}>
-					<UIController>
+					<UIControllerProvider>
 						<NavBar title={event.eventName} />
 						<TabGroup />
-					</UIController>
+					</UIControllerProvider>
 				</GuestGlobalProvider>
 			</SocketIoClientProvider>
 		</AppStyle>

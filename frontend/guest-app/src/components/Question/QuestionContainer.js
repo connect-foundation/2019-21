@@ -8,7 +8,7 @@ import PaddingArea from "./QuestionInputArea/PaddingArea.js";
 import QuestionEditMenuDrawer from "./QuestionCard/QuestionEditMenuDrawer.js";
 import NewQuestionInputDrawer from "./NewQuestionInputDrawer.js";
 import EditQuestionInputDrawer from "./EditQuestionInputDrawer.js";
-import {useUIControllerContext} from "../UIController/UIController.js";
+import {useUIController} from "../UIController/UIControllerProvider.js";
 import {useQuestions} from "./QuestionsContext.js";
 
 import MyQuestionsDrawer from "./MyQuestionDrawer.js";
@@ -24,7 +24,7 @@ function QuestionContainer() {
 		editQuestionInputDrawer,
 		questionEditMenuReducer,
 		myQuestionDrawerReducer,
-	} = useUIControllerContext();
+	} = useUIController();
 	const {tabIdx, selectTabIdx} = useTabs(RECENT_TAB_IDX);
 	const userNameRef = useRef(null);
 	const questionRef = useRef(null);
