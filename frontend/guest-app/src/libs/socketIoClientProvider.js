@@ -7,35 +7,35 @@ function combineURL(host, port, nameSpace) {
 }
 
 export function createSocketIOClient({host, port, namespace, room}) {
-	const cookieName = "vaagle-guest";
-	const token = Cookie.get(cookieName);
+	const GUEST_COOKIE_KEY = "vaagle-guest";
+	const token = Cookie.get(GUEST_COOKIE_KEY);
 	const URL = combineURL(host, port, namespace);
 	const socket = io(URL, {query: {token: token}});
 
 	socket.on("connect", async () => {
-		console.log(
+		console.debug(
 			`socket.io client connect to ${URL} as ${process.env.NODE_ENV} mode`,
 		);
 	});
 
 	socket.on("joinRoom", () => {
-		console.log(`join room success at ${room}`);
+		console.debug(`join room success at ${room}`);
 	});
 
 	socket.on("leaveRoom", () => {
-		console.log(`leave room success at ${room}`);
+		console.debug(`leave room success at ${room}`);
 	});
 
 	socket.on("disconnect", (reason) => {
-		console.log(`io client disconnected by ${reason}`);
+		console.debug(`io client disconnected by ${reason}`);
 	});
 
 	socket.on("reconnect", (attemptNumber) => {
-		console.log(`io reconnect attempt ${attemptNumber}`);
+		console.debug(`io reconnect attempt ${attemptNumber}`);
 	});
 
 	socket.on("error", (error) => {
-		console.log(`io error raise ${error}`);
+		console.debug(`io error raise ${error}`);
 	});
 
 	return socket;
@@ -46,7 +46,7 @@ export let socketClient = null;
 export let useSocket = null;
 
 export function SocketIoClientProvider(props) {
-	const {client, children} = props;
+	const {client} = props;
 
 	socketClient = client;
 	useSocket = (eventName = "EMIT", handler = () => {
@@ -58,7 +58,7 @@ export function SocketIoClientProvider(props) {
 	const emit = socketClient.emit;
 
 	return (
-		<context.Provider value={{socketClient, emit}}>${children}</context.Provider>
+		<context.Provider value={{socketClient, emit}} {...props}/>
 	);
 }
 
