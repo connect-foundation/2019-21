@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Button } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
+import {Button} from "@material-ui/core";
+import {withStyles} from "@material-ui/core/styles";
 import config from "../config";
 
 const HostLoginMessageStyle = styled.div`
@@ -34,7 +34,7 @@ function HostLoginMessage() {
 	return (
 		<HostLoginMessageStyle>
 			이벤트를 만드려면, 로그인
-			<LoginButton href={config.authLoginURL} />
+			<LoginButton href={config.authLoginURL}/>
 			해주세요.
 		</HostLoginMessageStyle>
 	);
