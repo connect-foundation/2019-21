@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import CancelButton from "./CancelButton.js";
-import ConfirmButton from "./ConfirmButton.js";
+import CancelButton from "../CommonButton/CancelButton.js";
+import ConfirmButton from "../CommonButton/ConfirmButton.js";
 
 const ButtonFieldStyledComponent = styled.div`
 	display: flex;
