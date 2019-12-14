@@ -1,23 +1,16 @@
 import "bootstrap/dist/css/bootstrap.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import Cookies from "js-cookie";
-import {ApolloProvider} from "@apollo/react-hooks";
-import createApolloClient from "./libs/createApolloClient";
 import "./index.css";
 import App from "./App/App.js";
 import * as serviceWorker from "./libs/serviceWorker.js";
-import config from "./config";
-
-const cookieName = "vaagle-guest";
-const token = Cookies.get(cookieName);
-const client = createApolloClient(config.apolloURI, token);
-
+import ApolloClientProvider from "./libs/ApolloClientProvider.js";
 
 ReactDOM.render(
-	<ApolloProvider client={client}>
+	<ApolloClientProvider>
 		<App />
-	</ApolloProvider>,
+	</ApolloClientProvider>,
+
 	document.getElementById("root"),
 );
 

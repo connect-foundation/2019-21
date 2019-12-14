@@ -1,9 +1,13 @@
+import React from "react";
+import Cookies from "js-cookie";
+import {ApolloProvider} from "@apollo/react-hooks";
 import {ApolloClient} from "apollo-client";
 import {createHttpLink} from "apollo-link-http";
 import {InMemoryCache} from "apollo-cache-inmemory";
 import {setContext} from "apollo-link-context";
+import config from "../config";
 
-export default function createApolloClient(uri, token) {
+function createApolloClient(uri, token) {
 	const httpLink = createHttpLink({uri});
 	if (token) {
 		const authLink = setContext((_, {headers}) => {
@@ -26,3 +30,14 @@ export default function createApolloClient(uri, token) {
 		});
 	}
 }
+
+const cookieName = "vaagle-guest";
+const token = Cookies.get(cookieName);
+const apolloClient = createApolloClient(config.apolloURI, token);
+
+function ApolloClientProvider(props) {
+	return <ApolloProvider client={apolloClient}>{props.children}</ApolloProvider>;
+
+}
+
+export default ApolloClientProvider;
