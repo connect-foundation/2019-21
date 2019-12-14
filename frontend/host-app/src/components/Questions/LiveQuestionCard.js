@@ -14,7 +14,7 @@ import QuestionUserName from "./QuestionUserName";
 import useStyles from "./useStyles";
 import QuestionMenu from "./QuestionMenu";
 import ThumbUpButton from "./ThumbUpButton";
-import Replies from "./Replies";
+import ReplyList from "../Reply/ReplyList.js";
 import FixOnTopIconButton from "./FixOnTopIconButton.js";
 import CompleteQuestionIconButton from "./CompleteQuestionIconButton.js";
 import QuestionCardInnerDivider from "./QuestionCardInnerDivider.js";
@@ -55,7 +55,7 @@ function LiveQuestionCard(props) {
 					replyOpenHandler={setOpenReplies}
 					replyOpenStatus={openReplies}
 				/>
-				{openReplies && <Replies replies={props.replies} />}
+				{openReplies && <ReplyList replies={props.replies} />}
 			</CardContent>
 		</Card>
 	);
