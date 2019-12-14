@@ -2,7 +2,7 @@
 import React, {useState} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import "./App.css";
-import Header from "../components/Header";
+import Header from "../components/Header/Header.js";
 import NavBar from "../components/NavBar/NavBar.js";
 import EventMonitor from "../components/EventMonitor.js";
 import NewPollModal from "../components/Poll/NewPollModal";
