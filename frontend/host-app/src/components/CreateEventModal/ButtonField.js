@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import {Button} from "@material-ui/core";
 import PropTypes from "prop-types";
+import CancelButton from "./CancelButton.js";
+import ConfirmButton from "./ConfirmButton.js";
 
 const ButtonFieldStyledComponent = styled.div`
 	display: flex;
@@ -16,22 +17,8 @@ function ButtonField(props) {
 
 	return (
 		<ButtonFieldStyledComponent>
-			<Button
-				size="large"
-				variant="contained"
-				color="secondary"
-				onClick={onClose}
-			>
-				취소
-			</Button>
-			<Button
-				size="large"
-				variant="contained"
-				color="primary"
-				onClick={onConfirm}
-			>
-				확인
-			</Button>
+			<CancelButton onClick={onClose} />
+			<ConfirmButton onClick={onConfirm} />
 		</ButtonFieldStyledComponent>
 	);
 }
