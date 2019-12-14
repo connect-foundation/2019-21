@@ -1,19 +1,19 @@
 import React from "react";
 import Card from "@material-ui/core/Card";
 import {CardContent} from "@material-ui/core";
-import UserAvatar from "./UserAvatar.js";
+import UserAvatar from "../UserAvatar.js";
 import {
 	QuestionBody,
 	QuestionButtons,
 	QuestionHeader,
 	QuestionInfo,
 	QuestionMeta,
-} from "./QuestionStyle";
-import QuestionDate from "./QuestionDate";
-import QuestionUserName from "./QuestionUserName";
-import useStyles from "./useStyles";
-import ApproveQuestionIconButton from "./ApproveQuestionIconButton.js";
-import RejectQuestionIconButton from "./RejectQuestionIconButton.js";
+} from "../QuestionStyle.js";
+import QuestionDate from "../QuestionDate.js";
+import QuestionUserName from "../QuestionUserName.js";
+import useStyles from "../useStyles.js";
+import ApproveQuestionIconButton from "../QuestionIconButton/ApproveQuestionIconButton.js";
+import RejectQuestionIconButton from "../QuestionIconButton/RejectQuestionIconButton.js";
 
 function ModerationQuestionCard(props) {
 	const classes = useStyles();

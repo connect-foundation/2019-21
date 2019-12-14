@@ -1,23 +1,22 @@
-import useStyles from "./useStyles.js";
+import React from "react";
 import Tooltip from "@material-ui/core/Tooltip";
 import {Icon} from "@material-ui/core";
-import React from "react";
+import useStyles from "../useStyles.js";
 
-function RestoreQuestionIconButton(props) {
+function ApproveQuestionIconButton(props) {
 	const classes = useStyles();
 
 	return (
-		<Tooltip title="질문 되살리기">
+		<Tooltip title="승인">
 			<Icon
-				className={classes.restoreButton}
+				className={classes.approveButton}
 				onClick={() =>
 					props.dataHandler(props.id, props.type, "active")
 				}
 			>
-				restore
+				check_circle_outline
 			</Icon>
 		</Tooltip>
 	);
 }
-
-export default RestoreQuestionIconButton;
+export default ApproveQuestionIconButton;

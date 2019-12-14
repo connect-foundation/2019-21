@@ -1,7 +1,7 @@
 import React from "react";
-import ModerationQuestionCard from "./ModerationQuestionCard.js";
-import LiveQuestionCard from "./LiveQuestionCard";
-import CompleteQuestionCard from "./CompleteQuestionCard";
+import ModerationQuestionCard from "./QuestionCard/ModerationQuestionCard.js";
+import LiveQuestionCard from "./QuestionCard/LiveQuestionCard.js";
+import CompleteQuestionCard from "./QuestionCard/CompleteQuestionCard.js";
 import {filterQuestion, filterReplies} from "../../libs/utils";
 import {FocusedDiv, UnFocusedDiv} from "./QuestionStyle";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import {Icon} from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
-import useStyles from "./useStyles.js";
+import useStyles from "../useStyles.js";
 
 function RejectQuestionIconButton(props) {
 	const classes = useStyles();

@@ -1,25 +1,25 @@
 import React, {useState} from "react";
 import Card from "@material-ui/core/Card";
 import {CardContent} from "@material-ui/core";
-import UserAvatar from "./UserAvatar.js";
+import UserAvatar from "../UserAvatar.js";
 import {
 	QuestionBody,
 	QuestionButtons,
 	QuestionHeader,
 	QuestionInfo,
 	QuestionMeta,
-} from "./QuestionStyle";
-import QuestionDate from "./QuestionDate";
-import QuestionUserName from "./QuestionUserName";
-import useStyles from "./useStyles";
-import QuestionMenu from "./QuestionMenu";
-import ThumbUpButton from "./ThumbUpButton";
-import ReplyList from "../Reply/ReplyList.js";
-import RestoreQuestionIconButton from "./RestoreQuestionIconButton.js";
-import QuestionCardInnerDivider from "./QuestionCardInnerDivider.js";
+} from "../QuestionStyle.js";
+import QuestionDate from "../QuestionDate.js";
+import QuestionUserName from "../QuestionUserName.js";
+import useStyles from "../useStyles.js";
+import QuestionMenu from "../QuestionMenu.js";
+import ThumbUpButton from "../ThumbUpButton.js";
+import ReplyList from "../../Reply/ReplyList.js";
+import FixOnTopIconButton from "../QuestionIconButton/FixOnTopIconButton.js";
+import CompleteQuestionIconButton from "../QuestionIconButton/CompleteQuestionIconButton.js";
+import QuestionCardInnerDivider from "../QuestionCardInnerDivider.js";
 
-
-function CompleteQuestionCard(props) {
+function LiveQuestionCard(props) {
 	const classes = useStyles();
 	const [openReplies, setOpenReplies] = useState(false);
 
@@ -38,7 +38,8 @@ function CompleteQuestionCard(props) {
 							<QuestionDate {...props} />
 						</QuestionInfo>
 						<QuestionButtons>
-							<RestoreQuestionIconButton {...props} />
+							<FixOnTopIconButton {...props} />
+							<CompleteQuestionIconButton {...props} />
 							<QuestionMenu
 								id={props.id}
 								type={props.type}
@@ -60,4 +61,4 @@ function CompleteQuestionCard(props) {
 	);
 }
 
-export default CompleteQuestionCard;
+export default LiveQuestionCard;

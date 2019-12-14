@@ -1,7 +1,7 @@
 import React from "react";
 import Tooltip from "@material-ui/core/Tooltip";
 import {Icon} from "@material-ui/core";
-import useStyles from "./useStyles.js";
+import useStyles from "../useStyles.js";
 
 function FixOnTopIconButton(props) {
 	const classes = useStyles();
