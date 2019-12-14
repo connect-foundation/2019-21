@@ -11,16 +11,13 @@ const createPollSocketHandler = async (data, emit) => {
 			candidates,
 		} = data;
 
-		const state = "standby";
-
 		const result = await createPoll(
 			EventId,
 			pollName,
 			pollType,
 			selectionType,
 			allowDuplication,
-			state,
-			candidates,
+			candidates
 		);
 
 		emit(result);
