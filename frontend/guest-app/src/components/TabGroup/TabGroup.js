@@ -5,9 +5,9 @@ import styled from "styled-components";
 import {PollTabIcon, QnATabIcon} from "./TabIcons.js";
 import useTabs from "../../hooks/useTabs.js";
 import TabBody from "./TabBody.js";
-import QuestionContainer from "../Question/QuestionContainer.js";
+import QuestionContainer from "../QuestionContainer/QuestionContainer.js";
 import PollApollo from "../Poll/PollApollo.js";
-import {QuestionsProvider} from "../Question/QuestionsContext.js";
+import {QuestionsProvider} from "../QuestionContainer/QuestionsContext.js";
 
 const TabGroupStyle = styled.div`
 	position: fixed;

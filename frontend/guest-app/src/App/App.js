@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {useQuery} from "@apollo/react-hooks";
 import "./App.css";
 import {GET_GUEST_APP_GLOBAL_DATA} from "../apollo/gqlSchemes.js";
-import TopProgressBar from "../components/TopProcessBar.js";
+import TopProgressBar from "../atoms/TopProcessBar.js";
 import config from "../config";
 import {UIControllerProvider} from "../components/UIController/UIControllerProvider.js";
 import {GuestGlobalProvider} from "../libs/guestGlobalContext.js";

@@ -2,7 +2,7 @@ import React, {useContext, useRef} from "react";
 import PropTypes from "prop-types";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import ReplyInput from "./ReplyInput";
+import ReplyInput from "./ReplyInput.js";
 import {socketClient} from "../../libs/socketIoClientProvider.js";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 

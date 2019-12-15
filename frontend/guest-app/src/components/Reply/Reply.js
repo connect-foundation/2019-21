@@ -2,8 +2,8 @@ import React from "react";
 import Card from "@material-ui/core/Card";
 import {CardContent} from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
-import QuestionHeader from "../Question/QuestionCard/QuestionCardHeader.js";
-import QuestionBody from "../Question/QuestionCard/QuestionCardBody";
+import QuestionHeader from "../QuestionCard/QuestionCardHeader.js";
+import QuestionBody from "../QuestionCard/QuestionCardBody";
 import EmojiArea from "../Emoji/EmojiArea";
 
 

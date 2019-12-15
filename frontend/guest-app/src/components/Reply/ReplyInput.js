@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import {Button} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
-import ReplyContentInput from "./ReplyContentInput";
-import ReplierInfoInput from "./ReplierInfoInput";
+import ReplyContentInput from "./ReplyContentInput.js";
+import ReplierInfoInput from "./ReplierInfoInput.js";
 
 const FlexedCenterDiv = styled.div`
 	display: flex;

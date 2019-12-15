@@ -2,7 +2,7 @@ import React, {useReducer, useState} from "react";
 import styled from "styled-components";
 import {Button} from "@material-ui/core";
 import PollCard from "./PollCard";
-import NewPollModal from "./NewPollModal";
+import CreatePollModal from "../CreatePollModal/CreatePollModal.js";
 import useModal from "../../hooks/useModal.js";
 import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper";
 
@@ -215,7 +215,7 @@ function PollContainer({data}) {
 					<PollCard {...poll} key={poll.id} />
 				))}
 			{createPollModalOpen && (
-				<NewPollModal
+				<CreatePollModal
 					open={createPollModalOpen}
 					handleClose={handleClose}
 				/>

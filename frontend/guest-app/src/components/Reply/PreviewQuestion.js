@@ -4,9 +4,9 @@ import {styled} from "@material-ui/core/styles";
 import {CardContent} from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import Box from "@material-ui/core/Box";
-import QuestionHeader from "../Question/QuestionCard/QuestionCardHeader.js";
-import QuestionBody from "../Question/QuestionCard/QuestionCardBody";
-import EmojiArea from "../Emoji/EmojiArea";
+import QuestionHeader from "../QuestionCard/QuestionCardHeader.js";
+import QuestionBody from "../QuestionCard/QuestionCardBody.js";
+import EmojiArea from "../Emoji/EmojiArea.js";
 
 const Container = styled(Box)({
 	backgroundColor: "#E0E0E0",

@@ -1,7 +1,7 @@
 import React from "react";
 import {styled} from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
-import RepliesContainer from "./RepliesContainer";
+import RepliesContainer from "./RepliesContainer.js";
 
 const StyledPaper = styled(Paper)({
 	width: "100vw",

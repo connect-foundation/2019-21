@@ -1,9 +1,9 @@
 import React from "react";
 import {Icon, Typography} from "@material-ui/core";
-import useStyles from "../Questions/useStyles.js";
-import {QuestionMeta, ReplyBody, ReplyContainer, ReplyInfo} from "../Questions/QuestionStyle.js";
-import QuestionUserName from "../Questions/QuestionUserName.js";
-import QuestionDate from "../Questions/QuestionDate.js";
+import useStyles from "../QuestionContainer/useStyles.js";
+import {QuestionMeta, ReplyBody, ReplyContainer, ReplyInfo} from "../QuestionContainer/QuestionStyle.js";
+import QuestionUserName from "../QuestionContainer/QuestionUserName.js";
+import QuestionDate from "../QuestionContainer/QuestionDate.js";
 
 // todo: proptype
 function Reply(props) {

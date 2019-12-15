@@ -5,7 +5,7 @@ import "./App.css";
 import Header from "../components/Header/Header.js";
 import NavBar from "../components/NavBar/NavBar.js";
 import EventMonitor from "../components/EventMonitor/EventMonitor.js";
-import NewPollModal from "../components/Poll/NewPollModal";
+import CreatePollModal from "../components/CreatePollModal/CreatePollModal.js";
 import {HostProvider} from "../libs/hostContext";
 import {getEventsByHost} from "../libs/gql";
 import {socketClient} from "../libs/socket.io-Client-wrapper";
@@ -39,7 +39,7 @@ let App = props => {
 					tabIdx={tabIdx}
 					onChange={(e, newTabIdx) => setTabIdx(newTabIdx)}
 				/>
-				<NewPollModal open={modal} />
+				<CreatePollModal open={modal} />
 				<EventMonitor event={event} />
 			</HostProvider>
 		</div>

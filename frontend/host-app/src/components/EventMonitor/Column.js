@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import QuestionContainer from "../Questions/QuestionContainer.js";
+import QuestionContainer from "../QuestionContainer/QuestionContainer.js";
 import ColumnFooter from "./ColumnFooter.js";
 import {filterStared} from "../../libs/utils.js";
 import QuestionStyle from "../StyledComponent/QuestionStyle.js";

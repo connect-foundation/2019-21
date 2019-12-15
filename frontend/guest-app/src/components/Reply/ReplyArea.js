@@ -4,10 +4,9 @@ import {styled} from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Drawer from "@material-ui/core/Drawer";
 import ReplyAvatar from "./ReplyAvatar";
-import RepliesPaper from "./RepliesPaper";
+import RepliesPaper from "./RepliesPaper.js";
 import AddReplyRow from "./AddReplyRow";
 import useReplies from "../../hooks/useReplies.js";
-
 import CurrentRepliesTextField from "./CurrentRepliesTextField";
 
 const MAX_SHOWING_AVATAR = 5;

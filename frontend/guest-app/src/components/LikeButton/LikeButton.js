@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import Button from "@material-ui/core/Button";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
-import useCommonModal from "../CommonComponent/CommonModal/useCommonModal.js";
+import useCommonModal from "../CommonModal/useCommonModal.js";
 import UndoLikeConfirmModal from "./UndoLikeModal.js";
 import {socketClient} from "../../libs/socketIoClientProvider.js";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";

@@ -1,7 +1,7 @@
 import React from "react";
 import {Icon} from "@material-ui/core";
 import PropTypes from "prop-types";
-import useStyles from "../Questions/useStyles.js";
+import useStyles from "../QuestionContainer/useStyles.js";
 import ColumnFooterStyled from "../StyledComponent/ColumnFooterStyle.js";
 
 // todo: propType, defalut prop 추가

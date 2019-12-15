@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import {Modal} from "@material-ui/core";
 import styled from "styled-components";
-import TabNavigation from "./EventSettingTab/TabNavigation";
+import TabNavigation from "../EventSettingTab/TabNavigation";
 import {HostContext} from "../../libs/hostContext";
 
 const modalHeight = 41;

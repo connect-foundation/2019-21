@@ -1,5 +1,5 @@
 import React from "react";
-import QuestionCardInnerDivider from "../Questions/QuestionCardInnerDivider.js";
+import QuestionCardInnerDivider from "../QuestionContainer/QuestionCardInnerDivider.js";
 import Reply from "./Reply.js";
 
 // todo proptype 추가
