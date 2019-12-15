@@ -9,7 +9,7 @@ import EndDateField from "./EndDateField";
 import HashTagsField from "./HashTagsField";
 import CreateModalButtonField from "./ButtonField";
 import AlertSnackbar from "./AlertSnackbar";
-import eventModalReducer from "./eventModalReducer";
+import eventModalReducer from "../../reducers/eventModalReducer.js";
 import {
 	createEventMutationScheme,
 	createHashTagsMutationScheme,

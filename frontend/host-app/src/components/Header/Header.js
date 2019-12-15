@@ -5,7 +5,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import HeaderAccountAvatar from "./HeaderAccountAvatar.js";
 import HeaderConfigAvatar from "./HeaderConfigAvatar.js";
 import EventSettingModal from "../EventSettingModal/EventSettingModal.js";
-import useModal from "../../customhook/useModal.js";
+import useModal from "../../hooks/useModal.js";
 import HeaderTitle from "./HeaderTitle.js";
 
 const useStyles = makeStyles(() => ({

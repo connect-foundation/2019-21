@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import useModal from "../../../customhook/useModal";
+import useModal from "../../../hooks/useModal.js";
 import ConfirmModal from "./ConfirmModal";
 
 const Container = styled.div`

@@ -8,7 +8,7 @@ import SettingSwitch from "./SettingSwitch";
 import {
 	advanceSettingReducer,
 	initialAdavanceState,
-} from "../../settingReducer/settingReducer";
+} from "../../../../reducers/settingReducer.js";
 
 const LayOutStyle = styled.div`
 	display: flex;

@@ -4,9 +4,9 @@ import {socketClient} from "../../libs/socket.io-Client-wrapper.js";
 import useQueryQuestions from "../../libs/useQueryQuestions.js";
 import {HostContext} from "../../libs/hostContext.js";
 import {ContentStyle} from "../StyledComponent/ComponentsStyle.js";
-import QuestionsReducer from "../Questions/QuestionReducer.js";
+import QuestionsReducer from "../../reducers/QuestionReducer.js";
 import SkeletonContent from "../Skeleton/SkeletonContent.js";
-import useQuestionSocketEventHandler from "../../customhook/useQuestionSocketEventHandler.js";
+import useQuestionSocketEventHandler from "../../hooks/useQuestionSocketEventHandler.js";
 import PollColumn from "../PollColumn/PollColumn.js";
 import useRadioState from "./useRadioState.js";
 

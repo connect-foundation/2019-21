@@ -10,7 +10,7 @@ import InputEventCode from "./InputEventCode";
 import InputEventLink from "./InputEventLink";
 import InputHashTag from "./InputHashTag";
 import HashTagsField from "./HashTagsField";
-import {generalSettingReducer} from "../../settingReducer/settingReducer";
+import {generalSettingReducer} from "../../../../reducers/settingReducer.js";
 import ButtonField from "../ButtonField";
 import {HostContext} from "../../../../libs/hostContext";
 import config from "../../../../config";

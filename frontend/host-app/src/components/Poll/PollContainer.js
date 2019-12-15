@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {Button} from "@material-ui/core";
 import PollCard from "./PollCard";
 import NewPollModal from "./NewPollModal";
-import useModal from "../../customhook/useModal";
+import useModal from "../../hooks/useModal.js";
 import {useSocket, socketClient} from "../../libs/socket.io-Client-wrapper";
 
 const ColumnWrapper = styled.div`

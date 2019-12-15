@@ -11,8 +11,8 @@ import CancelButton from "../CommonButton/CancelButton.js";
 import ConfirmButton from "../CommonButton/ConfirmButton.js";
 import useNItemInput from "./useNItemInput.js";
 import CommonModal from "../CommonModal/CommonModal.js";
-import useRatingInput from "./useRatingInput.js";
-import usePollTitleInput from "./usePollTitleInput.js";
+import useRatingInput from "../../hooks/useRatingInput.js";
+import usePollTitleInput from "../../hooks/usePollTitleInput.js";
 
 const RowWrapper = styled.div`
 	display: flex;
