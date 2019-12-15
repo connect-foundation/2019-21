@@ -17,6 +17,7 @@ const AdjustAbleColumnStyle = styled.div`
 	margin-left: 8px;
 `;
 
+// todo: propType, defalut prop 추가
 function AdjustAbleColumn(props) {
 	const [heightWeight, setHeightWeight] = useState(0);
 

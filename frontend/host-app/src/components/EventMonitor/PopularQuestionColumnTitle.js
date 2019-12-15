@@ -1,6 +1,7 @@
 import React from "react";
 import RadioTitle from "./RadioTitle.js";
 
+// todo: proptypes 및 default prop추가
 function PopularQuestionColumnTitle({
 	type,
 	state,

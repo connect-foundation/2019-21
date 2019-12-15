@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import gray from "@material-ui/core/colors/grey.js";
+import grey from "@material-ui/core/colors/grey.js";
 import QuestionCard from "./QuestionCard.js";
 
 const style = {
-	backgroundColor: gray[300],
+	backgroundColor: grey[300],
 	marginTop: "0",
 	marginBottom: "0",
 	paddingTop: "0.25rem",
@@ -22,6 +22,7 @@ function getReplisInQuestion(questionId, replies) {
 const QuestionCardList = React.memo(props => {
 	const {questions, replies} = props;
 
+	// 스타일 컴포넌트로 변경
 	return (
 		<div style={style}>
 			{questions.map((question, idx) => (

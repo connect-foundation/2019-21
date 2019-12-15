@@ -1,27 +1,25 @@
 import _ from "lodash";
 
 const ToggleReducer = (state, action) => {
-	const {type, data} = action;
-
 	const actionTable = {
-		toggle: (state, data) => {
-			const newState = _.cloneDeep(state);
+		toggle: (oldState, data) => {
+			const newState = _.cloneDeep(oldState);
 
 			newState.data = _.cloneDeep(data);
 			newState.state = !newState.state;
 
 			return newState;
 		},
-		on: (state, data) => {
-			const newState = _.cloneDeep(state);
+		on: (oldState, data) => {
+			const newState = _.cloneDeep(oldState);
 
 			newState.data = _.cloneDeep(data);
 			newState.state = true;
 
 			return newState;
 		},
-		off: (state, data) => {
-			const newState = _.cloneDeep(state);
+		off: (oldState, data) => {
+			const newState = _.cloneDeep(oldState);
 
 			newState.data = _.cloneDeep(data);
 			newState.state = false;
@@ -30,12 +28,19 @@ const ToggleReducer = (state, action) => {
 		},
 	};
 
+	const {type, data} = action;
+
 	if (!(type in actionTable)) {
 		console.error(`unexpected action.type: ${type}`);
 		return state;
 	}
 
-	return actionTable[type](state, data);
+	try {
+		return actionTable[type](state, data);
+	} catch (e) {
+		console.error(e);
+		return state;
+	}
 };
 
 export default ToggleReducer;

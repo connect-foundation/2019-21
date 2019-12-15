@@ -20,6 +20,7 @@ function SideMenuHeader(props) {
 	const {eventName, startAt, endAt, eventCode} = props;
 	const classes = useSideMenuStyles();
 
+	// todo 컴포넌트 쪼개기
 	return (
 		<Paper style={style} square={true}>
 			<Grid

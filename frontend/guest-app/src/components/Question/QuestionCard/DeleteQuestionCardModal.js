@@ -7,6 +7,7 @@ import CommonModal from "../../CommonComponent/CommonModal/CommonModal.js";
 function DeleteQuestionCardModal(props) {
 	const {isOpened, closeModal, onCancel, onDelete} = props;
 
+	// todo 컴포넌트 쪼개기
 	return (
 		<CommonModal isOpened={isOpened} onCancelClick={closeModal}>
 			<p>질문을 삭제하겠습니까?</p>

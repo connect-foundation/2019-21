@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 function AppDrawerNavBar(props) {
 	const {onClick, title} = props;
 
+	// todo 컴포넌트 분리
 	return (
 		<AppBar>
 			<Toolbar>

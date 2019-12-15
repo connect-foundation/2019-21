@@ -11,6 +11,7 @@ const useInputStyles = makeStyles(theme => ({
 	},
 }));
 
+// todo 사용하지 않는다면 삭제
 function CommonTextInput({label, value, icon = null, onChange = () => {}, inputRef}) {
 	const inputStyles = useInputStyles();
 

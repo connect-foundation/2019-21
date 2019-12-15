@@ -2,6 +2,7 @@ import React from "react";
 import Image from "react-image";
 import Grid from "@material-ui/core/Grid";
 
+// todo 한글로고로 교체
 function SideMenuFooter() {
 	return (
 		<Grid

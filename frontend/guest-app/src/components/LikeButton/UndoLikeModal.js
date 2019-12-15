@@ -6,7 +6,10 @@ import CommonModal from "../CommonComponent/CommonModal/CommonModal.js";
 import ConfirmButton from "../CommonComponent/CommonButtons/ConfirmButton.js";
 import CancelButton from "../CommonComponent/CommonButtons/CancelButton.js";
 
+
+// todo proptype 추가
 function UndoLikeConfirmModal({isOpened, onCancelClick, onConfirmClick}) {
+	// todo 컴포넌트 쪼개기
 	return (
 		<CommonModal isOpened={isOpened}>
 			<Box p={1} />

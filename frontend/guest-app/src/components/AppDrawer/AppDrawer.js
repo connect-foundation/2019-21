@@ -15,10 +15,11 @@ const AppDrawerBody = styled.div`
 function AppDrawer(props) {
 	const {isOpen, onClose, anchor, children, title} = props;
 
+	// todo 스타일 분리
 	return (
 		<Drawer open={isOpen} anchor={anchor} onClose={onClose}>
 			<Paper style={{width: "100vw", height: "100vh"}}>
-				<AppDrawerNavBar onClick={onClose} title={title} />
+				<AppDrawerNavBar onClick={onClose} title={title}/>
 				<AppDrawerBody>{children}</AppDrawerBody>
 			</Paper>
 		</Drawer>

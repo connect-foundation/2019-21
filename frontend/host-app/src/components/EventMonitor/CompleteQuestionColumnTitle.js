@@ -1,6 +1,7 @@
 import React from "react";
 import RadioTitle from "./RadioTitle.js";
 
+// todo: propType, defalut prop 추가
 function CompleteQuestionColumnTitle({
 	type,
 	state,

@@ -14,6 +14,8 @@ function QuestionContainerTabBar(props) {
 	const {questions} = useQuestions();
 	const {tabIdx, onSelectTab} = props;
 
+	// todo 컴포넌트 분리
+	// todo 스타일 컴포넌트로 변경
 	return (
 		<Paper style={{backgroundColor: gray[300]}}>
 			<Tabs

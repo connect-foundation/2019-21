@@ -26,6 +26,8 @@ const AlertLayOut = styled.div`
 	text-align: center;
 `;
 
+// todo proptype defualt prop 추가
+// todo 구조적 개선 필요,
 function EventSettingModal(props) {
 	const {events} = useContext(HostContext);
 	const eventNum = events.length;

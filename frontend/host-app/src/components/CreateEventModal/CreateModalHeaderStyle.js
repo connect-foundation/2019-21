@@ -8,6 +8,7 @@ const CreateModalHeaderStyle = styled.div`
 	text-align: center;
 `;
 
+// todo: propType, defalut prop 추가
 function CreateModalHeader() {
 	return (
 		<CreateModalHeaderStyle id="createEvent-modal-title">

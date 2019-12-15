@@ -13,11 +13,9 @@ function RepliesList(props) {
 	const {replies} = props;
 
 	return (
-		<>
-			<RepliesListContainer>
-				{replies.map((reply, idx) => <Reply {...reply} key={idx} />)}
-			</RepliesListContainer>
-		</>
+		<RepliesListContainer>
+			{replies.map((reply, idx) => <Reply {...reply} key={idx}/>)}
+		</RepliesListContainer>
 	);
 }
 

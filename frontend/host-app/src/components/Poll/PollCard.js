@@ -65,10 +65,10 @@ function PollCard(props) {
 		...others
 	} = props;
 
-	let localePollDate;
-
+	// todo: hack me
 	// socket.io, sequelize, graphQL 을 거치면서 format이 변경되어서 그때그때 처리하기 위함
 	// pollDate는 poll 생성시 null 임. poll/open에 의해 값이 정해지는데 그 전까지는 일단 이렇게 처리함
+	let localePollDate;
 	if (pollDate) {
 		localePollDate = pollDate;
 		if (localePollDate.includes("-")) {
@@ -85,6 +85,7 @@ function PollCard(props) {
 		localePollDate = new Date();
 	}
 
+	// todo 컴포넌트를 더 쪼갤 수 있음
 	return (
 		<ColumnWrapper>
 			<RowWrapper left bold>
@@ -111,26 +112,22 @@ function PollCard(props) {
 				{`${parseInt(totalVoters, 10).toLocaleString()} 명 참여`}
 			</RowWrapper>
 			{state === "standby" && (
-				<>
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={() => onOpenPoll(id)}
-					>
-						개시하기
-					</Button>
-				</>
+				<Button
+					variant="contained"
+					color="primary"
+					onClick={() => onOpenPoll(id)}
+				>
+					개시하기
+				</Button>
 			)}
 			{state === "running" && (
-				<>
-					<Button
-						variant="contained"
-						color="secondary"
-						onClick={() => onClosePoll(id)}
-					>
-						종료하기
-					</Button>
-				</>
+				<Button
+					variant="contained"
+					color="secondary"
+					onClick={() => onClosePoll(id)}
+				>
+					종료하기
+				</Button>
 			)}
 		</ColumnWrapper>
 	);

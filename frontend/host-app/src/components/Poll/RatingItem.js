@@ -2,6 +2,8 @@ import React from "react";
 import Rating from "@material-ui/lab/Rating";
 import styled from "styled-components";
 
+
+// todo : 명확한 이름
 const ColumnWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -14,6 +16,7 @@ const ColumnWrapper = styled.div`
 	border: 1px solid #dee2e6; /* Gray3 */
 `;
 
+// todo : 명확한 이름
 const RowWrapper = styled.div`
 	position: relative;
 	display: flex;
@@ -21,6 +24,9 @@ const RowWrapper = styled.div`
 	align-items: center;
 `;
 
+
+// todo prop type 추가
+// todo 구조 개선
 function RatingItem({nItems, state, selectionType}) {
 	return (
 		<ColumnWrapper>

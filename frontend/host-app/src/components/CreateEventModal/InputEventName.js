@@ -7,7 +7,9 @@ const CustomTextField = styled(TextField)({
 	width: 400,
 });
 
+// todo: propType, defalut prop 추가
 function InputEventName(props) {
+	// todo: eventName 제거
 	const {eventName, dispatch, errorState} = props;
 
 	return (

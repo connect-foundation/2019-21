@@ -14,6 +14,7 @@ const CustomChip = styled(Chip)({
 	margin: 5,
 });
 
+// todo: propType, defalut prop 추가
 function HashTagField(props) {
 	const handleDelete = hashTagToDelete => () => {
 		const deletedHashTagList = props.hashTags.filter(

@@ -7,6 +7,7 @@ import useStyles from "./useStyles";
 
 const ITEM_HEIGHT = 48;
 
+// todo: proptype
 export default function QuestionMenu({id, type, handler}) {
 	const classes = useStyles();
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -25,6 +26,7 @@ export default function QuestionMenu({id, type, handler}) {
 		handleClose();
 	};
 
+	// todo 컴포넌트 쪼개기
 	return (
 		<>
 			<Tooltip title="메뉴">

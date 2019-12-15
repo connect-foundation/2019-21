@@ -17,6 +17,8 @@ const CustomPollIcon = styled(PollIcon)({
 	marginRight: 20,
 });
 
+// todo propTypes, defaultprop 추가
+// todo question, poll title로 컴포넌트 분리 가능함
 export default function TypeTitle(props) {
 	const {children, type} = props;
 

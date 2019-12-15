@@ -6,9 +6,11 @@ import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import NavBarMenuButton from "./NavBarMenuButton.js";
 
+
 function NavBar(props) {
 	const {title} = props;
 
+	// todo 컴포넌트 쪼개기
 	return (
 		<AppBar>
 			<Toolbar>

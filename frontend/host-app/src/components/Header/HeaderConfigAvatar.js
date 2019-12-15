@@ -14,6 +14,7 @@ const useStyles = makeStyles({
 	},
 });
 
+// todo proptyupe, default prop 추가
 function HeaderConfigAvatar({onClick}) {
 	const classes = useStyles();
 

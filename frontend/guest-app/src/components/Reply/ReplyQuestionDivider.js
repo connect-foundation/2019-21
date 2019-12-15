@@ -23,13 +23,14 @@ const CustomDivider = styled(Divider)({
 	marginTop: "0.8rem",
 });
 
+// todo proptype 추가
 function ReplyQuestionDivider(props) {
 	const {replies} = props;
 
 	return (
 		<Container>
 			<ReplieNumField>{`${replies.length}개 댓글`}</ReplieNumField>
-			<CustomDivider></CustomDivider>
+			<CustomDivider/>
 		</Container>
 	);
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import SwitchTitle from "./SwitchTitle.js";
 
+// todo: proptypes 및 default prop추가
 function ModerationColumnTitle({state, stateHandler, data}) {
 	return (
 		<SwitchTitle

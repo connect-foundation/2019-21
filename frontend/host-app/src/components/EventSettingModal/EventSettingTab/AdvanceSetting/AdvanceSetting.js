@@ -16,6 +16,7 @@ const LayOutStyle = styled.div`
 	background-color: white;
 `;
 
+//todo: 설정중 대부분의 기능이 사용되지 않는 기능임, 필요업는 기능만 제거하거나, 전체 기능 제거에 대한 토의 필요
 export default function AdvanceSetting({handleClose}) {
 	const [advanceSettingState, dispatch] = useReducer(
 		advanceSettingReducer,
@@ -75,6 +76,7 @@ export default function AdvanceSetting({handleClose}) {
 	const sendData = () => {
 		reset();
 	};
+
 
 	return (
 		<LayOutStyle>

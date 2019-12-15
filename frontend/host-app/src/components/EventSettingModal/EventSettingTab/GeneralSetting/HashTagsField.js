@@ -15,6 +15,7 @@ const CustomChip = styled(Chip)({
 	margin: "0.3rem",
 });
 
+// todo proptype default prop 추가
 function HashTagsField(props) {
 	const {hashTags, dispatch} = props;
 	const handleDelete = hashTagToDelete => () => {
@@ -25,6 +26,7 @@ function HashTagsField(props) {
 		dispatch(deletedHashTagList);
 	};
 
+	// todo CustomChip은 독립적은 컴포넌트로 분리 가능
 	return (
 		<MyPaper>
 			{hashTags.map(data => (

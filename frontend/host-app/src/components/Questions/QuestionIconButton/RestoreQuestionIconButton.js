@@ -3,6 +3,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import {Icon} from "@material-ui/core";
 import React from "react";
 
+// todo: proptype
 function RestoreQuestionIconButton(props) {
 	const classes = useStyles();
 

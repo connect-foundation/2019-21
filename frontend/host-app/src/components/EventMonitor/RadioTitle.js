@@ -4,7 +4,7 @@ import Badge from "@material-ui/core/Badge";
 import Tooltip from "@material-ui/core/Tooltip";
 import {makeStyles} from "@material-ui/core/styles";
 import {Icon} from "@material-ui/core";
-import {RightSide, BoldTitleStyle} from "../StyledComponent/ComponentsStyle.js";
+import {BoldTitleStyle, RightSide} from "../StyledComponent/ComponentsStyle.js";
 import TitleBox from "../StyledComponent/TitleBox.js";
 
 const useStyles = makeStyles(theme => ({
@@ -18,6 +18,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
+// todo: proptypes 및 default prop추가
 function RadioTitle({
 	titleName,
 	state,
@@ -30,6 +31,9 @@ function RadioTitle({
 	const SELECTED = true;
 	const classes = useStyles();
 
+	// todo: idx <= 1 로 삼항연산자를 상용하지 않고, 서로 다른 두개의컴포넌트로 분리할수 있음
+	// todo: Badge의 경우 독립적은 컴포넌트로 분리할수 있음
+	// todo: tooltip의 경우 독립적은 컴포넌트로 분리할수 있음
 	return idx <= 1 ? (
 		<TitleBox>
 			<Badge

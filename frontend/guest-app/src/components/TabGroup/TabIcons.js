@@ -5,6 +5,8 @@ import PollIcon from "@material-ui/icons/Poll";
 
 const style = {marginRight: "8px"};
 
+
+// todo 각 파일 분리하기
 export function QnATabIcon({showBadge}) {
 	const props = showBadge ? {color: "error", variant: "dot"} : {};
 

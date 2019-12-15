@@ -9,6 +9,7 @@ const CustomTextField = styled(TextField)({
 	width: 400,
 });
 
+// todo: propType, defalut prop 추가
 function InputHashTag(props) {
 	const prevHashTagList = props.hashTags;
 	const addHashTag = event => {

@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import useStyles from "../Questions/useStyles.js";
 import ColumnFooterStyled from "../StyledComponent/ColumnFooterStyle.js";
 
+// todo: propType, defalut prop 추가
+// todo: 다른 파일로 분리
 function PlusIcon({onClick}) {
 	const classes = useStyles();
 
@@ -14,6 +16,8 @@ function PlusIcon({onClick}) {
 	);
 }
 
+// todo: propType, defalut prop 추가
+// todo: 다른 파일로 분리
 function MinusIcon({onClick}) {
 	const classes = useStyles();
 

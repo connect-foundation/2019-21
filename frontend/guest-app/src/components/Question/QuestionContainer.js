@@ -10,7 +10,6 @@ import NewQuestionInputDrawer from "./NewQuestionInputDrawer.js";
 import EditQuestionInputDrawer from "./EditQuestionInputDrawer.js";
 import {useUIController} from "../UIController/UIControllerProvider.js";
 import {useQuestions} from "./QuestionsContext.js";
-
 import MyQuestionsDrawer from "./MyQuestionDrawer.js";
 
 const RECENT_TAB_IDX = 1;
@@ -41,6 +40,7 @@ function QuestionContainer() {
 		selectTabIdx(event, newValue);
 	};
 
+	// todo 필터링 부분 함수로 분리
 	return (
 		<>
 			<QuestionContainerTabBar

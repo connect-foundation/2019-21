@@ -5,7 +5,10 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import CommonModal from "../CommonComponent/CommonModal/CommonModal.js";
 
+
+// todo proptype 추가
 function LogOutModal({isOpened = false, onCancelClick, onLogout}) {
+	// 컴포넌트 쪼개기
 	return (
 		<CommonModal isOpened={isOpened} onCancelClick={onCancelClick}>
 			<Typography>로그아웃 하시겠습니까?</Typography>

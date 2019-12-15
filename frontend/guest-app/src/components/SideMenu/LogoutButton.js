@@ -5,11 +5,11 @@ import SideMenuItem from "./SideMenuItem.js";
 import LogOutModal from "../Modals/LogoutModal.js";
 import config from "../../config";
 
-function LogoutButton(props) {
+function LogoutButton() {
 	const modalState = useCommonModal();
 
 	return (
-		<div>
+		<>
 			<SideMenuItem
 				icon={<ExitToAppIcon />}
 				itemText={"로그아웃"}
@@ -22,7 +22,7 @@ function LogoutButton(props) {
 					(window.location.href = config.logoutRedirectURL)
 				}
 			/>
-		</div>
+		</>
 	);
 }
 

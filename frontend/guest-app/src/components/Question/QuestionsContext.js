@@ -67,6 +67,7 @@ const useSocketHandler = (dispatch, guestGlobal) => {
 	});
 };
 
+// todo proptype 추가
 export function QuestionsProvider(props) {
 	const {children} = props;
 	const {event, guest} = useContext(GuestGlobalContext);
@@ -78,7 +79,10 @@ export function QuestionsProvider(props) {
 	useDataLoadEffect(dispatch, data);
 	useSocketHandler(dispatch, guest);
 
-	const questions = state.filter(question => (question.QuestionId === null && question.state === "active"));
+	// todo 필터 함수 분리
+	const questions = state.filter(
+		question => question.QuestionId === null && question.state === "active",
+	);
 	const replies = state.filter(question => question.QuestionId !== null);
 
 	const value = {

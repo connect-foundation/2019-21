@@ -5,9 +5,11 @@ import {QuestionMeta, ReplyBody, ReplyContainer, ReplyInfo} from "../Questions/Q
 import QuestionUserName from "../Questions/QuestionUserName.js";
 import QuestionDate from "../Questions/QuestionDate.js";
 
+// todo: proptype
 function Reply(props) {
 	const classes = useStyles();
 
+	// todo: 컴포넌트 쪼개기
 	return (
 		<>
 			<QuestionMeta>

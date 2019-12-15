@@ -3,12 +3,13 @@ import {Icon, Typography} from "@material-ui/core";
 import useStyles from "./useStyles";
 import {ThumbUpContainer, ReplyContainer} from "./QuestionStyle";
 
-
+// todo: proptype
 function ThumbUpButton(props) {
 	const classes = useStyles();
 
 	const handleReply = () => props.replyOpenHandler(!props.replyOpenStatus);
 
+	//todo 컴포넌트 쪼개기
 	return (
 		<ThumbUpContainer>
 			<Icon className={classes.thumbUpButton}>thumb_up_outlined</Icon>

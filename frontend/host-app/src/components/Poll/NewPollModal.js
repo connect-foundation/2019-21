@@ -9,7 +9,7 @@ import {socketClient} from "../../libs/socket.io-Client-wrapper";
 import {HostContext} from "../../libs/hostContext";
 import CancelButton from "../CommonButton/CancelButton.js";
 import ConfirmButton from "../CommonButton/ConfirmButton.js";
-import useNItemInput from "./useNItemInput.js";
+import useNItemInput from "../../hooks/useNItemInput.js";
 import CommonModal from "../CommonModal/CommonModal.js";
 import useRatingInput from "../../hooks/useRatingInput.js";
 import usePollTitleInput from "../../hooks/usePollTitleInput.js";

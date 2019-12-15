@@ -1,6 +1,7 @@
 import React from "react";
 import RadioTitle from "../EventMonitor/RadioTitle.js";
 
+// todo: proptype
 function PollColumnTitle({type, state, stateHandler, data, dataHandler}) {
 	return (
 		<RadioTitle

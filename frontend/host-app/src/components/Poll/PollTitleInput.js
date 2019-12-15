@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import {TextField} from "@material-ui/core";
 
+// todo: 좀더 명확한 이름
 const RowWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
@@ -17,7 +18,9 @@ const TitleSpan = styled.span`
 	margin-right: 0.5rem;
 `;
 
+// todo: proptype default prop 추가
 function PollTitleInput({value, onChange, error, helperText}) {
+	// todo 컴포넌트 쪼개기 필요함
 	return (
 		<RowWrapper left>
 			<TitleSpan>투표 제목 :</TitleSpan>

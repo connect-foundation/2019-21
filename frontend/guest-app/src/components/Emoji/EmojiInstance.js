@@ -24,9 +24,12 @@ const EmojiInstanceStyle = styled.div`
 	}
 `;
 
+
+// todo proptype 추가
 function EmojiInstance(props) {
 	const {name, count, didIPick, onClick} = props;
 
+	// todo 컴포넌트 쪼개기
 	return (
 		<EmojiInstanceStyle didIPick={didIPick} onClick={() => onClick(name, didIPick)}>
 			<Emoji emoji={name} size={16} />

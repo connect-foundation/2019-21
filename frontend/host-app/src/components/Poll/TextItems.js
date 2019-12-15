@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import {TextField} from "@material-ui/core";
-import {MdDelete, MdAdd} from "react-icons/md";
+import {MdAdd, MdDelete} from "react-icons/md";
 
+
+// todo 명확한 이름
 const DeleteItem = styled.div`
 	opacity: 0;
 	display: flex;
@@ -19,6 +21,7 @@ const DeleteItem = styled.div`
 	}
 `;
 
+// todo 명확한 이름
 const RowWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
@@ -35,6 +38,7 @@ const RowWrapper = styled.div`
 	}
 `;
 
+// todo 명확한 이름
 const AddItem = styled.div`
 	margin-top: 0.5rem;
 	display: flex;
@@ -54,6 +58,7 @@ const AddItem = styled.div`
 	}
 `;
 
+// todo 명확한 이름
 const ColumnWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -73,34 +78,34 @@ const ColumnWrapper = styled.div`
 
 const MIN_ITEMS_COUNT = 2;
 
+// todo  prop type
 function TextItems({texts, onTextChange, onDeleteText, onAddText}) {
+	// todo 구조 개선 필요
 	return (
-		<>
-			<ColumnWrapper>
-				{texts.map((text, index) => (
-					<RowWrapper left key={index}>
-						<TextField
-							value={text.value}
-							error={text.error}
-							helperText={text.helperText}
-							margin="dense"
-							variant="outlined"
-							placeholder="항목입력"
-							key={index}
-							onChange={() => onTextChange(event, index)}
-						/>
-						<DeleteItem>
-							{index > MIN_ITEMS_COUNT - 1 && (
-								<MdDelete onClick={() => onDeleteText(index)} />
-							)}
-						</DeleteItem>
-					</RowWrapper>
-				))}
-			</ColumnWrapper>
+		<ColumnWrapper>
+			{texts.map((text, index) => (
+				<RowWrapper left key={index}>
+					<TextField
+						value={text.value}
+						error={text.error}
+						helperText={text.helperText}
+						margin="dense"
+						variant="outlined"
+						placeholder="항목입력"
+						key={index}
+						onChange={() => onTextChange(event, index)}
+					/>
+					<DeleteItem>
+						{index > MIN_ITEMS_COUNT - 1 && (
+							<MdDelete onClick={() => onDeleteText(index)} />
+						)}
+					</DeleteItem>
+				</RowWrapper>
+			))}
 			<AddItem onClick={onAddText}>
 				<MdAdd />
 			</AddItem>
-		</>
+		</ColumnWrapper>
 	);
 }
 

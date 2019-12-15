@@ -18,6 +18,8 @@ const cardContentStyle = {paddingBottom: "1rem"};
 function AddQuestionInputButton(props) {
 	const {onClick} = props;
 
+	// todo 스타일 컴포넌트로 변경
+	// todo 컴포넌트 쪼개기
 	return (
 		<Card style={cardStyle} onClick={onClick}>
 			<CardContent style={cardContentStyle}>

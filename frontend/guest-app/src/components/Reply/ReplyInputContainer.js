@@ -6,6 +6,8 @@ import ReplyInput from "./ReplyInput";
 import {socketClient} from "../../libs/socketIoClientProvider.js";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 
+
+// todo 구조 개선
 const createNewReply = ({
 	EventId,
 	GuestId,

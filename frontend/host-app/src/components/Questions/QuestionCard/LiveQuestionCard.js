@@ -19,10 +19,12 @@ import FixOnTopIconButton from "../QuestionIconButton/FixOnTopIconButton.js";
 import CompleteQuestionIconButton from "../QuestionIconButton/CompleteQuestionIconButton.js";
 import QuestionCardInnerDivider from "../QuestionCardInnerDivider.js";
 
+// todo: proptype
 function LiveQuestionCard(props) {
 	const classes = useStyles();
 	const [openReplies, setOpenReplies] = useState(false);
 
+	// todo 컴포넌트 쪼개기
 	return (
 		<Card
 			className={
@@ -49,7 +51,7 @@ function LiveQuestionCard(props) {
 					</QuestionMeta>
 				</QuestionHeader>
 				<QuestionBody>{props.content}</QuestionBody>
-				<QuestionCardInnerDivider/>
+				<QuestionCardInnerDivider />
 				<ThumbUpButton
 					{...props}
 					replyOpenHandler={setOpenReplies}

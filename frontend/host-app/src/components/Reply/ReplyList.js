@@ -2,6 +2,7 @@ import React from "react";
 import QuestionCardInnerDivider from "../Questions/QuestionCardInnerDivider.js";
 import Reply from "./Reply.js";
 
+// todo proptype 추가
 function ReplyList(props) {
 	return (
 		<>

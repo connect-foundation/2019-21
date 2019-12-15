@@ -10,6 +10,9 @@ const Title = styled.div`
 	color: #139ffb;
 `;
 
+// todo material typography로 변경
+// todo proptype defualt prop 추가
+// todo 기본 설정, 상세설정 두개의 컴포넌트로 분리 가능
 function TabHeader(props) {
 	const TITLE = {general: "기본설정", feature: "상세설정"};
 	const type = props.type;

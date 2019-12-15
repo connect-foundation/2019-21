@@ -12,6 +12,7 @@ function formattingDate(date) {
 	return moment(date).format("YYYY년 MM월 DD일 HH시 mm분");
 }
 
+// todo propTypes, defaultprop 추가
 function EndDateField(props) {
 	return (
 		<CustomTextField

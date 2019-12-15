@@ -28,6 +28,7 @@ const CustomTimePicker = styled(TimePicker)({
 	width: 120,
 });
 
+// todo: propType, defalut prop 추가
 function InputStartDate(props) {
 	const {errorState} = props;
 	const {setStartDate, setEndDate} = props.dispatch;

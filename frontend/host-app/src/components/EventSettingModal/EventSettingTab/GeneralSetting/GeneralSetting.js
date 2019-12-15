@@ -38,10 +38,14 @@ function convertDataToView(eventInfo) {
 	};
 }
 
+// todo propTypes, defaultprop 추가
 export default function GeneralSetting({handleClose}) {
+	// todo 오타
 	const [mutaionUpdateEvent] = useMutation(updateEventMutationScheme);
 	const {events, setEvents} = useContext(HostContext);
+	// todo 하드 코딩되어있음
 	const initialGeneralState = convertDataToView(events[0]);
+	// todo useGeneralSettingReducer로  함수 분리 가능
 	const [generalSettingState, dispatch] = useReducer(
 		generalSettingReducer,
 		initialGeneralState,
@@ -105,8 +109,10 @@ export default function GeneralSetting({handleClose}) {
 			Object.assign(events[0], res.data.updateEvent);
 			setEvents([...events]);
 		});
+
 		handleClose();
 	};
+
 	const updateHashTag = hashTagList => {
 		dispatch({
 			type: "updateHashTags",

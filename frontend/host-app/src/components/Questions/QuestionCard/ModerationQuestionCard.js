@@ -15,9 +15,11 @@ import useStyles from "../useStyles.js";
 import ApproveQuestionIconButton from "../QuestionIconButton/ApproveQuestionIconButton.js";
 import RejectQuestionIconButton from "../QuestionIconButton/RejectQuestionIconButton.js";
 
+// todo: proptype
 function ModerationQuestionCard(props) {
 	const classes = useStyles();
 
+	// todo 컴포넌트 쪼개기
 	return (
 		<Card
 			className={

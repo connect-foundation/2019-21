@@ -8,9 +8,11 @@ import {FocusedDiv, UnFocusedDiv} from "./QuestionStyle";
 const compareByCreateAt = (a, b) => b.createdAt.localeCompare(a.createdAt);
 const compareByLikeCount = (a, b) => b.likeCount - a.likeCount;
 
+// todo: proptype
 function QuestionContainer({datas, type, dataHandler, handleStar, containerType}) {
 	const QuestionDiv = containerType === "focus" ? FocusedDiv : UnFocusedDiv;
 
+	// todo: 구조 개선
 	return (
 		<QuestionDiv>
 			{type === "moderation" &&

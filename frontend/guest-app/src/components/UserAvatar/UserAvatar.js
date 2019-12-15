@@ -5,6 +5,8 @@ import Avatar from "@material-ui/core/Avatar";
 import randomMC from "random-material-color";
 import PersonIcon from "@material-ui/icons/Person";
 
+// todo prop type 추가
+// todo 파일 분리하기
 function NamedAvatar({userName}) {
 	const useStyles = makeStyles({
 		avatar: {

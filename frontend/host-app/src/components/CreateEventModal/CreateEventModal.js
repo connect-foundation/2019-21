@@ -40,7 +40,9 @@ const initErrorState = {
 	startDate: true,
 };
 
+// todo: propType, defalut prop 추가
 function CreateEventModal({open, handleClose}) {
+	// todo: 이 변수는 함수 밖에 있어도 된다
 	const initialEventInfo = {
 		eventName: "",
 		startDate: new Date(),
@@ -48,7 +50,9 @@ function CreateEventModal({open, handleClose}) {
 		hashTags: [],
 	};
 	const {hostInfo, events, setEvents} = useContext(HostContext);
+	// todo: SnackBarOpen 상태관리를 할떄 인자를 사용하지 않고 openSnackbar, closeSnackbar로 사용할 수 있도록 수정
 	const [snackBarOpen, setSnackBarOpen] = useState(false);
+	// todo: modal의 validation 에러에 관한 상태관리를 따로 분리함?
 	const [errorState, setErrorState] = useState(initErrorState);
 	const [eventInfo, dispatchEventInfo] = useReducer(
 		eventModalReducer,
@@ -113,6 +117,7 @@ function CreateEventModal({open, handleClose}) {
 		});
 	};
 
+	// todo: 좀더 명확한 함수이름으로 변경
 	const reset = () => {
 		dispatchEventInfo({
 			type: "reset",
@@ -149,7 +154,9 @@ function CreateEventModal({open, handleClose}) {
 		reset();
 	};
 
+
 	return (
+		// todo: common Modal를 재사용하도록 수정
 		<CreateEventModalStyle open={open} onClose={reset}>
 			<CreateEventModalContent>
 				<CreateModalHeader />

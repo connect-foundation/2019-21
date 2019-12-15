@@ -13,10 +13,12 @@ function getNewQuestion({EventId, GuestId, guestName, content}) {
 	};
 }
 
+// todo proptype
 function NewQuestionInputDrawer({userNameRef, questionRef, toggleReducer}) {
 	const {event, guest} = useContext(GuestGlobalContext);
 
 	const onConfirmNewQuestion = () => {
+		// todo 생성부분 함수로 분리
 		socketClient.emit(
 			"question/create",
 			getNewQuestion({

@@ -15,9 +15,11 @@ const Container = styled(Box)({
 	width: "99%",
 });
 
+// todo proptype
 function RepliesContainer(props) {
 	const {onClose} = props;
 
+	// todo 컴포넌트 분리하기
 	return (
 		<Container>
 			<AppDrawNavBar onClick={onClose} title="답글" />

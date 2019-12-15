@@ -10,6 +10,7 @@ import useQuestionSocketEventHandler from "../../hooks/useQuestionSocketEventHan
 import PollColumn from "../PollColumn/PollColumn.js";
 import useRadioState from "./useRadioState.js";
 
+// todo: propType, default prop 추가
 function Inner({data, event, option}) {
 	const {radioState, handleRadioState} = useRadioState();
 	const [moderationState, setModeration] = useState(option.moderationOption);
@@ -18,6 +19,7 @@ function Inner({data, event, option}) {
 	});
 	const [pollNumberStatus] = useState(0);
 
+	// todo: typeMap을 사용하지 않는 방식으로 수정
 	const typeMap = {
 		moderation: {state: moderationState, stateHandler: setModeration},
 		newQuestion: {state: radioState, stateHandler: handleRadioState},
@@ -27,6 +29,7 @@ function Inner({data, event, option}) {
 
 	useQuestionSocketEventHandler(dispatch);
 
+	// todo: 좀더 명확한 함수명
 	const handleQuestionDatas = (id, from, to) => {
 		const questionData = questions.questions.find(e => e.id === id);
 
@@ -39,9 +42,11 @@ function Inner({data, event, option}) {
 				if (e.isStared) {
 					acc.from.push({id: e.id, isStared: !e.isStared});
 				}
+
 				if (e.id === id) {
 					acc.to.push({id: e.id, isStared: !e.isStared});
 				}
+
 				return acc;
 			},
 			{from: [], to: []},
@@ -72,6 +77,7 @@ function Inner({data, event, option}) {
 	);
 }
 
+// todo useQueryQuestions의 부분을 context provider wrapping 해야함
 function EventMonitor({event}) {
 	const {events} = useContext(HostContext);
 	const {loading, error, data} = useQueryQuestions({

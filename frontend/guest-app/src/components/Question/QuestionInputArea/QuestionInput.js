@@ -5,7 +5,6 @@ import {Button} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import QuestionContentInput from "./QuestionContentInput.js";
-
 import UserInfoInput from "./UserInfoInput.js";
 
 const FlexedCenterDiv = styled.div`
@@ -30,6 +29,8 @@ function QuestionInput(props) {
 		confirmButtonText,
 	} = props;
 
+	// todo divider 교체
+	// todo 버튼 컴포넌트 분리
 	return (
 		<Grid container direction={"column"}>
 			<QuestionContentInput

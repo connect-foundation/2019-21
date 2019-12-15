@@ -18,6 +18,7 @@ function NamedAvatar({guestName}) {
 	return <Avatar className={classes.randomAvatar}>{inner}</Avatar>;
 }
 
+//todo 마테리얼 아이콘으로 변경
 function AnonymousAvatar() {
 	return (
 		<Avatar>

@@ -18,6 +18,7 @@ const QuestionHeaderStyle = styled.div`
 	justify-content: space-between;
 `;
 
+// todo proptype
 function QuestionHeader(props) {
 	const {guestName, createdAt} = props;
 

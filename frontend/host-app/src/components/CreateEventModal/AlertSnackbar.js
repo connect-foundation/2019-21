@@ -8,6 +8,7 @@ const ERROR_MESSAGE = {
 	dateError: "시작날짜를 다시 선택해주세요",
 };
 
+// todo: propType, defalut prop 추가
 function AlertSnackbar(props) {
 	const {handleClose, open, errorState} = props;
 	let message = ERROR_MESSAGE.dateError;

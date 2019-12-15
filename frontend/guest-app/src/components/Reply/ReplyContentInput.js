@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 
 function ReplyContentInput(props) {
 	const maxTextLength = 160;
+	// todo 이름 변경...?
 	const {questionRef, content, setContent} = props;
 	const onChange = e => {
 		setContent(e.target.value);

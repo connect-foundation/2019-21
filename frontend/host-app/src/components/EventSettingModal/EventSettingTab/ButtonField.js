@@ -34,6 +34,7 @@ const CreateTextButton = styled.div`
 function ButtonField({submit, onClose}) {
 	const [confirmModalOpen, handleOpen, handleClose] = useModal();
 
+	// todo 버튼은 common buttons의 버튼으로 교체할수 있음
 	return (
 		<Container>
 			<CancelTextButton onClick={handleOpen}>취소</CancelTextButton>

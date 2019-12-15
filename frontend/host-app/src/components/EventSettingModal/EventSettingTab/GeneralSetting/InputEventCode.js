@@ -7,6 +7,7 @@ const CustomTextField = styled(TextField)({
 	width: "25rem",
 });
 
+// todo proptype default prop 추가
 function InputEventCode(props) {
 	const eventCode = props.eventCode;
 

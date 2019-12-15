@@ -9,6 +9,7 @@ import DeleteQuestionCardMenuButton from "./DeleteQuestionCardMenuButton.js";
 function QuestionEditMenuDrawer(props) {
 	const {isOpen, onClose, onEdit, onDelete} = props;
 
+	// todo 컴포넌트 쪼개기
 	return (
 		<Drawer open={isOpen} anchor={"bottom"} onClose={onClose}>
 			<List>

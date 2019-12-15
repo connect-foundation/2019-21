@@ -24,6 +24,9 @@ function ConfirmModal(props) {
 	const classes = useStyles();
 	const [modalStyle] = React.useState(getModalStyle);
 
+	// todo common 모달로 변경가능함
+	// todo common 버튼으로 변경가능함
+	// todo text 수정 필요함..
 	return (
 		<Modal
 			aria-labelledby="confirm-modal-title"

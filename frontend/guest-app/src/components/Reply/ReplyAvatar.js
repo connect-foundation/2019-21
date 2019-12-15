@@ -5,6 +5,7 @@ import Avatar from "@material-ui/core/Avatar";
 import randomMC from "random-material-color";
 import PersonIcon from "@material-ui/icons/Person";
 
+// todo: 컴포넌트 다른 파일로 분리
 function NamedAvatar({userName, remainder}) {
 	const useStyles = makeStyles({
 		randomAvatar: {
@@ -21,6 +22,7 @@ function NamedAvatar({userName, remainder}) {
 	return <Avatar className={classes.randomAvatar}>{inner}</Avatar>;
 }
 
+// todo: 컴포넌트 다른 파일로 분리
 function AnonymousAvatar() {
 	const useStyles = makeStyles({
 		avatar: {

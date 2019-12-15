@@ -26,6 +26,7 @@ const CustomTimePicker = styled(TimePicker)({
 	marginTop: marginTopLength,
 });
 
+// todo proptype default prop 추가
 function InputStartDate(props) {
 	const {setStartDate, setEndDate} = props.dispatch;
 	const [lastTime, handleLastTimeChange] = useState(

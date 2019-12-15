@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {MdDelete, MdAdd} from "react-icons/md";
+import {MdAdd, MdDelete} from "react-icons/md";
 import DateFnsUtils from "@date-io/date-fns";
 import {DatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 
@@ -74,36 +74,34 @@ const ColumnWrapper = styled.div`
 
 const MIN_ITEMS_COUNT = 2;
 
+// todo: prop type default prop 추가
 function DateItems({dates, onDateChange, onDeleteDate, onAddDate}) {
-	return (
-		<>
-			<ColumnWrapper>
-				{dates.map((date, index) => (
-					<RowWrapper left key={index}>
-						<MuiPickersUtilsProvider utils={DateFnsUtils}>
-							<DatePicker
-								variant="inline"
-								format="yyyy/MM/dd"
-								margin="dense"
-								value={date}
-								onChange={newDate =>
-									onDateChange(newDate, index)
-								}
-							/>
-						</MuiPickersUtilsProvider>
 
-						<DeleteItem>
-							{index > MIN_ITEMS_COUNT - 1 && (
-								<MdDelete onClick={() => onDeleteDate(index)} />
-							)}
-						</DeleteItem>
-					</RowWrapper>
-				))}
-			</ColumnWrapper>
+	// todo: 컴포넌트 분리 가능
+	return (
+		<ColumnWrapper>
+			{dates.map((date, index) => (
+				<RowWrapper left key={index}>
+					<MuiPickersUtilsProvider utils={DateFnsUtils}>
+						<DatePicker
+							variant="inline"
+							format="yyyy/MM/dd"
+							margin="dense"
+							value={date}
+							onChange={newDate => onDateChange(newDate, index)}
+						/>
+					</MuiPickersUtilsProvider>
+					<DeleteItem>
+						{index > MIN_ITEMS_COUNT - 1 && (
+							<MdDelete onClick={() => onDeleteDate(index)} />
+						)}
+					</DeleteItem>
+				</RowWrapper>
+			))}
 			<AddItem onClick={onAddDate}>
 				<MdAdd />
 			</AddItem>
-		</>
+		</ColumnWrapper>
 	);
 }
 

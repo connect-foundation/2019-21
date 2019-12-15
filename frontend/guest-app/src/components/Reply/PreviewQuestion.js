@@ -13,6 +13,7 @@ const Container = styled(Box)({
 });
 
 function PreviewQuestion(props) {
+	// todo 컴포넌트 재활용하도록 수정
 	return (
 		<Container>
 			<Card style={{margin: "0.5rem"}}>

@@ -3,6 +3,7 @@ import {Icon} from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
 import useStyles from "../useStyles.js";
 
+// todo: proptype
 function RejectQuestionIconButton(props) {
 	const classes = useStyles();
 

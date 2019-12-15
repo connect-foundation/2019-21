@@ -6,6 +6,7 @@ import QuestionStyle from "../StyledComponent/QuestionStyle.js";
 import ColumnTitle from "./ColumnTitle.js";
 import ModerationStyle from "../StyledComponent/ModerationStyle.js";
 
+// todo: propType, defalut prop 추가
 function Column({type, state, stateHandler, data, dataHandler, handleStar}) {
 	const [heightWeight, setHeightWeight] = useState(0);
 	const ColumnStyle = type === "moderation" ? ModerationStyle : QuestionStyle;

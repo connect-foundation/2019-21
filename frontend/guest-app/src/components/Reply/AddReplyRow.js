@@ -8,6 +8,8 @@ const StyledButton = styled(Button)({
 	marginBottom: "1rem",
 });
 
+// todo 좀더 명확한 이름
+// todo proptype 추가
 function AddReplyRow(props) {
 	const {openReplies} = props;
 

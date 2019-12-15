@@ -24,6 +24,7 @@ function ReplyInput(props) {
 	const [replyContent, setReplyContent] = useState("");
 	const [userName, setUserName] = useState("");
 
+	// todo 컴포넌트 쪼개기
 	return (
 		<Grid container direction={"column"}>
 			<ReplyContentInput

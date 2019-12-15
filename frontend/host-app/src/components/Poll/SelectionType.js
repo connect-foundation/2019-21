@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {Radio} from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
+// todo: 좀더 명확한 이름
 const RowWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
@@ -14,7 +15,11 @@ const RowWrapper = styled.div`
 	box-sizing: border-box;
 `;
 
+// todo: 좀더 명확한 이름
+// todo: proptype 추가
 function SelectionType({selectionType, onChange}) {
+
+	// todo 컴포넌트 쪼개기
 	return (
 		<RowWrapper>
 			<FormControlLabel

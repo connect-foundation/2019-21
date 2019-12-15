@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
+
 function CommonModal(props) {
 	const {isOpened, onCancelClick} = props;
 	const classes = useStyles();

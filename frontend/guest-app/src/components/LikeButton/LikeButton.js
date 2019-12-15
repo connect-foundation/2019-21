@@ -6,7 +6,10 @@ import UndoLikeConfirmModal from "./UndoLikeModal.js";
 import {socketClient} from "../../libs/socketIoClientProvider.js";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 
+
+// todo proptype 추가
 function LikeButtonAtom({isLikeClicked, onLikeButtonClicked, likeCount}) {
+	// todo style 분리
 	return (
 		<Button
 			variant={isLikeClicked ? "contained" : "outlined"}
@@ -38,6 +41,9 @@ function emitQuestionLikeRemove(GuestId, QuestionId) {
 	});
 }
 
+
+// todo proptype 추가
+// todo 하나의 모달만 사용하도록 변경
 function LikeButton(props) {
 	const {likeCount, didILike, id} = props;
 	const {guest} = useContext(GuestGlobalContext);

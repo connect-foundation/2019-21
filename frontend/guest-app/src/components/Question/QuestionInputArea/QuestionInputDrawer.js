@@ -24,6 +24,7 @@ function QuestionInputDrawer(props) {
 		onConfirm,
 	} = props;
 
+	// todo 컴포넌트 쪼개기
 	return (
 		<AppDrawer
 			anchor={anchor}

@@ -8,6 +8,7 @@ import QuestionCardList from "./QuestionCard/QuestionCardList.js";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 import PaddingArea from "./QuestionInputArea/PaddingArea.js";
 
+// todo 좀더 좋은 이름
 const fullSizeCardStyle = {
 	width: "100vw",
 	height: "100vh",
@@ -19,6 +20,7 @@ function MyQuestionsDrawer(props) {
 	const {guest} = useContext(GuestGlobalContext);
 	const {questions, replies} = useQuestions();
 
+	// todo 필터 부분 함수로 분리
 	return (
 		<AppDrawer
 			anchor={"right"}

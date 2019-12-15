@@ -3,6 +3,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
+// todo proptype
 function SideMenuItem({icon, itemText, onClick}) {
 	return (
 		<ListItem button key={"edit my profile"} onClick={onClick}>

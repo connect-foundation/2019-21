@@ -1,5 +1,7 @@
 import {makeStyles} from "@material-ui/core";
 
+
+// todo 좀더 명확한 이름
 const useStyles = makeStyles(theme => ({
 	starButton: {
 		color: "#9e9e9e",

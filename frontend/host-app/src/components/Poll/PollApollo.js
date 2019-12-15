@@ -27,6 +27,7 @@ const POLL_QUERY = gql`
 	}
 `;
 
+// todo: 좀더 명확한 이름
 function PollApollo() {
 	const {events} = useContext(HostContext);
 	const options = {

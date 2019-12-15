@@ -15,6 +15,7 @@ const cardColor = {
 const QuestionCard = React.memo(props => {
 	const backgroundColor = (props.isStared ? cardColor.focused : cardColor.unfocused);
 
+	// todo style 정리하기
 	return (
 		<Card style={{margin: "0.5rem", backgroundColor}}>
 			<CardContent style={{paddingTop: "1rem", paddingBottom: "0"}}>

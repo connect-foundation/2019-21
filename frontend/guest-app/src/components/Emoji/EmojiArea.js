@@ -8,6 +8,7 @@ import useCommonModal from "../CommonComponent/CommonModal/useCommonModal";
 import {socketClient} from "../../libs/socketIoClientProvider.js";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 
+// todo 좀더 명확한 이름
 const RowWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
@@ -22,6 +23,8 @@ const RowWrapper = styled.div`
 	}
 `;
 
+
+// todo proptype 추가
 function EmojiInsertButton(props) {
 	const {onClick} = props;
 
@@ -70,6 +73,8 @@ const pickEmoji = (emojis, name, guestGlobal, QuestionId) => {
 	});
 };
 
+
+// todo proptype 추가
 function EmojiArea(props) {
 	const {emojis, id: QuestionId} = props;
 	const guestGlobal = useContext(GuestGlobalContext);

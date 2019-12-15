@@ -1,6 +1,7 @@
 import {Typography} from "@material-ui/core";
 import React from "react";
 
+// todo: proptypew
 function QuestionUserName({guestName}) {
 	return (
 		<Typography

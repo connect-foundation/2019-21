@@ -18,11 +18,12 @@ import ReplyList from "../../Reply/ReplyList.js";
 import RestoreQuestionIconButton from "../QuestionIconButton/RestoreQuestionIconButton.js";
 import QuestionCardInnerDivider from "../QuestionCardInnerDivider.js";
 
-
+// todo: proptype
 function CompleteQuestionCard(props) {
 	const classes = useStyles();
 	const [openReplies, setOpenReplies] = useState(false);
 
+	// todo 구조 개선
 	return (
 		<Card
 			className={
@@ -48,7 +49,7 @@ function CompleteQuestionCard(props) {
 					</QuestionMeta>
 				</QuestionHeader>
 				<QuestionBody>{props.content}</QuestionBody>
-				<QuestionCardInnerDivider/>
+				<QuestionCardInnerDivider />
 				<ThumbUpButton
 					{...props}
 					replyOpenHandler={setOpenReplies}

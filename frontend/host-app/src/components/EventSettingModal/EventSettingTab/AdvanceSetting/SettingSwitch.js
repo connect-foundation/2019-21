@@ -7,6 +7,7 @@ const SwitchBox = styled(Box)({
 	display: "flex",
 });
 
+// todo propTypes, defaultprop 추가
 export default function SettingSwitch(props) {
 	const {state, dispatch, children} = props;
 

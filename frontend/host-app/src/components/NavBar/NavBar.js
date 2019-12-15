@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
 
 const NAV_BAR_DEFAULT_TAB_IDX = 0;
 
+// todo 더이상 개발 할수 없는 기능 제거 에대한 토의 필요
 function NavBar(props) {
 	const {onChange, tabIdx} = props;
 	const classes = useStyles();

@@ -18,6 +18,7 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
+// todo 좁더 명확한 으로 통일해야함
 function Header() {
 	const [settingModalOpen, handleOpen, handleClose] = useModal();
 	const classes = useStyles();

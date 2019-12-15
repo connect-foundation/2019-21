@@ -1,11 +1,12 @@
-import React, {useState, useReducer} from "react";
+import React, {useReducer, useState} from "react";
 import styled from "styled-components";
 import {Button} from "@material-ui/core";
 import PollCard from "./PollCard";
 import NewPollModal from "./NewPollModal";
 import useModal from "../../hooks/useModal.js";
-import {useSocket, socketClient} from "../../libs/socket.io-Client-wrapper";
+import {socketClient, useSocket} from "../../libs/socket.io-Client-wrapper";
 
+// todo: 좀더 명확한 이름
 const ColumnWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -17,6 +18,8 @@ const ColumnWrapper = styled.div`
 	width: 100%;
 `;
 
+// todo: 좀더 명확한 이름
+// todo: 파일 분리가 필요함
 function reducer(polls, action) {
 	let thePoll;
 
@@ -24,9 +27,11 @@ function reducer(polls, action) {
 		thePoll = polls.filter(poll => poll.id === action.id)[0];
 	}
 
+	// todo: bracket 넣기
 	switch (action.type) {
-		case "OPEN":
+		case "OPEN": {
 			return [action.poll, ...polls];
+		}
 		case "CLOSE":
 			return polls.filter(poll => poll.id !== action.id);
 		case "SOMEONE_VOTE":
@@ -51,6 +56,7 @@ function reducer(polls, action) {
 	}
 }
 
+// todo: proptype default prop 추가
 function PollContainer({data}) {
 	const [createPollModalOpen, handleOpen, handleClose] = useModal();
 
@@ -186,6 +192,7 @@ function PollContainer({data}) {
 		});
 	});
 
+	// todo: 컨테이너 쪼개기
 	return (
 		<ColumnWrapper>
 			<Button

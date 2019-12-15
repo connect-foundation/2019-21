@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Typography, Box} from "@material-ui/core";
 
+// todo default prop 추가?
 export default function TabContent(props) {
 	const {children, value, index, ...other} = props;
 

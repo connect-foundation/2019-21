@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {Button} from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 
+// todo 명확한 이름
 const ColumnWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -15,6 +16,7 @@ const ColumnWrapper = styled.div`
 	border: ${props => (props.border ? "1px solid #adb5bd" : "none")};
 `;
 
+// todo 명확한 이름
 const RowWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
@@ -27,6 +29,7 @@ const RowWrapper = styled.div`
 	border: ${props => (props.border ? "1px solid #adb5bd" : "none")};
 `;
 
+// todo prop type
 function ActiveRating({
 	id,
 	rated,
@@ -36,6 +39,7 @@ function ActiveRating({
 	onChange,
 	onCancelRating,
 }) {
+	// todo 컴포넌트 쪼개기
 	return (
 		<ColumnWrapper>
 			<RowWrapper thin>

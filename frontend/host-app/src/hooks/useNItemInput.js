@@ -9,6 +9,8 @@ function useNItemInput() {
 	const initialTexts = [initialText, initialText];
 	const [texts, setTexts] = useState(initialTexts);
 
+
+	// todo 삼항연산자 제거
 	const onTextChange = (event, id) => {
 		setTexts(
 			texts.map((text, index) =>

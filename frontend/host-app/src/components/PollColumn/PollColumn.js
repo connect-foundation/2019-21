@@ -4,6 +4,8 @@ import PollColumnTitle from "./PollColumnTitle.js";
 import PollApollo from "../Poll/PollApollo.js";
 import AdjustAbleColumn from "../AdjustAbleColumn/AdjustAbleColumn.js";
 
+
+// todo: proptype
 function PollColumn({state, stateHandler, data}) {
 	return (
 		<AdjustAbleColumn>

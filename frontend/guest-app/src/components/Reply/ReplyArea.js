@@ -6,7 +6,7 @@ import Drawer from "@material-ui/core/Drawer";
 import ReplyAvatar from "./ReplyAvatar";
 import RepliesPaper from "./RepliesPaper";
 import AddReplyRow from "./AddReplyRow";
-import useReplies from "./useReplies";
+import useReplies from "../../hooks/useReplies.js";
 
 import CurrentRepliesTextField from "./CurrentRepliesTextField";
 
@@ -28,6 +28,7 @@ function extractUniqueReplier(replies) {
 	return [...uniqueGuestIdMap.values()];
 }
 
+// todo proptype
 export default function ReplyArea(props) {
 	const {repliesIsOpened, openReplies, closeReplies} = useReplies();
 	const {replies} = props;
@@ -35,6 +36,7 @@ export default function ReplyArea(props) {
 	const repliersNum = repliers.length;
 	const showingReplierList = repliers.slice(0, MAX_SHOWING_AVATAR);
 
+	// todo 구조적 개선이 필요함
 	return (
 		<>
 			{replies.length !== 0 ? (
@@ -48,15 +50,10 @@ export default function ReplyArea(props) {
 										repliersNum - MAX_SHOWING_AVATAR + 1
 									}
 									key={idx}
-								></ReplyAvatar>
+								/>
 							);
 						}
-						return (
-							<ReplyAvatar
-								userName={userName}
-								key={idx}
-							></ReplyAvatar>
-						);
+						return <ReplyAvatar userName={userName} key={idx} />;
 					})}
 
 					<CurrentRepliesTextField openReplies={openReplies}>
@@ -64,7 +61,7 @@ export default function ReplyArea(props) {
 					</CurrentRepliesTextField>
 				</PreviewReplyContainer>
 			) : (
-				<AddReplyRow openReplies={openReplies}></AddReplyRow>
+				<AddReplyRow openReplies={openReplies} />
 			)}
 			<Drawer anchor="bottom" open={repliesIsOpened}>
 				<RepliesPaper onClose={closeReplies} {...props} />

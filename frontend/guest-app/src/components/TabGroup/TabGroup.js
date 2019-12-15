@@ -19,9 +19,12 @@ const TabGroupStyle = styled.div`
 const QUESTION_TAB_IDX = 0;
 const POLL_TAB_IDX = 1;
 
+
+// todo proptype 추가
 function TabGroup({showQnABadge = true, showPollBadge}) {
 	const {tabIdx, selectTabIdx} = useTabs(QUESTION_TAB_IDX);
 
+	// todo 컴포넌트 쪼개기
 	return (
 		<TabGroupStyle>
 			<Tabs value={tabIdx} onChange={selectTabIdx} variant="fullWidth">

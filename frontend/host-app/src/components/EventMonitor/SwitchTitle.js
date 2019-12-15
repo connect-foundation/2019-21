@@ -13,10 +13,12 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
+// todo: prop type, default prop 추가
 function SwitchTitle({titleName, state, stateHandler, data}) {
 	const {events} = useContext(HostContext);
-	const classes = useStyles();
+	// todo: 하드 코딩되어있음
 	const eventId = events[0].id;
+	const classes = useStyles();
 
 	const moderationEventEmit = () =>
 		socketClient.emit("moderation/toggle", {eventId, state: !state});
@@ -25,6 +27,7 @@ function SwitchTitle({titleName, state, stateHandler, data}) {
 		stateHandler(req.state);
 	});
 
+	// todo: badge는 재사용가능하도록 컴포넌트 분리 가능함
 	return (
 		<TitleBox>
 			<Badge

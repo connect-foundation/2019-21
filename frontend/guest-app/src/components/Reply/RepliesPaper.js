@@ -11,11 +11,9 @@ const StyledPaper = styled(Paper)({
 
 function RepliesPaper(props) {
 	return (
-		<>
-			<StyledPaper>
-				<RepliesContainer {...props} />
-			</StyledPaper>
-		</>
+		<StyledPaper>
+			<RepliesContainer {...props} />
+		</StyledPaper>
 	);
 }
 

@@ -13,6 +13,8 @@ const RowWrapper = styled.div`
 	box-sizing: border-box;
 `;
 
+// todo: prop type default prop 추가
+// todo: 좀 더 명확한 이름
 function Duplication({checked, onChange}) {
 	return (
 		<RowWrapper left>

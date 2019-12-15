@@ -20,6 +20,7 @@ function allyProps(index) {
 	};
 }
 
+// todo proptype defualt prop 추가
 export default function TabNavigation({handleClose}) {
 	const [value, setValue] = React.useState(1);
 
@@ -40,7 +41,6 @@ export default function TabNavigation({handleClose}) {
 				<CustomTab label="기본설정" {...allyProps(0)} />
 				<CustomTab label="상세설정" {...allyProps(1)} />
 			</Tabs>
-
 			<TabContent value={value} index={1}>
 				<GeneralSetting handleClose={handleClose} />
 			</TabContent>

@@ -9,6 +9,7 @@ const CustomTextField = styled(TextField)({
 	width: "25rem",
 });
 
+// todo proptype default prop 추가
 function InputHashTag(props) {
 	const {hashTags, dispatch} = props;
 	const prevHashTagList = hashTags;

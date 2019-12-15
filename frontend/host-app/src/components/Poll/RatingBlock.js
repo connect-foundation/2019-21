@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Rating from "@material-ui/lab/Rating";
 
+// todo : 명확한 이름
 const ColumnWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -14,7 +15,12 @@ const ColumnWrapper = styled.div`
 	border: 1px solid gray;
 `;
 
+// todo : 명확한 이름
+// todo: prop type 추가
 function RatingBlock({ratingValue, maxValue, onChange}) {
+
+	// todo text는 material typography 로 변경
+	// todo 컴포넌트 쪼개기
 	return (
 		<ColumnWrapper>
 			별점 최대값을 정해주세요.
