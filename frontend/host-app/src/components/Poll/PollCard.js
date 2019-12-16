@@ -14,9 +14,11 @@ const ColumnWrapper = styled.div`
 	box-sizing: border-box;
 	border: 1px solid #dee2e6; /* Gray3 */
 	width: 100%;
-	& + & {
-		margin-top: 1rem;
+	margin-top: 1rem;
+	button {
+		margin-bottom: 1rem;
 	}
+	background-color: white;
 `;
 
 const RowWrapper = styled.div`
@@ -91,9 +93,9 @@ function PollCard(props) {
 				<div>{state === "closed" && "(종료됨)"}</div>
 			</RowWrapper>
 			<RowWrapper left small>
-				{allowDuplication ?
-					`복수선택 | ${localePollDate}` :
-					`${localePollDate}`}
+				{allowDuplication
+					? `복수선택 | ${localePollDate}`
+					: `${localePollDate}`}
 			</RowWrapper>
 			{pollType === "nItems" && (
 				<SelectionItems
@@ -122,7 +124,7 @@ function PollCard(props) {
 				<>
 					<Button
 						variant="contained"
-						color="primary"
+						color="secondary"
 						onClick={() => onClosePoll(id)}
 					>
 						종료하기

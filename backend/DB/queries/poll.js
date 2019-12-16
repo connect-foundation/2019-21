@@ -64,13 +64,14 @@ export async function createPoll(
 	pollType,
 	selectionType,
 	allowDuplication,
-	state,
 	candidates
 ) {
 	let transaction;
 	let poll;
 	let nItems;
 
+	const state = "standby";
+	const pollDate = new Date();
 	try {
 		// get transaction
 		transaction = await sequelize.transaction();
@@ -84,6 +85,7 @@ export async function createPoll(
 				selectionType,
 				allowDuplication,
 				state,
+				pollDate,
 			},
 			{transaction}
 		);

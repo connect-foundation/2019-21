@@ -40,6 +40,7 @@ export async function addAndDelete(gId, candidateToAdd, candidateToDelete) {
 				GuestId,
 				CandidateId,
 			},
+			transaction,
 		});
 
 		// commit

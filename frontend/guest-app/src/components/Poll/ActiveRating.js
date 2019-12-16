@@ -37,13 +37,14 @@ function ActiveRating({
 	onCancelRating,
 }) {
 	return (
-		<ColumnWrapper border>
+		<ColumnWrapper>
 			<RowWrapper thin>
 				{!rated && "별 갯수로 평가해주세요"}
 				{rated && `투표했음: ${ratingValue}점`}
 			</RowWrapper>
 			<RowWrapper>
 				<Rating
+					readOnly={rated}
 					name={id.toString()}
 					value={ratingValue}
 					max={max}

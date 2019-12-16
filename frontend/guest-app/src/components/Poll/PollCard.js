@@ -10,12 +10,10 @@ const ColumnWrapper = styled.div`
 	align-items: center;
 	justify-content: flex-start;
 	box-sizing: border-box;
-	border: 1px solid #adb5bd; /* Gray5 */
-	// box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+	border: 1px solid #dee2e6; /* Gray3 */
 	width: 100%;
-	& + & {
-		margin-top: 1rem;
-	}
+	margin-top: 1rem;
+	background-color: white;
 `;
 
 const RowWrapper = styled.div`
@@ -75,9 +73,9 @@ function PollCard(props) {
 				<div>{state === "closed" && "(종료됨)"}</div>
 			</RowWrapper>
 			<RowWrapper left small>
-				{allowDuplication ?
-					`복수선택 | ${localePollDate}` :
-					`${localePollDate}`}
+				{allowDuplication
+					? `복수선택 | ${localePollDate}`
+					: `${localePollDate}`}
 			</RowWrapper>
 			{pollType === "nItems" && (
 				<SelectionItems
