@@ -1,13 +1,6 @@
 import {addVote, addAndDelete} from "../../../DB/queries/vote";
 import logger from "../../logger.js";
 
-// const data = {
-//     GuestId: guest.id,
-//     CandidateId: vote.candidateId,
-//     allowDuplication: poll.allowDuplication,
-//     poll: poll,
-// };
-
 const voteOnSocketHandler = async (data, emit) => {
 	try {
 		const {
@@ -23,14 +16,6 @@ const voteOnSocketHandler = async (data, emit) => {
 		} else {
 			await addVote({GuestId, CandidateId});
 		}
-
-		// await addVote({GuestId, CandidateId});
-		// if (!allowDuplication && candidateToDelete) {
-		// 	await deleteVoteBy({
-		// 		GuestId,
-		// 		CandidateId: candidateToDelete,
-		// 	});
-		// }
 
 		emit({
 			status: "ok",

@@ -3,7 +3,7 @@ import logger from "../../logger.js";
 
 const voteOffSocketHandler = async (data, emit) => {
 	try {
-		const {GuestId, CandidateId, allowDuplication, poll} = data;
+		const {GuestId, CandidateId, poll} = data;
 
 		await deleteVoteBy({GuestId, CandidateId});
 
