@@ -5,7 +5,7 @@ import io from "socket.io";
 import configLoader from "./config/configLoader.js";
 import logger from "./logger.js";
 import authenticate from "./middleware/authenticate";
-import RoomSocketManager from "./RoomSocketManager.js";
+import RoomSocketHelper from "./RoomSocketHelper.js";
 import socketHandlers from "./socketHandler";
 
 dotenv.config();
@@ -27,7 +27,7 @@ namedServer.on("connection", async socket => {
 
 	logger.info(`id ${id} connected at /${NAME_SPACE}`);
 
-	RoomSocketManager({
+	RoomSocketHelper({
 		socket,
 		server: namedServer,
 		handlerEventPair: socketHandlers,

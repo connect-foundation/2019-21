@@ -2,7 +2,7 @@ class RoomSocket {
 	constructor({socket, server, handlerEventPair}) {
 		this.socket = socket;
 		this.server = server;
-		this.handlerPiar = handlerEventPair;
+		this.handlerPair = handlerEventPair;
 	}
 
 	joinRoom(room) {
@@ -10,7 +10,7 @@ class RoomSocket {
 
 		this.socket.join(this.room);
 
-		this.handlerPiar.map(({eventName, handler}) =>
+		this.handlerPair.map(({eventName, handler}) =>
 			this.addListener(eventName, handler),
 		);
 
@@ -20,7 +20,7 @@ class RoomSocket {
 	leaveRoom() {
 		this.socket.leave(this.room);
 
-		this.handlerPiar.map(({eventName, handler}) =>
+		this.handlerPair.map(({eventName, handler}) =>
 			this.removeListener(eventName, handler),
 		);
 

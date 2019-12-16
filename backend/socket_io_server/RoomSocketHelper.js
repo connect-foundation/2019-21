@@ -1,7 +1,7 @@
 import logger from "./logger.js";
 import RoomSocket from "./RoomSocket.js";
 
-const RoomSocketManager = ({server, socket, handlerEventPair}) => {
+const RoomSocketHelper = ({server, socket, handlerEventPair}) => {
 	const id = socket.id;
 	const currentRoom = null;
 	const roomSocket = new RoomSocket({
@@ -42,4 +42,4 @@ const RoomSocketManager = ({server, socket, handlerEventPair}) => {
 	socket.on("leaveRoom", onLeaveRoom);
 };
 
-export default RoomSocketManager;
+export default RoomSocketHelper;
