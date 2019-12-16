@@ -3,7 +3,7 @@ import styled, {keyframes} from "styled-components";
 const Open = keyframes`
 	0% { 
 		min-width: 8rem; 
-		height: 13%;
+		height: 10%;
 	}
 	100% { 
 		min-width: 20rem;
@@ -18,7 +18,7 @@ const Close = keyframes`
 	}
 	100% { 
 		min-width: 8rem; 
-		height: 13%;
+		height: 10%;
 	}
 `;
 
@@ -28,14 +28,6 @@ const TitleBox = styled.div`
 	width: 100%;
 	justify-content: space-around;
 	min-height: 2.5rem;
-`;
-
-const FooterBox = styled.div`
-	display: flex;
-	align-items: center;
-	width: 100%;
-	justify-content: space-around;
-	height: 1rem;
 `;
 
 const TitleStyle = styled.div`
@@ -95,7 +87,7 @@ const QuestionStyle = styled.div`
 	background-color: #f1f3f5;
 	border: 1px solid #e9ecef;
 	min-width: 20rem;
-	height: ${props => props.height || "100%"};
+	height: 100%;
 	box-sizing: border-box;
 	margin-left: 8px;
 `;
@@ -113,7 +105,7 @@ const ModerationStyle = styled.div`
 	background-color: #f1f3f5;
 	border: 1px solid #e9ecef;
 	min-width: ${props => (props.state ? "20rem" : "8rem")};
-	height: ${props => props.height || "100%"};
+	height: 100%;
 	min-height: 2.5rem;
 	box-sizing: border-box;
 	& + & {
@@ -123,11 +115,6 @@ const ModerationStyle = styled.div`
 
 
 
-const FooterStyle = styled.div`
-	width: 90%;
-	margin-top: auto;
-`;
-
 export {
 	TitleStyle,
 	TitleBox,
@@ -136,7 +123,5 @@ export {
 	EmptyContentDiv,
 	ContentStyle,
 	QuestionStyle,
-	FooterStyle,
 	ModerationStyle,
-	FooterBox,
 };
