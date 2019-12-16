@@ -11,6 +11,7 @@ import {
 	createHashtag,
 	getHashtagByEventIds,
 } from "../../../DB/queries/hashtag.js";
+import {compareCurrentDateToTarget} from "../../../libs/utils";
 
 const moderationResolver = async (eventId, moderationOption) => {
 	const updatedEvent = await updateEventById(eventId, {moderationOption});
@@ -30,8 +31,13 @@ export default {
 			if (authority.sub === "host") {
 				const host = authority.info;
 				let events = await getEventsByHostId(host.id);
-				events = events.map(event => event.get({plain: true}));
-
+				events = events.filter(event => {
+					const eventObject = event.get({plain: true});
+					const diff = compareCurrentDateToTarget(eventObject.endAt);
+					if (diff > 0) {
+						return eventObject;
+					}
+				});
 				const eventMap = new Map();
 				const eventIdList = events.map(event => {
 					eventMap.set(event.id, []);

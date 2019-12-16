@@ -1,7 +1,16 @@
-const getSequelizeData = function(data) {
-	return JSON.parse(JSON.stringify(data));
-};
+import {getEventByEventCode} from "../DB/queries/event";
+import {compareCurrentDateToTarget} from "../libs/utils";
+import atob from "atob";
 
-const getTokenExpired = hour => new Date(new Date().getTime() + 1000 * 60 * 60 * Number(hour));
+async function convertPathToEvent(path, guest) {
+	const eventCode = Buffer.from(path, "base64").toString();
+	let event = await getEventByEventCode(eventCode);
+	event = event.get({plain: true});
+	const diff = compareCurrentDateToTarget(event.endAt);
+	if (diff <= 0) {
+		throw new Error("이벤트 만료기간이 지났습니다.");
+	}
+	return event.id;
+}
 
-export {getSequelizeData, getTokenExpired};
+export {convertPathToEvent};
