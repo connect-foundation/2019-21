@@ -1,22 +1,20 @@
 import models from "../models";
 import Sequelize from "sequelize";
 
+const sequelize = models.sequelize;
+const Vote = models.Vote;
 const Op = Sequelize.Op;
 
 export async function addVote({GuestId, CandidateId}) {
-	const vote = models.Vote.create({GuestId, CandidateId});
-
-	return vote;
+	return Vote.create({GuestId, CandidateId});
 }
 
 export async function deleteVoteBy({GuestId, CandidateId}) {
-	return models.Vote.destroy({where: {GuestId, CandidateId}});
+	return Vote.destroy({where: {GuestId, CandidateId}});
 }
 
-export async function addAndDelete(gId, candidateToAdd, candidateToDelete) {
-	const sequelize = models.sequelize;
-	const Vote = models.Vote;
-	const GuestId = gId;
+export async function addAndDelete(guestId, candidateToAdd, candidateToDelete) {
+	const GuestId = guestId;
 	let CandidateId = candidateToAdd;
 	let transaction;
 	let rows;
@@ -63,7 +61,7 @@ export async function getVotesByGuestId() {}
 export async function getFromGuest() {}
 
 export async function getCandidatesByGuestId(candidateList, guestId) {
-	const result = await models.Vote.findAll({
+	const result = await Vote.findAll({
 		where: {
 			[Op.and]: [
 				{GuestId: guestId},
@@ -81,7 +79,7 @@ export async function getCandidatesByGuestId(candidateList, guestId) {
 }
 
 export async function getVotersByCandidateList(candidateList) {
-	const count = await models.Vote.count({
+	const count = await Vote.count({
 		where: {
 			CandidateId: {
 				[Op.or]: candidateList,
