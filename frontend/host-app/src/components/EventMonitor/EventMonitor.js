@@ -6,7 +6,7 @@ import {HostContext} from "../../libs/hostContext";
 import {ContentStyle} from "./ComponentsStyle";
 import QuestionsReducer from "../Questions/QuestionReducer";
 import SkeletonContent from "../Skeleton/SkeletonContent";
-import useSocketHandler from "./useSocketHandler";
+import useSocketHandler from "./useQuestionSocketEventHandler";
 
 
 function Inner({data, event, option}) {
