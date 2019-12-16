@@ -1,5 +1,6 @@
 import uuidv1 from "uuid/v1";
 import models from "../models";
+import getRandomGuestName from "../dummy/RandomGuestName";
 
 const Guest = models.Guest;
 
@@ -10,9 +11,9 @@ async function findGuestBySid(guestSid) {
 	return result;
 }
 
-async function createGuest(name, eventId) {
+async function createGuest(eventId) {
 	const guest = await Guest.create({
-		name,
+		name: getRandomGuestName(),
 		EventId: eventId,
 		guestSid: uuidv1(),
 		isAnonymous: 1,

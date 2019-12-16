@@ -12,11 +12,7 @@ const TextFieldStyle = styled(TextField)({
 });
 
 function UserInfoInput(props) {
-	const {userNameRef, userName, setUserName} = props;
-
-	const onUserNameChange = e => {
-		setUserName(e.target.value);
-	};
+	const {userNameRef, userName} = props;
 
 	return (
 		<>
@@ -24,7 +20,6 @@ function UserInfoInput(props) {
 			<TextFieldStyle
 				value={userName}
 				margin="normal"
-				onChange={onUserNameChange}
 				inputRef={userNameRef}
 			/>
 		</>
@@ -34,7 +29,6 @@ function UserInfoInput(props) {
 UserInfoInput.propTypes = {
 	userNameRef: PropTypes.any,
 	userName: PropTypes.string,
-	setUserName: PropTypes.func,
 };
 
 export default UserInfoInput;

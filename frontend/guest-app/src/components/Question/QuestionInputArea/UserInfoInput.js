@@ -6,19 +6,14 @@ import QuestionUserNameInput from "./QuestionUserNameInput.js";
 
 function UserInfoInput(props) {
 	const {userNameRef, initialUserName = ""} = props;
-	const {state, setState} = useStringState(initialUserName);
-
-	const onUserNameChange = e => {
-		setState(e.target.value);
-	};
+	const {state} = useStringState(initialUserName);
 
 	return (
 		<>
-			<UserAvatar userName={state} userNameRef={userNameRef} />
+			<UserAvatar userName={state} userNameRef={userNameRef}/>
 			<QuestionUserNameInput
 				userName={state}
 				userNameRef={userNameRef}
-				onChange={onUserNameChange}
 			/>
 		</>
 	);
