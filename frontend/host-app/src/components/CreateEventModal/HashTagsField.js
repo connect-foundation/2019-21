@@ -15,24 +15,29 @@ const CustomChip = styled(Chip)({
 });
 
 function HashTagField(props) {
-	const handleDelete = hashTagToDelete => () => {
-		const deletedHashTagList = props.hashTags.filter(
+	const {hashTags, dispatch} = props;
+	const deleteHashTag = hashTagToDelete => () => {
+		const deletedHashTagList = hashTags.filter(
 			hashTag => hashTag.key !== hashTagToDelete.key,
 		);
 
-		props.dispatch(deletedHashTagList);
+		dispatch({
+			type: "SET_PROPERTY",
+			property: "hashTags",
+			value: deletedHashTagList,
+		});
 	};
 
 	return (
 		<MyPaper>
-			{props.hashTags.map(data => (
+			{hashTags.map(data => (
 				<CustomChip
 					icon={<BookmarkBorderRounded />}
 					color="primary"
 					variant="outlined"
 					key={data.key}
 					label={data.label}
-					onDelete={handleDelete(data)}
+					onDelete={deleteHashTag(data)}
 				/>
 			))}
 		</MyPaper>

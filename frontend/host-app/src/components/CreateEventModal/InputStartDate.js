@@ -8,6 +8,7 @@ import {styled} from "@material-ui/core/styles";
 import DateFnsUtils from "@date-io/date-fns";
 import Container from "@material-ui/core/Container";
 import moment from "moment";
+import {validDate} from "../../libs/eventValidation";
 
 const marginTopLength = 20;
 
@@ -29,25 +30,39 @@ const CustomTimePicker = styled(TimePicker)({
 });
 
 function InputStartDate(props) {
-	const {errorState} = props;
-	const {setStartDate, setEndDate} = props.dispatch;
-	const [lastTime, handleLastTimeChange] = useState(
-		new Date().setHours(0, 0),
-	);
+	const {startDate, dispatch, errorState} = props;
+	const [lastTime, setLastTime] = useState(new Date().setHours(0, 0));
 
-	const calcEndDate = inputTime => {
-		const hour = moment(inputTime).format("HH");
-		const minuate = moment(inputTime).format("mm");
-
-		let addedDate = moment(props.startDate)
+	const calcEndDate = (lastTime, startTime = startDate) => {
+		const hour = moment(lastTime).format("HH");
+		const minuate = moment(lastTime).format("mm");
+		let addedTime = moment(startTime)
 			.add(hour, "h")
 			.toDate();
 
-		addedDate = moment(addedDate)
+		addedTime = moment(addedTime)
 			.add(minuate, "m")
 			.toDate();
-		setEndDate(moment(addedDate));
-		handleLastTimeChange(inputTime);
+		dispatch({
+			type: "SET_PROPERTY",
+			property: "endDate",
+			value: moment(addedTime),
+		});
+		setLastTime(lastTime);
+		dispatch({
+			type: "SET_ERROR_STATE",
+			property: "date",
+			value: !validDate(startTime, addedTime),
+		});
+	};
+
+	const setDate = event => {
+		dispatch({
+			type: "SET_PROPERTY",
+			property: "startDate",
+			value: event,
+		});
+		calcEndDate(lastTime, event);
 	};
 
 	return (
@@ -55,10 +70,10 @@ function InputStartDate(props) {
 			<MuiPickersUtilsProvider utils={DateFnsUtils}>
 				<CustomDateTimePicker
 					label="시작날짜"
-					value={props.startDate}
-					error={errorState}
+					error={errorState.date}
+					value={startDate}
 					format={"yyyy년 MM월 dd일 HH시 mm분"}
-					onChange={setStartDate}
+					onChange={setDate}
 				/>
 				<CustomTimePicker
 					clearable

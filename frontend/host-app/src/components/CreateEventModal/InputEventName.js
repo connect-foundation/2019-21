@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import {styled} from "@material-ui/core/styles";
 import {TextField} from "@material-ui/core";
+import {validEventName} from "../../libs/eventValidation";
 
 const CustomTextField = styled(TextField)({
 	marginTop: "1rem",
@@ -8,15 +9,25 @@ const CustomTextField = styled(TextField)({
 });
 
 function InputEventName(props) {
-	const {eventName, dispatch, errorState} = props;
-
+	const {dispatch, errorState} = props;
 	return (
 		<CustomTextField
 			id="eventName"
 			label="이벤트 이름을 입력해주세요"
 			color="primary"
-			error={errorState}
-			onChange={dispatch}
+			error={errorState.eventName}
+			onChange={event => {
+				dispatch({
+					type: "SET_ERROR_STATE",
+					property: "eventName",
+					value: !validEventName(event.target.value),
+				});
+				dispatch({
+					type: "SET_PROPERTY",
+					property: "eventName",
+					value: event.target.value,
+				});
+			}}
 			autoFocus
 		/>
 	);

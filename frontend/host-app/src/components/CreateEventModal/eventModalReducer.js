@@ -1,18 +1,15 @@
 const eventModalReducer = (state, action) => {
 	switch (action.type) {
-		case "setEventName": {
-			return {...state, eventName: action.eventName};
+		case "SET_PROPERTY": {
+			return {...state, [action.property]: action.value};
 		}
-		case "setStartDate": {
-			return {...state, startDate: action.startDate};
-		}
-		case "setEndDate": {
-			return {...state, endDate: action.endDate};
-		}
-		case "updateHashTags": {
-			return {...state, hashTags: action.hashTags};
+		case "SET_ERROR_STATE": {
+			const errorState = state.errorState;
+			Object.assign(errorState, {[action.property]: action.value});
+			return {...state, errorState: errorState};
 		}
 		default: {
+			console.error(action);
 			throw new Error(`unexpected action.type: ${action.type}`);
 		}
 	}
