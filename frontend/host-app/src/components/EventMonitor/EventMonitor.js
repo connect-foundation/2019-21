@@ -1,11 +1,11 @@
 import React, {useState, useContext, useReducer} from "react";
 import Column from "./Column";
-import {socketClient} from "../libs/socket.io-Client-wrapper";
-import useQueryQuestions from "../libs/useQueryQuestions";
-import {HostContext} from "../libs/hostContext";
+import {socketClient} from "../../libs/socket.io-Client-wrapper";
+import useQueryQuestions from "../../libs/useQueryQuestions";
+import {HostContext} from "../../libs/hostContext";
 import {ContentStyle} from "./ComponentsStyle";
-import QuestionsReducer from "./Questions/QuestionReducer";
-import SkeletonContent from "./Skeleton/SkeletonContent";
+import QuestionsReducer from "../Questions/QuestionReducer";
+import SkeletonContent from "../Skeleton/SkeletonContent";
 import useSocketHandler from "./useSocketHandler";
 
 
@@ -71,7 +71,7 @@ function Inner({data, event, option}) {
 	);
 }
 
-function Content({event}) {
+function EventMonitor({event}) {
 	const {events} = useContext(HostContext);
 	const {loading, error, data} = useQueryQuestions({
 		variables: {EventId: events[0].id},
@@ -87,4 +87,4 @@ function Content({event}) {
 	);
 }
 
-export default Content;
+export default EventMonitor;

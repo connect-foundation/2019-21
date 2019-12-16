@@ -5,8 +5,8 @@ import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import HeaderAccountAvatar from "./HeaderAccountAvata.js";
 import HeaderConfigAvatar from "./HeaderConfigAvata";
-import EventSettingModal from "./EventSettingModal/EventSettingModal";
-import useModal from "../customhook/useModal";
+import EventSettingModal from "../EventSettingModal/EventSettingModal";
+import useModal from "../../customhook/useModal";
 
 const useStyles = makeStyles(() => ({
 	header: {

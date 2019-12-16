@@ -1,7 +1,7 @@
 import React from "react";
 import {Icon} from "@material-ui/core";
 import {FooterBox, FooterStyle} from "./ComponentsStyle";
-import useStyles from "./Questions/useStyles";
+import useStyles from "../Questions/useStyles";
 
 function ColumnFooter({data, handler}) {
 	const classes = useStyles();

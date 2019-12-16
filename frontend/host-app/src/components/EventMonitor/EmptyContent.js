@@ -1,10 +1,10 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
-import EventCreateButton from "./Event/EventCreateButton.js";
+import EventCreateButton from "../Event/EventCreateButton.js";
 import {Button} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
-import CreateEventModal from "./CreateEventModal/CreateEventModal";
-import useModal from "../customhook/useModal";
+import CreateEventModal from "../CreateEventModal/CreateEventModal";
+import useModal from "../../customhook/useModal";
 import {EmptyContentBox, EmptyContentDiv} from "./ComponentsStyle";
 
 const StyledButton = withStyles({

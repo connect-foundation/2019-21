@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import "./App.css";
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
 import Nav from "../components/Nav";
-import Content from "../components/Content";
+import EventMonitor from "../components/EventMonitor/EventMonitor";
 import NewPollModal from "../components/Poll/NewPollModal";
 import {HostProvider} from "../libs/hostContext";
 import {getEventsByHost} from "../libs/gql";
-import EmptyContent from "../components/EmptyContent";
+import EmptyContent from "../components/EventMonitor/EmptyContent";
 import {socketClient} from "../libs/socket.io-Client-wrapper";
 import AppSkeleton from "../components/Skeleton/AppSkeleton";
 
@@ -46,7 +46,7 @@ function App() {
 					<Header />
 					<Nav />
 					{modal && <NewPollModal />}
-					{eventNum ? <Content event={event} /> : <EmptyContent />}
+					{eventNum ? <EventMonitor event={event} /> : <EmptyContent />}
 				</div>
 			</HostProvider>
 		);

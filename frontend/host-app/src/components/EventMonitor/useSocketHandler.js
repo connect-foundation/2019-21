@@ -1,5 +1,5 @@
-import {useSocket} from "../libs/socket.io-Client-wrapper";
-import {makeNewData} from "../libs/utils";
+import {useSocket} from "../../libs/socket.io-Client-wrapper";
+import {makeNewData} from "../../libs/utils";
 
 const useSocketHandler = dispatch => {
 	useSocket("question/create", req => dispatch({type: "addNewQuestion", data: makeNewData(req)}));
