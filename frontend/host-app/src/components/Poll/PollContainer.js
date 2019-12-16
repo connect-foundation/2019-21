@@ -22,7 +22,7 @@ function reducer(polls, action) {
 
 	const {pollId} = action;
 	if (pollId) {
-		thePoll = {...polls.find(poll => poll.id === pollId)};
+		thePoll = polls.filter(poll => poll.id === pollId)[0];
 	}
 
 	switch (action.type) {

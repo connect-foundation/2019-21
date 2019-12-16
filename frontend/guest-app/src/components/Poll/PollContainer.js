@@ -95,6 +95,7 @@ function PollContainer({data, GuestId}) {
 
 	useSocket("vote/on", res => {
 		if (res.status === "error") {
+			console.log("vote/on ERROR");
 			return;
 		}
 		// 하나의 브라우저에서 여러개의 tab으로 guest들을 생성한 경우,
@@ -114,6 +115,7 @@ function PollContainer({data, GuestId}) {
 
 	useSocket("vote/off", res => {
 		if (res.status === "error") {
+			console.log("vote/off ERROR");
 			return;
 		}
 		// 하나의 브라우저에서 여러개의 tab으로 guest들을 생성한 경우,
