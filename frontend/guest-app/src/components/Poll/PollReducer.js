@@ -2,11 +2,15 @@ import {socketClient} from "../../libs/socketIoClientProvider.js";
 
 // allowDuplication == false, 즉, 복수선택이 아닌 경우, 이전에 vote 한 candidate가 있으면 삭제해야 함
 const getCandidateToDelete = (items, candidateId) => {
-	const candidate = items.filter(
+	const candidates = items.filter(
 		item => item.voted && item.id !== candidateId,
-	)[0];
+	);
 
-	return candidate ? candidate.id : null;
+	if (candidates.length > 0) {
+		return candidates[0].id;
+	} else {
+		return null;
+	}
 };
 
 // 복수선택이 아닌 투표의 경우, 다른 선택된 항목을 uncheck 하는 함수
@@ -92,7 +96,6 @@ const updateFirstPlace = poll => {
 		newPoll.nItems[i].firstPlace = true;
 	});
 
-	console.log("firstPlace", firstPlaceIndex, newPoll.nItems);
 	return newPoll;
 };
 
@@ -106,7 +109,6 @@ const emitVoteData = (vote, poll, candidateToDelete) => {
 		candidateToDelete,
 	};
 
-	// console.log("emitVoteData", data);
 	socketClient.emit(`vote/${action}`, data);
 };
 
@@ -127,28 +129,31 @@ export default function reducer(polls, action) {
 	let index;
 	let candidateId;
 
-	if (action.id) {
-		thePoll = polls.filter(poll => poll.id === action.id)[0];
+	const {pollId} = action;
+	if (pollId) {
+		thePoll = {...polls.find(poll => poll.id === pollId)};
 	}
 
 	switch (action.type) {
-		case "NOTIFY_OPEN":
+		case "NOTIFY_OPEN": {
 			return [action.poll, ...polls];
-		case "NOTIFY_CLOSE":
-			return polls.filter(poll => poll.id !== action.id);
-		case "SOMEONE_VOTE":
+		}
+		case "NOTIFY_CLOSE": {
+			return polls.filter(poll => poll.id !== pollId);
+		}
+		case "SOMEONE_VOTE": {
 			thePoll.totalVoters = action.poll.totalVoters;
 			thePoll.nItems.forEach((item, index) => {
 				item.voters = action.poll.nItems[index].voters;
 				item.firstPlace = action.poll.nItems[index].firstPlace;
 			});
-			// console.log("SOMEONE_VOTE", thePoll);
-			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
-		case "SOMEONE_RATE":
+			return polls.map(poll => (poll.id === pollId ? thePoll : poll));
+		}
+		case "SOMEONE_RATE": {
 			thePoll.totalVoters = action.poll.totalVoters;
-			// console.log("SOMEONE_RATE", thePoll);
-			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
-		case "VOTE":
+			return polls.map(poll => (poll.id === pollId ? thePoll : poll));
+		}
+		case "VOTE": {
 			const notVoted = thePoll.nItems.every(item => item.voted === false);
 			let candidateToDelete = null;
 
@@ -174,9 +179,10 @@ export default function reducer(polls, action) {
 			thePoll = updateFirstPlace(thePoll);
 
 			emitVoteData(action, thePoll, candidateToDelete);
-			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
+			return polls.map(poll => (poll.id === pollId ? thePoll : poll));
+		}
 
-		case "RATE":
+		case "RATE": {
 			if (thePoll.rated) {
 				return polls;
 			}
@@ -187,13 +193,14 @@ export default function reducer(polls, action) {
 				ratingValue: action.value,
 				totalVoters: thePoll.totalVoters + 1,
 			};
-			// console.log("RATE", action, thePoll);
+
 			index = parseInt(action.value) - 1;
 			candidateId = thePoll.nItems[index].id;
 			emitRateData(action, thePoll, candidateId, index);
-			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
+			return polls.map(poll => (poll.id === pollId ? thePoll : poll));
+		}
 
-		case "CANCEL_RATING":
+		case "CANCEL_RATING": {
 			if (!thePoll.rated) {
 				return polls;
 			}
@@ -209,10 +216,10 @@ export default function reducer(polls, action) {
 				ratingValue: 0,
 				totalVoters: thePoll.totalVoters - 1,
 			};
-			// console.log("CANCEL_RATE", action, thePoll);
 			candidateId = thePoll.nItems[index].id;
 			emitRateData(action, thePoll, candidateId, index);
-			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
+			return polls.map(poll => (poll.id === pollId ? thePoll : poll));
+		}
 
 		default:
 			throw new Error("Unhandled action.");

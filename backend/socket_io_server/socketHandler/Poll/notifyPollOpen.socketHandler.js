@@ -1,10 +1,12 @@
+import logger from "../../logger.js";
+
 const notifyPollOpenSocketHandler = async (data, emit) => {
 	try {
 		const {poll} = data;
 
-		emit(poll);
+		emit({status: "ok", poll});
 	} catch (e) {
-		console.error(e);
+		logger.error(e);
 		emit({status: "error", e});
 	}
 };
