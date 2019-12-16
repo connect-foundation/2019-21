@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import "./App.css";
 import Header from "../components/Header/Header";
-import Nav from "../components/Nav";
+import NavBar from "../components/NavBar/NavBar.js";
 import EventMonitor from "../components/EventMonitor/EventMonitor";
 import NewPollModal from "../components/Poll/NewPollModal";
 import {HostProvider} from "../libs/hostContext";
@@ -37,14 +37,14 @@ function App() {
 			const eventId = events[0].id;
 
 			socketClient.emit("joinRoom", {room: eventId});
-			socketClient.emit("event/initOption", eventId); // dummy Event Id:2
+			socketClient.emit("event/initOption", eventId);
 		}
 
 		return (
 			<HostProvider value={{hostInfo, events, setEvents}}>
 				<div className="App">
 					<Header />
-					<Nav />
+					<NavBar />
 					{modal && <NewPollModal />}
 					{eventNum ? <EventMonitor event={event} /> : <EmptyContent />}
 				</div>
