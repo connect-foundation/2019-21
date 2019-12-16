@@ -3,8 +3,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
-import HeaderAccountAvatar from "./HeaderAccountAvata.js";
-import HeaderConfigAvatar from "./HeaderConfigAvata";
+import HeaderAccountAvatar from "./HeaderAccountAvatar.js";
+import HeaderConfigAvatar from "./HeaderConfigAvatar";
 import EventSettingModal from "../EventSettingModal/EventSettingModal";
 import useModal from "../../customhook/useModal";
 
