@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {Skeleton} from "@material-ui/lab";
 import {useQuery} from "@apollo/react-hooks";
 import "./App.css";
 import Header from "../components/Header";
@@ -10,8 +9,7 @@ import {HostProvider} from "../libs/hostContext";
 import {getEventsByHost} from "../libs/gql";
 import EmptyContent from "../components/EmptyContent";
 import {socketClient} from "../libs/socket.io-Client-wrapper";
-import SkeletonContent from "../components/SkeletonContent";
-import SkeletonTitle from "../components/SkeletionTitle";
+import AppSkeleton from "../components/Skeleton/AppSkeleton";
 
 function App() {
 	const modal = false;
@@ -21,10 +19,7 @@ function App() {
 
 	if (loading) {
 		return (
-			<Skeleton>
-				<SkeletonTitle />
-				<SkeletonContent />
-			</Skeleton>
+			<AppSkeleton/>
 		);
 	} else if (error) {
 		return <p>error-page...</p>;

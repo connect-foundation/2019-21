@@ -121,20 +121,7 @@ const ModerationStyle = styled.div`
 	}
 `;
 
-const SkeletonColumnStyle = styled.div`
-	display: flex;
-	flex-direction: column;
-	flex: 1;
-	justify-content: flex-start;
-	align-items: center;
-	border-radius: 8px;
-	min-width: "20rem";
-	height: "100%";
-	box-sizing: border-box;
-	& + & {
-		margin-left: 8px;
-	}
-`;
+
 
 const FooterStyle = styled.div`
 	width: 90%;
@@ -150,7 +137,6 @@ export {
 	ContentStyle,
 	QuestionStyle,
 	FooterStyle,
-	SkeletonColumnStyle,
 	ModerationStyle,
 	FooterBox,
 };
