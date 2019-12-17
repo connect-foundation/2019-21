@@ -26,7 +26,10 @@ function ReplyInputContainer(props) {
 	const {event, guest} = useContext(GuestGlobalContext);
 	const userNameRef = useRef(null);
 	const questionRef = useRef(null);
-	const onConfirmNewReply = () => {
+	const onConfirmNewReply = reply => {
+		if (reply.trim() === "") {
+			return;
+		}
 		socketClient.emit(
 			"question/create",
 			createNewReply({
@@ -43,9 +46,10 @@ function ReplyInputContainer(props) {
 		<Card>
 			<CardContent>
 				<ReplyInput
-					onConfirm={() => {
-						onConfirmNewReply();
-					}}
+					// onConfirm={() => {
+					// 	onConfirmNewReply();
+					// }}
+					onConfirm={onConfirmNewReply}
 					confirmButtonText="댓글달기"
 					userNameRef={userNameRef}
 					questionRef={questionRef}
