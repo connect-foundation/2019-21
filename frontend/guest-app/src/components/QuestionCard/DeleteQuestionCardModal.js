@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import CommonModal from "../../CommonComponent/CommonModal/CommonModal.js";
+import CommonModal from "../CommonComponent/CommonModal/CommonModal.js";
 
 function DeleteQuestionCardModal(props) {
 	const {isOpened, closeModal, onCancel, onDelete} = props;

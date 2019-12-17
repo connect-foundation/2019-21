@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import DeleteIcon from "@material-ui/icons/Delete.js";
-import useCommonModal from "../../CommonComponent/CommonModal/useCommonModal.js";
-import SideMenuItem from "../../SideMenu/SideMenuItem.js";
+import useCommonModal from "../CommonComponent/CommonModal/useCommonModal.js";
+import SideMenuItem from "../SideMenu/SideMenuItem.js";
 import DeleteQuestionCardModal from "./DeleteQuestionCardModal.js";
 
 function DeleteQuestionCardMenuButton(props) {

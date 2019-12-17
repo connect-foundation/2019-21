@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import {Typography} from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz.js";
-import {useUIControllerContext} from "../../UIController/UIController.js";
+import {useUIControllerContext} from "../UIController/UIController.js";
 
 const QuestionEditButtonStyle = styled.div`
 	float: right;

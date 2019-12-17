@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import EditIcon from "@material-ui/icons/Edit.js";
-import SideMenuItem from "../../SideMenu/SideMenuItem.js";
+import SideMenuItem from "../SideMenu/SideMenuItem.js";
 import DeleteQuestionCardMenuButton from "./DeleteQuestionCardMenuButton.js";
 
 function QuestionEditMenuDrawer(props) {

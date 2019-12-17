@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
-import useCommonTextInput from "../../CommonComponent/CommonTextInput/useCommonTextInput.js";
+import useCommonTextInput from "../CommonComponent/CommonTextInput/useCommonTextInput.js";
 
 function QuestionContentInput(props) {
 	const {questionRef, initValue} = props;

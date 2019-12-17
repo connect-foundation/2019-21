@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 import {socketClient} from "../../libs/socketIoClientProvider.js";
-import QuestionInputDrawer from "./QuestionInputArea/QuestionInputDrawer.js";
+import QuestionInputDrawer from "../QuestionInputArea/QuestionInputDrawer.js";
 
 function EditQuestionInputDrawer({userNameRef, questionRef, toggleReducer}) {
 	const {event, guest} = useContext(GuestGlobalContext);

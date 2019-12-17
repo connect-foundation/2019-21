@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
-import UserAvatar from "../../UserAvatar/UserAvatar.js";
-import LikeButton from "../../LikeButton/LikeButton.js";
+import UserAvatar from "../UserAvatar/UserAvatar.js";
+import LikeButton from "../LikeButton/LikeButton.js";
 import QuestionCardDate from "./QuestionsCardDate.js";
 import QuestionUserName from "./QuestionCardUserName.js";
 

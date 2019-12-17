@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import AppDrawer from "../../AppDrawer/AppDrawer.js";
+import AppDrawer from "../AppDrawer/AppDrawer.js";
 import QuestionInput from "./QuestionInput.js";
 
 const fullSizeCardStyle = {

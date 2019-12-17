@@ -4,8 +4,8 @@ import {CardContent} from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import QuestionHeader from "./QuestionCardHeader.js";
 import QuestionBody from "./QuestionCardBody.js";
-import EmojiArea from "../../Emoji/EmojiArea.js";
-import ReplyArea from "../../Reply/ReplyArea";
+import EmojiArea from "../Emoji/EmojiArea.js";
+import ReplyArea from "../Reply/ReplyArea.js";
 
 const cardColor = {
 	focused: "rgb(242,248,255)",
