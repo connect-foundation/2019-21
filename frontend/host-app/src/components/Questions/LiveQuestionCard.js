@@ -1,9 +1,15 @@
 import React, {useState} from "react";
 import Divider from "@material-ui/core/Divider";
 import Card from "@material-ui/core/Card";
-import {CardContent, Icon} from "@material-ui/core";
+import {CardContent, Icon, Typography} from "@material-ui/core";
 import UserAvata from "./UserAvata.js";
-import {QuestionHeader, QuestionBody, QuestionInfo, QuestionMeta, QuestionButtons} from "./QuestionStyle";
+import {
+	QuestionHeader,
+	QuestionBody,
+	QuestionInfo,
+	QuestionMeta,
+	QuestionButtons,
+} from "./QuestionStyle";
 import QuestionDate from "./QuestionDate";
 import QuestionUserName from "./QuestionUserName";
 import useStyles from "./useStyles";
@@ -17,7 +23,11 @@ function LiveQuestionCard(props) {
 	const [openReplies, setOpenReplies] = useState(false);
 
 	return (
-		<Card className={props.isStared ? classes.staredQuestion : classes.normalQuestion}>
+		<Card
+			className={
+				props.isStared ? classes.staredQuestion : classes.normalQuestion
+			}
+		>
 			<CardContent className={classes.cardContentPadding}>
 				<QuestionHeader>
 					<QuestionMeta>
@@ -30,27 +40,51 @@ function LiveQuestionCard(props) {
 							<Tooltip title="상단 고정">
 								<Icon
 									className={classes.starButton}
-									onClick={() => props.handleStar(props.id)}>
+									onClick={() => props.handleStar(props.id)}
+								>
 									stars
 								</Icon>
 							</Tooltip>
 							<Tooltip title="답변 완료">
 								<Icon
 									className={classes.approveButton}
-									onClick={() => props.dataHandler(props.id, props.type, "completeQuestion")}>
+									onClick={() =>
+										props.dataHandler(
+											props.id,
+											props.type,
+											"completeQuestion",
+										)
+									}
+								>
 									check_circle_outline
 								</Icon>
 							</Tooltip>
-							<QuestionMenu id={props.id} type={props.type} handler={props.dataHandler}/>
+							<QuestionMenu
+								id={props.id}
+								type={props.type}
+								handler={props.dataHandler}
+							/>
 						</QuestionButtons>
 					</QuestionMeta>
 				</QuestionHeader>
-				<QuestionBody>{props.content}</QuestionBody>
+				<QuestionBody>
+					<Typography
+						color={"textPrimary"}
+						variant={"subtitle1"}
+						style={{fontWeight: "bold"}}
+					>
+						{props.content}
+					</Typography>
+				</QuestionBody>
 				<Divider
 					style={{marginTop: "0.5rem", marginBottom: "0.5rem"}}
 				/>
-				<ThumbUpButton {...props} replyOpenHandler={setOpenReplies} replyOpenStatus={openReplies}/>
-				{(openReplies) && <Replies replies={props.replies}/> }
+				<ThumbUpButton
+					{...props}
+					replyOpenHandler={setOpenReplies}
+					replyOpenStatus={openReplies}
+				/>
+				{openReplies && <Replies replies={props.replies} />}
 			</CardContent>
 		</Card>
 	);
