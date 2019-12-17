@@ -1,5 +1,6 @@
 import Sequelize from "sequelize";
 import models from "../models";
+import logger from "../logger.js";
 
 const sequelize = models.sequelize;
 const Op = Sequelize.Op;
@@ -22,7 +23,7 @@ export async function createQuestion(
 }
 
 export async function getQuestionsByEventId(EventId) {
-	return models.Question.findAll({
+	return Question.findAll({
 		where: {EventId},
 	});
 }
@@ -59,19 +60,26 @@ export async function updateIsStared(from, to) {
 
 	try {
 		if (from) {
-			await Question.update({isStared: from.isStared},
+			await Question.update(
+				{isStared: from.isStared},
 				{where: {id: from.id}},
 				{transaction},
 			);
 		}
-		await Question.update({isStared: to.isStared},
+
+		await Question.update(
+			{isStared: to.isStared},
 			{where: {id: to.id}},
 			{transaction},
 		);
+
 		await transaction.commit();
 	} catch (err) {
-		if (transaction) await transaction.rollback();
-		console.log("Transaction rollback", err);
+		if (transaction) {
+			await transaction.rollback();
+		}
+
+		logger.error("Transaction rollback", err);
 	}
 }
 

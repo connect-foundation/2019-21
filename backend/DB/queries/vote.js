@@ -1,5 +1,6 @@
-import models from "../models";
 import Sequelize from "sequelize";
+import models from "../models";
+import logger from "../logger.js";
 
 const sequelize = models.sequelize;
 const Vote = models.Vote;
@@ -22,13 +23,14 @@ export async function addAndDelete(guestId, candidateToAdd, candidateToDelete) {
 	try {
 		// get transaction
 		transaction = await sequelize.transaction();
+
 		// step 1
 		await Vote.create(
 			{
 				GuestId,
 				CandidateId,
 			},
-			{transaction}
+			{transaction},
 		);
 
 		// step 2
@@ -45,27 +47,21 @@ export async function addAndDelete(guestId, candidateToAdd, candidateToDelete) {
 		await transaction.commit();
 	} catch (err) {
 		// Rollback transaction only if the transaction object is defined
-		if (transaction) await transaction.rollback();
-		console.log("Transaction rollback", err);
+		if (transaction) {
+			await transaction.rollback();
+		}
+
+		logger.error("Transaction rollback", err);
 	}
 
 	return rows;
 }
 
-export async function deleteVoteById({}) {}
-
-export async function getVotesByCandidate() {}
-
-export async function getVotesByGuestId() {}
-
-export async function getFromGuest() {}
-
 export async function getCandidatesByGuestId(candidateList, guestId) {
-	const result = await Vote.findAll({
+	return Vote.findAll({
 		where: {
 			[Op.and]: [
-				{GuestId: guestId},
-				{
+				{GuestId: guestId}, {
 					CandidateId: {
 						[Op.or]: candidateList,
 					},
@@ -74,12 +70,10 @@ export async function getCandidatesByGuestId(candidateList, guestId) {
 		},
 		attributes: ["CandidateId"],
 	});
-
-	return result;
 }
 
 export async function getVotersByCandidateList(candidateList) {
-	const count = await Vote.count({
+	return Vote.count({
 		where: {
 			CandidateId: {
 				[Op.or]: candidateList,
@@ -88,6 +82,4 @@ export async function getVotersByCandidateList(candidateList) {
 		distinct: true,
 		col: "GuestId",
 	});
-
-	return count;
 }
