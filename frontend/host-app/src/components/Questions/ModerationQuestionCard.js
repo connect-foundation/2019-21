@@ -6,10 +6,12 @@ import UserAvata from "./UserAvata.js";
 import {QuestionHeader, QuestionBody, QuestionInfo, QuestionMeta, QuestionButtons} from "./QuestionStyle";
 import QuestionDate from "./QuestionDate";
 import QuestionUserName from "./QuestionUserName";
-import useStyles from "./useStyles";
+import useQuestionCardStyles from "./useQuestionCardStyles";
+import ApproveButton from "./Buttons/ApproveButton";
+import RejectButton from "./Buttons/RejectButton";
 
 function ModerationQuestionCard(props) {
-	const classes = useStyles();
+	const classes = useQuestionCardStyles();
 
 	return (
 		<Card className={props.isStared ? classes.staredQuestion : classes.normalQuestion}>
@@ -22,20 +24,8 @@ function ModerationQuestionCard(props) {
 							<QuestionDate {...props} />
 						</QuestionInfo>
 						<QuestionButtons>
-							<Tooltip title="승인">
-								<Icon
-									className={classes.approveButton}
-									onClick={() => props.dataHandler(props.id, props.type, "active")}>
-									check_circle_outline
-								</Icon>
-							</Tooltip>
-							<Tooltip title="거절">
-								<Icon
-									className={classes.cancelButton}
-									onClick={() => props.dataHandler(props.id, props.type, "deleted")}>
-									highlight_off
-								</Icon>
-							</Tooltip>
+							<ApproveButton {...props}/>
+							<RejectButton {...props}/>
 						</QuestionButtons>
 					</QuestionMeta>
 				</QuestionHeader>

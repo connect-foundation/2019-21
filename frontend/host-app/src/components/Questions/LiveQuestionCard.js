@@ -6,14 +6,15 @@ import UserAvata from "./UserAvata.js";
 import {QuestionHeader, QuestionBody, QuestionInfo, QuestionMeta, QuestionButtons} from "./QuestionStyle";
 import QuestionDate from "./QuestionDate";
 import QuestionUserName from "./QuestionUserName";
-import useStyles from "./useStyles";
-import QuestionMenu from "./QuestionMenu";
-import ThumbUpButton from "./ThumbUpButton";
+import useQuestionCardStyles from "./useQuestionCardStyles";
+import QuestionMenuButton from "./Buttons/QuestionMenuButton";
+import ThumbUpButton from "./Buttons/ThumbUpButton";
 import Replies from "./Replies";
-import Tooltip from "@material-ui/core/Tooltip";
+import TopFixButton from "./Buttons/TopFixButton";
+import QuestionCompleteButton from "./Buttons/QuestionCompleteButton";
 
 function LiveQuestionCard(props) {
-	const classes = useStyles();
+	const classes = useQuestionCardStyles();
 	const [openReplies, setOpenReplies] = useState(false);
 
 	return (
@@ -27,21 +28,9 @@ function LiveQuestionCard(props) {
 							<QuestionDate {...props} />
 						</QuestionInfo>
 						<QuestionButtons>
-							<Tooltip title="상단 고정">
-								<Icon
-									className={classes.starButton}
-									onClick={() => props.handleStar(props.id)}>
-									stars
-								</Icon>
-							</Tooltip>
-							<Tooltip title="답변 완료">
-								<Icon
-									className={classes.approveButton}
-									onClick={() => props.dataHandler(props.id, props.type, "completeQuestion")}>
-									check_circle_outline
-								</Icon>
-							</Tooltip>
-							<QuestionMenu id={props.id} type={props.type} handler={props.dataHandler}/>
+							<TopFixButton {...props}/>
+							<QuestionCompleteButton {...props} />
+							<QuestionMenuButton id={props.id} type={props.type} handler={props.dataHandler}/>
 						</QuestionButtons>
 					</QuestionMeta>
 				</QuestionHeader>

@@ -3,12 +3,12 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import {Icon} from "@material-ui/core";
-import useStyles from "./useStyles";
+import useStyle from "./useButtonStyles";
 
 const ITEM_HEIGHT = 48;
 
-export default function QuestionMenu({id, type, handler}) {
-	const classes = useStyles();
+export default function QuestionMenuButton({id, type, handler}) {
+	const classes = useStyle();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
 
@@ -28,7 +28,7 @@ export default function QuestionMenu({id, type, handler}) {
 	return (
 		<>
 			<Tooltip title="메뉴">
-				<Icon className={classes.moreButton} onClick={handleClick}>more_vert</Icon>
+				<Icon className={classes.menuButton} onClick={handleClick}>more_vert</Icon>
 			</Tooltip>
 			<Menu
 				id="long-menu"
