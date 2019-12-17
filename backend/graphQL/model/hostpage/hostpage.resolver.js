@@ -32,6 +32,24 @@ function mappingHashTagsToEvents(hashTags, events, eventMap) {
 	return events;
 }
 
+async function generateEventCode() {
+	let generatedEventCode = faker.random.alphaNumeric(4);
+	const events = await getAllEvents();
+	const allreadyExistEventCode = events.map(event => event.eventCode);
+
+	while (1) {
+		const isExist = allreadyExistEventCode.some(
+			someCode => generateEventCode === someCode
+		);
+
+		if (!isExist) {
+			break;
+		}
+		generatedEventCode = faker.random.alphaNumeric(4);
+	}
+	return generatedEventCode;
+}
+
 const getEventOptionResolver = async eventId => {
 	const evnetOption = await getEventOptionByEventId(eventId);
 
@@ -64,13 +82,13 @@ export default {
 
 			return {events, host};
 		},
+
 		getEventOption: async (_, {EventId}) => getEventOptionResolver(EventId),
 	},
+
 	Mutation: {
 		createHashTags: async (_, {hashTags}, authority) => {
-			if (authority.sub !== "host") {
-				throw new Error("AuthenticationError");
-			}
+			verifySubjectHostJwt(authority.sub);
 			for (const hashTag of hashTags) {
 				await createHashtag({
 					name: hashTag.name,
@@ -78,40 +96,25 @@ export default {
 				});
 			}
 		},
+
 		createEvent: async (_, {info}, authority) => {
-			if (authority.sub !== "host") {
-				throw new Error("AuthenticationError");
-			}
-			let eventCode = faker.random.alphaNumeric(4);
-			const events = await getAllEvents();
-			const existCode = events.map(event => event.eventCode);
+			verifySubjectHostJwt(authority.sub);
+			const eventCode = await generateEventCode();
 
-			while (true) {
-				const exist = existCode.some(
-					someCode => eventCode === someCode
-				);
-
-				if (!exist) {
-					break;
-				}
-
-				eventCode = faker.random.alphaNumeric(4);
-			}
 			let event = await createEvent({
 				eventName: info.eventName,
-				eventCode,
+				eventCode: eventCode,
 				HostId: authority.info.id,
 				startAt: info.startAt,
 				endAt: info.endAt,
 			});
 
-			event = event[0].dataValues;
+			event = event[0].get({plain: true});
 			return {...event};
 		},
+
 		updateEvent: async (_, {event}, authority) => {
-			if (authority.sub !== "host") {
-				throw new Error("AuthenticationError");
-			}
+			verifySubjectHostJwt(authority.sub);
 			await updateEventById({
 				id: event.EventId,
 				eventName: event.eventName,
