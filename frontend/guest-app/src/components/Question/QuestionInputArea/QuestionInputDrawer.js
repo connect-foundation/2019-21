@@ -35,8 +35,14 @@ function QuestionInputDrawer(props) {
 				<CardContent>
 					<QuestionInput
 						onConfirm={() => {
-							onConfirm && onConfirm();
-							onClose();
+							// onConfirm && onConfirm();
+							// onClose();
+							if (onConfirm) {
+								if (questionRef.current.value.trim() !== "") {
+									onConfirm();
+									onClose();
+								}
+							}
 						}}
 						onCancel={onClose}
 						questionRef={questionRef}
