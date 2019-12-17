@@ -2,25 +2,34 @@ import jwt from "jsonwebtoken";
 import loadConfig from "../config/configLoader";
 import logger from "../logger";
 import {findHostByAuthId} from "../../DB/queries/host";
-import {findGuestBySid} from "../../DB/queries/guest";
+import {isExistGuest} from "../../DB/queries/guest";
 
 const {tokenArgs} = loadConfig();
 
+const audienceVerify = {guest: isExistGuest, host: findHostByAuthId};
+
+const isValidAud = aud => aud !== "guest" && aud !== "host";
+
+const isValidIss = iss => iss !== tokenArgs.issuer;
+
 async function payloadVerify(payload) {
 	const {aud, iss, sub} = payload;
-	const audienceVerify = {guest: findGuestBySid, host: findHostByAuthId};
-	if (iss !== tokenArgs.issuer) {
-		return new Error("Authentication Error");
+
+	if (isValidIss(iss)) {
+		throw new Error("Authentication Error: invalid iss");
 	}
-	if (aud !== "guest" && aud !== "host") {
-		return new Error("Authentication Error");
+
+	if (isValidAud(aud)) {
+		throw new Error("Authentication Error: invalid aud");
 	}
-	const audience = aud === "guest" ? "guest" : "host";
-	const userInfo = await audienceVerify[audience](sub);
+
+	const userInfo = await audienceVerify[aud](sub);
+
 	if (!userInfo) {
-		return new Error("Authentication Error");
+		throw new Error("Authentication Error: invalid userInfo");
 	}
-	return userInfo;
+
+	return null;
 }
 
 function authenticate() {
@@ -28,10 +37,9 @@ function authenticate() {
 		try {
 			const token = socket.handshake.query.token;
 			const payload = jwt.verify(token, tokenArgs.secret);
-			const userInfo = await payloadVerify(payload);
-			if (!userInfo) {
-				throw Error("Authentication Error");
-			}
+
+			await payloadVerify(payload);
+
 			return next();
 		} catch (e) {
 			logger.debug(e);
