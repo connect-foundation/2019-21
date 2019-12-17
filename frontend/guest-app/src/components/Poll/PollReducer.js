@@ -99,6 +99,44 @@ const updateFirstPlace = poll => {
 	return newPoll;
 };
 
+/**
+ * 
+ * @param {dispatch의 action에 해당하는 object} vote 
+ * 		dispatch({
+			type: "VOTE",
+			pollId: id,
+			candidateId,
+			number,
+			GuestId,
+		});
+ * @param {object} poll 
+		type Candidate {
+			id: Int!
+			number: Int!
+			content: String!
+			voters: Int!
+			voted: Boolean
+			firstPlace: Boolean
+		}
+		type Poll {
+			id: Int!
+			pollName: String!
+			pollType: String!
+			selectionType: String!
+			allowDuplication: Boolean!
+			state: String!
+			pollDate: String
+			totalVoters: Int!
+			createdAt: String!
+			nItems: [Candidate]!
+			ratingValue: Int!
+			rated: Boolean!
+		}
+ * @param {int} candidateToDelete 
+ *		복수선택이 안되는 투표의 경우, 
+ *		이미 다른 candidate에 투표를 한 상황에서 다시 다른 candidate을 투표하는 경우,
+ *		예전에 투표한 candidate에 투표했다는 정보를 DB에서 삭제하기 위함	
+ */
 const emitVoteData = (vote, poll, candidateToDelete) => {
 	const action = poll.nItems[vote.number].voted ? "on" : "off";
 	const data = {
@@ -112,8 +150,45 @@ const emitVoteData = (vote, poll, candidateToDelete) => {
 	socketClient.emit(`vote/${action}`, data);
 };
 
+/**
+ * 
+ * @param {dispatch의 action에 해당하는 object} rate 
+ * 		dispatch({
+			type: "RATE",
+			value,
+			pollId: id,
+			GuestId,
+		});
+ * @param {object} poll 
+ 		type Candidate {
+			id: Int!
+			number: Int!
+			content: String!
+			voters: Int!
+			voted: Boolean
+			firstPlace: Boolean
+		}
+		type Poll {
+			id: Int!
+			pollName: String!
+			pollType: String!
+			selectionType: String!
+			allowDuplication: Boolean!
+			state: String!
+			pollDate: String
+			totalVoters: Int!
+			createdAt: String!
+			nItems: [Candidate]!
+			ratingValue: Int!
+			rated: Boolean!
+		}
+ * @param {int} candidateId 
+		투표한 candidate의 id
+ * @param {int} index 
+		투표한 candidate가 array에서 위치한 index
+ */
 const emitRateData = (rate, poll, candidateId, index) => {
-	const action = rate.type === "RATE" ? "on" : "off"; // "on" or "off"
+	const action = rate.type === "RATE" ? "on" : "off";
 	const data = {
 		GuestId: rate.GuestId,
 		CandidateId: candidateId,
@@ -135,12 +210,15 @@ export default function reducer(polls, action) {
 	}
 
 	switch (action.type) {
+		// host가 생성한 투표를 host가 open 함
 		case "NOTIFY_OPEN": {
 			return [action.poll, ...polls];
 		}
+		// host가 open한 투표를 close 함
 		case "NOTIFY_CLOSE": {
 			return polls.filter(poll => poll.id !== pollId);
 		}
+		// 나 또는 남이 vote(N지선다) 했음을 알려줌
 		case "SOMEONE_VOTE": {
 			thePoll.totalVoters = action.poll.totalVoters;
 			thePoll.nItems.forEach((item, index) => {
@@ -149,10 +227,12 @@ export default function reducer(polls, action) {
 			});
 			return polls.map(poll => (poll.id === pollId ? thePoll : poll));
 		}
+		// 나 또는 남이 rate(별점매기기) 했음을 알려줌
 		case "SOMEONE_RATE": {
 			thePoll.totalVoters = action.poll.totalVoters;
 			return polls.map(poll => (poll.id === pollId ? thePoll : poll));
 		}
+		// 내가 vote(N지선다) 했음
 		case "VOTE": {
 			const notVoted = thePoll.nItems.every(item => item.voted === false);
 			let candidateToDelete = null;
@@ -181,7 +261,7 @@ export default function reducer(polls, action) {
 			emitVoteData(action, thePoll, candidateToDelete);
 			return polls.map(poll => (poll.id === pollId ? thePoll : poll));
 		}
-
+		// 내가 rate(별점매기기) 했음
 		case "RATE": {
 			if (thePoll.rated) {
 				return polls;
@@ -199,7 +279,7 @@ export default function reducer(polls, action) {
 			emitRateData(action, thePoll, candidateId, index);
 			return polls.map(poll => (poll.id === pollId ? thePoll : poll));
 		}
-
+		// 내가 rate(별점매기기)를 취소했음
 		case "CANCEL_RATING": {
 			if (!thePoll.rated) {
 				return polls;
