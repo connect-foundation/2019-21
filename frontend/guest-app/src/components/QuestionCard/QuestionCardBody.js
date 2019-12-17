@@ -1,15 +1,10 @@
-import React, {useContext} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import QuestionEditButton from "./QuestionCardEditButton.js";
-<<<<<<< Develop:frontend/guest-app/src/components/Question/QuestionCard/QuestionCardBody.js
-import {GuestGlobalContext} from "../../../libs/guestGlobalContext.js";
-import {Typography} from "@material-ui/core";
-=======
-import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
->>>>>>> refactoring: QuestionCard 및 QuestionArea 폴더 이동:frontend/guest-app/src/components/QuestionCard/QuestionCardBody.js
+import {useGuestGlobal} from "../../GuestGlobalProvider.js";
 
 function QuestionBody(props) {
-	const {guest} = useContext(GuestGlobalContext);
+	const {guest} = useGuestGlobal();
 	const {content, GuestId} = props;
 
 	const isMyQuestion = guest.id === GuestId;

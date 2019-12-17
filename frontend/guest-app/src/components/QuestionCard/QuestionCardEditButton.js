@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import {Typography} from "@material-ui/core";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz.js";
-import {useUIControllerContext} from "../UIController/UIController.js";
+import useUIController from "../../UIController/useUIController.js";
 
 const QuestionEditButtonStyle = styled.div`
 	float: right;
@@ -12,7 +12,7 @@ const QuestionEditButtonStyle = styled.div`
 
 function QuestionEditButton(props) {
 	const question = props;
-	const {questionEditMenuReducer} = useUIControllerContext();
+	const {questionEditMenuReducer} = useUIController();
 
 	return (
 		<span>

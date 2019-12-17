@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import useStringState from "../UserAvatar/useStringState.js";
+import useStringState from "../../hooks/useStringState.js";
 import UserAvatar from "../UserAvatar/UserAvatar.js";
 import QuestionUserNameInput from "./QuestionUserNameInput.js";
 

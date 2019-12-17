@@ -1,7 +1,7 @@
-import React, {useContext} from "react";
-import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
-import {socketClient} from "../../libs/socketIoClientProvider.js";
+import React from "react";
+import {socketClient} from "../../socket.io";
 import QuestionInputDrawer from "../QuestionInputArea/QuestionInputDrawer.js";
+import {useGuestGlobal} from "../../GuestGlobalProvider.js";
 
 function getNewQuestion({EventId, GuestId, guestName, content}) {
 	return {
@@ -14,7 +14,7 @@ function getNewQuestion({EventId, GuestId, guestName, content}) {
 }
 
 function NewQuestionInputDrawer({userNameRef, questionRef, toggleReducer}) {
-	const {event, guest} = useContext(GuestGlobalContext);
+	const {event, guest} = useGuestGlobal();
 
 	const onConfirmNewQuestion = () => {
 		socketClient.emit(

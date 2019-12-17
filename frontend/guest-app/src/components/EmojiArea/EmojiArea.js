@@ -1,11 +1,11 @@
-import React, {useContext} from "react";
+import React from "react";
 import styled from "styled-components";
 import EmojiBadge from "./EmojiBadge.js";
 import EmojiPickerModal from "./EmojiPickerModal";
 import useCommonModal from "../CommonComponent/CommonModal/useCommonModal";
-import {socketClient} from "../../libs/socketIoClientProvider.js";
-import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
+import {socketClient} from "../../socket.io";
 import EmojiInsertButton from "./EmojiInsertButton.js";
+import {useGuestGlobal} from "../../GuestGlobalProvider.js";
 
 const RowWrapper = styled.div`
 	display: flex;
@@ -65,7 +65,7 @@ function isIncludeSameEmoji(emojis, name) {
 
 function EmojiArea(props) {
 	const {emojis, id: QuestionId} = props;
-	const guestGlobal = useContext(GuestGlobalContext);
+	const guestGlobal = useGuestGlobal();
 	const emojiPickerModal = useCommonModal();
 
 	const onEmojiInstanceClick = (name, didIPick) => {
@@ -101,7 +101,7 @@ function EmojiArea(props) {
 					key={index}
 				/>
 			))}
-			<EmojiInsertButton onClick={emojiPickerModal.openModal} />
+			<EmojiInsertButton onClick={emojiPickerModal.openModal}/>
 			<EmojiPickerModal
 				open={emojiPickerModal.isOpened}
 				onClose={emojiPickerModal.closeModal}

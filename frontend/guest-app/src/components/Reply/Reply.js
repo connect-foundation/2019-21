@@ -4,7 +4,7 @@ import {CardContent} from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import QuestionHeader from "../QuestionCard/QuestionCardHeader.js";
 import QuestionBody from "../QuestionCard/QuestionCardBody";
-import EmojiArea from "../Emoji/EmojiArea";
+import EmojiArea from "../EmojiArea/EmojiArea";
 
 function Reply(props) {
 	return (

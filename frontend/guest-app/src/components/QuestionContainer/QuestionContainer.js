@@ -1,17 +1,17 @@
 import React, {useRef} from "react";
 import styled from "styled-components";
 import QuestionContainerTabBar from "./QuestionContainerTabBar.js";
-import useTabs from "../../materialUIHooks/useTabs.js";
+import useTabs from "../../hooks/useTabs.js";
 import AddQuestionInputButton from "../QuestionInputArea/AddQuestionInputButton.js";
 import QuestionCardList from "../QuestionCard/QuestionCardList.js";
-import {socketClient} from "../../libs/socketIoClientProvider.js";
-import PaddingArea from "../CommonComponent/PaddingArea.js";
-import QuestionEditMenuDrawer from "../QuestionCard/QuestionEditMenuDrawer.js";
+import {socketClient} from "../../socket.io";
+import PaddingArea from "../atoms/PaddingArea.js";
+import QuestionEditMenuDrawer from "../QuestionCardEditMenuDrawer/QuestionEditMenuDrawer.js";
 import NewQuestionInputDrawer from "./NewQuestionInputDrawer.js";
 import EditQuestionInputDrawer from "./EditQuestionInputDrawer.js";
-import {useUIControllerContext} from "../UIController/UIController.js";
-import {useQuestions} from "./QuestionsContext.js";
+import {useQuestions} from "../../reducers/QuestionsContext.js";
 import MyQuestionsDrawer from "./MyQuestionDrawer.js";
+import useUIController from "../../UIController/useUIController.js";
 
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
@@ -28,7 +28,7 @@ function QuestionContainer() {
 		editQuestionInputDrawer,
 		questionEditMenuReducer,
 		myQuestionDrawerReducer,
-	} = useUIControllerContext();
+	} = useUIController();
 	const {tabIdx, selectTabIdx} = useTabs(RECENT_TAB_IDX);
 	const userNameRef = useRef(null);
 	const questionRef = useRef(null);
@@ -81,7 +81,6 @@ function QuestionContainer() {
 					editQuestionInputDrawer.setOn(questionEditMenuReducer.data);
 				}}
 			/>
-
 			<MyQuestionsDrawer
 				isOpen={myQuestionDrawerReducer.state}
 				onClose={() => {

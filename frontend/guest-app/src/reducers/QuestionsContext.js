@@ -1,12 +1,10 @@
 import React, {createContext, useContext, useEffect, useReducer} from "react";
 import {useQuery} from "@apollo/react-hooks";
-import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
-import {
-	buildQuestions,
-	QUERY_INIT_QUESTIONS,
-} from "../../libs/useQueryQuestions.js";
-import {useSocket} from "../../libs/socketIoClientProvider.js";
+import {useSocket} from "../socket.io";
 import QuestionsRepliesReducer from "./QuestionsRepliesReducer.js";
+import {QUERY_INIT_QUESTIONS} from "../apollo/gqlSchemes.js";
+import buildQuestions from "../apollo/asembleGetQuestionQuerys.js";
+import {useGuestGlobal} from "../GuestGlobalProvider.js";
 
 const QuestionsContext = createContext([]);
 
@@ -69,7 +67,7 @@ const useSocketHandler = (dispatch, guestGlobal) => {
 
 export function QuestionsProvider(props) {
 	const {children} = props;
-	const {event, guest} = useContext(GuestGlobalContext);
+	const {event, guest} = useGuestGlobal();
 	const {data, loading, error} = useQuery(QUERY_INIT_QUESTIONS, {
 		variables: {EventId: event.id, GuestId: guest.id},
 	});

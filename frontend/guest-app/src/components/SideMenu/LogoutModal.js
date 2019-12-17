@@ -3,8 +3,8 @@ import {Grid} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import CommonModal from "../CommonComponent/CommonModal/CommonModal.js";
-import CancelButton from "../CommonComponent/CommonButtons/CancelButton.js";
-import ConfirmButton from "../CommonComponent/CommonButtons/ConfirmButton.js";
+import CancelButton from "../atoms/CancelButton.js";
+import ConfirmButton from "../atoms/ConfirmButton.js";
 
 function LogOutModal({isOpened = false, onCancelClick, onLogout}) {
 	return (

@@ -6,7 +6,7 @@ import Divider from "@material-ui/core/Divider";
 import Box from "@material-ui/core/Box";
 import QuestionHeader from "../QuestionCard/QuestionCardHeader.js";
 import QuestionBody from "../QuestionCard/QuestionCardBody";
-import EmojiArea from "../Emoji/EmojiArea";
+import EmojiArea from "../EmojiArea/EmojiArea";
 
 const Container = styled(Box)({
 	backgroundColor: "#E0E0E0",

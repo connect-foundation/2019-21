@@ -1,12 +1,12 @@
-import React, {useContext} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {grey} from "@material-ui/core/colors";
 import {Scrollbars} from "react-custom-scrollbars";
 import AppDrawer from "../AppDrawer/AppDrawer.js";
-import {useQuestions} from "./QuestionsContext.js";
+import {useQuestions} from "../../reducers/QuestionsContext.js";
 import QuestionCardList from "../QuestionCard/QuestionCardList.js";
-import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
-import PaddingArea from "../CommonComponent/PaddingArea.js";
+import PaddingArea from "../atoms/PaddingArea.js";
+import {useGuestGlobal} from "../../GuestGlobalProvider.js";
 
 const fullSizeCardStyle = {
 	width: "100vw",
@@ -16,7 +16,7 @@ const fullSizeCardStyle = {
 
 function MyQuestionsDrawer(props) {
 	const {isOpen, onClose} = props;
-	const {guest} = useContext(GuestGlobalContext);
+	const {guest} = useGuestGlobal();
 	const {questions, replies} = useQuestions();
 
 	return (

@@ -2,11 +2,11 @@ import React from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import styled from "styled-components";
-import useTabs from "../../materialUIHooks/useTabs.js";
+import useTabs from "../../hooks/useTabs.js";
 import TabBody from "./TabBody.js";
 import QuestionContainer from "../QuestionContainer/QuestionContainer.js";
 import PollApollo from "../Poll/PollApollo.js";
-import {QuestionsProvider} from "../QuestionContainer/QuestionsContext.js";
+import {QuestionsProvider} from "../../reducers/QuestionsContext.js";
 import QnATabIcon from "./QnATabIcon.js";
 import PollTabIcon from "./PollTabIcon.js";
 

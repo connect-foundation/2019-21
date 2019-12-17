@@ -40,7 +40,7 @@ const GraphWrapper = styled.div`
 	top: 0;
 	left: 0;
 	background-color: ${props =>
-		props.firstPlace ? "yellow" : "#adb5bd"}; /* Gray5 */
+		(props.firstPlace ? "yellow" : "#adb5bd")}; /* Gray5 */
 	height: 100%;
 	width: ${props => props.ratio};
 	box-sizing: border-box;
