@@ -6,7 +6,7 @@ import {Typography} from "@material-ui/core";
 const TextField = styled(Typography)({
 	marginLeft: 10,
 	textAlign: "center",
-	textDecoration: "underline",
+	textDecoration: "none",
 	cursor: "pointer",
 	"&:hover": {
 		color: "#3f51b5",
@@ -17,7 +17,7 @@ function CurrentRepliesTextField(props) {
 	const {openReplies} = props;
 
 	return (
-		<TextField variant="h6" onClick={openReplies}>
+		<TextField variant="subtitle1" onClick={openReplies}>
 			{props.children}
 		</TextField>
 	);
