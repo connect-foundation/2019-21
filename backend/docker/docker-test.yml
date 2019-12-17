@@ -1,0 +1,32 @@
+version: "2.0"
+
+services:
+    mysql_test:
+        container_name: ${MYSQL_TEST_CONTAINER_NAME}
+        image: mysql
+        ports:
+            - ${MYSQL_TEST_PORT}:3306
+        volumes:
+            - ${DOCKER_VOLUMNS_PATH}/${MYSQL_TEST_CONTAINER_NAME}:/var/lib/mysql
+        command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci  --log-bin-trust-function-creators=1
+        environment:
+            - MYSQL_ROOT_PASSWORD=${MYSQL_TEST_ROOT_PASSWORD}
+            - MYSQL_DATABASE=${MYSQL_TEST_SCHEME}
+            - MYSQL_USER=${MYSQL_TEST_USER}
+            - MYSQL_PASSWORD=${MYSQL_TEST_PASSWORD}
+        networks:
+            - backend
+
+    redis_test:
+        container_name: ${REDIS_TEST_CONTAINER_NAME}
+        image: redis
+        ports:
+            - ${REDIS_TEST_PORT}:6379
+        volumes:
+            - ${DOCKER_VOLUMNS_PATH}/${REDIS_TEST_CONTAINER_NAME}:/data
+        networks:
+            - backend
+
+networks:
+    backend:
+        driver: "bridge"
