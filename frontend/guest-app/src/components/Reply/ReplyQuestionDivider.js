@@ -13,10 +13,6 @@ const Container = styled(Box)({
 	flex: 1,
 });
 
-// const ReplieNumField = styled(Box)({
-// 	fontWeight: "bold",
-// });
-
 const CustomDivider = styled(Divider)({
 	marginLeft: "2rem",
 	width: "70%",
@@ -29,7 +25,6 @@ function ReplyQuestionDivider(props) {
 
 	return (
 		<Container>
-			{/* <ReplieNumField>{`댓글 ${replies.length}개`}</ReplieNumField> */}
 			<Typography variant="subtitle1">{`댓글 ${replies.length}개`}</Typography>
 			<CustomDivider></CustomDivider>
 		</Container>
