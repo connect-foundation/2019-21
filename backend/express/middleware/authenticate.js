@@ -20,9 +20,9 @@ export function guestAuthenticate() {
 
 			const guest = await isExistGuest(payload.sub);
 			const eventId = await convertPathToEventId(path);
-			const guestBelongToEvent = guest.EventId === eventId;
+			const isGuestBelongToEvent = guest.EventId === eventId;
 
-			if (guestBelongToEvent) {
+			if (isGuestBelongToEvent) {
 				return res.redirect(routePage.guest);
 			}
 
