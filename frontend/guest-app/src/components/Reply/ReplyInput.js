@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import {Button} from "@material-ui/core";
@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import ReplyContentInput from "./ReplyContentInput";
 import ReplierInfoInput from "./ReplierInfoInput";
+import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 
 const FlexedCenterDiv = styled.div`
 	display: flex;
@@ -22,7 +23,8 @@ const FlexedSpaceBetweenDiv = styled.div`
 function ReplyInput(props) {
 	const {onConfirm, userNameRef, questionRef, confirmButtonText} = props;
 	const [replyContent, setReplyContent] = useState("");
-	const [userName, setUserName] = useState("");
+	const {guest} = useContext(GuestGlobalContext);
+	const [userName] = useState(guest.name);
 
 	return (
 		<Grid container direction={"column"}>
@@ -31,13 +33,12 @@ function ReplyInput(props) {
 				content={replyContent}
 				setContent={setReplyContent}
 			/>
-			<Divider style={{marginTop: "0.5rem", marginBottom: "0.5rem"}} />
+			<Divider style={{marginTop: "0.5rem", marginBottom: "0.5rem"}}/>
 			<FlexedSpaceBetweenDiv>
 				<FlexedCenterDiv>
 					<ReplierInfoInput
 						userNameRef={userNameRef}
 						userName={userName}
-						setUserName={setUserName}
 					/>
 				</FlexedCenterDiv>
 				<FlexedCenterDiv>

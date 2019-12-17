@@ -35,6 +35,7 @@ function NewQuestionInputDrawer({userNameRef, questionRef, toggleReducer}) {
 		onConfirm: onConfirmNewQuestion,
 		userNameRef,
 		questionRef,
+		initialUserName: guest.name,
 	};
 
 	return <QuestionInputDrawer {...newQuestionInputDrawerProps} />;
