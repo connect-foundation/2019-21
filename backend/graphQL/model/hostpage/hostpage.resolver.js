@@ -11,10 +11,9 @@ import {
 	createHashtag,
 	getHashtagByEventIds,
 } from "../../../DB/queries/hashtag.js";
-import {compareCurrentDateToTarget} from "../../../libs/utils";
 
 const moderationResolver = async (eventId, moderationOption) => {
-	const updatedEvent = await updateEventById(eventId, {moderationOption});
+	const updatedEvent = await updateEventById({id: eventId, moderationOption});
 
 	return updatedEvent[0];
 };
@@ -31,22 +30,24 @@ export default {
 			if (authority.sub === "host") {
 				const host = authority.info;
 				let events = await getEventsByHostId(host.id);
+
 				events = events.filter(event => {
 					const eventObject = event.get({plain: true});
-					// const diff = compareCurrentDateToTarget(eventObject.endAt);
-					// if (diff > 0) {
+
 					return eventObject;
-					// }
 				});
+
 				const eventMap = new Map();
 				const eventIdList = events.map(event => {
 					eventMap.set(event.id, []);
 					return event.id;
 				});
 
-				let hashTags = await getHashtagByEventIds(eventIdList);
+				const hashTags = await getHashtagByEventIds(eventIdList);
+
 				hashTags.forEach(hashTag => {
 					const hashTagObject = hashTag.get({plain: true});
+
 					eventMap.get(hashTagObject.EventId).push(hashTagObject);
 				});
 				events.forEach(event => {
@@ -62,7 +63,7 @@ export default {
 	},
 	Mutation: {
 		createHashTags: async (_, {hashTags}, authority) => {
-			for (let hashTag of hashTags) {
+			for (const hashTag of hashTags) {
 				await createHashtag({
 					name: hashTag.name,
 					EventId: hashTag.EventId,
@@ -77,10 +78,13 @@ export default {
 
 				while (true) {
 					const exist = existCode.some(
-						someCode => eventCode === someCode
+						someCode => eventCode === someCode,
 					);
 
-					if (!exist) break;
+					if (!exist) {
+						break;
+					}
+
 					eventCode = faker.random.alphaNumeric(4);
 				}
 				let event = await createEvent({
@@ -97,12 +101,14 @@ export default {
 			throw new Error("AuthenticationError");
 		},
 		updateEvent: async (_, {event}, authority) => {
-			let updatedEvent = await updateEventById(event.EventId, {
+			await updateEventById({
+				id: event.EventId,
 				eventName: event.eventName,
 				startAt: event.startAt,
 				endAt: event.endAt,
 			});
-			updatedEvent = await getEventById(event.EventId);
+
+			const updatedEvent = await getEventById(event.EventId);
 
 			return updatedEvent.get({plain: true});
 		},
