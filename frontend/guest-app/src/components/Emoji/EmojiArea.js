@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import styled from "styled-components";
-import EmojiInstance from "./EmojiInstance";
+import EmojiBadge from "./EmojiBadge.js";
 import EmojiPickerModal from "./EmojiPickerModal";
 import useCommonModal from "../CommonComponent/CommonModal/useCommonModal";
 import {socketClient} from "../../libs/socketIoClientProvider.js";
@@ -95,7 +95,7 @@ function EmojiArea(props) {
 	return (
 		<RowWrapper left>
 			{emojis.map((emj, index) => (
-				<EmojiInstance
+				<EmojiBadge
 					{...emj}
 					onClick={onEmojiInstanceClick}
 					key={index}

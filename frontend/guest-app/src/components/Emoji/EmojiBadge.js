@@ -24,7 +24,7 @@ const EmojiInstanceStyle = styled.div`
 	}
 `;
 
-function EmojiInstance(props) {
+function EmojiBadge(props) {
 	const {name, count, didIPick, onClick} = props;
 
 	return (
@@ -35,4 +35,4 @@ function EmojiInstance(props) {
 	);
 }
 
-export default EmojiInstance;
+export default EmojiBadge;
