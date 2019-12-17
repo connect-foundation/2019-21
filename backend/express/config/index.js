@@ -1,9 +1,9 @@
-import {config} from "dotenv";
+import dotenv from "dotenv";
 import devConfig from "./express.dev.config.js";
 import prodConfig from "./express.prod.config.js";
 import testConfig from "./express.test.config.js";
 
-config();
+dotenv.config();
 
 function loadConfig() {
 	let configs = {};
@@ -19,4 +19,6 @@ function loadConfig() {
 	return configs;
 }
 
-export default loadConfig;
+const config = loadConfig();
+
+export default config;

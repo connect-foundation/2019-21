@@ -1,21 +1,22 @@
 import express from "express";
 import {getTokenExpired} from "../../libs/utils";
 import generateAccessToken from "../authentication/token";
-import loadConfig from "../config/configLoader";
+import config from "../config";
 import {guestAuthenticate} from "../middleware/authenticate";
 import {createGuest} from "../../DB/queries/guest";
 import {convertPathToEvent} from "../utils";
+import CookieKeys from "../CookieKeys.js";
+import logger from "../logger.js";
 
-const {routePage} = loadConfig();
+const {routePage} = config;
 const router = express.Router();
-const cookieName = "vaagle-guest";
 
 router.get("/", guestAuthenticate(), (req, res, next) => {
 	res.redirect(routePage.main);
 });
 
 router.get("/logout", (req, res, next) => {
-	res.clearCookie(cookieName).redirect(routePage.main);
+	res.clearCookie(CookieKeys.GUEST_APP).redirect(routePage.main);
 });
 
 router.get("/:path", guestAuthenticate(), async (req, res, next) => {
@@ -24,12 +25,13 @@ router.get("/:path", guestAuthenticate(), async (req, res, next) => {
 		const eventId = await convertPathToEvent(path);
 		const guest = await createGuest(eventId);
 		const accessToken = generateAccessToken(guest.guestSid, "guest");
-		res.cookie(cookieName, accessToken, {
+
+		res.cookie(CookieKeys.GUEST_APP, accessToken, {
 			expires: getTokenExpired(24),
 		});
 		res.redirect(routePage.guest);
 	} catch (e) {
-		console.log(e);
+		logger.error(e);
 		res.redirect(routePage.main);
 	}
 });

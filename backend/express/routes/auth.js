@@ -2,9 +2,11 @@ import express from "express";
 import passport from "passport";
 import {getTokenExpired} from "../../libs/utils";
 import generateAccessToken from "../authentication/token";
-import loadConfig from "../config/configLoader";
+import config from "../config";
+import CookieKeys from "../CookieKeys.js";
 
-const {routePage} = loadConfig();
+const EXPIRE_TIME = 24;
+const {routePage} = config;
 const router = express.Router();
 
 router.get(
@@ -13,7 +15,7 @@ router.get(
 		session: false,
 		scope: ["email", "profile"],
 		prompt: "select_account",
-	})
+	}),
 );
 
 router.get(
@@ -24,8 +26,11 @@ router.get(
 	(req, res) => {
 		const accessToken = generateAccessToken(req.user.oauthId, "host");
 
-		res.cookie("vaagle-host", accessToken, {expires: getTokenExpired(24)});
+		res.cookie(CookieKeys.HOST_APP, accessToken, {
+			expires: getTokenExpired(EXPIRE_TIME),
+		});
 		res.redirect(routePage.host);
-	}
+	},
 );
-module.exports = router;
+
+export default router;
