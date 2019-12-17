@@ -6,10 +6,8 @@ import PollApollo from "../Poll/PollApollo.js";
 import {filterQuestion, filterReplies} from "../../libs/utils";
 import {FocusedDiv, UnFocusedDiv} from "./QuestionStyle";
 
-const compareByCreateAt = (a, b) =>
-	(a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0);
-const compareByLikeCount = (a, b) =>
-	(a.likeCount < b.likeCount ? 1 : a.likeCount > b.likeCount ? -1 : 0);
+const compareByCreateAt = (a, b) => b.createdAt.localeCompare(a.createdAt);
+const compareByLikeCount = (a, b) => b.likeCount - a.likeCount;
 
 function QuestionContainer({datas, type, dataHandler, handleStar, containerType}) {
 	const QuestionDiv = containerType === "focus" ? FocusedDiv : UnFocusedDiv;
