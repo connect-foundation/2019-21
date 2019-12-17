@@ -3,11 +3,11 @@ import {useQuery} from "@apollo/react-hooks";
 import "./App.css";
 import Header from "../components/Header/Header";
 import NavBar from "../components/NavBar/NavBar.js";
-import EventDashboard from "../components/EvnetDashboard/EventDashboard";
+import EventDashboard from "../components/EventDashboard/EventDashboard";
 import NewPollModal from "../components/Poll/NewPollModal";
 import {HostProvider} from "../libs/hostContext";
 import {getEventsByHost} from "../libs/gql";
-import EmptyContent from "../components/EvnetDashboard/EmptyContent";
+import EmptyContent from "../components/EventDashboard/EmptyContent";
 import {socketClient} from "../libs/socket.io-Client-wrapper";
 import AppSkeleton from "../components/Skeleton/AppSkeleton";
 
