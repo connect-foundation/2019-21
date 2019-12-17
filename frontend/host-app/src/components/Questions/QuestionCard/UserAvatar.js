@@ -26,8 +26,8 @@ function AnonymousAvata() {
 	);
 }
 
-function UserAvata({isAnonymous, guestName}) {
+function UserAvatar({isAnonymous, guestName}) {
 	return isAnonymous ? <AnonymousAvata /> : <NamedAvata {...{guestName}} />;
 }
 
-export default UserAvata;
+export default UserAvatar;

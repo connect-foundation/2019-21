@@ -1,6 +1,6 @@
 import React from "react";
 import {Icon, Typography} from "@material-ui/core";
-import useQuestionCardStyles from "../useQuestionCardStyles";
+import useQuestionCardStyles from "../QuestionCard/useQuestionCardStyles";
 import {ThumbUpContainer, ReplyContainer} from "../QuestionStyle";
 
 

@@ -2,11 +2,11 @@ import React from "react";
 import Card from "@material-ui/core/Card";
 import {CardContent, Icon} from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
-import UserAvata from "../UserAvata.js";
+import UserAvatar from "./UserAvatar.js";
 import {QuestionHeader, QuestionBody, QuestionInfo, QuestionMeta, QuestionButtons} from "../QuestionStyle";
-import QuestionDate from "../QuestionDate";
-import QuestionUserName from "../QuestionUserName";
-import useQuestionCardStyles from "../useQuestionCardStyles";
+import QuestionDate from "./QuestionDate";
+import QuestionUserName from "./QuestionUserName";
+import useQuestionCardStyles from "./useQuestionCardStyles";
 import ApproveButton from "../Buttons/ApproveButton";
 import RejectButton from "../Buttons/RejectButton";
 
@@ -18,7 +18,7 @@ function ModerationQuestionCard(props) {
 			<CardContent>
 				<QuestionHeader>
 					<QuestionMeta>
-						<UserAvata {...props} />
+						<UserAvatar {...props} />
 						<QuestionInfo>
 							<QuestionUserName {...props} />
 							<QuestionDate {...props} />

@@ -2,14 +2,14 @@ import React, {useState} from "react";
 import Divider from "@material-ui/core/Divider";
 import Card from "@material-ui/core/Card";
 import {CardContent, Icon} from "@material-ui/core";
-import UserAvata from "../UserAvata.js";
+import UserAvatar from "./UserAvatar.js";
 import {QuestionHeader, QuestionBody, QuestionInfo, QuestionMeta, QuestionButtons} from "../QuestionStyle";
-import QuestionDate from "../QuestionDate";
-import QuestionUserName from "../QuestionUserName";
-import useQuestionCardStyles from "../useQuestionCardStyles";
+import QuestionDate from "./QuestionDate";
+import QuestionUserName from "./QuestionUserName";
+import useQuestionCardStyles from "./useQuestionCardStyles";
 import QuestionMenuButton from "../Buttons/QuestionMenuButton";
 import ThumbUpButton from "../Buttons/ThumbUpButton";
-import Replies from "../Replies";
+import Replies from "./Replies";
 import TopFixButton from "../Buttons/TopFixButton";
 import QuestionCompleteButton from "../Buttons/QuestionCompleteButton";
 
@@ -22,7 +22,7 @@ function LiveQuestionCard(props) {
 			<CardContent className={classes.cardContentPadding}>
 				<QuestionHeader>
 					<QuestionMeta>
-						<UserAvata {...props} />
+						<UserAvatar {...props} />
 						<QuestionInfo>
 							<QuestionUserName {...props} />
 							<QuestionDate {...props} />

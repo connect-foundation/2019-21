@@ -2,14 +2,14 @@ import React, {useState} from "react";
 import Card from "@material-ui/core/Card";
 import {CardContent} from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
-import UserAvata from "../UserAvata.js";
+import UserAvatar from "./UserAvatar.js";
 import {QuestionHeader, QuestionBody, QuestionInfo, QuestionMeta, QuestionButtons} from "../QuestionStyle";
-import QuestionDate from "../QuestionDate";
-import QuestionUserName from "../QuestionUserName";
-import useQuestionCardStyles from "../useQuestionCardStyles";
+import QuestionDate from "./QuestionDate";
+import QuestionUserName from "./QuestionUserName";
+import useQuestionCardStyles from "./useQuestionCardStyles";
 import QuestionMenuButton from "../Buttons/QuestionMenuButton";
 import ThumbUpButton from "../Buttons/ThumbUpButton";
-import Replies from "../Replies";
+import Replies from "./Replies";
 import QuestionRestoreButton from "../Buttons/QuestionRestoreButton";
 
 function CompleteQuestionCard(props) {
@@ -21,7 +21,7 @@ function CompleteQuestionCard(props) {
 			<CardContent className={classes.cardContentPadding}>
 				<QuestionHeader>
 					<QuestionMeta>
-						<UserAvata {...props} />
+						<UserAvatar {...props} />
 						<QuestionInfo>
 							<QuestionUserName {...props} />
 							<QuestionDate {...props} />
