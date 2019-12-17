@@ -29,21 +29,6 @@ const useStyles = makeStyles(theme => ({
 			color: "#EF0046",
 		},
 	},
-	moreButton: {
-		color: "#7f7f7f",
-		marginLeft: "0.25rem",
-		"&:hover": {
-			color: "#ef0046",
-		},
-	},
-	footerButton: {
-		color: "rgb(121,121,121)",
-		margin: " 0.1rem",
-		transform: "scale(0.6)",
-		"&:hover": {
-			color: "#ef0046",
-		},
-	},
 	thumbUpButton: {
 		color: "#7f7f7f",
 		transform: "scale(0.7)",

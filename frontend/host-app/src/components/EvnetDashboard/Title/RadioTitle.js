@@ -4,6 +4,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import {makeStyles} from "@material-ui/core/styles";
 import {Icon} from "@material-ui/core";
 import {TitleStyle, TitleBox, RightSide} from "../ComponentsStyle";
+import CompleteAllQuestionButton from "../Buttons/CompleteAllQuestionButton";
 
 const useStyles = makeStyles(theme => ({
 	margin: {
@@ -29,14 +30,7 @@ function RadioTitle({titleName, idx, data, dataHandler}) {
 			/>
 			<TitleStyle>{titleName}</TitleStyle>
 			<RightSide>
-				<Tooltip title="모든 질문 완료">
-					<Icon
-						className={classes.icon}
-						onClick={() => dataHandler("all", "active", "completeQuestion")}
-					>
-						launch
-					</Icon>
-				</Tooltip>
+				<CompleteAllQuestionButton dataHandler={dataHandler}/>
 			</RightSide>
 		</TitleBox>
 	) : (
