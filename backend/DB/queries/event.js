@@ -44,12 +44,11 @@ export async function getEventsByHostId(hostId) {
 	return events;
 }
 
-export async function getEventIdByEventCode(eventCode) {
+export async function getEventByEventCode(eventCode) {
 	const event = await models.Event.findOne({
 		where: {
 			eventCode,
 		},
-		attributes: ["id"],
 	});
 
 	return event;

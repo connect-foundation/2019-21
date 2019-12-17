@@ -1,6 +1,6 @@
 import express from "express";
 import passport from "passport";
-import {getTokenExpired} from "../utils";
+import {getTokenExpired} from "../../libs/utils";
 import generateAccessToken from "../authentication/token";
 import loadConfig from "../config/configLoader";
 
@@ -13,7 +13,7 @@ router.get(
 		session: false,
 		scope: ["email", "profile"],
 		prompt: "select_account",
-	}),
+	})
 );
 
 router.get(
@@ -26,6 +26,6 @@ router.get(
 
 		res.cookie("vaagle-host", accessToken, {expires: getTokenExpired(24)});
 		res.redirect(routePage.host);
-	},
+	}
 );
 module.exports = router;

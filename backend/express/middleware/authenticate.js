@@ -2,18 +2,9 @@ import jwt from "jsonwebtoken";
 import loadConfig from "../config/configLoader.js";
 import {findHostByAuthId} from "../../DB/queries/host";
 import {findGuestBySid} from "../../DB/queries/guest";
-import {getEventIdByEventCode} from "../../DB/queries/event";
+import {convertePathToEvent} from "../utils";
 
 const {tokenArgs, routePage} = loadConfig();
-
-async function comparePathToCookie(path, guest) {
-	const eventCode = Buffer.from(path, "base64").toString();
-	const EventId = await getEventIdByEventCode(eventCode);
-	if (guest.EventId !== EventId.dataValues.id) {
-		return true;
-	}
-	return false;
-}
 
 export function guestAuthenticate() {
 	const cookieName = "vaagle-guest";
@@ -26,13 +17,15 @@ export function guestAuthenticate() {
 				tokenArgs.secret
 			);
 			const guest = await findGuestBySid(payload.sub);
-			const isAnotherPath = await comparePathToCookie(path, guest);
+			const eventId = await convertePathToEvent(path);
+			const isAnotherPath = guest === eventId;
 			if (isAnotherPath) {
 				return next();
 			}
 			if (!guest) {
 				throw Error("token is invalid");
 			}
+			console.log("asdfasdfsad");
 			res.redirect(routePage.guest);
 		} catch (e) {
 			return next();
