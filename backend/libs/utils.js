@@ -3,6 +3,7 @@ import moment from "moment";
 const compareCurrentDateToTarget = baseDate => {
 	const endAt = moment(baseDate);
 	const current = moment();
+
 	return endAt.diff(current, "minute");
 };
 
