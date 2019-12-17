@@ -33,10 +33,10 @@ export default {
 				let events = await getEventsByHostId(host.id);
 				events = events.filter(event => {
 					const eventObject = event.get({plain: true});
-					const diff = compareCurrentDateToTarget(eventObject.endAt);
-					if (diff > 0) {
-						return eventObject;
-					}
+					// const diff = compareCurrentDateToTarget(eventObject.endAt);
+					// if (diff > 0) {
+					return eventObject;
+					// }
 				});
 				const eventMap = new Map();
 				const eventIdList = events.map(event => {

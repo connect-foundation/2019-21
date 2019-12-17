@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export function makeNewData(req) {
 	const newData = {
 		Emojis: [],
@@ -14,21 +16,26 @@ export function makeNewData(req) {
 	return newData;
 }
 
-export function filterQuestion(option, data){
-	return {questions: data.questions.filter(e => e.state === option && e.QuestionId === null)};
+export function filterQuestion(option, data) {
+	return {
+		questions: data.questions.filter(
+			e => e.state === option && e.QuestionId === null,
+		),
+	};
 }
 
-export function filterStared(option, data){
-	return {questions: data.questions.filter(e => {
-		if (e.QuestionId !== null) return true;
-		return e.isStared === option
-	})};
+export function filterStared(option, data) {
+	return {
+		questions: data.questions.filter(e => {
+			if (e.QuestionId !== null) return true;
+			return e.isStared === option;
+		}),
+	};
 }
 
-export function filterReplies(id, data){
-	return {questions: data.questions.filter(e => e.QuestionId === id )};
+export function filterReplies(id, data) {
+	return {questions: data.questions.filter(e => e.QuestionId === id)};
 }
-
 
 function mappingByKey(object, key) {
 	const mappped = {};
@@ -71,3 +78,9 @@ export function JSONNestJoin2(parents, childs, parentKey, childKey, func) {
 	});
 	return parents;
 }
+
+export const compareCurrentDateToTarget = baseDate => {
+	const endAt = moment(baseDate);
+	const current = moment();
+	return endAt.diff(current, "minute");
+};
