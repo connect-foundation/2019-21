@@ -36,7 +36,7 @@ function PollContainer({data, GuestId}) {
 
 		dispatch({
 			type: "VOTE",
-			id,
+			pollId: id,
 			candidateId,
 			number,
 			GuestId,
@@ -49,7 +49,7 @@ function PollContainer({data, GuestId}) {
 		dispatch({
 			type: "RATE",
 			value,
-			id,
+			pollId: id,
 			GuestId,
 		});
 	};
@@ -59,41 +59,43 @@ function PollContainer({data, GuestId}) {
 
 		dispatch({
 			type: "CANCEL_RATING",
-			id,
+			pollId: id,
 			GuestId,
 		});
 	};
 
-	useSocket("poll/notify_open", thePoll => {
-		if (thePoll.error) {
+	useSocket("poll/notify_open", res => {
+		if (res.status === "error") {
 			return;
 		}
-		// console.log("Guest received poll/notify_open", thePoll);
+
 		dispatch({
 			type: "NOTIFY_OPEN",
-			poll: thePoll,
+			poll: res.poll,
 			GuestId,
 		});
 	});
 
-	useSocket("poll/notify_close", id => {
-		if (id.error) {
+	useSocket("poll/notify_close", res => {
+		if (res.status === "error") {
 			return;
 		}
-		// console.log("Guest received poll/notify_close", id);
-		const thePoll = pollData.filter(poll => poll.id === id)[0];
+
+		const {pollId} = res;
+		const thePoll = {...pollData.find(poll => poll.id === pollId)};
 
 		thePoll.state = "closed";
 		setClosedPollData([thePoll].concat(closedPollData));
 
 		dispatch({
 			type: "NOTIFY_CLOSE",
-			id,
+			pollId,
 		});
 	});
 
 	useSocket("vote/on", res => {
-		if (res.error) {
+		if (res.status === "error") {
+			console.log("vote/on ERROR");
 			return;
 		}
 		// 하나의 브라우저에서 여러개의 tab으로 guest들을 생성한 경우,
@@ -105,14 +107,15 @@ function PollContainer({data, GuestId}) {
 		// }
 		dispatch({
 			type: "SOMEONE_VOTE",
-			id: res.poll.id,
+			pollId: res.poll.id,
 			poll: res.poll,
 			GuestId,
 		});
 	});
 
 	useSocket("vote/off", res => {
-		if (res.error) {
+		if (res.status === "error") {
+			console.log("vote/off ERROR");
 			return;
 		}
 		// 하나의 브라우저에서 여러개의 tab으로 guest들을 생성한 경우,
@@ -123,14 +126,14 @@ function PollContainer({data, GuestId}) {
 		// }
 		dispatch({
 			type: "SOMEONE_VOTE",
-			id: res.poll.id,
+			pollId: res.poll.id,
 			poll: res.poll,
 			GuestId,
 		});
 	});
 
 	useSocket("rate/on", res => {
-		if (res.error) {
+		if (res.status === "error") {
 			return;
 		}
 		// 하나의 브라우저에서 여러개의 tab으로 guest들을 생성한 경우,
@@ -142,14 +145,14 @@ function PollContainer({data, GuestId}) {
 		// }
 		dispatch({
 			type: "SOMEONE_RATE",
-			id: res.poll.id,
+			pollId: res.poll.id,
 			poll: res.poll,
 			GuestId,
 		});
 	});
 
 	useSocket("rate/off", res => {
-		if (res.error) {
+		if (res.status === "error") {
 			return;
 		}
 		// 하나의 브라우저에서 여러개의 tab으로 guest들을 생성한 경우,
@@ -160,7 +163,7 @@ function PollContainer({data, GuestId}) {
 		// }
 		dispatch({
 			type: "SOMEONE_RATE",
-			id: res.poll.id,
+			pollId: res.poll.id,
 			poll: res.poll,
 			GuestId,
 		});

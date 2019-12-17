@@ -1,10 +1,12 @@
+import logger from "../../logger.js";
+
 const notifyPollCloseSocketHandler = async (data, emit) => {
 	try {
-		const {id} = data;
+		const {pollId} = data;
 
-		emit(id);
+		emit({status: "ok", pollId});
 	} catch (e) {
-		console.error(e);
+		logger.error(e);
 		emit({status: "error", e});
 	}
 };
