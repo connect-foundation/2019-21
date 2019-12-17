@@ -2,12 +2,13 @@ import React from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import styled from "styled-components";
-import {PollTabIcon, QnATabIcon} from "./TabIcons.js";
 import useTabs from "../../materialUIHooks/useTabs.js";
 import TabBody from "./TabBody.js";
 import QuestionContainer from "../QuestionContainer/QuestionContainer.js";
 import PollApollo from "../Poll/PollApollo.js";
 import {QuestionsProvider} from "../QuestionContainer/QuestionsContext.js";
+import QnATabIcon from "./QnATabIcon.js";
+import PollTabIcon from "./PollTabIcon.js";
 
 const TabGroupStyle = styled.div`
 	position: fixed;
