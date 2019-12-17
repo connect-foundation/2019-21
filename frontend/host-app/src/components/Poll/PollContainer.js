@@ -20,31 +20,36 @@ const ColumnWrapper = styled.div`
 function reducer(polls, action) {
 	let thePoll;
 
-	if (action.id) {
-		thePoll = polls.filter(poll => poll.id === action.id)[0];
+	const {pollId} = action;
+	if (pollId) {
+		thePoll = polls.filter(poll => poll.id === pollId)[0];
 	}
 
 	switch (action.type) {
-		case "OPEN":
+		case "OPEN": {
 			return [action.poll, ...polls];
-		case "CLOSE":
-			return polls.filter(poll => poll.id !== action.id);
-		case "SOMEONE_VOTE":
+		}
+		case "CLOSE": {
+			return polls.filter(poll => poll.id !== pollId);
+		}
+		case "SOMEONE_VOTE": {
 			thePoll.totalVoters = action.poll.totalVoters;
 			thePoll.nItems.forEach((item, index) => {
 				item.voters = action.poll.nItems[index].voters;
 				item.firstPlace = action.poll.nItems[index].firstPlace;
 			});
-			// console.log("SOMEONE_VOTE", thePoll);
-			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
-		case "SOMEONE_RATE":
+			return polls.map(poll => (poll.id === pollId ? thePoll : poll));
+		}
+		case "SOMEONE_RATE": {
 			thePoll.totalVoters = action.poll.totalVoters;
 			thePoll.nItems[action.index].voters++;
-			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
-		case "SOMEONE_CANCEL_RATE":
+			return polls.map(poll => (poll.id === pollId ? thePoll : poll));
+		}
+		case "SOMEONE_CANCEL_RATE": {
 			thePoll.totalVoters = action.poll.totalVoters;
 			thePoll.nItems[action.index].voters--;
-			return polls.map(poll => (poll.id === action.id ? thePoll : poll));
+			return polls.map(poll => (poll.id === pollId ? thePoll : poll));
+		}
 
 		default:
 			throw new Error("Unhandled action.");
@@ -75,20 +80,23 @@ function PollContainer({data}) {
 	// socket.io server 통신 부분
 	// onCreatePoll에 의해 신규로 생성된 Poll은 DB에 socket.io server에 요청하여 DB에 write 함
 	useSocket("poll/create", res => {
-		if (res.error) {
+		if (res.status === "error") {
 			return;
 		}
-		// console.log("useSocket: Poll created.", res);
-		res.pollDate = res.createdAt;
-		res.totalVoters = 0;
-		setStandbyPollData([res].concat(standbyPollData));
+
+		const {poll} = res;
+		poll.totalVoters = 0;
+		setStandbyPollData([poll].concat(standbyPollData));
 	});
 
-	useSocket("poll/open", pollId => {
-		if (pollId.error) {
+	useSocket("poll/open", res => {
+		if (res.status === "error") {
 			return;
 		}
-		const thePoll = standbyPollData.filter(poll => poll.id === pollId)[0];
+
+		const thePoll = {
+			...standbyPollData.find(poll => poll.id === res.pollId),
+		};
 
 		// DB에는 바뀌어 있지만, 여기서는 바뀌지 않은 상태이므로 강제로 바꿈
 		thePoll.state = "running";
@@ -98,8 +106,10 @@ function PollContainer({data}) {
 			item.voters = 0;
 			item.firstPlace = true;
 		});
-		// console.log("useSocket: Poll opened.", thePoll);
-		setStandbyPollData(standbyPollData.filter(poll => poll.id !== pollId));
+
+		setStandbyPollData(
+			standbyPollData.filter(poll => poll.id !== res.pollId),
+		);
 
 		dispatch({
 			type: "OPEN",
@@ -113,11 +123,13 @@ function PollContainer({data}) {
 		socketClient.emit("poll/notify_open", req);
 	});
 
-	useSocket("poll/close", pollId => {
-		if (pollId.error) {
+	useSocket("poll/close", res => {
+		if (res.status === "error") {
 			return;
 		}
-		const thePoll = pollData.filter(poll => poll.id === pollId)[0];
+
+		const {pollId} = res;
+		const thePoll = {...pollData.find(poll => poll.id === pollId)};
 
 		// DB에는 바뀌어 있지만, 여기서는 바뀌지 않은 상태이므로 강제로 바꿈
 		thePoll.state = "closed";
@@ -126,61 +138,60 @@ function PollContainer({data}) {
 
 		dispatch({
 			type: "CLOSE",
-			id: pollId,
+			pollId,
 		});
 
 		// Host 에서 Guests 모두에게 새로운 Poll 이 close 되었음을 알려줌
 		// "poll/open"을 전달받고 나서 "poll/notify_close"를 emit 함
-		const req = {id: pollId};
+		const req = {pollId};
 
 		socketClient.emit("poll/notify_close", req);
 	});
 
 	useSocket("vote/on", res => {
-		if (res.error) {
+		if (res.status === "error") {
 			return;
 		}
-		// console.log("useSocket vote/on", res);
+
 		dispatch({
 			type: "SOMEONE_VOTE",
-			id: res.poll.id,
+			pollId: res.poll.id,
 			poll: res.poll,
 		});
 	});
 
 	useSocket("vote/off", res => {
-		if (res.error) {
+		if (res.status === "error") {
 			return;
 		}
 		dispatch({
 			type: "SOMEONE_VOTE",
-			id: res.poll.id,
+			pollId: res.poll.id,
 			poll: res.poll,
 		});
 	});
 
 	useSocket("rate/on", res => {
-		if (res.error) {
+		if (res.status === "error") {
 			return;
 		}
-		// console.log("useSocket rate/on", res);
-		// const index = parseInt(res.poll.ratingValue) - 1;
+
 		dispatch({
 			type: "SOMEONE_RATE",
-			id: res.poll.id,
+			pollId: res.poll.id,
 			poll: res.poll,
 			index: res.index,
 		});
 	});
 
 	useSocket("rate/off", res => {
-		if (res.error) {
+		if (res.status === "error") {
 			return;
 		}
-		// console.log("useSocket rate/off", res);
+
 		dispatch({
 			type: "SOMEONE_CANCEL_RATE",
-			id: res.poll.id,
+			pollId: res.poll.id,
 			poll: res.poll,
 			index: res.index,
 		});

@@ -1,20 +1,24 @@
 import React, {useRef} from "react";
+import styled from "styled-components";
 import QuestionContainerTabBar from "./QuestionContainerTabBar.js";
 import useTabs from "../../materialUIHooks/useTabs.js";
 import AddQuestionInputButton from "./QuestionInputArea/AddQuestionInputButton.js";
 import QuestionCardList from "./QuestionCard/QuestionCardList.js";
 import {socketClient} from "../../libs/socketIoClientProvider.js";
-import PaddingArea from "./QuestionInputArea/PaddingArea.js";
+import PaddingArea from "../CommonComponent/PaddingArea.js";
 import QuestionEditMenuDrawer from "./QuestionCard/QuestionEditMenuDrawer.js";
 import NewQuestionInputDrawer from "./NewQuestionInputDrawer.js";
 import EditQuestionInputDrawer from "./EditQuestionInputDrawer.js";
 import {useUIControllerContext} from "../UIController/UIController.js";
 import {useQuestions} from "./QuestionsContext.js";
-
 import MyQuestionsDrawer from "./MyQuestionDrawer.js";
 
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
+
+const QuestionContainerStyle = styled.div`
+	overflow-y:scroll;
+`;
 
 function QuestionContainer() {
 	const {dispatch, questions, replies} = useQuestions();
@@ -42,7 +46,7 @@ function QuestionContainer() {
 	};
 
 	return (
-		<>
+		<QuestionContainerStyle>
 			<QuestionContainerTabBar
 				tabIdx={tabIdx}
 				onSelectTab={onContainerSelectTab}
@@ -84,7 +88,7 @@ function QuestionContainer() {
 					myQuestionDrawerReducer.setOff();
 				}}
 			/>
-		</>
+		</QuestionContainerStyle>
 	);
 }
 

@@ -1,16 +1,14 @@
-import React, {useState} from "react";
-import Title from "./Title";
-import QuestionContainer from "./Questions/QuestionContainer";
-import ColumnFooter from "./ColumnFooter";
+import React from "react";
+import Title from "./Title/Title";
+import QuestionContainer from "../Questions/QuestionContainer";
 import {QuestionStyle, ModerationStyle} from "./ComponentsStyle";
-import {filterStared} from "../libs/utils";
+import {filterStared} from "../../libs/utils";
 
 function Column({type, state, stateHandler, data, dataHandler, handleStar}) {
-	const [heightWeight, setHeightWeight] = useState(0);
 	const ColumnStyle = ((type === "moderation") ? ModerationStyle : QuestionStyle);
 
 	return (
-		<ColumnStyle height={`${100 + (heightWeight * 50)}%`} state={state}>
+		<ColumnStyle state={state}>
 			<Title
 				type={type}
 				state={state}
@@ -32,7 +30,6 @@ function Column({type, state, stateHandler, data, dataHandler, handleStar}) {
 				handleStar={handleStar}
 				containerType={"unFocus"}
 			/>
-			<ColumnFooter data={heightWeight} handler={setHeightWeight}/>
 		</ColumnStyle>
 	);
 }

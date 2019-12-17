@@ -4,7 +4,7 @@ import Badge from "@material-ui/core/Badge";
 import Tooltip from "@material-ui/core/Tooltip";
 import {makeStyles} from "@material-ui/core/styles";
 import {Icon} from "@material-ui/core";
-import {TitleStyle, TitleBox, RightSide} from "./ComponentsStyle";
+import {TitleStyle, TitleBox, RightSide} from "../ComponentsStyle";
 
 const useStyles = makeStyles(theme => ({
 	margin: {

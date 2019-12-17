@@ -2,9 +2,9 @@ import React, {useContext} from "react";
 import Switch from "@material-ui/core/Switch";
 import Badge from "@material-ui/core/Badge";
 import {makeStyles} from "@material-ui/core";
-import {socketClient, useSocket} from "../libs/socket.io-Client-wrapper";
-import {HostContext} from "../libs/hostContext";
-import {TitleStyle, TitleBox} from "./ComponentsStyle";
+import {socketClient, useSocket} from "../../../libs/socket.io-Client-wrapper";
+import {HostContext} from "../../../libs/hostContext";
+import {TitleStyle, TitleBox} from "../ComponentsStyle";
 
 const useStyles = makeStyles(theme => ({
 	margin: {

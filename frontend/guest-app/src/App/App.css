@@ -1,3 +1,8 @@
+/*아이폰*/
+*, *::before, *::after{
+	overflow: hidden;
+}
+
 .App {
 	text-align: center;
 }

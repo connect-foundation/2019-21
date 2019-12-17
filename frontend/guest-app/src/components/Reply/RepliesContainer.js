@@ -1,34 +1,35 @@
 import React from "react";
-import Box from "@material-ui/core/Box";
-import {styled} from "@material-ui/core/styles";
-import AppDrawNavBar from "../AppDrawer/AppDrawerNavBar";
+import styled from "styled-components";
+import {Scrollbars} from "react-custom-scrollbars"
 import PreviewQuestion from "./PreviewQuestion";
 import RepliesList from "./RepliesList";
 import ReplyQuestionDivider from "./ReplyQuestionDivider";
 import ReplyInputContainer from "./ReplyInputContainer";
+import PaddingArea from "../CommonComponent/PaddingArea";
 
-const Container = styled(Box)({
-	display: "flex",
-	flexDirection: "column",
-	position: "absolute",
-	top: "4rem",
-	width: "99%",
-});
+const RepliesContainerStyle = styled.div`
+	overflow-y:scroll;
+`;
 
 function RepliesContainer(props) {
-	const {onClose} = props;
+	const fullScreen = {
+		width: "100vw",
+		height: "100vh",
+	};
 
 	return (
-		<Container>
-			<AppDrawNavBar onClick={onClose} title="답글" />
-			<PreviewQuestion {...props} />
-			<ReplyQuestionDivider
-				{...props}
-				style={{marginTop: "0.5rem", marginBottom: "0.5rem"}}
-			/>
-			<RepliesList {...props} />
-			<ReplyInputContainer {...props} />
-		</Container>
+		<Scrollbars style={fullScreen}>
+			<RepliesContainerStyle>
+				<PreviewQuestion {...props} />
+				<ReplyQuestionDivider
+					{...props}
+					style={{marginTop: "0.5rem", marginBottom: "0.5rem"}}
+				/>
+				<RepliesList {...props} />
+				<ReplyInputContainer {...props} />
+				<PaddingArea/>
+			</RepliesContainerStyle>
+		</Scrollbars>
 	);
 }
 

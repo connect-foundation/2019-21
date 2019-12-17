@@ -1,7 +1,7 @@
 import React from "react";
 import SwitchTitle from "./SwitchTitle";
 import RadioTitle from "./RadioTitle";
-import {filterQuestion} from "../libs/utils";
+import {filterQuestion} from "../../../libs/utils";
 
 const titleMap = {
 	moderation: {

@@ -1,17 +1,15 @@
 import React, {useState} from "react";
-import {Skeleton} from "@material-ui/lab";
 import {useQuery} from "@apollo/react-hooks";
 import "./App.css";
-import Header from "../components/Header";
-import Nav from "../components/Nav";
-import Content from "../components/Content";
+import Header from "../components/Header/Header";
+import NavBar from "../components/NavBar/NavBar.js";
+import EventMonitor from "../components/EventMonitor/EventMonitor";
 import NewPollModal from "../components/Poll/NewPollModal";
 import {HostProvider} from "../libs/hostContext";
 import {getEventsByHost} from "../libs/gql";
-import EmptyContent from "../components/EmptyContent";
+import EmptyContent from "../components/EventMonitor/EmptyContent";
 import {socketClient} from "../libs/socket.io-Client-wrapper";
-import SkeletonContent from "../components/SkeletonContent";
-import SkeletonTitle from "../components/SkeletionTitle";
+import AppSkeleton from "../components/Skeleton/AppSkeleton";
 
 function App() {
 	const modal = false;
@@ -21,10 +19,7 @@ function App() {
 
 	if (loading) {
 		return (
-			<Skeleton>
-				<SkeletonTitle />
-				<SkeletonContent />
-			</Skeleton>
+			<AppSkeleton/>
 		);
 	} else if (error) {
 		return <p>error-page...</p>;
@@ -42,16 +37,16 @@ function App() {
 			const eventId = events[0].id;
 
 			socketClient.emit("joinRoom", {room: eventId});
-			socketClient.emit("event/initOption", eventId); // dummy Event Id:2
+			socketClient.emit("event/initOption", eventId);
 		}
 
 		return (
 			<HostProvider value={{hostInfo, events, setEvents}}>
 				<div className="App">
 					<Header />
-					<Nav />
+					<NavBar />
 					{modal && <NewPollModal />}
-					{eventNum ? <Content event={event} /> : <EmptyContent />}
+					{eventNum ? <EventMonitor event={event} /> : <EmptyContent />}
 				</div>
 			</HostProvider>
 		);
