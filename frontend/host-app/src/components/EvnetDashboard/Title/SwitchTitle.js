@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
 function SwitchTitle({titleName, state, stateHandler, data}) {
 	const {events} = useContext(HostContext);
 	const classes = useStyles();
-	const eventId = events[0].id; // dummyEventId
+	const eventId = events[0].id;
 
 	const moderationEventEmit = () =>
 		socketClient.emit("moderation/toggle", {eventId, state: !state});

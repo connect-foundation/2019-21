@@ -10,23 +10,15 @@ import useSocketHandler from "./useQuestionSocketEventHandler";
 
 
 function Inner({data, event, option}) {
-	const SELECTED = true;
-	const UNSELECTED = false;
-	const [radioState, setRadioState] = useState([SELECTED, UNSELECTED, UNSELECTED, UNSELECTED]);
 	const [moderationState, setModeration] = useState(option.moderationOption);
 	const [questions, dispatch] = useReducer(QuestionsReducer, {questions: data});
 	const [pollNumberStatus] = useState(0);
 
-	const handleRadioState = buttonIndex => {
-		setRadioState([UNSELECTED, UNSELECTED, UNSELECTED, UNSELECTED]
-			.map((_, idx) => (idx === buttonIndex ? SELECTED : UNSELECTED)));
-	};
-
 	const typeMap = {
 		moderation: {state: moderationState, stateHandler: setModeration},
-		newQuestion: {state: radioState, stateHandler: handleRadioState},
-		popularQuestion: {state: radioState, stateHandler: handleRadioState},
-		completeQuestion: {state: radioState, stateHandler: handleRadioState},
+		newQuestion: {},
+		popularQuestion: {},
+		completeQuestion: {},
 	};
 
 	useSocketHandler(dispatch);
@@ -62,8 +54,6 @@ function Inner({data, event, option}) {
 				))}
 			<Column
 				type="poll"
-				state={radioState}
-				stateHandler={handleRadioState}
 				badgeState={pollNumberStatus}
 				data={{questions: []}}
 			/>
@@ -71,7 +61,7 @@ function Inner({data, event, option}) {
 	);
 }
 
-function EventMonitor({event}) {
+function EventDashboard({event}) {
 	const {events} = useContext(HostContext);
 	const {loading, error, data} = useQueryQuestions({
 		variables: {EventId: events[0].id},
@@ -87,4 +77,4 @@ function EventMonitor({event}) {
 	);
 }
 
-export default EventMonitor;
+export default EventDashboard;
