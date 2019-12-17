@@ -1,60 +1,35 @@
-import React from "react";
-import SwitchTitle from "./SwitchTitle";
-import RadioTitle from "./RadioTitle";
-import {filterQuestion} from "../../../libs/utils";
+import React, {useContext} from "react";
+import Switch from "@material-ui/core/Switch";
+import {TitleStyle, TitleBox, RightSide} from "../ComponentsStyle";
+import CompleteAllQuestionButton from "../Buttons/CompleteAllQuestionButton";
+import TitleBadge from "./TitleBadge";
+import {HostContext} from "../../../libs/hostContext";
+import {socketClient} from "../../../libs/socket.io-Client-wrapper";
+import titleNameMap from "./titleNameMap";
 
-const titleMap = {
-	moderation: {
-		titleName: "질문 검열",
-		columnIndex: null,
-	},
-	newQuestion: {
-		titleName: "최신 질문",
-		columnIndex: 0,
-	},
-	popularQuestion: {
-		titleName: "인기 질문",
-		columnIndex: 1,
-	},
-	completeQuestion: {
-		titleName: "완료 질문",
-		columnIndex: 2,
-	},
-	poll: {
-		titleName: "투표",
-		columnIndex: 3,
-	},
-};
 
-function Title({type, state, stateHandler, data, dataHandler}) {
-	if (type === "moderation") {
-		return <SwitchTitle
-			titleName= {titleMap[type].titleName}
-			state={state}
-			stateHandler={stateHandler}
-			data={filterQuestion(type, data).questions}
-		/>;
-	} else if (type === "completeQuestion") {
-		return <RadioTitle
-			titleName={titleMap[type].titleName}
-			state= {state}
-			stateHandler={stateHandler}
-			data={filterQuestion(type, data).questions}
-			idx={titleMap[type].columnIndex}
-			dataHandler={dataHandler}
-			type={type}
-		/>;
-	} else {
-		return <RadioTitle
-			titleName={titleMap[type].titleName}
-			state= {state}
-			stateHandler={stateHandler}
-			data={filterQuestion("active", data).questions}
-			idx={titleMap[type].columnIndex}
-			dataHandler={dataHandler}
-			type={type}
-		/>;
-	}
+function Title({data, dataHandler, type, state}) {
+
+	const {events} = useContext(HostContext);
+	const eventId = events[0].id;
+
+	const moderationEventEmit = () =>
+		socketClient.emit("moderation/toggle", {eventId, state: !state});
+
+	return (
+		<>
+			<TitleBox>
+				<TitleBadge data={data}/>
+				<TitleStyle>{titleNameMap[type]}</TitleStyle>
+				<RightSide>
+					{type === "moderation" &&
+					<Switch checked={state} onClick={() => moderationEventEmit()}/>}
+					{(type === "newQuestion" || type === "popularQuestion") &&
+					<CompleteAllQuestionButton dataHandler={dataHandler}/>}
+				</RightSide>
+			</TitleBox>
+		</>
+	);
 }
 
 export default Title;

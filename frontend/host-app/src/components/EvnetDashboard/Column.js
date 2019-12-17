@@ -1,18 +1,17 @@
 import React from "react";
-import Title from "./Title/Title";
+import TitleContainer from "./Title/TitleContainer";
 import QuestionContainer from "../Questions/QuestionContainer";
 import {QuestionStyle, ModerationStyle} from "./ComponentsStyle";
 import {filterStared} from "../../libs/utils";
 
-function Column({type, state, stateHandler, data, dataHandler, handleStar}) {
+function Column({type, state, data, dataHandler, handleStar}) {
 	const ColumnStyle = ((type === "moderation") ? ModerationStyle : QuestionStyle);
 
 	return (
 		<ColumnStyle state={state}>
-			<Title
+			<TitleContainer
 				type={type}
 				state={state}
-				stateHandler={stateHandler}
 				data={data}
 				dataHandler={dataHandler}
 			/>

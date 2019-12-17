@@ -6,22 +6,18 @@ import {HostContext} from "../../libs/hostContext";
 import {ContentStyle} from "./ComponentsStyle";
 import QuestionsReducer from "../Questions/QuestionReducer";
 import SkeletonContent from "../Skeleton/SkeletonContent";
-import useSocketHandler from "./useQuestionSocketEventHandler";
+import useQuestionSocketEventHandler from "../EventHandler/useQuestionSocketEventHandler";
+import useModerationEventHandler from "../EventHandler/useModerationEventHandler";
 
 
-function Inner({data, event, option}) {
+function Inner({data, option}) {
 	const [moderationState, setModeration] = useState(option.moderationOption);
 	const [questions, dispatch] = useReducer(QuestionsReducer, {questions: data});
 	const [pollNumberStatus] = useState(0);
+	const columnTypes = ["moderation", "newQuestion", "popularQuestion", "completeQuestion"];
 
-	const typeMap = {
-		moderation: {state: moderationState, stateHandler: setModeration},
-		newQuestion: {},
-		popularQuestion: {},
-		completeQuestion: {},
-	};
-
-	useSocketHandler(dispatch);
+	useQuestionSocketEventHandler(dispatch);
+	useModerationEventHandler(setModeration);
 
 	const handleQuestionDatas = (id, from, to) => {
 		const questionData = questions.questions.find(e => e.id === id);
@@ -41,17 +37,15 @@ function Inner({data, event, option}) {
 
 	return (
 		<ContentStyle>
-			{Object.keys(typeMap)
-				.map(e => (
-					<Column
-						type={e}
-						state={typeMap[e].state}
-						stateHandler={typeMap[e].stateHandler}
-						data={questions}
-						dataHandler={handleQuestionDatas}
-						handleStar={handleStar}
-					/>
-				))}
+			{columnTypes.map(e => (
+				<Column
+					type={e}
+					state={moderationState}
+					data={questions}
+					dataHandler={handleQuestionDatas}
+					handleStar={handleStar}
+				/>
+			))}
 			<Column
 				type="poll"
 				badgeState={pollNumberStatus}
