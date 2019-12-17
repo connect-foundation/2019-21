@@ -1,4 +1,7 @@
-import {getGuestByEventId, findGuestBySid} from "../../../DB/queries/guest.js";
+import {
+	getGuestByEventId,
+	getGuestByGuestSid,
+} from "../../../DB/queries/guest.js";
 import {getEventById} from "../../../DB/queries/event.js";
 
 const guestResolver = async EventId => getGuestByEventId(EventId);
@@ -8,10 +11,10 @@ const guestInEventResolver = async authority => {
 		throw Error("AuthenticationError in guestInEventResolver");
 	}
 
-	const guest = await findGuestBySid(authority.info);
-	const event = await getEventById(guest.EventId);
+	const guest = (await getGuestByGuestSid(authority.info)).get({plain: true});
+	const event = (await getEventById(guest.EventId)).get({plain: true});
 
-	return {event: event.dataValues, guest};
+	return {event, guest};
 };
 
 // noinspection JSUnusedGlobalSymbols
