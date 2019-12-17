@@ -6,19 +6,17 @@ function TitleContainer({type, state, data, dataHandler}) {
 	if (type === "moderation") {
 		return <Title
 			state={state}
-			data={filterQuestion(type, data).questions}
+			data={filterQuestion(type, data)}
 			type={type}
 		/>;
 	} else if (type === "completeQuestion") {
 		return <Title
-			data={filterQuestion(type, data).questions}
-			dataHandler={dataHandler}
+			data={filterQuestion(type, data)}
 			type={type}
 		/>;
 	} else {
 		return <Title
-			data={filterQuestion("active", data).questions}
-			dataHandler={dataHandler}
+			data={filterQuestion("active", data)}
 			type={type}
 		/>;
 	}

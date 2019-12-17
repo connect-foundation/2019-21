@@ -6,20 +6,19 @@ import {HostContext} from "../../../libs/hostContext";
 import titleNameMap from "./titleNameMap";
 import ModerationButton from "../Buttons/ModerationButton";
 
-function Title({data, dataHandler, type, state}) {
-
+function Title({data, type, state}) {
 	const {events} = useContext(HostContext);
 	const eventId = events[0].id;
 
 	return (
 		<>
 			<TitleBox>
-				<TitleBadge data={data}/>
+				<TitleBadge dataLength={data.questions.length}/>
 				<TitleStyle>{titleNameMap[type]}</TitleStyle>
 				<RightSide>
 					{type === "moderation" && <ModerationButton state={state} eventId={eventId}/>}
 					{(type === "newQuestion" || type === "popularQuestion") &&
-					<CompleteAllQuestionButton dataHandler={dataHandler}/>}
+					<CompleteAllQuestionButton data={data}/>}
 				</RightSide>
 			</TitleBox>
 		</>

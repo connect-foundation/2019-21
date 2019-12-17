@@ -8,14 +8,14 @@ const useStyles = makeStyles(theme => ({
 }
 ));
 
-function TitleBadge({data}) {
+function TitleBadge({dataLength}) {
 	const classes = useStyles();
 
 	return (
 		<>
 			<Badge
 				color="secondary"
-				badgeContent={data.length}
+				badgeContent={dataLength}
 				showZero
 				className={classes.margin}
 			/>

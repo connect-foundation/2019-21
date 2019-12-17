@@ -36,7 +36,7 @@ function Inner({data, option}) {
 	);
 }
 
-function EventDashboard({event}) {
+function EventDashboard() {
 	const {events} = useContext(HostContext);
 	const {loading, error, data} = useQueryQuestions({
 		variables: {EventId: events[0].id},
@@ -47,7 +47,7 @@ function EventDashboard({event}) {
 
 	return (
 		<>
-			<Inner data={data.newData} event={event} option={data.newOption} />
+			<Inner data={data.newData} option={data.newOption} />
 		</>
 	);
 }
