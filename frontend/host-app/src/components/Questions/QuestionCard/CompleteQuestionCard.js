@@ -1,19 +1,18 @@
 import React, {useState} from "react";
-import Divider from "@material-ui/core/Divider";
 import Card from "@material-ui/core/Card";
-import {CardContent, Icon} from "@material-ui/core";
-import UserAvata from "./UserAvata.js";
-import {QuestionHeader, QuestionBody, QuestionInfo, QuestionMeta, QuestionButtons} from "./QuestionStyle";
-import QuestionDate from "./QuestionDate";
-import QuestionUserName from "./QuestionUserName";
-import useQuestionCardStyles from "./useQuestionCardStyles";
-import QuestionMenuButton from "./Buttons/QuestionMenuButton";
-import ThumbUpButton from "./Buttons/ThumbUpButton";
-import Replies from "./Replies";
-import TopFixButton from "./Buttons/TopFixButton";
-import QuestionCompleteButton from "./Buttons/QuestionCompleteButton";
+import {CardContent} from "@material-ui/core";
+import Divider from "@material-ui/core/Divider";
+import UserAvata from "../UserAvata.js";
+import {QuestionHeader, QuestionBody, QuestionInfo, QuestionMeta, QuestionButtons} from "../QuestionStyle";
+import QuestionDate from "../QuestionDate";
+import QuestionUserName from "../QuestionUserName";
+import useQuestionCardStyles from "../useQuestionCardStyles";
+import QuestionMenuButton from "../Buttons/QuestionMenuButton";
+import ThumbUpButton from "../Buttons/ThumbUpButton";
+import Replies from "../Replies";
+import QuestionRestoreButton from "../Buttons/QuestionRestoreButton";
 
-function LiveQuestionCard(props) {
+function CompleteQuestionCard(props) {
 	const classes = useQuestionCardStyles();
 	const [openReplies, setOpenReplies] = useState(false);
 
@@ -28,8 +27,7 @@ function LiveQuestionCard(props) {
 							<QuestionDate {...props} />
 						</QuestionInfo>
 						<QuestionButtons>
-							<TopFixButton {...props}/>
-							<QuestionCompleteButton {...props} />
+							<QuestionRestoreButton {...props}/>
 							<QuestionMenuButton id={props.id} type={props.type} handler={props.dataHandler}/>
 						</QuestionButtons>
 					</QuestionMeta>
@@ -45,4 +43,4 @@ function LiveQuestionCard(props) {
 	);
 }
 
-export default LiveQuestionCard;
+export default CompleteQuestionCard;
