@@ -2,6 +2,7 @@ import React from "react";
 import Tooltip from "@material-ui/core/Tooltip";
 import {Icon} from "@material-ui/core";
 import useStyles from "./useButtonStyles.js";
+import {handleQuestionDatas} from "../../EventEmiter/QuestionSocketEventEmiter.js";
 
 function QuestionRestoreButton(props) {
 	const classes = useStyles();
@@ -11,7 +12,7 @@ function QuestionRestoreButton(props) {
 			<Tooltip title="질문 되살리기">
 				<Icon
 					className={classes.restoreButton}
-					onClick={() => props.dataHandler(props.id, props.type, "active")}>
+					onClick={() => handleQuestionDatas(props.data, props.id, props.type, "active")}>
 					restore
 				</Icon>
 			</Tooltip>

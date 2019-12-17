@@ -1,6 +1,5 @@
 import React, {useState, useContext, useReducer} from "react";
 import Column from "./Column";
-import {socketClient} from "../../libs/socket.io-Client-wrapper";
 import useQueryQuestions from "../../libs/useQueryQuestions";
 import {HostContext} from "../../libs/hostContext";
 import {ContentStyle} from "./ComponentsStyle";
@@ -19,22 +18,6 @@ function Inner({data, option}) {
 	useQuestionSocketEventHandler(dispatch);
 	useModerationEventHandler(setModeration);
 
-	const handleQuestionDatas = (id, from, to) => {
-		const questionData = questions.questions.find(e => e.id === id);
-
-		socketClient.emit("question/move", {id, from, to, data: questionData});
-	};
-
-	const handleStar = id => {
-		const toggleMsg = questions.questions.reduce((acc, e) => {
-			if (e.isStared) { acc.from.push({id: e.id, isStared: !e.isStared}); }
-			if (e.id === id) { acc.to.push({id: e.id, isStared: !e.isStared}); }
-			return acc;
-		}, {from: [], to: []});
-
-		socketClient.emit("question/toggleStar", toggleMsg);
-	};
-
 	return (
 		<ContentStyle>
 			{columnTypes.map(e => (
@@ -42,8 +25,6 @@ function Inner({data, option}) {
 					type={e}
 					state={moderationState}
 					data={questions}
-					dataHandler={handleQuestionDatas}
-					handleStar={handleStar}
 				/>
 			))}
 			<Column

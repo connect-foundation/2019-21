@@ -28,7 +28,7 @@ function CompleteQuestionCard(props) {
 						</QuestionInfo>
 						<QuestionButtons>
 							<QuestionRestoreButton {...props}/>
-							<QuestionMenuButton id={props.id} type={props.type} handler={props.dataHandler}/>
+							<QuestionMenuButton {...props} />
 						</QuestionButtons>
 					</QuestionMeta>
 				</QuestionHeader>

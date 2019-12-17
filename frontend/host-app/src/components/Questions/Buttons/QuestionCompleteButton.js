@@ -2,6 +2,7 @@ import React from "react";
 import Tooltip from "@material-ui/core/Tooltip";
 import {Icon} from "@material-ui/core";
 import useStyles from "./useButtonStyles.js";
+import {handleQuestionDatas} from "../../EventEmiter/QuestionSocketEventEmiter.js";
 
 function QuestionCompleteButton(props) {
 	const classes = useStyles();
@@ -11,7 +12,7 @@ function QuestionCompleteButton(props) {
 			<Tooltip title="답변 완료">
 				<Icon
 					className={classes.approveButton}
-					onClick={() => props.dataHandler(props.id, props.type, "completeQuestion")}>
+					onClick={() => handleQuestionDatas(props.data, props.id, props.type, "completeQuestion")}>
 					check_circle_outline
 				</Icon>
 			</Tooltip>

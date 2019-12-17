@@ -9,7 +9,7 @@ import {FocusedDiv, UnFocusedDiv} from "./QuestionStyle";
 const compareByCreateAt = (a, b) => b.createdAt.localeCompare(a.createdAt);
 const compareByLikeCount = (a, b) => b.likeCount - a.likeCount;
 
-function QuestionContainer({datas, type, dataHandler, handleStar, containerType}) {
+function QuestionContainer({datas, type, containerType}) {
 	const QuestionDiv = containerType === "focus" ? FocusedDiv : UnFocusedDiv;
 
 	return (
@@ -18,10 +18,8 @@ function QuestionContainer({datas, type, dataHandler, handleStar, containerType}
 				filterQuestion("moderation", datas).questions.map(question => (
 					<ModerationQuestionCard
 						{...question}
-						id={question.id}
-						dataHandler={dataHandler}
 						type={type}
-						handleStar={handleStar}
+						data={datas}
 					/>
 				))}
 			{type === "popularQuestion" &&
@@ -30,11 +28,9 @@ function QuestionContainer({datas, type, dataHandler, handleStar, containerType}
 					.map(question => (
 						<LiveQuestionCard
 							{...question}
-							id={question.id}
-							dataHandler={dataHandler}
 							type={type}
-							handleStar={handleStar}
 							replies={filterReplies(question.id, datas).questions}
+							data={datas}
 						/>
 					))}
 			{type === "newQuestion" &&
@@ -43,22 +39,18 @@ function QuestionContainer({datas, type, dataHandler, handleStar, containerType}
 					.map(question => (
 						<LiveQuestionCard
 							{...question}
-							id={question.id}
-							dataHandler={dataHandler}
 							type={type}
-							handleStar={handleStar}
 							replies={filterReplies(question.id, datas).questions}
+							data={datas}
 						/>
 					))}
 			{type === "completeQuestion" &&
 				filterQuestion("completeQuestion", datas).questions.map(question => (
 					<CompleteQuestionCard
 						{...question}
-						id={question.id}
-						dataHandler={dataHandler}
 						type={type}
-						handleStar={handleStar}
 						replies={filterReplies(question.id, datas).questions}
+						data={datas}
 					/>
 				))}
 			{(type === "poll" && containerType !== "focus") && <PollApollo />}

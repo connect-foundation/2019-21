@@ -4,10 +4,11 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import {Icon} from "@material-ui/core";
 import useStyle from "./useButtonStyles";
+import {handleQuestionDatas} from "../../EventEmiter/QuestionSocketEventEmiter.js";
 
 const ITEM_HEIGHT = 48;
 
-export default function QuestionMenuButton({id, type, handler}) {
+export default function QuestionMenuButton(props) {
 	const classes = useStyle();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
@@ -21,7 +22,7 @@ export default function QuestionMenuButton({id, type, handler}) {
 	};
 
 	const handleDelete = () => {
-		handler(id, type, "deleted");
+		handleQuestionDatas(props.data, props.id, props.type, "deleted");
 		handleClose();
 	};
 

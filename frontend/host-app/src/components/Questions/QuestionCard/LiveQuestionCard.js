@@ -30,7 +30,7 @@ function LiveQuestionCard(props) {
 						<QuestionButtons>
 							<TopFixButton {...props}/>
 							<QuestionCompleteButton {...props} />
-							<QuestionMenuButton id={props.id} type={props.type} handler={props.dataHandler}/>
+							<QuestionMenuButton {...props}/>
 						</QuestionButtons>
 					</QuestionMeta>
 				</QuestionHeader>
