@@ -1,20 +1,16 @@
 import React from "react";
 import Card from "@material-ui/core/Card";
 import {CardContent, Icon} from "@material-ui/core";
-import Tooltip from "@material-ui/core/Tooltip";
 import UserAvatar from "./UserAvatar.js";
 import {QuestionHeader, QuestionBody, QuestionInfo, QuestionMeta, QuestionButtons} from "../QuestionStyle";
 import QuestionDate from "./QuestionDate";
 import QuestionUserName from "./QuestionUserName";
-import useQuestionCardStyles from "./useQuestionCardStyles";
 import ApproveButton from "../Buttons/ApproveButton";
 import RejectButton from "../Buttons/RejectButton";
 
 function ModerationQuestionCard(props) {
-	const classes = useQuestionCardStyles();
-
 	return (
-		<Card className={props.isStared ? classes.staredQuestion : classes.normalQuestion}>
+		<Card>
 			<CardContent>
 				<QuestionHeader>
 					<QuestionMeta>

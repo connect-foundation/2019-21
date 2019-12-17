@@ -17,7 +17,7 @@ function CompleteQuestionCard(props) {
 	const [openReplies, setOpenReplies] = useState(false);
 
 	return (
-		<Card className={props.isStared ? classes.staredQuestion : classes.normalQuestion}>
+		<Card>
 			<CardContent className={classes.cardContentPadding}>
 				<QuestionHeader>
 					<QuestionMeta>
