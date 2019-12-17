@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import loadConfig from "../config/configLoader.js";
 import {findHostByAuthId} from "../../DB/queries/host";
-import {findGuestBySid} from "../../DB/queries/guest";
+import {isExistGuest} from "../../DB/queries/guest";
 import {convertePathToEvent} from "../utils";
 
 const {tokenArgs, routePage} = loadConfig();
@@ -16,7 +16,8 @@ export function guestAuthenticate() {
 				req.cookies[cookieName],
 				tokenArgs.secret
 			);
-			const guest = await findGuestBySid(payload.sub);
+
+			const guest = await isExistGuest(payload.sub);
 			const eventId = await convertePathToEvent(path);
 			const isAnotherPath = guest === eventId;
 			if (isAnotherPath) {
