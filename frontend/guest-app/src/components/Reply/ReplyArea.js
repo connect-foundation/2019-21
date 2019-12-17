@@ -2,13 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import {styled} from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
-import Drawer from "@material-ui/core/Drawer";
 import ReplyAvatar from "./ReplyAvatar";
 import RepliesPaper from "./RepliesPaper";
 import AddReplyRow from "./AddReplyRow";
 import useReplies from "./useReplies";
 
 import CurrentRepliesTextField from "./CurrentRepliesTextField";
+import AppDrawer from "../AppDrawer/AppDrawer";
 
 const MAX_SHOWING_AVATAR = 5;
 const PreviewReplyContainer = styled(Paper)({
@@ -66,9 +66,9 @@ export default function ReplyArea(props) {
 			) : (
 				<AddReplyRow openReplies={openReplies}></AddReplyRow>
 			)}
-			<Drawer anchor="bottom" open={repliesIsOpened}>
-				<RepliesPaper onClose={closeReplies} {...props} />
-			</Drawer>
+			<AppDrawer anchor="bottom" isOpen={repliesIsOpened} onClose={closeReplies}>
+				<RepliesPaper {...props} />
+			</AppDrawer>
 		</>
 	);
 }

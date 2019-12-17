@@ -58,7 +58,7 @@ export function SocketIoClientProvider(props) {
 	const emit = socketClient.emit;
 
 	return (
-		<context.Provider value={{socketClient, emit}}>${children}</context.Provider>
+		<context.Provider value={{socketClient, emit}} >${children}</context.Provider>
 	);
 }
 
