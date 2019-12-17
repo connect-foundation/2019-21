@@ -10,33 +10,28 @@ import {findHostByAuthId} from "../DB/queries/host";
 import logger from "./logger.js";
 
 const authenticate = async (resolve, root, args, context, info) => {
-	let audience = "anonymous";
-
-	audience = context.payload && context.payload.aud;
+	const audience = context.payload && context.payload.aud;
 	let authority = {sub: null, info: null};
 
 	switch (audience) {
-		case "host":
-		{
+		case "host": {
 			const hostInfo = await findHostByAuthId(context.payload.sub);
 
 			authority = {sub: "host", info: hostInfo};
 			break;
 		}
-		case "guest":
-		{
+		case "guest": {
 			const guestInfo = context.payload.sub;
 
 			authority = {sub: "guest", info: guestInfo};
 			break;
 		}
-		default : {
-			// console.log(`unexpected type of audience ${audience}`)
+		default: {
+			logger.error(`unexpected type of audience ${audience}`);
 		}
 	}
-	const result = await resolve(root, args, authority, info);
 
-	return result;
+	return resolve(root, args, authority, info);
 };
 
 const server = new GraphQLServer({
