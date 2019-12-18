@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import config from "../config";
 import {findHostByAuthId} from "../../DB/queries/host";
 import {isExistGuest} from "../../DB/queries/guest";
-import {convertePathToEvent} from "../utils";
+import {convertPathToEventId} from "../utils";
 import logger from "../logger.js";
 import CookieKeys from "../CookieKeys.js";
 
@@ -15,22 +15,18 @@ export function guestAuthenticate() {
 		try {
 			const payload = jwt.verify(
 				req.cookies[CookieKeys.GUEST_APP],
-				tokenArgs.secret,
+				tokenArgs.secret
 			);
 
 			const guest = await isExistGuest(payload.sub);
-			const eventId = await convertePathToEvent(path);
-			const isAnotherPath = guest === eventId;
+			const eventId = await convertPathToEventId(path);
+			const isGuestBelongToEvent = guest.EventId === eventId;
 
-			if (isAnotherPath) {
-				return next();
+			if (isGuestBelongToEvent) {
+				return res.redirect(routePage.guest);
 			}
 
-			if (!guest) {
-				throw Error("token is invalid");
-			}
-
-			res.redirect(routePage.guest);
+			return next();
 		} catch (e) {
 			logger.error(e);
 			return next();
@@ -43,15 +39,15 @@ export function hostAuthenticate() {
 		try {
 			const payload = jwt.verify(
 				req.cookies[CookieKeys.HOST_APP],
-				tokenArgs.secret,
+				tokenArgs.secret
 			);
 			const host = await findHostByAuthId(payload.sub);
 
-			if (!host) {
-				throw Error("token is invalid");
+			if (host) {
+				res.redirect(routePage.host);
 			}
 
-			res.redirect(routePage.host);
+			return next();
 		} catch (e) {
 			logger.error(e);
 			return next();

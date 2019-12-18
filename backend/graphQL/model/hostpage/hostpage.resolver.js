@@ -11,12 +11,44 @@ import {
 	createHashtag,
 	getHashtagByEventIds,
 } from "../../../DB/queries/hashtag.js";
+import {compareCurrentDateToTarget} from "../../../libs/utils";
 
-const moderationResolver = async (eventId, moderationOption) => {
-	const updatedEvent = await updateEventById({id: eventId, moderationOption});
+function verifySubjectHostJwt(jwtSub) {
+	if (jwtSub !== "host") {
+		throw new Error("AuthenticationError");
+	}
+}
 
-	return updatedEvent[0];
-};
+function mappingHashTagsToEvents(hashTags, events, eventMap) {
+	hashTags.forEach(hashTag => {
+		const hashTagObject = hashTag.get({plain: true});
+
+		eventMap.get(hashTagObject.EventId).push(hashTagObject);
+	});
+	events.forEach(event => {
+		Object.assign(event, {HashTags: eventMap.get(event.id)});
+	});
+
+	return events;
+}
+
+async function generateEventCode() {
+	let generatedEventCode = faker.random.alphaNumeric(4);
+	const events = await getAllEvents();
+	const allreadyExistEventCode = events.map(event => event.eventCode);
+
+	while (1) {
+		const isExist = allreadyExistEventCode.some(
+			someCode => generateEventCode === someCode
+		);
+
+		if (!isExist) {
+			break;
+		}
+		generatedEventCode = faker.random.alphaNumeric(4);
+	}
+	return generatedEventCode;
+}
 
 const getEventOptionResolver = async eventId => {
 	const evnetOption = await getEventOptionByEventId(eventId);
@@ -27,42 +59,36 @@ const getEventOptionResolver = async eventId => {
 export default {
 	Query: {
 		init: async (_, {param}, authority) => {
-			if (authority.sub === "host") {
-				const host = authority.info;
-				let events = await getEventsByHostId(host.id);
+			verifySubjectHostJwt(authority.sub);
+			const host = authority.info;
+			let events = await getEventsByHostId(host.id);
 
-				events = events.filter(event => {
-					const eventObject = event.get({plain: true});
+			events = events.filter(event => {
+				const eventPlainObject = event.get({plain: true});
+				const diff = compareCurrentDateToTarget(eventPlainObject.endAt);
+				if (diff > 0) {
+					return eventPlainObject;
+				}
+			});
 
-					return eventObject;
-				});
+			const eventMap = new Map();
+			const eventIdList = events.map(event => {
+				eventMap.set(event.id, []);
+				return event.id;
+			});
 
-				const eventMap = new Map();
-				const eventIdList = events.map(event => {
-					eventMap.set(event.id, []);
-					return event.id;
-				});
+			const hashTags = await getHashtagByEventIds(eventIdList);
+			events = mappingHashTagsToEvents(hashTags, events, eventMap);
 
-				const hashTags = await getHashtagByEventIds(eventIdList);
-
-				hashTags.forEach(hashTag => {
-					const hashTagObject = hashTag.get({plain: true});
-
-					eventMap.get(hashTagObject.EventId).push(hashTagObject);
-				});
-				events.forEach(event => {
-					Object.assign(event, {HashTags: eventMap.get(event.id)});
-				});
-
-				return {events, host};
-			}
-
-			throw new Error("AuthenticationError");
+			return {events, host};
 		},
+
 		getEventOption: async (_, {EventId}) => getEventOptionResolver(EventId),
 	},
+
 	Mutation: {
 		createHashTags: async (_, {hashTags}, authority) => {
+			verifySubjectHostJwt(authority.sub);
 			for (const hashTag of hashTags) {
 				await createHashtag({
 					name: hashTag.name,
@@ -70,37 +96,25 @@ export default {
 				});
 			}
 		},
+
 		createEvent: async (_, {info}, authority) => {
-			if (authority.sub === "host") {
-				let eventCode = faker.random.alphaNumeric(4);
-				const events = await getAllEvents();
-				const existCode = events.map(event => event.eventCode);
+			verifySubjectHostJwt(authority.sub);
+			const eventCode = await generateEventCode();
 
-				while (true) {
-					const exist = existCode.some(
-						someCode => eventCode === someCode,
-					);
+			let event = await createEvent({
+				eventName: info.eventName,
+				eventCode: eventCode,
+				HostId: authority.info.id,
+				startAt: info.startAt,
+				endAt: info.endAt,
+			});
 
-					if (!exist) {
-						break;
-					}
-
-					eventCode = faker.random.alphaNumeric(4);
-				}
-				let event = await createEvent({
-					eventName: info.eventName,
-					eventCode,
-					HostId: authority.info.id,
-					startAt: info.startAt,
-					endAt: info.endAt,
-				});
-
-				event = event[0].dataValues;
-				return {...event};
-			}
-			throw new Error("AuthenticationError");
+			event = event[0].get({plain: true});
+			return {...event};
 		},
+
 		updateEvent: async (_, {event}, authority) => {
+			verifySubjectHostJwt(authority.sub);
 			await updateEventById({
 				id: event.EventId,
 				eventName: event.eventName,
@@ -112,7 +126,5 @@ export default {
 
 			return updatedEvent.get({plain: true});
 		},
-		moderation: (_, {eventId, moderationOption}) =>
-			moderationResolver(eventId, moderationOption),
 	},
 };
