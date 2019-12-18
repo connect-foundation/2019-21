@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
-import DeleteQuestionCardMenuButton from "./DeleteQuestionCardMenuButton.js";
-import EditQuestionCardMenuButton from "./EditQuestoinCardMenuButton.js";
+import QuestionCardMenuDeleteButton from "./QuestionCardMenuDeleteButton.js";
+import EditQuestionCardMenuButton from "./QuestionCardMenuEditButton.js";
 
-function QuestionEditMenuDrawer(props) {
+function QuestionCardEditMenuDrawer(props) {
 	const {isOpen, onClose, onEdit, onDelete} = props;
 
 	return (
@@ -17,7 +17,7 @@ function QuestionEditMenuDrawer(props) {
 						onClose();
 					}}
 				/>
-				<DeleteQuestionCardMenuButton
+				<QuestionCardMenuDeleteButton
 					onClick={onClose}
 					onDelete={onDelete}
 				/>
@@ -26,18 +26,18 @@ function QuestionEditMenuDrawer(props) {
 	);
 }
 
-QuestionEditMenuDrawer.propTypes = {
+QuestionCardEditMenuDrawer.propTypes = {
 	isOpen: PropTypes.bool,
 	onClose: PropTypes.func,
 	onEdit: PropTypes.func,
 	onDelete: PropTypes.func,
 };
 
-QuestionEditMenuDrawer.defaultProps = {
+QuestionCardEditMenuDrawer.defaultProps = {
 	isOpen: false,
 	onClose: () => {},
 	onEdit: () => {},
 	onDelete: () => {},
 };
 
-export default QuestionEditMenuDrawer;
+export default QuestionCardEditMenuDrawer;

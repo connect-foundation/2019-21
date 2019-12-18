@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import AppDrawer from "../AppDrawer/AppDrawer.js";
-import QuestionInput from "./QuestionInput.js";
+import QuestionInput from "../QuestionInput/QuestionInput.js";
 
 const fullSizeCardStyle = {
 	width: "100vw",
@@ -35,8 +35,6 @@ function QuestionInputDrawer(props) {
 				<CardContent>
 					<QuestionInput
 						onConfirm={() => {
-							// onConfirm && onConfirm();
-							// onClose();
 							if (onConfirm) {
 								if (questionRef.current.value.trim() !== "") {
 									onConfirm();

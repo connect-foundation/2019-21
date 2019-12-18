@@ -2,11 +2,11 @@ import React, {useRef} from "react";
 import styled from "styled-components";
 import QuestionContainerTabBar from "./QuestionContainerTabBar.js";
 import useTabs from "../../hooks/useTabs.js";
-import AddQuestionInputButton from "../QuestionInputArea/AddQuestionInputButton.js";
+import AddQuestionInputButton from "./AddQuestionInputButton.js";
 import QuestionCardList from "../QuestionCard/QuestionCardList.js";
 import {socketClient} from "../../socket.io";
 import PaddingArea from "../atoms/PaddingArea.js";
-import QuestionEditMenuDrawer from "../QuestionCardEditMenuDrawer/QuestionEditMenuDrawer.js";
+import QuestionCardEditMenuDrawer from "../QuestionCardEditMenuDrawer/QuestionCardEditMenuDrawer.js";
 import NewQuestionInputDrawer from "./NewQuestionInputDrawer.js";
 import EditQuestionInputDrawer from "./EditQuestionInputDrawer.js";
 import {useQuestions} from "../../reducers/QuestionsContext.js";
@@ -67,7 +67,7 @@ function QuestionContainer() {
 				questionRef={questionRef}
 				toggleReducer={editQuestionInputDrawer}
 			/>
-			<QuestionEditMenuDrawer
+			<QuestionCardEditMenuDrawer
 				isOpen={questionEditMenuReducer.state}
 				onClose={() => questionEditMenuReducer.setOff()}
 				onDelete={() => {

@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import QuestionContentInput from "./QuestionContentInput.js";
 
-import UserInfoInput from "./UserInfoInput.js";
+import QuestionUserInfoInput from "./QuestionUserInfoInput.js";
 
 const FlexedCenterDiv = styled.div`
 	display: flex;
@@ -39,7 +39,7 @@ function QuestionInput(props) {
 			<Divider style={{marginTop: "0.5rem", marginBottom: "0.5rem"}} />
 			<FlexedSpaceBetweenDiv>
 				<FlexedCenterDiv>
-					<UserInfoInput
+					<QuestionUserInfoInput
 						userNameRef={userNameRef}
 						initialUserName={initialUserName}
 					/>

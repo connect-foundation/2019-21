@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import DeleteIcon from "@material-ui/icons/Delete.js";
 import useCommonModal from "../CommonComponent/CommonModal/useCommonModal.js";
 import SideMenuItem from "../SideMenu/SideMenuItem.js";
-import DeleteQuestionCardModal from "./DeleteQuestionCardModal.js";
+import QuestionCardDeleteModal from "./QuestionCardDeleteModal.js";
 
-function DeleteQuestionCardMenuButton(props) {
+function QuestionCardMenuDeleteButton(props) {
 	const {onDelete} = props;
 	const {isOpened, openModal, closeModal} = useCommonModal();
 
@@ -16,7 +16,7 @@ function DeleteQuestionCardMenuButton(props) {
 				itemText={"질문 삭제"}
 				onClick={openModal}
 			/>
-			<DeleteQuestionCardModal
+			<QuestionCardDeleteModal
 				isOpened={isOpened}
 				closeModal={closeModal}
 				onDelete={onDelete}
@@ -25,8 +25,8 @@ function DeleteQuestionCardMenuButton(props) {
 	);
 }
 
-DeleteQuestionCardMenuButton.propTypes = {
+QuestionCardMenuDeleteButton.propTypes = {
 	onDelete: PropTypes.func,
 };
 
-export default DeleteQuestionCardMenuButton;
+export default QuestionCardMenuDeleteButton;
