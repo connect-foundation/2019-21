@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "@material-ui/core/Card";
-import {CardContent, Icon} from "@material-ui/core";
+import {CardContent} from "@material-ui/core";
 import UserAvatar from "./UserAvatar.js";
 import {QuestionHeader, QuestionBody, QuestionInfo, QuestionMeta, QuestionButtons} from "../QuestionStyle";
 import QuestionDate from "./QuestionDate";
