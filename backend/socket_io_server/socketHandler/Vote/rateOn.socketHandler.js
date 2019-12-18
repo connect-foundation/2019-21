@@ -1,4 +1,5 @@
 import {addVote, deleteVoteBy} from "../../../DB/queries/vote";
+import logger from "../../logger.js";
 
 // const data = {
 //     GuestId: guest.id,
@@ -13,13 +14,14 @@ const rateOnSocketHandler = async (data, emit) => {
 		await addVote({GuestId, CandidateId});
 
 		emit({
+			status: "ok",
 			GuestId,
 			poll,
 			index,
 		});
 	} catch (e) {
-		console.error(e);
-		emit({status: "error(rate/on)", e});
+		logger.error(e);
+		emit({status: "error", e});
 	}
 };
 

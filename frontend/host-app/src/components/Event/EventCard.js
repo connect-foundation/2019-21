@@ -1,4 +1,5 @@
 import React from "react";
+import {makeStyles} from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import {Card, CardContent} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
@@ -6,11 +7,25 @@ import Box from "@material-ui/core/Box";
 import EventIcon from "./EventIcon.js";
 import EventCardContent from "./EventCardContent.js";
 
-function EventCard(props) {
-	const {isLive} = props;
+const useStyles = makeStyles({
+	selected: {
+		background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+	},
+	non_selected: {
+		background: "none",
+	},
+});
 
+function EventCard(props) {
+	let className = "none";
+	const classes = useStyles();
+	const {isLive, onClickHandler, id, selected} = props;
+	if (id === selected) {
+		className = "selected";
+	}
 	return (
 		<Card
+			className={classes[className]}
 			style={{
 				width: "100vw",
 				padding: "0rem",
@@ -18,12 +33,17 @@ function EventCard(props) {
 				marginTop: "0.25rem",
 				marginBottom: "0.25rem",
 			}}
+			onClick={() => {
+				if (isLive) {
+					onClickHandler(id);
+				}
+			}}
 		>
 			<CardContent style={{padding: "1rem"}}>
 				<Grid container direction="row" wrap={"nowrap"}>
 					<EventIcon isLive={isLive} />
 					<Box p={1} />
-					<EventCardContent {...props}/>
+					<EventCardContent {...props} />
 				</Grid>
 			</CardContent>
 		</Card>

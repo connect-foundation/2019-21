@@ -1,12 +1,11 @@
 import React, {useContext} from "react";
 import styled from "styled-components";
-import IconButton from "@material-ui/core/IconButton";
-import InsertEmoticonOutlinedIcon from "@material-ui/icons/InsertEmoticonOutlined";
 import EmojiInstance from "./EmojiInstance";
 import EmojiPickerModal from "./EmojiPickerModal";
 import useCommonModal from "../CommonComponent/CommonModal/useCommonModal";
 import {socketClient} from "../../libs/socketIoClientProvider.js";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
+import EmojiInsertButton from "./EmojiInsertButton.js";
 
 const RowWrapper = styled.div`
 	display: flex;
@@ -21,16 +20,6 @@ const RowWrapper = styled.div`
 		outline: none;
 	}
 `;
-
-function EmojiInsertButton(props) {
-	const {onClick} = props;
-
-	return (
-		<IconButton size="small" onClick={onClick}>
-			<InsertEmoticonOutlinedIcon />
-		</IconButton>
-	);
-}
 
 const unPickEmoji = (emojis, name, guestGlobal, QuestionId) => {
 	const {event, guest} = guestGlobal;
@@ -70,6 +59,10 @@ const pickEmoji = (emojis, name, guestGlobal, QuestionId) => {
 	});
 };
 
+function isIncludeSameEmoji(emojis, name) {
+	return emojis.filter(x => x.name === name).length > 0;
+}
+
 function EmojiArea(props) {
 	const {emojis, id: QuestionId} = props;
 	const guestGlobal = useContext(GuestGlobalContext);
@@ -91,7 +84,7 @@ function EmojiArea(props) {
 			EventId: event.id,
 		};
 
-		if (emojis.filter(x => x.name === name).length) {
+		if (isIncludeSameEmoji(emojis, name)) {
 			return;
 		}
 
@@ -102,15 +95,18 @@ function EmojiArea(props) {
 	return (
 		<RowWrapper left>
 			{emojis.map((emj, index) => (
-				<EmojiInstance {...emj} onClick={onEmojiInstanceClick} key={index} />
+				<EmojiInstance
+					{...emj}
+					onClick={onEmojiInstanceClick}
+					key={index}
+				/>
 			))}
 			<EmojiInsertButton onClick={emojiPickerModal.openModal} />
-			{emojiPickerModal.isOpened && (
-				<EmojiPickerModal
-					onClose={emojiPickerModal.closeModal}
-					onSelect={onSelectOfEmojiPicker}
-				/>
-			)}
+			<EmojiPickerModal
+				open={emojiPickerModal.isOpened}
+				onClose={emojiPickerModal.closeModal}
+				onSelect={onSelectOfEmojiPicker}
+			/>
 		</RowWrapper>
 	);
 }

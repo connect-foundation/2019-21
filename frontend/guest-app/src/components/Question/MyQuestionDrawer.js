@@ -6,7 +6,7 @@ import AppDrawer from "../AppDrawer/AppDrawer.js";
 import {useQuestions} from "./QuestionsContext.js";
 import QuestionCardList from "./QuestionCard/QuestionCardList.js";
 import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
-import PaddingArea from "./QuestionInputArea/PaddingArea.js";
+import PaddingArea from "../CommonComponent/PaddingArea.js";
 
 const fullSizeCardStyle = {
 	width: "100vw",

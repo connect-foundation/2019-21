@@ -1,4 +1,5 @@
 import {createPoll} from "../../../DB/queries/poll";
+import logger from "../../logger.js";
 
 const createPollSocketHandler = async (data, emit) => {
 	try {
@@ -11,7 +12,7 @@ const createPollSocketHandler = async (data, emit) => {
 			candidates,
 		} = data;
 
-		const result = await createPoll(
+		const poll = await createPoll(
 			EventId,
 			pollName,
 			pollType,
@@ -20,9 +21,9 @@ const createPollSocketHandler = async (data, emit) => {
 			candidates
 		);
 
-		emit(result);
+		emit({status: "ok", poll});
 	} catch (e) {
-		console.error(e);
+		logger.error(e);
 		emit({status: "error", e});
 	}
 };

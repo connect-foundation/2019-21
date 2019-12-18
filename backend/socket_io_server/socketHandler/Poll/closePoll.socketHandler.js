@@ -1,20 +1,22 @@
 import {closePoll} from "../../../DB/queries/poll";
+import logger from "../../logger.js";
 
 const closePollSocketHandler = async (data, emit) => {
 	try {
+		let status = "ok";
 		const {pollId} = data;
 
 		const result = await closePoll(pollId);
 
 		if (result[0] != 1) {
-			console.log(
+			logger.error(
 				`Something wrong with poll/close: affected number of rows = ${result[0]}`
 			);
-			return;
+			status = "error";
 		}
-		emit(pollId);
+		emit({status, pollId});
 	} catch (e) {
-		console.error(e);
+		logger.error(e);
 		emit({status: "error", e});
 	}
 };
