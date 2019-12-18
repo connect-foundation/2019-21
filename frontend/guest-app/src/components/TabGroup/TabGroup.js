@@ -7,8 +7,8 @@ import TabBody from "./TabBody.js";
 import QuestionContainer from "../QuestionContainer/QuestionContainer.js";
 import QnATabIcon from "./QnATabIcon.js";
 import PollTabIcon from "./PollTabIcon.js";
-import QuestionsProvider from "../../models/Questions/QuestionProvider.js";
-import PollsProvider from "../../models/Polls/PollsProvider.js";
+import QuestionsProvider from "../../contexts/Questions/QuestionsProvider.js";
+import PollsProvider from "../../contexts/Polls/PollsProvider.js";
 import PollContainer from "../Poll/PollContainer.js";
 
 const TabGroupStyle = styled.div`

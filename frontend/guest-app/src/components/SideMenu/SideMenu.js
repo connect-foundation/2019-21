@@ -3,7 +3,7 @@ import Drawer from "@material-ui/core/Drawer";
 import SideMenuHeader from "./SideMenuHeader.js";
 import SideMenuBody from "./SideMenuBody.js";
 import SideMenuFooter from "./SideMenuFooter.js";
-import useGlobalData from "../../models/GlobalData/useGlobalData.js";
+import useGlobalData from "../../contexts/GlobalData/useGlobalData.js";
 
 export function SideMenu({isOpen = false, toggleNavMenu}) {
 	const {event} = useGlobalData();

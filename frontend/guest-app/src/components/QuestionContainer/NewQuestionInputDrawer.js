@@ -1,7 +1,7 @@
 import React from "react";
 import {socketClient} from "../../socket.io";
 import QuestionInputDrawer from "./QuestionInputDrawer.js";
-import useGlobalData from "../../models/GlobalData/useGlobalData.js";
+import useGlobalData from "../../contexts/GlobalData/useGlobalData.js";
 
 function getNewQuestion({EventId, GuestId, guestName, content}) {
 	return {

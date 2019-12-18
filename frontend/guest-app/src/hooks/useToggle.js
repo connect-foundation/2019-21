@@ -1,7 +1,7 @@
 import {useReducer} from "react";
-import ToggleReducer from "./ToggleReducer.js";
+import ToggleReducer from "../reducers/ToggleReducer.js";
 
-function useToggleReducer() {
+function useToggle() {
 	const [state, dispatch] = useReducer(ToggleReducer, {
 		state: false,
 		data: {},
@@ -17,4 +17,4 @@ function useToggleReducer() {
 	};
 }
 
-export default useToggleReducer;
+export default useToggle;

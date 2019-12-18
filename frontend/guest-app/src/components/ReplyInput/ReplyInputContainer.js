@@ -4,7 +4,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import ReplyInput from "./ReplyInput.js";
 import {socketClient} from "../../socket.io";
-import useGlobalData from "../../models/GlobalData/useGlobalData.js";
+import useGlobalData from "../../contexts/GlobalData/useGlobalData.js";
 
 const createNewReply = ({
 	EventId,

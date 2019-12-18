@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import QuestionEditButton from "./QuestionCardEditButton.js";
-import useGlobalData from "../../models/GlobalData/useGlobalData.js";
+import useGlobalData from "../../contexts/GlobalData/useGlobalData.js";
 
 function QuestionBody(props) {
 	const {guest} = useGlobalData();

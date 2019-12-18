@@ -1,7 +1,7 @@
 import React, {useEffect, useReducer} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import {QUERY_INIT_QUESTIONS} from "../../apollo/gqlSchemes.js";
-import QuestionsRepliesReducer from "./QuestionsRepliesReducer.js";
+import QuestionsRepliesReducer from "../../reducers/QuestionsRepliesReducer.js";
 import {useSocket} from "../../socket.io";
 import buildQuestions from "../../apollo/asembleGetQuestionQuerys.js";
 import QuestionsContext from "./QuestionsContext.js";

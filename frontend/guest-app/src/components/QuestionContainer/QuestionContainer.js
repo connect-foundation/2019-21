@@ -10,8 +10,8 @@ import QuestionCardEditMenuDrawer from "../QuestionCardEditMenuDrawer/QuestionCa
 import NewQuestionInputDrawer from "./NewQuestionInputDrawer.js";
 import EditQuestionInputDrawer from "./EditQuestionInputDrawer.js";
 import MyQuestionsDrawer from "./MyQuestionDrawer.js";
-import useUIController from "../../models/UIController/useUIController.js";
-import useQuestions from "../../models/Questions/useQuestions.js";
+import useUIController from "../../contexts/UIController/useUIController.js";
+import useQuestions from "../../contexts/Questions/useQuestions.js";
 
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;

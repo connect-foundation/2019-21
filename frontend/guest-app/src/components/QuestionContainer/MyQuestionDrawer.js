@@ -5,8 +5,8 @@ import {Scrollbars} from "react-custom-scrollbars";
 import AppDrawer from "../AppDrawer/AppDrawer.js";
 import QuestionCardList from "../QuestionCard/QuestionCardList.js";
 import PaddingArea from "../atoms/PaddingArea.js";
-import useQuestions from "../../models/Questions/useQuestions.js";
-import useGlobalData from "../../models/GlobalData/useGlobalData.js";
+import useQuestions from "../../contexts/Questions/useQuestions.js";
+import useGlobalData from "../../contexts/GlobalData/useGlobalData.js";
 
 const fullSizeCardStyle = {
 	width: "100vw",

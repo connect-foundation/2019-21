@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import ReplyContentInput from "./ReplyContentInput.js";
 import ReplierInfoInput from "./ReplierInfoInput.js";
-import useGlobalData from "../../models/GlobalData/useGlobalData.js";
+import useGlobalData from "../../contexts/GlobalData/useGlobalData.js";
 
 const FlexedCenterDiv = styled.div`
 	display: flex;

@@ -4,7 +4,7 @@ import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import useCommonModal from "../CommonComponent/CommonModal/useCommonModal.js";
 import UndoLikeConfirmModal from "./LikeUndoModal.js";
 import {socketClient} from "../../socket.io";
-import useGlobalData from "../../models/GlobalData/useGlobalData.js";
+import useGlobalData from "../../contexts/GlobalData/useGlobalData.js";
 
 function LikeButtonAtom({isLikeClicked, onLikeButtonClicked, likeCount}) {
 	return (

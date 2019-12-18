@@ -3,10 +3,10 @@ import styled from "styled-components";
 import "./App.css";
 import NavBar from "../components/NavBar/NavBar.js";
 import TabGroup from "../components/TabGroup/TabGroup.js";
-import UIControllerProvider from "../models/UIController/UIControllerProvider.js";
+import UIControllerProvider from "../contexts/UIController/UIControllerProvider.js";
 import ApolloClientProvider from "../apollo/ApolloClientProvider.js";
-import useGlobalData from "../models/GlobalData/useGlobalData.js";
-import GlobalDataProvider from "../models/GlobalData/GlobalDataProvider.js";
+import useGlobalData from "../contexts/GlobalData/useGlobalData.js";
+import GlobalDataProvider from "../contexts/GlobalData/GlobalDataProvider.js";
 
 const AppStyle = styled.div`
 	height: 100vh;

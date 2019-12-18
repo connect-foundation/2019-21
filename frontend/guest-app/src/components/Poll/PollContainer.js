@@ -2,9 +2,9 @@ import React, {useReducer, useState} from "react";
 import styled from "styled-components";
 import PollCard from "./PollCard";
 import {useSocket} from "../../socket.io";
-import reducer from "../../models/Polls/PollsReducer.js";
-import useGlobalData from "../../models/GlobalData/useGlobalData.js";
-import usePolls from "../../models/Polls/usePolls.js";
+import reducer from "../../reducers/PollsReducer.js";
+import useGlobalData from "../../contexts/GlobalData/useGlobalData.js";
+import usePolls from "../../contexts/Polls/usePolls.js";
 
 const ColumnWrapper = styled.div`
 	display: flex;
