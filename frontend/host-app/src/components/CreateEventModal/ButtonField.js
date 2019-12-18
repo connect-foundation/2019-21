@@ -12,33 +12,9 @@ const Container = styled.div`
 	height: 3rem;
 `;
 
-// const CancelTextButton = styled.div`
-// 	font-size: 1.25rem;
-// 	color: balck;
-// 	:hover {
-// 		font-weight: bold;
-// 	}
-// 	width: auto;
-// 	cursor: pointer;
-// 	margin: 1rem;
-// `;
-
-// const CreateTextButton = styled.div`
-// 	font-size: 1.25rem;
-// 	color: green;
-// 	:hover {
-// 		font-weight: bold;
-// 	}
-// 	width: auto;
-// 	cursor: pointer;
-// 	margin: 1rem;
-// `;
-
 function ButtonField({createEvent, onClose}) {
 	return (
 		<Container>
-			{/* <CancelTextButton onClick={onClose}>취소</CancelTextButton>
-			<CreateTextButton onClick={createEvent}>확인</CreateTextButton> */}
 			<Button
 				size="large"
 				variant="contained"

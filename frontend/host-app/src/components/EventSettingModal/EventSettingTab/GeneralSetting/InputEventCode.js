@@ -12,7 +12,7 @@ function InputEventCode(props) {
 
 	return (
 		<CustomTextField
-			id="eventName"
+			id="eventCode"
 			label="이벤트 코드"
 			color="primary"
 			readOnly={true}

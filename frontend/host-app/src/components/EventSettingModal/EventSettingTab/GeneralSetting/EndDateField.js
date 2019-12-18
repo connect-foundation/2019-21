@@ -15,7 +15,7 @@ function formattingDate(date) {
 function EndDateField(props) {
 	return (
 		<CustomTextField
-			id="eventName"
+			id="endDateField"
 			label="종료날짜"
 			color="primary"
 			value={formattingDate(props.endDate)}
