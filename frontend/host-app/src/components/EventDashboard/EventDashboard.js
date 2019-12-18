@@ -13,7 +13,6 @@ function Inner({data, option}) {
 	const [questions, dispatch] = useReducer(QuestionsReducer, {
 		questions: data,
 	});
-	const [pollNumberStatus] = useState(0);
 	const columnTypes = [
 		"moderation",
 		"newQuestion",
@@ -31,7 +30,6 @@ function Inner({data, option}) {
 			))}
 			<Column
 				type="poll"
-				badgeState={pollNumberStatus}
 				data={{questions: []}}
 			/>
 		</ContentStyle>
