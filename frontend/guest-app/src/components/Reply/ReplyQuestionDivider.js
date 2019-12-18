@@ -2,6 +2,7 @@ import React from "react";
 import {styled} from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import Box from "@material-ui/core/Box";
+import {Typography} from "@material-ui/core";
 
 const Container = styled(Box)({
 	marginTop: "1rem",
@@ -10,10 +11,6 @@ const Container = styled(Box)({
 	display: "flex",
 	flexDirection: "row",
 	flex: 1,
-});
-
-const ReplieNumField = styled(Box)({
-	fontWeight: "bold",
 });
 
 const CustomDivider = styled(Divider)({
@@ -28,7 +25,7 @@ function ReplyQuestionDivider(props) {
 
 	return (
 		<Container>
-			<ReplieNumField>{`${replies.length}개 댓글`}</ReplieNumField>
+			<Typography variant="subtitle1">{`댓글 ${replies.length}개`}</Typography>
 			<CustomDivider></CustomDivider>
 		</Container>
 	);

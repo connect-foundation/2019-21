@@ -11,6 +11,7 @@ const cardStyle = {
 	zIndex: 100,
 	margin: "1rem",
 	backgroundColor: "#3f51b5",
+	cursor: "pointer",
 };
 
 const cardContentStyle = {paddingBottom: "1rem"};

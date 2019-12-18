@@ -33,7 +33,7 @@ function ReplyInput(props) {
 				content={replyContent}
 				setContent={setReplyContent}
 			/>
-			<Divider style={{marginTop: "0.5rem", marginBottom: "0.5rem"}}/>
+			<Divider style={{marginTop: "0.5rem", marginBottom: "0.5rem"}} />
 			<FlexedSpaceBetweenDiv>
 				<FlexedCenterDiv>
 					<ReplierInfoInput
@@ -46,7 +46,7 @@ function ReplyInput(props) {
 						variant="contained"
 						color={"primary"}
 						onClick={() => {
-							onConfirm();
+							onConfirm(replyContent);
 							setReplyContent("");
 						}}
 					>

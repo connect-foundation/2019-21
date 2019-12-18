@@ -6,7 +6,7 @@ import Reply from "./Reply";
 
 const RepliesListContainer = styled(Paper)({
 	width: "100%",
-	backgroundColor: "#FFFFF0",
+	backgroundColor: "#e7f5ff", //"#FFFFF0",
 });
 
 function RepliesList(props) {
@@ -15,7 +15,9 @@ function RepliesList(props) {
 	return (
 		<>
 			<RepliesListContainer>
-				{replies.map((reply, idx) => <Reply {...reply} key={idx} />)}
+				{replies.map((reply, idx) => (
+					<Reply {...reply} key={idx} />
+				))}
 			</RepliesListContainer>
 		</>
 	);

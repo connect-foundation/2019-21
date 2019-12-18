@@ -2,6 +2,7 @@ import React, {useContext} from "react";
 import PropTypes from "prop-types";
 import QuestionEditButton from "./QuestionCardEditButton.js";
 import {GuestGlobalContext} from "../../../libs/guestGlobalContext.js";
+import {Typography} from "@material-ui/core";
 
 function QuestionBody(props) {
 	const {guest} = useContext(GuestGlobalContext);
@@ -11,7 +12,13 @@ function QuestionBody(props) {
 
 	return (
 		<span>
-			{content}
+			<Typography
+				color={"textPrimary"}
+				variant={"subtitle1"}
+				style={{fontWeight: "bold"}}
+			>
+				{content}
+			</Typography>
 			{isMyQuestion && <QuestionEditButton {...props} />}
 		</span>
 	);
