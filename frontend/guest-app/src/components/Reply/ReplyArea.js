@@ -16,7 +16,7 @@ const PreviewReplyContainer = styled(Paper)({
 	height: "3rem",
 	marginBottom: 5,
 	alignItems: "center",
-	backgroundColor: "#FFFFF0",
+	backgroundColor: "#e7f5ff", //"#FFFFF0",
 });
 
 function extractUniqueReplier(replies) {
@@ -60,13 +60,17 @@ export default function ReplyArea(props) {
 					})}
 
 					<CurrentRepliesTextField openReplies={openReplies}>
-						{`${replies.length}개 댓글`}
+						{`댓글 ${replies.length}개`}
 					</CurrentRepliesTextField>
 				</PreviewReplyContainer>
 			) : (
 				<AddReplyRow openReplies={openReplies}></AddReplyRow>
 			)}
-			<AppDrawer anchor="bottom" isOpen={repliesIsOpened} onClose={closeReplies}>
+			<AppDrawer
+				anchor="bottom"
+				isOpen={repliesIsOpened}
+				onClose={closeReplies}
+			>
 				<RepliesPaper {...props} />
 			</AppDrawer>
 		</>

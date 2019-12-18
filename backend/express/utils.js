@@ -2,7 +2,7 @@ import {getEventByEventCode} from "../DB/queries/event";
 import {compareCurrentDateToTarget} from "../libs/utils";
 import atob from "atob";
 
-async function convertPathToEvent(path, guest) {
+async function convertPathToEventId(path, guest) {
 	const eventCode = Buffer.from(path, "base64").toString();
 	let event = await getEventByEventCode(eventCode);
 	event = event.get({plain: true});
@@ -13,4 +13,4 @@ async function convertPathToEvent(path, guest) {
 	return event.id;
 }
 
-export {convertPathToEvent};
+export {convertPathToEventId};

@@ -16,21 +16,20 @@ const ColumnWrapper = styled.div`
 `;
 
 function PollContainer({data, GuestId}) {
-	let activePollData = null;
-	let clPollData = null;
+	let rPolls = null;
+	let cPolls = null;
 
 	if (data) {
-		const initialPollData = data;
+		const initialPolls = data;
 
-		activePollData = initialPollData.filter(
-			poll => poll.state === "running",
-		);
-		clPollData = initialPollData.filter(poll => poll.state === "closed");
+		rPolls = initialPolls.filter(poll => poll.state === "running");
+		cPolls = initialPolls.filter(poll => poll.state === "closed");
 	}
 
-	const [pollData, dispatch] = useReducer(reducer, activePollData);
-	const [closedPollData, setClosedPollData] = useState(clPollData);
+	const [runningPolls, dispatch] = useReducer(reducer, rPolls);
+	const [closedPolls, setClosedPolls] = useState(cPolls);
 
+	// guest가 N지선다형 투표를 했을때 호출되는 handler
 	const onVote = (id, candidateId, number, state) => {
 		if (state !== "running") return;
 
@@ -43,6 +42,7 @@ function PollContainer({data, GuestId}) {
 		});
 	};
 
+	// guest가 별점매기기 투표를 했을때 호출되는 handler
 	const onChange = (value, state, id) => {
 		if (state !== "running") return;
 
@@ -54,6 +54,7 @@ function PollContainer({data, GuestId}) {
 		});
 	};
 
+	// guest가 별점매기기 투표를 취소했을때 호출되는 handler
 	const onCancelRating = (id, state) => {
 		if (state !== "running") return;
 
@@ -64,6 +65,9 @@ function PollContainer({data, GuestId}) {
 		});
 	};
 
+	// host가 투표를 open했음을 guest들에게 socket.io 서버로 emit 하면
+	// guest들은 아래 함수를 통해 listen하고 있다가
+	// useReduer를 호출하여 투표에 상태를 update 함
 	useSocket("poll/notify_open", res => {
 		if (res.status === "error") {
 			return;
@@ -76,16 +80,19 @@ function PollContainer({data, GuestId}) {
 		});
 	});
 
+	// host가 투표를 close했음을 guest들에게 socket.io 서버로 emit 하면
+	// guest들은 아래 함수를 통해 listen하고 있다가
+	// useReduer를 호출하여 투표에 상태를 update 함
 	useSocket("poll/notify_close", res => {
 		if (res.status === "error") {
 			return;
 		}
 
 		const {pollId} = res;
-		const thePoll = {...pollData.find(poll => poll.id === pollId)};
+		const thePoll = {...runningPolls.find(poll => poll.id === pollId)};
 
 		thePoll.state = "closed";
-		setClosedPollData([thePoll].concat(closedPollData));
+		setClosedPolls([thePoll].concat(closedPolls));
 
 		dispatch({
 			type: "NOTIFY_CLOSE",
@@ -93,6 +100,9 @@ function PollContainer({data, GuestId}) {
 		});
 	});
 
+	// 다른 guest들이 투표했음을 socket.io 서버로 emit 하면
+	// guest는 아래 함수를 통해 listen하고 있다가
+	// useReduer를 호출하여 투표에 상태를 update 함
 	useSocket("vote/on", res => {
 		if (res.status === "error") {
 			console.log("vote/on ERROR");
@@ -103,7 +113,7 @@ function PollContainer({data, GuestId}) {
 		// console.log("useSocket vote/on", res);
 		// if (res.GuestId === GuestId) {
 		// 	console.log("My vote!");
-		// 	// return;
+		// 	return;
 		// }
 		dispatch({
 			type: "SOMEONE_VOTE",
@@ -113,6 +123,9 @@ function PollContainer({data, GuestId}) {
 		});
 	});
 
+	// 다른 guest들이 투표했음을 socket.io 서버로 emit 하면
+	// guest는 아래 함수를 통해 listen하고 있다가
+	// useReduer를 호출하여 투표에 상태를 update 함
 	useSocket("vote/off", res => {
 		if (res.status === "error") {
 			console.log("vote/off ERROR");
@@ -122,7 +135,7 @@ function PollContainer({data, GuestId}) {
 		// 해당 guest를 제외한 나머지 guest에 상태가 적용되지 않아서 comment 처리했음
 		// if (res.GuestId === GuestId) {
 		// 	console.log("My vote!");
-		// 	// return;
+		// 	return;
 		// }
 		dispatch({
 			type: "SOMEONE_VOTE",
@@ -132,6 +145,9 @@ function PollContainer({data, GuestId}) {
 		});
 	});
 
+	// 다른 guest들이 별점매기기 했음을 socket.io 서버로 emit 하면
+	// guest는 아래 함수를 통해 listen하고 있다가
+	// useReduer를 호출하여 투표에 상태를 update 함
 	useSocket("rate/on", res => {
 		if (res.status === "error") {
 			return;
@@ -141,7 +157,7 @@ function PollContainer({data, GuestId}) {
 		// console.log("useSocket vote/on", res);
 		// if (res.GuestId === GuestId) {
 		// 	console.log("My rate!");
-		// 	// return;
+		// 	return;
 		// }
 		dispatch({
 			type: "SOMEONE_RATE",
@@ -151,6 +167,9 @@ function PollContainer({data, GuestId}) {
 		});
 	});
 
+	// 다른 guest들이 별점매기기를 취소했음을 socket.io 서버로 emit 하면
+	// guest는 아래 함수를 통해 listen하고 있다가
+	// useReduer를 호출하여 투표에 상태를 update 함
 	useSocket("rate/off", res => {
 		if (res.status === "error") {
 			return;
@@ -159,7 +178,7 @@ function PollContainer({data, GuestId}) {
 		// 해당 guest를 제외한 나머지 guest에 상태가 적용되지 않아서 comment 처리했음
 		// if (res.GuestId === GuestId) {
 		// 	console.log("My rate!");
-		// 	// return;
+		// 	return;
 		// }
 		dispatch({
 			type: "SOMEONE_RATE",
@@ -171,8 +190,8 @@ function PollContainer({data, GuestId}) {
 
 	return (
 		<ColumnWrapper>
-			{pollData &&
-				pollData.map(poll => (
+			{runningPolls &&
+				runningPolls.map(poll => (
 					<PollCard
 						{...poll}
 						key={poll.id}
@@ -181,8 +200,8 @@ function PollContainer({data, GuestId}) {
 						onCancelRating={onCancelRating}
 					/>
 				))}
-			{closedPollData &&
-				closedPollData.map(poll => (
+			{closedPolls &&
+				closedPolls.map(poll => (
 					<PollCard {...poll} key={poll.id} onVote={onVote} />
 				))}
 		</ColumnWrapper>

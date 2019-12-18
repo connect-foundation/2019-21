@@ -1,55 +1,55 @@
 import jwt from "jsonwebtoken";
-import loadConfig from "../config/configLoader.js";
+import config from "../config";
 import {findHostByAuthId} from "../../DB/queries/host";
-import {findGuestBySid} from "../../DB/queries/guest";
-import {convertePathToEvent} from "../utils";
+import {isExistGuest} from "../../DB/queries/guest";
+import {convertPathToEventId} from "../utils";
+import logger from "../logger.js";
+import CookieKeys from "../CookieKeys.js";
 
-const {tokenArgs, routePage} = loadConfig();
+const {tokenArgs, routePage} = config;
 
 export function guestAuthenticate() {
-	const cookieName = "vaagle-guest";
-
 	return async function(req, res, next) {
 		const path = req.params.path;
+
 		try {
 			const payload = jwt.verify(
-				req.cookies[cookieName],
+				req.cookies[CookieKeys.GUEST_APP],
 				tokenArgs.secret
 			);
-			const guest = await findGuestBySid(payload.sub);
-			const eventId = await convertePathToEvent(path);
-			const isAnotherPath = guest === eventId;
-			if (isAnotherPath) {
-				return next();
+
+			const guest = await isExistGuest(payload.sub);
+			const eventId = await convertPathToEventId(path);
+			const isGuestBelongToEvent = guest.EventId === eventId;
+
+			if (isGuestBelongToEvent) {
+				return res.redirect(routePage.guest);
 			}
-			if (!guest) {
-				throw Error("token is invalid");
-			}
-			console.log("asdfasdfsad");
-			res.redirect(routePage.guest);
+
+			return next();
 		} catch (e) {
+			logger.error(e);
 			return next();
 		}
 	};
 }
 
 export function hostAuthenticate() {
-	const cookieName = "vaagle-host";
-
 	return async function(req, res, next) {
 		try {
 			const payload = jwt.verify(
-				req.cookies[cookieName],
+				req.cookies[CookieKeys.HOST_APP],
 				tokenArgs.secret
 			);
 			const host = await findHostByAuthId(payload.sub);
 
-			if (!host) {
-				throw Error("token is invalid");
+			if (host) {
+				res.redirect(routePage.host);
 			}
-			res.redirect(routePage.host);
+
+			return next();
 		} catch (e) {
-			console.log(e);
+			logger.error(e);
 			return next();
 		}
 	};

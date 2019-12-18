@@ -37,15 +37,11 @@ export default function TabNavigation({handleClose}) {
 			>
 				/
 				<CustomTab label="이벤트설정" disabled={true} />
-				<CustomTab label="기본설정" {...allyProps(0)} />
-				<CustomTab label="상세설정" {...allyProps(1)} />
+				<CustomTab label="기본설정" {...allyProps(1)} />
 			</Tabs>
 
 			<TabContent value={value} index={1}>
 				<GeneralSetting handleClose={handleClose} />
-			</TabContent>
-			<TabContent value={value} index={2}>
-				<AdvanceSetting handleClose={handleClose} />
 			</TabContent>
 		</MyContainer>
 	);
