@@ -2,7 +2,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import useCommonModal from "../CommonComponent/CommonModal/useCommonModal.js";
-import UndoLikeConfirmModal from "./UndoLikeModal.js";
+import UndoLikeConfirmModal from "./LikeUndoModal.js";
 import {socketClient} from "../../socket.io";
 import {useGuestGlobal} from "../../GuestGlobalProvider.js";
 
