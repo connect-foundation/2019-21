@@ -1,7 +1,7 @@
 import React from "react";
 import {socketClient} from "../../socket.io";
 import QuestionInputDrawer from "./QuestionInputDrawer.js";
-import {useGuestGlobal} from "../../GuestGlobalProvider.js";
+import useGlobalData from "../../models/GlobalData/useGlobalData.js";
 
 function getNewQuestion({EventId, GuestId, guestName, content}) {
 	return {
@@ -14,7 +14,7 @@ function getNewQuestion({EventId, GuestId, guestName, content}) {
 }
 
 function NewQuestionInputDrawer({userNameRef, questionRef, toggleReducer}) {
-	const {event, guest} = useGuestGlobal();
+	const {event, guest} = useGlobalData();
 
 	const onConfirmNewQuestion = () => {
 		socketClient.emit(

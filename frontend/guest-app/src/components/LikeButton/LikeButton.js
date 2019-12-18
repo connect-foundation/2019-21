@@ -4,7 +4,7 @@ import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import useCommonModal from "../CommonComponent/CommonModal/useCommonModal.js";
 import UndoLikeConfirmModal from "./LikeUndoModal.js";
 import {socketClient} from "../../socket.io";
-import {useGuestGlobal} from "../../GuestGlobalProvider.js";
+import useGlobalData from "../../models/GlobalData/useGlobalData.js";
 
 function LikeButtonAtom({isLikeClicked, onLikeButtonClicked, likeCount}) {
 	return (
@@ -40,7 +40,7 @@ function emitQuestionLikeRemove(GuestId, QuestionId) {
 
 function LikeButton(props) {
 	const {likeCount, didILike, id} = props;
-	const {guest} = useGuestGlobal();
+	const {guest} = useGlobalData();
 	const modalState = useCommonModal();
 	const onLikeButtonClicked = () => {
 		if (didILike) {

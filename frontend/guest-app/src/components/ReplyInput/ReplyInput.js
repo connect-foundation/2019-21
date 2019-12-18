@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import ReplyContentInput from "./ReplyContentInput.js";
 import ReplierInfoInput from "./ReplierInfoInput.js";
-import {useGuestGlobal} from "../../GuestGlobalProvider.js";
+import useGlobalData from "../../models/GlobalData/useGlobalData.js";
 
 const FlexedCenterDiv = styled.div`
 	display: flex;
@@ -23,7 +23,7 @@ const FlexedSpaceBetweenDiv = styled.div`
 function ReplyInput(props) {
 	const {onConfirm, userNameRef, questionRef, confirmButtonText} = props;
 	const [replyContent, setReplyContent] = useState("");
-	const {guest} = useGuestGlobal();
+	const {guest} = useGlobalData();
 	const [userName] = useState(guest.name);
 
 	return (

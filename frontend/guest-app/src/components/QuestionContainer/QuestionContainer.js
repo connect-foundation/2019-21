@@ -9,9 +9,9 @@ import PaddingArea from "../atoms/PaddingArea.js";
 import QuestionCardEditMenuDrawer from "../QuestionCardEditMenuDrawer/QuestionCardEditMenuDrawer.js";
 import NewQuestionInputDrawer from "./NewQuestionInputDrawer.js";
 import EditQuestionInputDrawer from "./EditQuestionInputDrawer.js";
-import {useQuestions} from "../../reducers/QuestionsContext.js";
 import MyQuestionsDrawer from "./MyQuestionDrawer.js";
-import useUIController from "../../UIController/useUIController.js";
+import useUIController from "../../models/UIController/useUIController.js";
+import useQuestions from "../../models/Questions/useQuestions.js";
 
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;

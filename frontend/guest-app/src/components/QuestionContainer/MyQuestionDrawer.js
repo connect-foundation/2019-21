@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import {grey} from "@material-ui/core/colors";
 import {Scrollbars} from "react-custom-scrollbars";
 import AppDrawer from "../AppDrawer/AppDrawer.js";
-import {useQuestions} from "../../reducers/QuestionsContext.js";
 import QuestionCardList from "../QuestionCard/QuestionCardList.js";
 import PaddingArea from "../atoms/PaddingArea.js";
-import {useGuestGlobal} from "../../GuestGlobalProvider.js";
+import useQuestions from "../../models/Questions/useQuestions.js";
+import useGlobalData from "../../models/GlobalData/useGlobalData.js";
 
 const fullSizeCardStyle = {
 	width: "100vw",
@@ -16,7 +16,7 @@ const fullSizeCardStyle = {
 
 function MyQuestionsDrawer(props) {
 	const {isOpen, onClose} = props;
-	const {guest} = useGuestGlobal();
+	const {guest} = useGlobalData();
 	const {questions, replies} = useQuestions();
 
 	return (

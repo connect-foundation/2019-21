@@ -3,9 +3,10 @@ import styled from "styled-components";
 import "./App.css";
 import NavBar from "../components/NavBar/NavBar.js";
 import TabGroup from "../components/TabGroup/TabGroup.js";
-import UIControllerProvider from "../UIController/UIControllerProvider.js";
+import UIControllerProvider from "../models/UIController/UIControllerProvider.js";
 import ApolloClientProvider from "../apollo/ApolloClientProvider.js";
-import {GuestGlobalProvider, useGuestGlobal} from "../GuestGlobalProvider.js";
+import useGlobalData from "../models/GlobalData/useGlobalData.js";
+import GlobalDataProvider from "../models/GlobalData/GlobalDataProvider.js";
 
 const AppStyle = styled.div`
 	height: 100vh;
@@ -13,7 +14,7 @@ const AppStyle = styled.div`
 `;
 
 const App = () => {
-	const {event} = useGuestGlobal();
+	const {event} = useGlobalData();
 
 	return (
 		<AppStyle>
@@ -27,9 +28,9 @@ const App = () => {
 
 const WrappedApp = () => (
 	<ApolloClientProvider>
-		<GuestGlobalProvider>
+		<GlobalDataProvider>
 			<App />
-		</GuestGlobalProvider>
+		</GlobalDataProvider>
 	</ApolloClientProvider>
 );
 

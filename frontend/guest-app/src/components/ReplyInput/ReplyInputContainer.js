@@ -4,7 +4,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import ReplyInput from "./ReplyInput.js";
 import {socketClient} from "../../socket.io";
-import {useGuestGlobal} from "../../GuestGlobalProvider.js";
+import useGlobalData from "../../models/GlobalData/useGlobalData.js";
 
 const createNewReply = ({
 	EventId,
@@ -23,7 +23,7 @@ const createNewReply = ({
 
 function ReplyInputContainer(props) {
 	const {id} = props;
-	const {event, guest} = useGuestGlobal();
+	const {event, guest} = useGlobalData();
 	const userNameRef = useRef(null);
 	const questionRef = useRef(null);
 	const onConfirmNewReply = reply => {

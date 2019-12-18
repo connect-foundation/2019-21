@@ -1,5 +1,5 @@
 import {useReducer} from "react";
-import ToggleReducer from "../reducers/ToggleReducer.js";
+import ToggleReducer from "./ToggleReducer.js";
 
 function useToggleReducer() {
 	const [state, dispatch] = useReducer(ToggleReducer, {

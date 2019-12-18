@@ -1,12 +1,11 @@
-import React, {createContext, useContext, useEffect, useReducer} from "react";
+import React, {useEffect, useReducer} from "react";
 import {useQuery} from "@apollo/react-hooks";
-import {useSocket} from "../socket.io";
+import {QUERY_INIT_QUESTIONS} from "../../apollo/gqlSchemes.js";
 import QuestionsRepliesReducer from "./QuestionsRepliesReducer.js";
-import {QUERY_INIT_QUESTIONS} from "../apollo/gqlSchemes.js";
-import buildQuestions from "../apollo/asembleGetQuestionQuerys.js";
-import {useGuestGlobal} from "../GuestGlobalProvider.js";
-
-const QuestionsContext = createContext([]);
+import {useSocket} from "../../socket.io";
+import buildQuestions from "../../apollo/asembleGetQuestionQuerys.js";
+import QuestionsContext from "./QuestionsContext.js";
+import useGlobalData from "../GlobalData/useGlobalData.js";
 
 const useDataLoadEffect = (dispatch, data) => {
 	useEffect(() => {
@@ -65,9 +64,9 @@ const useSocketHandler = (dispatch, guestGlobal) => {
 	});
 };
 
-export function QuestionsProvider(props) {
+function QuestionsProvider(props) {
 	const {children} = props;
-	const {event, guest} = useGuestGlobal();
+	const {event, guest} = useGlobalData();
 	const {data, loading, error} = useQuery(QUERY_INIT_QUESTIONS, {
 		variables: {EventId: event.id, GuestId: guest.id},
 	});
@@ -76,7 +75,9 @@ export function QuestionsProvider(props) {
 	useDataLoadEffect(dispatch, data);
 	useSocketHandler(dispatch, guest);
 
-	const questions = state.filter(question => (question.QuestionId === null && question.state === "active"));
+	const questions = state.filter(
+		question => question.QuestionId === null && question.state === "active",
+	);
 	const replies = state.filter(question => question.QuestionId !== null);
 
 	const value = {
@@ -94,6 +95,4 @@ export function QuestionsProvider(props) {
 	);
 }
 
-export function useQuestions() {
-	return useContext(QuestionsContext);
-}
+export default QuestionsProvider;

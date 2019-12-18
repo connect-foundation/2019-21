@@ -16,7 +16,8 @@ const onSortByLikeCount = state => [...state.sort(compareByLikeCount)];
 
 const onQuestionLike = (state, data) => {
 	const guestGlobal = data.guestGlobal;
-	const newState = state.map(x => {
+
+	return state.map(x => {
 		const {QuestionId, GuestId} = data;
 
 		if (x.id !== QuestionId) {
@@ -33,8 +34,6 @@ const onQuestionLike = (state, data) => {
 
 		return newX;
 	});
-
-	return newState;
 };
 
 const onUndoQuestionLike = (state, data) => {

@@ -1,4 +1,4 @@
-import useToggleReducer from "../hooks/useToggleReducer.js";
+import useToggleReducer from "../Toggler/useToggleReducer.js";
 
 function useUIControllerReducers() {
 	const newQuestionInputDrawer = useToggleReducer();
