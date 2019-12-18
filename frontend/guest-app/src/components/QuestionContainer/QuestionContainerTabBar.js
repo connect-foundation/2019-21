@@ -24,7 +24,7 @@ function QuestionContainerTabBar(props) {
 			>
 				<Tab disabled style={{minWidth: "1rem"}} />
 				<Tab
-					label={<Typography>최근순</Typography>}
+					label={<Typography>시간순</Typography>}
 					selected={tabIdx === RECENT_TAB_IDX}
 				/>
 				<Tab

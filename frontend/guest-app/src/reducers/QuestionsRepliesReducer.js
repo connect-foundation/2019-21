@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-const compareByDate = (a, b) => b.createdAt.localeCompare(a.createdAt);
+const compareByDate = (a, b) => a.createdAt.localeCompare(b.createdAt);
 
 const compareByLikeCount = (a, b) => b.likeCount - a.likeCount;
 
