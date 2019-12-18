@@ -1,13 +1,13 @@
 import React from "react";
 import Divider from "@material-ui/core/Divider";
 import {Icon, Typography} from "@material-ui/core";
-import {ReplyBody, ReplyInfo, QuestionMeta, ReplyContainer} from "./QuestionStyle";
+import {ReplyBody, ReplyInfo, QuestionMeta, ReplyContainer} from "../QuestionStyle";
 import QuestionUserName from "./QuestionUserName";
 import QuestionDate from "./QuestionDate";
-import useStyles from "./useStyles";
+import useQuestionCardStyles from "./useQuestionCardStyles";
 
 function Replies(props) {
-	const classes = useStyles();
+	const classes = useQuestionCardStyles();
 
 	return (
 		<div>

@@ -7,9 +7,9 @@ async function convertPathToEventId(path, guest) {
 	let event = await getEventByEventCode(eventCode);
 	event = event.get({plain: true});
 	const diff = compareCurrentDateToTarget(event.endAt);
-	if (diff <= 0) {
-		throw new Error("이벤트 만료기간이 지났습니다.");
-	}
+	//if (diff <= 0) {
+	//	throw new Error("이벤트 만료기간이 지났습니다.");
+	//}
 	return event.id;
 }
 

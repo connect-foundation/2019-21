@@ -1,11 +1,11 @@
 import React from "react";
 import {Icon, Typography} from "@material-ui/core";
-import useStyles from "./useStyles";
-import {ThumbUpContainer, ReplyContainer} from "./QuestionStyle";
+import useStyle from "./useButtonStyles";
+import {ThumbUpContainer, ReplyContainer} from "../QuestionStyle";
 
 
 function ThumbUpButton(props) {
-	const classes = useStyles();
+	const classes = useStyle();
 
 	const handleReply = () => props.replyOpenHandler(!props.replyOpenStatus);
 

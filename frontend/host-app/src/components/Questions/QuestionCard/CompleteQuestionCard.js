@@ -1,40 +1,34 @@
 import React, {useState} from "react";
 import Card from "@material-ui/core/Card";
-import {CardContent, Icon} from "@material-ui/core";
+import {CardContent} from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
-import UserAvata from "./UserAvata.js";
-import {QuestionHeader, QuestionBody, QuestionInfo, QuestionMeta, QuestionButtons} from "./QuestionStyle";
+import UserAvatar from "./UserAvatar.js";
+import {QuestionHeader, QuestionBody, QuestionInfo, QuestionMeta, QuestionButtons} from "../QuestionStyle";
 import QuestionDate from "./QuestionDate";
 import QuestionUserName from "./QuestionUserName";
-import useStyles from "./useStyles";
-import QuestionMenu from "./QuestionMenu";
-import ThumbUpButton from "./ThumbUpButton";
+import useQuestionCardStyles from "./useQuestionCardStyles";
+import QuestionMenuButton from "../Buttons/QuestionMenuButton";
+import ThumbUpButton from "../Buttons/ThumbUpButton";
 import Replies from "./Replies";
-import Tooltip from "@material-ui/core/Tooltip";
+import QuestionRestoreButton from "../Buttons/QuestionRestoreButton";
 
 function CompleteQuestionCard(props) {
-	const classes = useStyles();
+	const classes = useQuestionCardStyles();
 	const [openReplies, setOpenReplies] = useState(false);
 
 	return (
-		<Card className={props.isStared ? classes.staredQuestion : classes.normalQuestion}>
+		<Card>
 			<CardContent className={classes.cardContentPadding}>
 				<QuestionHeader>
 					<QuestionMeta>
-						<UserAvata {...props} />
+						<UserAvatar {...props} />
 						<QuestionInfo>
 							<QuestionUserName {...props} />
 							<QuestionDate {...props} />
 						</QuestionInfo>
 						<QuestionButtons>
-							<Tooltip title="질문 되살리기">
-								<Icon
-									className={classes.restoreButton}
-									onClick={() => props.dataHandler(props.id, props.type, "active")}>
-									restore
-								</Icon>
-							</Tooltip>
-							<QuestionMenu id={props.id} type={props.type} handler={props.dataHandler}/>
+							<QuestionRestoreButton {...props}/>
+							<QuestionMenuButton {...props} />
 						</QuestionButtons>
 					</QuestionMeta>
 				</QuestionHeader>
