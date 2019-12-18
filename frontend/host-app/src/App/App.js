@@ -4,7 +4,6 @@ import "./App.css";
 import Header from "../components/Header/Header";
 import NavBar from "../components/NavBar/NavBar.js";
 import EventDashboard from "../components/EventDashboard/EventDashboard";
-import NewPollModal from "../components/Poll/NewPollModal";
 import {HostProvider} from "../libs/hostContext";
 import {getEventsByHost} from "../libs/gql";
 import EmptyContent from "../components/EventDashboard/EmptyContent";
@@ -12,15 +11,12 @@ import {socketClient} from "../libs/socket.io-Client-wrapper";
 import AppSkeleton from "../components/Skeleton/AppSkeleton";
 
 function App() {
-	const modal = false;
 	const {data, loading, error} = useQuery(getEventsByHost());
 	const [events, setEvents] = useState("");
 	let eventNum = 0;
 
 	if (loading) {
-		return (
-			<AppSkeleton/>
-		);
+		return <AppSkeleton />;
 	} else if (error) {
 		return <p>error-page...</p>;
 	} else {
@@ -44,9 +40,7 @@ function App() {
 			<HostProvider value={{hostInfo, events, setEvents}}>
 				<div className="App">
 					<Header />
-					<NavBar />
-					{modal && <NewPollModal />}
-					{eventNum ? <EventDashboard event={event} /> : <EmptyContent />}
+					<NavBar eventNum={eventNum} />
 				</div>
 			</HostProvider>
 		);
