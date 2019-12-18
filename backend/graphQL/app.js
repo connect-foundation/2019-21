@@ -6,50 +6,40 @@ import cookieParser from "cookie-parser";
 import resolvers from "./resolvers.js";
 import typeDefs from "./typeDefs.js";
 import config from "./config.js";
-import {findHostByAuthId} from "../DB/queries/host";
 import logger from "./logger.js";
+import authenticate from "./middlewares/authenticate.js";
 
-const authenticate = async (resolve, root, args, context, info) => {
-	const audience = context.payload && context.payload.aud;
-	let authority = {sub: null, info: null};
+function parserJWT(data) {
+	return data.split(" ")[1];
+}
 
-	switch (audience) {
-		case "host": {
-			const hostInfo = await findHostByAuthId(context.payload.sub);
+const context = ({request}) => {
+	const authorization = request.headers.authorization;
 
-			authority = {sub: "host", info: hostInfo};
-			break;
-		}
-		case "guest": {
-			const guestInfo = context.payload.sub;
-
-			authority = {sub: "guest", info: guestInfo};
-			break;
-		}
-		default: {
-			logger.error(`unexpected type of audience ${audience}`);
-		}
+	if (!authorization) {
+		return {payload: undefined};
 	}
 
-	return resolve(root, args, authority, info);
+	let payload;
+
+	try {
+		payload = jwt.verify(
+			parserJWT(authorization),
+			process.env.AUTH_TOKEN_SECRET,
+		);
+	} catch (e) {
+		logger.error(e);
+		payload = undefined;
+	}
+
+	return {payload};
 };
 
 const server = new GraphQLServer({
 	typeDefs,
 	resolvers,
 	middlewares: [authenticate],
-	context: ({request}) => {
-		let payload;
-		const token = request.headers.authorization || "";
-
-		try {
-			payload = token === "" ? undefined : jwt.verify(token.split(" ")[1], process.env.AUTH_TOKEN_SECRET);
-		} catch (e) {
-			payload = undefined;
-		} finally {
-			return {payload};
-		}
-	},
+	context,
 });
 
 server.express.use(cors());
