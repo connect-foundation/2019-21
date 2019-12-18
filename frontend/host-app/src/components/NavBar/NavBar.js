@@ -5,6 +5,7 @@ import NavBarTab from "./NavBarTab.js";
 import NavBarTabs from "./NavBarTabs.js";
 import EventDashboard from "../EventDashboard/EventDashboard";
 import EventCardList from "../Event/EventCardList";
+import EmptyContent from "../EventDashboard/EmptyContent";
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -17,7 +18,8 @@ const useStyles = makeStyles(theme => ({
 
 const NAV_BAR_DEFAULT_TAB_IDX = 0;
 
-function NavBar() {
+function NavBar(props) {
+	const {eventNum} = props;
 	const [tabIdx, selectTab] = useState(0);
 	const classes = useStyles();
 
@@ -35,7 +37,11 @@ function NavBar() {
 					</NavBarTabs>
 				</div>
 			</div>
-			<EventDashboard value={tabIdx} index={0} />
+			{eventNum ? (
+				<EventDashboard value={tabIdx} index={0} />
+			) : (
+				<EmptyContent value={tabIdx} index={0} />
+			)}
 			<EventCardList value={tabIdx} index={1} />
 		</>
 	);

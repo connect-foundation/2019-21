@@ -5,23 +5,28 @@ import CreateEventModal from "../CreateEventModal/CreateEventModal";
 import useModal from "../../customhook/useModal";
 import {EmptyContentBox, EmptyContentDiv} from "./ComponentsStyle";
 
-function EmptyContent() {
+function EmptyContent(props) {
+	const {value, index} = props;
 	const [eventModalOpen, handleOpen, handleClose] = useModal();
 
 	return (
-		<EmptyContentBox>
-			<EmptyContentDiv>
-				<Typography>현재 진행중인 이벤트가 없습니다</Typography>
+		<>
+			{index === value && (
+				<EmptyContentBox>
+					<EmptyContentDiv>
+						<Typography>현재 진행중인 이벤트가 없습니다</Typography>
 
-				<EventCreateButton onClick={handleOpen} />
-				{eventModalOpen && (
-					<CreateEventModal
-						open={eventModalOpen}
-						handleClose={handleClose}
-					/>
-				)}
-			</EmptyContentDiv>
-		</EmptyContentBox>
+						<EventCreateButton onClick={handleOpen} />
+						{eventModalOpen && (
+							<CreateEventModal
+								open={eventModalOpen}
+								handleClose={handleClose}
+							/>
+						)}
+					</EmptyContentDiv>
+				</EmptyContentBox>
+			)}
+		</>
 	);
 }
 

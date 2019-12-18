@@ -40,7 +40,7 @@ function App() {
 			<HostProvider value={{hostInfo, events, setEvents}}>
 				<div className="App">
 					<Header />
-					<NavBar />
+					<NavBar eventNum={eventNum} />
 				</div>
 			</HostProvider>
 		);
