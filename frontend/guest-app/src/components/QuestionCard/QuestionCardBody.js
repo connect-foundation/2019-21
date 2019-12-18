@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Typography from "@material-ui/core/Typography";
 import QuestionEditButton from "./QuestionCardEditButton.js";
 import {useGuestGlobal} from "../../GuestGlobalProvider.js";
 
@@ -17,8 +18,8 @@ function QuestionBody(props) {
 				style={{fontWeight: "bold"}}
 			>
 				{content}
+				{isMyQuestion && <QuestionEditButton {...props} />}
 			</Typography>
-			{isMyQuestion && <QuestionEditButton {...props} />}
 		</span>
 	);
 }
