@@ -3,12 +3,11 @@ import {useQuery} from "@apollo/react-hooks";
 import "./App.css";
 import Header from "../components/Header/Header";
 import NavBar from "../components/NavBar/NavBar.js";
-import EventDashboard from "../components/EventDashboard/EventDashboard";
 import {HostProvider} from "../libs/hostContext";
 import {getEventsByHost} from "../libs/gql";
-import EmptyContent from "../components/EventDashboard/EmptyContent";
 import {socketClient} from "../libs/socket.io-Client-wrapper";
 import AppSkeleton from "../components/Skeleton/AppSkeleton";
+import {compareCurrentDateToTarget} from "../libs/utils";
 
 function App() {
 	const {data, loading, error} = useQuery(getEventsByHost());
@@ -19,32 +18,29 @@ function App() {
 		return <AppSkeleton />;
 	} else if (error) {
 		return <p>error-page...</p>;
-	} else {
-		if (events === "") {
-			setEvents(
-				data.init.events,
-				() => (eventNum = data.init.events.length),
-			);
-		}
-		const hostInfo = data.init.host;
-
-		eventNum = events.length;
-		if (eventNum) {
-			const eventId = events[0].id;
-
-			socketClient.emit("joinRoom", {room: eventId});
-			socketClient.emit("event/initOption", eventId);
-		}
-
-		return (
-			<HostProvider value={{hostInfo, events, setEvents}}>
-				<div className="App">
-					<Header />
-					<NavBar eventNum={eventNum} />
-				</div>
-			</HostProvider>
-		);
 	}
+	if (events === "") {
+		setEvents(data.init.events);
+	}
+
+	const hostInfo = data.init.host;
+
+	eventNum = events.length;
+	if (eventNum) {
+		const eventId = events[0].id;
+
+		socketClient.emit("joinRoom", {room: eventId});
+		socketClient.emit("event/initOption", eventId);
+	}
+
+	return (
+		<HostProvider value={{hostInfo, events, setEvents}}>
+			<div className="App">
+				<Header />
+				<NavBar eventNum={eventNum} />
+			</div>
+		</HostProvider>
+	);
 }
 
 export default App;
