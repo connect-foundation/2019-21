@@ -15,6 +15,8 @@ const PopUpLayOutStyle = styled.div`
 	width: ${modalWidth}rem;
 	height: ${modalHeight}rem;
 	background-color: white;
+	border-radius: 15px;
+	outline: none;
 `;
 const AlertLayOut = styled.div`
 	position: relative;
@@ -24,6 +26,8 @@ const AlertLayOut = styled.div`
 	height: ${alertHeight}rem;
 	background-color: white;
 	text-align: center;
+	border-radius: 15px;
+	outline: none;
 `;
 
 function EventSettingModal(props) {

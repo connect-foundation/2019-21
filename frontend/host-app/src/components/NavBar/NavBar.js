@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import NavBarTab from "./NavBarTab.js";
 import NavBarTabs from "./NavBarTabs.js";
+import EventDashboard from "../EventDashboard/EventDashboard";
+import EventCardList from "../Event/EventCardList";
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -15,19 +17,27 @@ const useStyles = makeStyles(theme => ({
 
 const NAV_BAR_DEFAULT_TAB_IDX = 0;
 
-function NavBar(props) {
-	const {onChange, tabIdx} = props;
+function NavBar() {
+	const [tabIdx, selectTab] = useState(0);
 	const classes = useStyles();
 
+	const onChange = (e, selectedTabIdx) => {
+		selectTab(selectedTabIdx);
+	};
+
 	return (
-		<div className={classes.root}>
-			<div className={classes.navBar}>
-				<NavBarTabs value={tabIdx} onChange={onChange}>
-					<NavBarTab label="이벤트 목록" />
-					<NavBarTab label="라이브 이벤트" />
-				</NavBarTabs>
+		<>
+			<div className={classes.root}>
+				<div className={classes.navBar}>
+					<NavBarTabs value={tabIdx} onChange={onChange}>
+						<NavBarTab label="라이브 이벤트" />
+						<NavBarTab label="이벤트 목록" />
+					</NavBarTabs>
+				</div>
 			</div>
-		</div>
+			<EventDashboard value={tabIdx} index={0} />
+			<EventCardList value={tabIdx} index={1} />
+		</>
 	);
 }
 
