@@ -19,7 +19,7 @@ function Title({data, type, state}) {
 				<TitleBadge dataLength={data.questions.length}/>
 				<TitleStyle>{titleNameMap[type]}</TitleStyle>
 				<RightSide>
-					{isModeration(type) && <ModerationButton state={state} eventId={eventId}/>}
+					{ isModeration(type) && <ModerationButton state={state} eventId={eventId}/>}
 					{ isActive(type) && <CompleteAllQuestionButton data={data}/>}
 				</RightSide>
 			</TitleBox>

@@ -2,7 +2,7 @@ import styled, {keyframes} from "styled-components";
 
 const Open = keyframes`
 	0% { 
-		min-width: 8rem; 
+		min-width: 10rem; 
 		height: 10%;
 	}
 	100% { 
@@ -17,7 +17,7 @@ const Close = keyframes`
 		height: 100%;	
 	}
 	100% { 
-		min-width: 8rem; 
+		min-width: 10rem; 
 		height: 10%;
 	}
 `;

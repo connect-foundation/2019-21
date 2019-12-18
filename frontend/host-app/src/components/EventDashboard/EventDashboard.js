@@ -12,7 +12,6 @@ import useModerationEventHandler from "../EventHandler/useModerationEventHandler
 function Inner({data, option}) {
 	const [moderationState, setModeration] = useState(option.moderationOption);
 	const [questions, dispatch] = useReducer(QuestionsReducer, {questions: data});
-	const [pollNumberStatus] = useState(0);
 	const columnTypes = ["moderation", "newQuestion", "popularQuestion", "completeQuestion"];
 
 	useQuestionSocketEventHandler(dispatch);
@@ -29,7 +28,6 @@ function Inner({data, option}) {
 			))}
 			<Column
 				type="poll"
-				badgeState={pollNumberStatus}
 				data={{questions: []}}
 			/>
 		</ContentStyle>
