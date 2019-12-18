@@ -12,7 +12,7 @@ const AppStyle = styled.div`
 	width: 100vw;
 `;
 
-let App = () => {
+const App = () => {
 	const {event} = useGuestGlobal();
 
 	return (

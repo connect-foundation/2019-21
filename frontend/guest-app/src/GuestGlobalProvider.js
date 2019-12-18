@@ -22,7 +22,6 @@ export function GuestGlobalProvider(props) {
 		window.location.href = config.inValidGuestRedirectURL;
 		return <div />;
 	}
-	console.log(data);
 
 	const {event, guest} = data.guestInEvent;
 	const client = createSocketIOClient({

@@ -34,6 +34,7 @@ const updateItems = (items, number, allowDuplication) => {
 		if (!allowDuplication) {
 			uncheckOtherItems(newItems);
 		}
+
 		newItems[number].voted = true;
 		newItems[number].voters++;
 	}
@@ -78,7 +79,7 @@ const updateFirstPlace = poll => {
 	let firstPlaceValue = 0;
 
 	newPoll.nItems.forEach((item, index) => {
-		if (item.voters == firstPlaceValue) {
+		if (item.voters === firstPlaceValue) {
 			firstPlaceIndex.push(index);
 		} else if (item.voters > firstPlaceValue) {
 			firstPlaceIndex = [];
@@ -100,8 +101,8 @@ const updateFirstPlace = poll => {
 };
 
 /**
- * 
- * @param {dispatch의 action에 해당하는 object} vote 
+ *
+ * @param {dispatch의 action에 해당하는 object} vote
  * 		dispatch({
 			type: "VOTE",
 			pollId: id,
@@ -109,7 +110,7 @@ const updateFirstPlace = poll => {
 			number,
 			GuestId,
 		});
- * @param {object} poll 
+ * @param {object} poll
 		type Candidate {
 			id: Int!
 			number: Int!
@@ -132,10 +133,10 @@ const updateFirstPlace = poll => {
 			ratingValue: Int!
 			rated: Boolean!
 		}
- * @param {int} candidateToDelete 
- *		복수선택이 안되는 투표의 경우, 
+ * @param {int} candidateToDelete
+ *		복수선택이 안되는 투표의 경우,
  *		이미 다른 candidate에 투표를 한 상황에서 다시 다른 candidate을 투표하는 경우,
- *		예전에 투표한 candidate에 투표했다는 정보를 DB에서 삭제하기 위함	
+ *		예전에 투표한 candidate에 투표했다는 정보를 DB에서 삭제하기 위함
  */
 const emitVoteData = (vote, poll, candidateToDelete) => {
 	const action = poll.nItems[vote.number].voted ? "on" : "off";
@@ -151,15 +152,15 @@ const emitVoteData = (vote, poll, candidateToDelete) => {
 };
 
 /**
- * 
- * @param {dispatch의 action에 해당하는 object} rate 
+ *
+ * @param {dispatch의 action에 해당하는 object} rate
  * 		dispatch({
 			type: "RATE",
 			value,
 			pollId: id,
 			GuestId,
 		});
- * @param {object} poll 
+ * @param {object} poll
  		type Candidate {
 			id: Int!
 			number: Int!
@@ -182,9 +183,9 @@ const emitVoteData = (vote, poll, candidateToDelete) => {
 			ratingValue: Int!
 			rated: Boolean!
 		}
- * @param {int} candidateId 
+ * @param {int} candidateId
 		투표한 candidate의 id
- * @param {int} index 
+ * @param {int} index
 		투표한 candidate가 array에서 위치한 index
  */
 const emitRateData = (rate, poll, candidateId, index) => {
@@ -226,11 +227,13 @@ export default function reducer(polls, action) {
 				item.voters = action.poll.nItems[index].voters;
 				item.firstPlace = action.poll.nItems[index].firstPlace;
 			});
+
 			return polls.map(poll => (poll.id === pollId ? thePoll : poll));
 		}
 		// 나 또는 남이 rate(별점매기기) 했음을 알려줌
 		case "SOMEONE_RATE": {
 			thePoll.totalVoters = action.poll.totalVoters;
+
 			return polls.map(poll => (poll.id === pollId ? thePoll : poll));
 		}
 		// 내가 vote(N지선다) 했음
@@ -244,6 +247,7 @@ export default function reducer(polls, action) {
 					action.candidateId,
 				);
 			}
+
 			thePoll = {
 				...thePoll,
 				nItems: updateItems(
@@ -260,6 +264,7 @@ export default function reducer(polls, action) {
 			thePoll = updateFirstPlace(thePoll);
 
 			emitVoteData(action, thePoll, candidateToDelete);
+
 			return polls.map(poll => (poll.id === pollId ? thePoll : poll));
 		}
 		// 내가 rate(별점매기기) 했음
@@ -267,6 +272,7 @@ export default function reducer(polls, action) {
 			if (thePoll.rated) {
 				return polls;
 			}
+
 			thePoll = {
 				...thePoll,
 				nItems: updateRatingItem(thePoll.nItems, action.value, true),
@@ -275,9 +281,10 @@ export default function reducer(polls, action) {
 				totalVoters: thePoll.totalVoters + 1,
 			};
 
-			index = parseInt(action.value) - 1;
+			index = parseInt(action.value, 10) - 1;
 			candidateId = thePoll.nItems[index].id;
 			emitRateData(action, thePoll, candidateId, index);
+
 			return polls.map(poll => (poll.id === pollId ? thePoll : poll));
 		}
 		// 내가 rate(별점매기기)를 취소했음
@@ -285,7 +292,8 @@ export default function reducer(polls, action) {
 			if (!thePoll.rated) {
 				return polls;
 			}
-			index = parseInt(thePoll.ratingValue) - 1;
+
+			index = parseInt(thePoll.ratingValue, 10) - 1;
 			thePoll = {
 				...thePoll,
 				nItems: updateRatingItem(
@@ -299,6 +307,7 @@ export default function reducer(polls, action) {
 			};
 			candidateId = thePoll.nItems[index].id;
 			emitRateData(action, thePoll, candidateId, index);
+
 			return polls.map(poll => (poll.id === pollId ? thePoll : poll));
 		}
 

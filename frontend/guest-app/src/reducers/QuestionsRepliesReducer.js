@@ -132,7 +132,8 @@ const onRemoveQuestionEmoji = (state, data) => {
 	return newState;
 };
 
-const onRemoveQuestion = (state, data) => _.cloneDeep(state).filter(x => x.id !== data.id);
+const onRemoveQuestion = (state, data) =>
+	_.cloneDeep(state).filter(x => x.id !== data.id);
 
 const onUpdateQuestion = (state, data) => {
 	const newState = _.cloneDeep(state);
@@ -157,13 +158,17 @@ const onMoveQuestion = (state, data) => {
 
 	if (data.id === "all") {
 		return newState.map(e => {
-			if (e.state === data.from) { e.state = data.to; }
+			if (e.state === data.from) {
+				e.state = data.to;
+			}
 			return e;
 		});
 	}
 
 	return newState.map(e => {
-		if (e.id === data.id) { e.state = data.to; }
+		if (e.id === data.id) {
+			e.state = data.to;
+		}
 		return e;
 	});
 };
@@ -172,7 +177,11 @@ const onToggleStarQuestion = (state, data) => {
 	const newState = _.cloneDeep(state);
 
 	newState.map(e => {
-		if (e.id === data.id) { e.isStared = data.isStared; } else { e.isStared = false; }
+		if (e.id === data.id) {
+			e.isStared = data.isStared;
+		} else {
+			e.isStared = false;
+		}
 		return e;
 	});
 
@@ -199,6 +208,7 @@ const QuestionsRepliesReducer = (state, action) => {
 	};
 
 	if (!(type in actionTable)) {
+		// eslint-disable-next-line no-console
 		console.error(`unexpected action.type: ${type}`);
 		return state;
 	}
