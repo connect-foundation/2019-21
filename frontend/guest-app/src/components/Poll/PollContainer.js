@@ -2,7 +2,9 @@ import React, {useReducer, useState} from "react";
 import styled from "styled-components";
 import PollCard from "./PollCard";
 import {useSocket} from "../../socket.io";
-import reducer from "./PollReducer";
+import reducer from "../../reducers/PollsReducer.js";
+import useGlobalData from "../../contexts/GlobalData/useGlobalData.js";
+import usePolls from "../../contexts/Polls/usePolls.js";
 
 const ColumnWrapper = styled.div`
 	display: flex;
@@ -15,7 +17,13 @@ const ColumnWrapper = styled.div`
 	width: 100%;
 `;
 
-function PollContainer({data, GuestId}) {
+function PollContainer() {
+	const {guest} = useGlobalData();
+	const GuestId = guest.id;
+
+	const {pollGuest} = usePolls();
+	const data = pollGuest;
+
 	let rPolls = null;
 	let cPolls = null;
 
@@ -105,16 +113,12 @@ function PollContainer({data, GuestId}) {
 	// useReduer를 호출하여 투표에 상태를 update 함
 	useSocket("vote/on", res => {
 		if (res.status === "error") {
-			console.log("vote/on ERROR");
+			// eslint-disable-next-line no-console
+			console.error("vote/on ERROR");
 			return;
 		}
 		// 하나의 브라우저에서 여러개의 tab으로 guest들을 생성한 경우,
 		// 해당 guest를 제외한 나머지 guest에 상태가 적용되지 않아서 comment 처리했음
-		// console.log("useSocket vote/on", res);
-		// if (res.GuestId === GuestId) {
-		// 	console.log("My vote!");
-		// 	return;
-		// }
 		dispatch({
 			type: "SOMEONE_VOTE",
 			pollId: res.poll.id,
@@ -128,15 +132,12 @@ function PollContainer({data, GuestId}) {
 	// useReduer를 호출하여 투표에 상태를 update 함
 	useSocket("vote/off", res => {
 		if (res.status === "error") {
-			console.log("vote/off ERROR");
+			// eslint-disable-next-line no-console
+			console.error("vote/off ERROR");
 			return;
 		}
 		// 하나의 브라우저에서 여러개의 tab으로 guest들을 생성한 경우,
 		// 해당 guest를 제외한 나머지 guest에 상태가 적용되지 않아서 comment 처리했음
-		// if (res.GuestId === GuestId) {
-		// 	console.log("My vote!");
-		// 	return;
-		// }
 		dispatch({
 			type: "SOMEONE_VOTE",
 			pollId: res.poll.id,
@@ -154,11 +155,6 @@ function PollContainer({data, GuestId}) {
 		}
 		// 하나의 브라우저에서 여러개의 tab으로 guest들을 생성한 경우,
 		// 해당 guest를 제외한 나머지 guest에 상태가 적용되지 않아서 comment 처리했음
-		// console.log("useSocket vote/on", res);
-		// if (res.GuestId === GuestId) {
-		// 	console.log("My rate!");
-		// 	return;
-		// }
 		dispatch({
 			type: "SOMEONE_RATE",
 			pollId: res.poll.id,
@@ -176,10 +172,6 @@ function PollContainer({data, GuestId}) {
 		}
 		// 하나의 브라우저에서 여러개의 tab으로 guest들을 생성한 경우,
 		// 해당 guest를 제외한 나머지 guest에 상태가 적용되지 않아서 comment 처리했음
-		// if (res.GuestId === GuestId) {
-		// 	console.log("My rate!");
-		// 	return;
-		// }
 		dispatch({
 			type: "SOMEONE_RATE",
 			pollId: res.poll.id,

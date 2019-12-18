@@ -5,7 +5,7 @@ import Divider from "@material-ui/core/Divider";
 import QuestionHeader from "./QuestionCardHeader.js";
 import QuestionBody from "./QuestionCardBody.js";
 import EmojiArea from "../EmojiArea/EmojiArea.js";
-import ReplyArea from "../Reply/ReplyArea.js";
+import ReplyPreviewArea from "../ReplyPreviewArea/ReplyPreviewArea.js";
 
 const cardColor = {
 	focused: "rgb(242,248,255)",
@@ -24,7 +24,7 @@ const QuestionCard = React.memo(props => {
 				/>
 				<QuestionBody {...props} />
 				<EmojiArea {...props} />
-				<ReplyArea {...props} />
+				<ReplyPreviewArea {...props} />
 			</CardContent>
 		</Card>
 	);

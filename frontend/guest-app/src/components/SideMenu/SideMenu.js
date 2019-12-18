@@ -3,10 +3,10 @@ import Drawer from "@material-ui/core/Drawer";
 import SideMenuHeader from "./SideMenuHeader.js";
 import SideMenuBody from "./SideMenuBody.js";
 import SideMenuFooter from "./SideMenuFooter.js";
-import {useGuestGlobal} from "../../GuestGlobalProvider.js";
+import useGlobalData from "../../contexts/GlobalData/useGlobalData.js";
 
 export function SideMenu({isOpen = false, toggleNavMenu}) {
-	const {event} = useGuestGlobal();
+	const {event} = useGlobalData();
 
 	return (
 		<Drawer open={isOpen} onClose={toggleNavMenu}>
@@ -18,7 +18,7 @@ export function SideMenu({isOpen = false, toggleNavMenu}) {
 			/>
 			<SideMenuBody {...{toggleNavMenu}} />
 
-			<SideMenuFooter/>
+			<SideMenuFooter />
 		</Drawer>
 	);
 }

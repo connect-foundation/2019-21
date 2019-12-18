@@ -31,6 +31,7 @@ const ToggleReducer = (state, action) => {
 	const {type, data} = action;
 
 	if (!(type in actionTable)) {
+		// eslint-disable-next-line no-console
 		console.error(`unexpected action.type: ${type}`);
 		return state;
 	}
@@ -38,6 +39,7 @@ const ToggleReducer = (state, action) => {
 	try {
 		return actionTable[type](state, data);
 	} catch (e) {
+		// eslint-disable-next-line no-console
 		console.error(e);
 		return state;
 	}

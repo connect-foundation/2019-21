@@ -5,7 +5,7 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import gray from "@material-ui/core/colors/grey.js";
 import PropTypes from "prop-types";
-import {useQuestions} from "../../reducers/QuestionsContext.js";
+import useQuestions from "../../contexts/Questions/useQuestions.js";
 
 const RECENT_TAB_IDX = 1;
 const POPULAR_TAB_IDX = 2;
@@ -24,7 +24,7 @@ function QuestionContainerTabBar(props) {
 			>
 				<Tab disabled style={{minWidth: "1rem"}} />
 				<Tab
-					label={<Typography>최근순</Typography>}
+					label={<Typography>시간순</Typography>}
 					selected={tabIdx === RECENT_TAB_IDX}
 				/>
 				<Tab

@@ -55,7 +55,7 @@ function PollCard(props) {
 		if (localePollDate.includes("-")) {
 			localePollDate = new Date(localePollDate);
 		} else {
-			localePollDate = new Date(parseInt(localePollDate));
+			localePollDate = new Date(parseInt(localePollDate, 10));
 		}
 		localePollDate = `
 			${localePollDate.getMonth() + 1}월 
@@ -88,7 +88,7 @@ function PollCard(props) {
 			{pollType === "rating" && <RatingItem state={state} {...others} />}
 			<RowWrapper left>
 				<MdPerson />
-				{`${parseInt(totalVoters).toLocaleString()} 명 참여`}
+				{`${parseInt(totalVoters, 10).toLocaleString()} 명 참여`}
 			</RowWrapper>
 		</ColumnWrapper>
 	);
