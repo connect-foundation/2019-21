@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import {Scrollbars} from "react-custom-scrollbars"
+import {Scrollbars} from "react-custom-scrollbars";
 import PreviewQuestion from "./PreviewQuestion";
 import RepliesList from "./RepliesList";
 import ReplyQuestionDivider from "./ReplyQuestionDivider";
 import ReplyInputContainer from "./ReplyInputContainer";
-import PaddingArea from "../CommonComponent/PaddingArea";
+import PaddingArea from "../atoms/PaddingArea.js";
 
 const RepliesContainerStyle = styled.div`
 	overflow-y:scroll;

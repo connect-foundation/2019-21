@@ -3,8 +3,8 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {Box} from "@material-ui/core";
 import CommonModal from "../CommonComponent/CommonModal/CommonModal.js";
-import ConfirmButton from "../CommonComponent/CommonButtons/ConfirmButton.js";
-import CancelButton from "../CommonComponent/CommonButtons/CancelButton.js";
+import ConfirmButton from "../atoms/ConfirmButton.js";
+import CancelButton from "../atoms/CancelButton.js";
 
 function UndoLikeConfirmModal({isOpened, onCancelClick, onConfirmClick}) {
 	return (

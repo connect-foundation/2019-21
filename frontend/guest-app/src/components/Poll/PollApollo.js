@@ -1,8 +1,8 @@
-import React, {useContext} from "react";
+import React from "react";
 import {useQuery} from "@apollo/react-hooks";
 import {gql} from "apollo-boost";
 import PollContainer from "./PollContainer";
-import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
+import {useGuestGlobal} from "../../GuestGlobalProvider.js";
 
 const POLL_QUERY = gql`
 	query PollGuest($EventId: ID!, $guestId: ID!) {
@@ -30,7 +30,7 @@ const POLL_QUERY = gql`
 `;
 
 function PollApollo() {
-	const {event, guest} = useContext(GuestGlobalContext);
+	const {event, guest} = useGuestGlobal();
 	const options = {
 		variables: {
 			EventId: event.id,

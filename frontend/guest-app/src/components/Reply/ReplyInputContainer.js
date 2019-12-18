@@ -1,10 +1,10 @@
-import React, {useContext, useRef} from "react";
+import React, {useRef} from "react";
 import PropTypes from "prop-types";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import ReplyInput from "./ReplyInput";
-import {socketClient} from "../../libs/socketIoClientProvider.js";
-import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
+import {socketClient} from "../../socket.io";
+import {useGuestGlobal} from "../../GuestGlobalProvider.js";
 
 const createNewReply = ({
 	EventId,
@@ -23,7 +23,7 @@ const createNewReply = ({
 
 function ReplyInputContainer(props) {
 	const {id} = props;
-	const {event, guest} = useContext(GuestGlobalContext);
+	const {event, guest} = useGuestGlobal();
 	const userNameRef = useRef(null);
 	const questionRef = useRef(null);
 	const onConfirmNewReply = reply => {

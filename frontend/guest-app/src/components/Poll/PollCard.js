@@ -48,6 +48,7 @@ function PollCard(props) {
 	} = props;
 
 	let localePollDate;
+
 	// socket.io, sequelize, graphQL 을 거치면서 format이 변경되어서 그때그때 처리하기 위함
 	if (pollDate) {
 		localePollDate = pollDate;
@@ -73,9 +74,9 @@ function PollCard(props) {
 				<div>{state === "closed" && "(종료됨)"}</div>
 			</RowWrapper>
 			<RowWrapper left small>
-				{allowDuplication
-					? `복수선택 | ${localePollDate}`
-					: `${localePollDate}`}
+				{allowDuplication ?
+					`복수선택 | ${localePollDate}` :
+					`${localePollDate}`}
 			</RowWrapper>
 			{pollType === "nItems" && (
 				<SelectionItems

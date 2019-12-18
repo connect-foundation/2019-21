@@ -1,10 +1,10 @@
-import React, {useContext} from "react";
+import React from "react";
 import Button from "@material-ui/core/Button";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import useCommonModal from "../CommonComponent/CommonModal/useCommonModal.js";
 import UndoLikeConfirmModal from "./UndoLikeModal.js";
-import {socketClient} from "../../libs/socketIoClientProvider.js";
-import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
+import {socketClient} from "../../socket.io";
+import {useGuestGlobal} from "../../GuestGlobalProvider.js";
 
 function LikeButtonAtom({isLikeClicked, onLikeButtonClicked, likeCount}) {
 	return (
@@ -18,7 +18,7 @@ function LikeButtonAtom({isLikeClicked, onLikeButtonClicked, likeCount}) {
 				justifyContent: "space-between",
 			}}
 		>
-			<ThumbUpIcon/>
+			<ThumbUpIcon />
 			{likeCount}
 		</Button>
 	);
@@ -40,7 +40,7 @@ function emitQuestionLikeRemove(GuestId, QuestionId) {
 
 function LikeButton(props) {
 	const {likeCount, didILike, id} = props;
-	const {guest} = useContext(GuestGlobalContext);
+	const {guest} = useGuestGlobal();
 	const modalState = useCommonModal();
 	const onLikeButtonClicked = () => {
 		if (didILike) {

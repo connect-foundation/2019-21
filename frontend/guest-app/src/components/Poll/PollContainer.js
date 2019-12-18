@@ -1,7 +1,7 @@
 import React, {useReducer, useState} from "react";
 import styled from "styled-components";
 import PollCard from "./PollCard";
-import {useSocket} from "../../libs/socketIoClientProvider.js";
+import {useSocket} from "../../socket.io";
 import reducer from "./PollReducer";
 
 const ColumnWrapper = styled.div`
