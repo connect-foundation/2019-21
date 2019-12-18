@@ -3,7 +3,6 @@ import {Tab, Box, Tabs} from "@material-ui/core";
 import {styled} from "@material-ui/core/styles";
 import TabContent from "./TabContent";
 import GeneralSetting from "./GeneralSetting/GeneralSetting";
-import AdvanceSetting from "./AdvanceSetting/AdvanceSetting";
 
 const MyContainer = styled(Box)({
 	display: "flex",

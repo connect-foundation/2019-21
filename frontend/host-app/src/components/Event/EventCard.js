@@ -19,10 +19,8 @@ const useStyles = makeStyles({
 function EventCard(props) {
 	let className = "none";
 	const classes = useStyles();
-	const {isLive, onClickHandler, id, selected} = props;
-	if (id === selected) {
-		className = "selected";
-	}
+	const {isLive} = props;
+
 	return (
 		<Card
 			className={classes[className]}
@@ -32,11 +30,6 @@ function EventCard(props) {
 
 				marginTop: "0.25rem",
 				marginBottom: "0.25rem",
-			}}
-			onClick={() => {
-				if (isLive) {
-					onClickHandler(id);
-				}
 			}}
 		>
 			<CardContent style={{padding: "1rem"}}>

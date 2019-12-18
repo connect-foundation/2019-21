@@ -8,7 +8,6 @@ import InputStartDate from "./InputStartDate";
 import EndDateField from "./EndDateField";
 import InputEventCode from "./InputEventCode";
 import InputEventLink from "./InputEventLink";
-import InputHashTag from "./InputHashTag";
 import HashTagsField from "./HashTagsField";
 import {generalSettingReducer} from "../../settingReducer/settingReducer";
 import ButtonField from "../ButtonField";
@@ -24,10 +23,12 @@ const PopUpLayOutStyle = styled.div`
 
 function convertDataToView(eventInfo) {
 	let eventHashTags = [];
+
 	if (eventInfo.HashTags) {
-		eventHashTags = eventInfo.HashTags.map(hashtag => {
-			return {key: uuidv1(), label: hashtag.name};
-		});
+		eventHashTags = eventInfo.HashTags.map(hashtag => ({
+			key: uuidv1(),
+			label: hashtag.name,
+		}));
 	}
 	return {
 		eventName: eventInfo.eventName,
@@ -127,7 +128,6 @@ export default function GeneralSetting({handleClose}) {
 			<EndDateField endDate={endDate} />
 			<InputEventCode eventCode={eventCode} dispatch={setEventCode} />
 			<InputEventLink eventLink={eventLink} />
-			<InputHashTag hashTags={hashTags} dispatch={updateHashTag} />
 			<HashTagsField hashTags={hashTags} dispatch={updateHashTag} />
 			<ButtonField submit={sendData} onClose={reset} />
 		</PopUpLayOutStyle>

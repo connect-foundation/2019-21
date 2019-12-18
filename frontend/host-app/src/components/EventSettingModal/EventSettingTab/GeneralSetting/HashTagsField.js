@@ -2,7 +2,14 @@ import React from "react";
 import {styled} from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
 import Paper from "@material-ui/core/Paper";
-import {BookmarkBorderRounded} from "@material-ui/icons";
+import Typography from "@material-ui/core/Typography";
+import LocalOfferIcon from "@material-ui/icons/LocalOffer";
+
+const CustomTypography = styled(Typography)({
+	marginTop: "0.6rem",
+	color: "#A8A8A8",
+	fontSize: "0.8rem",
+});
 
 const MyPaper = styled(Paper)({
 	marginTop: "0.6rem",
@@ -17,27 +24,22 @@ const CustomChip = styled(Chip)({
 
 function HashTagsField(props) {
 	const {hashTags, dispatch} = props;
-	const handleDelete = hashTagToDelete => () => {
-		const deletedHashTagList = hashTags.filter(
-			hashTag => hashTag.key !== hashTagToDelete.key,
-		);
-
-		dispatch(deletedHashTagList);
-	};
 
 	return (
-		<MyPaper>
-			{hashTags.map(data => (
-				<CustomChip
-					icon={<BookmarkBorderRounded />}
-					color="primary"
-					variant="outlined"
-					key={data.key}
-					label={data.label}
-					onDelete={handleDelete(data)}
-				/>
-			))}
-		</MyPaper>
+		<>
+			<CustomTypography variant="subtitle1">해시태그</CustomTypography>
+			<MyPaper>
+				{hashTags.map(data => (
+					<CustomChip
+						icon={<LocalOfferIcon />}
+						color="primary"
+						variant="outlined"
+						key={data.key}
+						label={data.label}
+					/>
+				))}
+			</MyPaper>
+		</>
 	);
 }
 
