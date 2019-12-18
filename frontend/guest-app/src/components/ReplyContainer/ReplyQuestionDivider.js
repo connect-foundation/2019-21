@@ -26,7 +26,7 @@ function ReplyQuestionDivider(props) {
 	return (
 		<Container>
 			<Typography variant="subtitle1">{`댓글 ${replies.length}개`}</Typography>
-			<CustomDivider></CustomDivider>
+			<CustomDivider/>
 		</Container>
 	);
 }

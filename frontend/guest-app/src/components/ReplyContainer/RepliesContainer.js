@@ -1,33 +1,38 @@
 import React from "react";
 import styled from "styled-components";
 import {Scrollbars} from "react-custom-scrollbars";
-import PreviewQuestion from "./PreviewQuestion";
-import RepliesList from "./RepliesList";
-import ReplyQuestionDivider from "./ReplyQuestionDivider";
-import ReplyInputContainer from "./ReplyInputContainer";
+import PreviewQuestion from "./PreviewQuestion.js";
+import ReplyCardList from "../ReplyCard/ReplyCardList.js";
+import ReplyQuestionDivider from "./ReplyQuestionDivider.js";
+import ReplyInputContainer from "../ReplyInput/ReplyInputContainer.js";
 import PaddingArea from "../atoms/PaddingArea.js";
+import Box from "@material-ui/core/Box";
 
 const RepliesContainerStyle = styled.div`
-	overflow-y:scroll;
+	overflow-y: scroll;
+	::-webkit-scrollbar {
+		display: none;
+	}
 `;
 
-function RepliesContainer(props) {
-	const fullScreen = {
-		width: "100vw",
-		height: "100vh",
-	};
+const fullScreen = {
+	width: "100vw",
+	height: "100vh",
+};
 
+function RepliesContainer(props) {
 	return (
 		<Scrollbars style={fullScreen}>
 			<RepliesContainerStyle>
+				<Box p={1} />
 				<PreviewQuestion {...props} />
 				<ReplyQuestionDivider
 					{...props}
 					style={{marginTop: "0.5rem", marginBottom: "0.5rem"}}
 				/>
-				<RepliesList {...props} />
+				<ReplyCardList {...props} />
 				<ReplyInputContainer {...props} />
-				<PaddingArea/>
+				<PaddingArea />
 			</RepliesContainerStyle>
 		</Scrollbars>
 	);

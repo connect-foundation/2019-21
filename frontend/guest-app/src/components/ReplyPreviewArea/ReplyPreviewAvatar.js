@@ -39,7 +39,7 @@ function AnonymousAvatar() {
 	);
 }
 
-function ReplyAvatar(props) {
+function ReplyPreviewAvatar(props) {
 	const {isAnonymous = false, userName = "Anonymous", remainder} = props;
 
 	return isAnonymous ? (
@@ -49,10 +49,10 @@ function ReplyAvatar(props) {
 	);
 }
 
-ReplyAvatar.propTypes = {
+ReplyPreviewAvatar.propTypes = {
 	userName: PropTypes.string,
 	isAnonymous: PropTypes.bool,
 	remainder: PropTypes.any,
 };
 
-export default ReplyAvatar;
+export default ReplyPreviewAvatar;

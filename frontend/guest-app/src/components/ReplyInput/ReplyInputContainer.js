@@ -2,7 +2,7 @@ import React, {useRef} from "react";
 import PropTypes from "prop-types";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import ReplyInput from "./ReplyInput";
+import ReplyInput from "./ReplyInput.js";
 import {socketClient} from "../../socket.io";
 import {useGuestGlobal} from "../../GuestGlobalProvider.js";
 
@@ -30,6 +30,7 @@ function ReplyInputContainer(props) {
 		if (reply.trim() === "") {
 			return;
 		}
+
 		socketClient.emit(
 			"question/create",
 			createNewReply({
@@ -43,12 +44,9 @@ function ReplyInputContainer(props) {
 	};
 
 	return (
-		<Card>
-			<CardContent>
+		<Card style={{margin: "0.5rem"}}>
+			<CardContent style={{paddingTop: "1rem", paddingBottom: "0"}}>
 				<ReplyInput
-					// onConfirm={() => {
-					// 	onConfirmNewReply();
-					// }}
 					onConfirm={onConfirmNewReply}
 					confirmButtonText="댓글달기"
 					userNameRef={userNameRef}

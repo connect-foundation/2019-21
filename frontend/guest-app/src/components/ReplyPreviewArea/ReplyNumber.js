@@ -13,19 +13,19 @@ const TextField = styled(Typography)({
 	},
 });
 
-function CurrentRepliesTextField(props) {
-	const {openReplies} = props;
+function ReplyNumber(props) {
+	const {openReplies, replyCount} = props;
 
 	return (
 		<TextField variant="subtitle1" onClick={openReplies}>
-			{props.children}
+			{`댓글 ${replyCount}개`}
 		</TextField>
 	);
 }
 
-CurrentRepliesTextField.propTypes = {
-	children: PropTypes.node,
+ReplyNumber.propTypes = {
+	replyCount: PropTypes.number,
 	openReplies: PropTypes.func,
 };
 
-export default CurrentRepliesTextField;
+export default ReplyNumber;

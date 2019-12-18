@@ -7,18 +7,17 @@ import {Typography} from "@material-ui/core";
 const StyledButton = styled(Button)({
 	height: "2rem",
 	marginBottom: "1rem",
-	// color: "#495057", // Gray7
 });
 
-function AddReplyRow(props) {
-	const {openReplies} = props;
+function ReplyAddButton(props) {
+	const {onClick} = props;
 
 	return (
-		<StyledButton onClick={openReplies}>
+		<StyledButton onClick={onClick}>
 			<ChatBubbleOutlineOutlined style={{marginRight: "0.5rem"}} />
 			<Typography variant="subtitle1">댓글달기</Typography>
 		</StyledButton>
 	);
 }
 
-export default AddReplyRow;
+export default ReplyAddButton;

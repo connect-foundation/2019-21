@@ -13,7 +13,7 @@ function ReplyContentInput(props) {
 		<TextField
 			multiline
 			fullWidth
-			label={"질문 내용"}
+			label={"댓글 내용"}
 			rowsMax="10"
 			value={content}
 			onChange={onChange}
