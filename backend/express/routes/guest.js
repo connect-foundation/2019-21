@@ -4,7 +4,7 @@ import generateAccessToken from "../authentication/token";
 import config from "../config";
 import {guestAuthenticate} from "../middleware/authenticate";
 import {createGuest} from "../../DB/queries/guest";
-import {convertPathToEvent} from "../utils";
+import {convertPathToEventId} from "../utils";
 import CookieKeys from "../CookieKeys.js";
 import logger from "../logger.js";
 
@@ -22,7 +22,7 @@ router.get("/logout", (req, res, next) => {
 router.get("/:path", guestAuthenticate(), async (req, res, next) => {
 	try {
 		const path = req.params.path;
-		const eventId = await convertPathToEvent(path);
+		const eventId = await convertPathToEventId(path);
 		const guest = await createGuest(eventId);
 		const accessToken = generateAccessToken(guest.guestSid, "guest");
 
@@ -31,7 +31,7 @@ router.get("/:path", guestAuthenticate(), async (req, res, next) => {
 		});
 		res.redirect(routePage.guest);
 	} catch (e) {
-		logger.error(e);
+		logger.error([e, e.stack]);
 		res.redirect(routePage.main);
 	}
 });
