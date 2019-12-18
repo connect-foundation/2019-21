@@ -14,8 +14,7 @@ function QuestionBody(props) {
 		<span>
 			<Typography
 				color={"textPrimary"}
-				variant={"subtitle1"}
-				style={{fontWeight: "bold"}}
+				variant={"body1"}
 			>
 				{content}
 				{isMyQuestion && <QuestionEditButton {...props} />}
