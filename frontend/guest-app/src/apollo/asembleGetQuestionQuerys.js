@@ -1,23 +1,23 @@
 import _ from "lodash";
 
 function mappingByKey(object, key) {
-	const mappped = {};
+	const mapped = {};
 
 	object.forEach(x => {
-		mappped[x[key]] = x;
+		mapped[x[key]] = x;
 	});
 
-	return mappped;
+	return mapped;
 }
 
 function unMappingByKey(object) {
 	return Object.values(object);
 }
 
-function JSONNestJoin(parents, childs, parentKey, childKey, func) {
+function JSONNestJoin(parents, children, parentKey, childKey, func) {
 	const mapped = mappingByKey(parents, parentKey);
 
-	childs.forEach(child => {
+	children.forEach(child => {
 		const joinValue = child[childKey];
 
 		if (mapped[joinValue]) {
@@ -30,8 +30,8 @@ function JSONNestJoin(parents, childs, parentKey, childKey, func) {
 	return unMappingByKey(mapped);
 }
 
-function JSONNestJoin2(parents, childs, parentKey, childKey, func) {
-	const mapped = mappingByKey(childs, childKey);
+function JSONNestJoin2(parents, children, parentKey, childKey, func) {
+	const mapped = mappingByKey(children, childKey);
 
 	parents.forEach(parent => {
 		const joinValue = parent[parentKey];
