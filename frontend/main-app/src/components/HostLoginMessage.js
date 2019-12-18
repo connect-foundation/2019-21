@@ -6,18 +6,13 @@ import config from "../config";
 
 const HostLoginMessageStyle = styled.div`
 	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
+	flex-direction: column;
 	align-items: center;
 	text-align: right;
-	// padding: 1rem 40px;
-	margin: 1rem 2rem;
-	height: 3rem;
-	span {
-		cursor: pointer;
-		&:hover {
-			text-decoration: underline;
-		}
+	margin-bottom: 2rem;
+	height: 4rem;
+	div {
+		margin-bottom: 0.5rem;
 	}
 `;
 
@@ -33,9 +28,8 @@ const LoginButton = withStyles({
 function HostLoginMessage() {
 	return (
 		<HostLoginMessageStyle>
-			이벤트를 만드려면, 로그인
+			<div>이벤트를 만들려면, 로그인 해주세요.</div>
 			<LoginButton href={config.authLoginURL} />
-			해주세요.
 		</HostLoginMessageStyle>
 	);
 }
