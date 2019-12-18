@@ -2,7 +2,9 @@ import React, {useReducer, useState} from "react";
 import styled from "styled-components";
 import PollCard from "./PollCard";
 import {useSocket} from "../../socket.io";
-import reducer from "./PollReducer";
+import reducer from "../../models/Polls/PollsReducer.js";
+import useGlobalData from "../../models/GlobalData/useGlobalData.js";
+import usePolls from "../../models/Polls/usePolls.js";
 
 const ColumnWrapper = styled.div`
 	display: flex;
@@ -15,7 +17,13 @@ const ColumnWrapper = styled.div`
 	width: 100%;
 `;
 
-function PollContainer({data, GuestId}) {
+function PollContainer() {
+	const {guest} = useGlobalData();
+	const GuestId = guest.id;
+
+	const {pollGuest} = usePolls();
+	const data = pollGuest;
+
 	let rPolls = null;
 	let cPolls = null;
 
