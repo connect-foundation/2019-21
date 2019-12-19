@@ -19,5 +19,4 @@ select,
 a,
 button:focus {
 	outline: none;
-	user-select: none;
 }
