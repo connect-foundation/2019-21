@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import EventForm from "./components/EventForm";
 import HostLoginMessage from "./components/HostLoginMessage";
