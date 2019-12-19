@@ -1,6 +1,6 @@
 import {makeStyles} from "@material-ui/core";
 
-const useButtonStyles = makeStyles(theme => ({
+const useButtonStyles = makeStyles(() => ({
 	starButton: {
 		color: "#9e9e9e",
 		marginLeft: "0.25rem",

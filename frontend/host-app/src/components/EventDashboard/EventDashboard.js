@@ -13,25 +13,22 @@ function Inner({data, option}) {
 	const [questions, dispatch] = useReducer(QuestionsReducer, {
 		questions: data,
 	});
-	const columnTypes = [
-		"moderation",
-		"newQuestion",
-		"popularQuestion",
-		"completeQuestion",
-	];
+	const columnTypes = ["moderation", "newQuestion", "popularQuestion", "completeQuestion"];
 
 	useQuestionSocketEventHandler(dispatch);
 	useModerationEventHandler(setModeration);
 
 	return (
 		<ContentStyle>
-			{columnTypes.map(e => (
-				<Column type={e} state={moderationState} data={questions} />
+			{columnTypes.map((e, i) => (
+				<Column
+					type={e}
+					state={moderationState}
+					data={questions}
+					key={i}
+				/>
 			))}
-			<Column
-				type="poll"
-				data={{questions: []}}
-			/>
+			<Column type="poll" data={{questions: []}} />
 		</ContentStyle>
 	);
 }

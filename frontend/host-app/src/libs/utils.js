@@ -1,7 +1,7 @@
 import moment from "moment";
 
 export function makeNewData(req) {
-	const newData = {
+	return {
 		Emojis: [],
 		GuestId: req.GuestId,
 		content: req.content,
@@ -13,7 +13,6 @@ export function makeNewData(req) {
 		QuestionId: req.QuestionId,
 		isStared: false,
 	};
-	return newData;
 }
 
 export function filterQuestion(option, data) {
@@ -38,23 +37,23 @@ export function filterReplies(id, data) {
 }
 
 function mappingByKey(object, key) {
-	const mappped = {};
+	const mapped = {};
 
 	object.forEach(x => {
-		mappped[x[key]] = x;
+		mapped[x[key]] = x;
 	});
 
-	return mappped;
+	return mapped;
 }
 
 function unMappingByKey(object) {
 	return Object.values(object);
 }
 
-export function JSONNestJoin(parents, childs, parentKey, childKey, func) {
+export function JSONNestJoin(parents, children, parentKey, childKey, func) {
 	const mapped = mappingByKey(parents, parentKey);
 
-	childs.forEach(child => {
+	children.forEach(child => {
 		const joinValue = child[childKey];
 
 		if (mapped[joinValue]) {
@@ -67,8 +66,8 @@ export function JSONNestJoin(parents, childs, parentKey, childKey, func) {
 	return unMappingByKey(mapped);
 }
 
-export function JSONNestJoin2(parents, childs, parentKey, childKey, func) {
-	const mapped = mappingByKey(childs, childKey);
+export function JSONNestJoin2(parents, children, parentKey, childKey, func) {
+	const mapped = mappingByKey(children, childKey);
 	parents.forEach(parent => {
 		const joinValue = parent[parentKey];
 		if (mapped[joinValue]) {

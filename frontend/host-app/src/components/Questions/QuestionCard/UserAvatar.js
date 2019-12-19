@@ -18,7 +18,7 @@ function NamedAvata({guestName}) {
 	return <Avatar className={classes.randomAvatar}>{inner}</Avatar>;
 }
 
-function AnonymousAvata() {
+function AnonymousAvatar() {
 	return (
 		<Avatar>
 			<i className="fa-user" />
@@ -27,7 +27,7 @@ function AnonymousAvata() {
 }
 
 function UserAvatar({isAnonymous, guestName}) {
-	return isAnonymous ? <AnonymousAvata /> : <NamedAvata {...{guestName}} />;
+	return isAnonymous ? <AnonymousAvatar /> : <NamedAvata {...{guestName}} />;
 }
 
 export default UserAvatar;

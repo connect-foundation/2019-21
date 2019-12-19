@@ -38,7 +38,7 @@ function ConfirmModal(props) {
 				</Typography>
 				<Grid container direction={"row"} justify="flex-end">
 					<Button color="secondary" onClick={props.reset}>
-						취소
+						확인
 					</Button>
 				</Grid>
 			</div>

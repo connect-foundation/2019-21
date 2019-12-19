@@ -1,6 +1,6 @@
 import {makeStyles} from "@material-ui/core";
 
-const useQuestionCardStyles = makeStyles(theme => ({
+const useQuestionCardStyles = makeStyles(() => ({
 	replyIcon: {
 		color: "#7f7f7f",
 		transform: "scale(0.7)",

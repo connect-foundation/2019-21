@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Button } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
+import {Button} from "@material-ui/core";
+import {withStyles} from "@material-ui/core/styles";
 import config from "../config";
 
 const HostLoginMessageStyle = styled.div`

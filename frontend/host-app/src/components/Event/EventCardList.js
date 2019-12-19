@@ -3,7 +3,7 @@ import EventCard from "./EventCard.js";
 import {HostContext} from "../../libs/hostContext";
 import {compareCurrentDateToTarget} from "../../libs/utils";
 
-const dateFormat = date => new Date(parseInt(date));
+const dateFormat = date => new Date(parseInt(date, 10));
 
 function EventCardList(props) {
 	const {allEvents} = useContext(HostContext);

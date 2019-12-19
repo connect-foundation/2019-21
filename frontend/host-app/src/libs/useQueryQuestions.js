@@ -3,8 +3,6 @@ import {gql} from "apollo-boost";
 import {JSONNestJoin, JSONNestJoin2} from "./utils.js";
 import _ from "lodash"
 
-
-
 function buildQuestions(object) {
 	const copyData = _.cloneDeep(object);
 	let {questions, emojis, guests,} = copyData;
@@ -75,7 +73,6 @@ export default function useQueryQuestions(
 	}
 ) {
 	const {data, loading, error} = useQuery(QUERY_INIT_QUESTIONS, options);
-	console.log(data);
 	let newData = undefined;
 	let newOption = undefined;
 	if (data) {
