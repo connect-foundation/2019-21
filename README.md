@@ -18,6 +18,9 @@
 
 * [www.vaagle.com](http://www.vaagle.com)
 
+## 데모 영상
+- [데모영상](https://www.youtube.com/watch?v=jErevbCtdF0&feature=youtu.be)
+
 ## 주요 기능
 
 - 2가지 사용자 모드 제공 (Host: 이벤트를 주관하는 사용자, Guest: 이벤트에 참가하여 질문하는 사용자)
