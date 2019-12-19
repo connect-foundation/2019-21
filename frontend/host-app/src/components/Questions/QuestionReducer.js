@@ -42,11 +42,15 @@ const QuestionsReducer = (state, action) => {
 
 			return {questions: [...newData]};
 		},
-		deleteQuestion: () => {
-			console.log("delete");
-			console.log(state);
-			console.log(action);
-			return {questions: [...state.questions]};
+		removeQuestion: () => {
+			const newData = state.questions.map(e => {
+				if (e.id === action.data.id) {
+					e.state = "deleted";
+				}
+				return e;
+			});
+
+			return {questions: [...newData]};
 		},
 		createLike: () => {
 			const targetId = action.data.QuestionId;
