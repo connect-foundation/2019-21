@@ -1,4 +1,5 @@
 import {deleteVoteBy} from "../../../DB/queries/vote";
+import updateVoters from "./updateVoters";
 import logger from "../../logger.js";
 
 const rateOffSocketHandler = async (data, emit) => {
@@ -6,6 +7,8 @@ const rateOffSocketHandler = async (data, emit) => {
 		const {GuestId, CandidateId, poll, index} = data;
 
 		await deleteVoteBy({GuestId, CandidateId});
+
+		await updateVoters(poll);
 
 		emit({
 			status: "ok",
