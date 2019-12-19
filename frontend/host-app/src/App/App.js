@@ -7,6 +7,7 @@ import {HostProvider} from "../libs/hostContext";
 import {getEventsByHost} from "../libs/gql";
 import {socketClient} from "../libs/socket.io-Client-wrapper";
 import AppSkeleton from "../components/Skeleton/AppSkeleton";
+import config from "../config";
 import {compareCurrentDateToTarget} from "../libs/utils";
 
 const initialValue = "";
@@ -27,7 +28,8 @@ function App() {
 	if (loading) {
 		return <AppSkeleton />;
 	} else if (error) {
-		return <p>error-page...</p>;
+		window.location.href = config.inValidHostRedirectURL;
+		return <div />;
 	}
 	initialLoadEvents(events, initialValue, setEvents, data.init.events);
 
