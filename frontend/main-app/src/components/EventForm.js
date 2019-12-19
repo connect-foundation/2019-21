@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import Cookie from "js-cookie";
-import { TextField, Button, Typography } from "@material-ui/core";
+import {TextField, Button, Typography} from "@material-ui/core";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import { withStyles } from "@material-ui/core/styles";
+import {withStyles} from "@material-ui/core/styles";
 import config from "../config";
 
 const EventFormStyle = styled.div`
