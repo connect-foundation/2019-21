@@ -20,6 +20,7 @@ function QuestionContainer({datas, type, containerType}) {
 						{...question}
 						type={type}
 						data={datas}
+						key={question.id}
 					/>
 				))}
 			{type === "popularQuestion" &&
@@ -31,6 +32,7 @@ function QuestionContainer({datas, type, containerType}) {
 							type={type}
 							replies={filterReplies(question.id, datas).questions}
 							data={datas}
+							key={question.id}
 						/>
 					))}
 			{type === "newQuestion" &&
@@ -42,6 +44,7 @@ function QuestionContainer({datas, type, containerType}) {
 							type={type}
 							replies={filterReplies(question.id, datas).questions}
 							data={datas}
+							key={question.id}
 						/>
 					))}
 			{type === "completeQuestion" &&
@@ -51,6 +54,7 @@ function QuestionContainer({datas, type, containerType}) {
 						type={type}
 						replies={filterReplies(question.id, datas).questions}
 						data={datas}
+						key={question.id}
 					/>
 				))}
 			{(type === "poll" && containerType !== "focus") && <PollApollo />}

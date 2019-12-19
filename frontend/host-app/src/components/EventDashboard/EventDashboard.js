@@ -25,8 +25,8 @@ function Inner({data, option}) {
 
 	return (
 		<ContentStyle>
-			{columnTypes.map(e => (
-				<Column type={e} state={moderationState} data={questions} />
+			{columnTypes.map((e, i) => (
+				<Column type={e} state={moderationState} data={questions} key={i}/>
 			))}
 			<Column
 				type="poll"
