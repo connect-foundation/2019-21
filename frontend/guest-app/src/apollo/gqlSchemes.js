@@ -54,3 +54,28 @@ export const QUERY_INIT_QUESTIONS = gql`
 		}
 	}
 `;
+
+export const POLL_QUERY = gql`
+	query PollGuest($EventId: ID!, $guestId: ID!) {
+		pollGuest(EventId: $EventId, guestId: $guestId) {
+			id
+			pollName
+			pollType
+			selectionType
+			allowDuplication
+			state
+			totalVoters
+			pollDate
+			rated
+			ratingValue
+			nItems {
+				id
+				number
+				content
+				voters
+				voted
+				firstPlace
+			}
+		}
+	}
+`;

@@ -10,6 +10,7 @@ const CustomTextField = styled(TextField)({
 
 function InputEventName(props) {
 	const {dispatch, errorState} = props;
+
 	return (
 		<CustomTextField
 			id="eventName"
