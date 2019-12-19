@@ -1,4 +1,5 @@
 import {addVote, addAndDelete} from "../../../DB/queries/vote";
+import updateVoters from "./updateVoters";
 import logger from "../../logger.js";
 
 const voteOnSocketHandler = async (data, emit) => {
@@ -16,6 +17,8 @@ const voteOnSocketHandler = async (data, emit) => {
 		} else {
 			await addVote({GuestId, CandidateId});
 		}
+
+		await updateVoters(poll);
 
 		emit({
 			status: "ok",
