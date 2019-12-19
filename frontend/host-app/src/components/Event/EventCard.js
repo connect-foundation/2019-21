@@ -44,7 +44,7 @@ function EventCard(props) {
 }
 
 EventCard.propTypes = {
-	eventName: PropTypes.bool,
+	eventName: PropTypes.string,
 	startAt: PropTypes.string,
 	endAt: PropTypes.string,
 	eventCode: PropTypes.string,

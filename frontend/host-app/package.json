@@ -63,6 +63,7 @@
     "random-material-color": "^1.0.5",
     "react": "^16.11.0",
     "react-app-polyfill": "^1.0.4",
+    "react-custom-scrollbars": "^4.2.1",
     "react-dev-utils": "^9.1.0",
     "react-dom": "^16.11.0",
     "react-icons": "^3.8.0",

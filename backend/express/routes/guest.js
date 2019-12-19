@@ -10,6 +10,7 @@ import logger from "../logger.js";
 
 const {routePage} = config;
 const router = express.Router();
+const cookieExpireTime = 2;
 
 router.get("/", guestAuthenticate(), (req, res, next) => {
 	res.redirect(routePage.main);
@@ -27,7 +28,7 @@ router.get("/:path", guestAuthenticate(), async (req, res, next) => {
 		const accessToken = generateAccessToken(guest.guestSid, "guest");
 
 		res.cookie(CookieKeys.GUEST_APP, accessToken, {
-			expires: getTokenExpired(24),
+			expires: getTokenExpired(cookieExpireTime),
 		});
 		res.redirect(routePage.guest);
 	} catch (e) {

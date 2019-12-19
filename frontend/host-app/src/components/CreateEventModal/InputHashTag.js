@@ -13,11 +13,14 @@ function InputHashTag(props) {
 	const {hashTags, dispatch} = props;
 	const prevHashTagList = hashTags;
 	const addHashTag = event => {
+		const inputValue = event.target.value;
 		if (event.keyCode === ENTER_KEY_CODE) {
 			const hashTag = {
 				key: uuidv1(),
-				label: event.target.value,
+				label: inputValue,
 			};
+
+			if (inputValue.length <= 0 && inputValue.length > 100) return;
 			const hashTagList = [...prevHashTagList, hashTag];
 
 			dispatch({

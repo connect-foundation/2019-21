@@ -9,7 +9,7 @@ const CustomTextField = styled(TextField)({
 });
 
 function InputEventName(props) {
-	const {dispatch, errorState} = props;
+	const {dispatch, errorState, eventName} = props;
 
 	return (
 		<CustomTextField
@@ -17,6 +17,7 @@ function InputEventName(props) {
 			label="이벤트 이름을 입력해주세요"
 			color="primary"
 			error={errorState.eventName}
+			value={eventName}
 			onChange={event => {
 				dispatch({
 					type: "SET_ERROR_STATE",
