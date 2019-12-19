@@ -102,13 +102,14 @@ function CreateEventModal({open, handleClose}) {
 			setSnackBarOpen(true);
 			return;
 		}
-
 		mutaionEvent({
 			variables: {
 				info: {
 					HostId: hostInfo.id,
-					startAt: formattingDate(eventInfo.startDate),
-					endAt: formattingDate(eventInfo.endDate),
+					startAt: moment(
+						formattingDate(eventInfo.startDate),
+					).toDate(),
+					endAt: moment(formattingDate(eventInfo.endDate)).toDate(),
 					eventName: eventInfo.eventName,
 				},
 			},

@@ -23,7 +23,7 @@ function App() {
 	const [events, setEvents] = useState(initialValue);
 	let activeEventsNum = 0;
 	let eventsNum = 0;
-	let activeEvents;
+	let activeEvents = [];
 
 	if (loading) {
 		return <AppSkeleton />;

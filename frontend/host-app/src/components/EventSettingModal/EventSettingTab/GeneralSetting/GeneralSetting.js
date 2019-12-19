@@ -32,8 +32,8 @@ function convertDataToView(eventInfo) {
 	}
 	return {
 		eventName: eventInfo.eventName,
-		startDate: new Date(parseInt(eventInfo.startAt)),
-		endDate: new Date(parseInt(eventInfo.endAt)),
+		startDate: new Date(parseInt(eventInfo.startAt, 10)),
+		endDate: new Date(parseInt(eventInfo.endAt, 10)),
 		eventCode: eventInfo.eventCode,
 		hashTags: eventHashTags,
 		eventLink: `${config.url}/${window.btoa(eventInfo.eventCode)}`,
