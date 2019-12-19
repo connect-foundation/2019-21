@@ -16,7 +16,7 @@
 
 ## 배포 링크
 
-* [vaagle](http://www.vaagle.com)
+* [www.vaagle.com](http://www.vaagle.com)
 
 ## 주요 기능
 
