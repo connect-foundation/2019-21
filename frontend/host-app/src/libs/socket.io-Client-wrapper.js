@@ -1,11 +1,10 @@
 import io from "socket.io-client";
-import {useEffect} from "react";
 import Cookie from "js-cookie";
 
 function getSocket(URL) {
 	const cookieName = "vaagle-host";
 	const token = Cookie.get(cookieName);
-	const socket = io(URL, { query: { token: token } });
+	const socket = io(URL, {query: {token: token}});
 
 	socket.on("connect", () => {
 		console.log(

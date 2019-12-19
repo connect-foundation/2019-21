@@ -19,8 +19,8 @@ const ColumnWrapper = styled.div`
 
 function reducer(polls, action) {
 	let thePoll;
-
 	const {pollId} = action;
+
 	if (pollId) {
 		thePoll = polls.filter(poll => poll.id === pollId)[0];
 	}
@@ -41,18 +41,21 @@ function reducer(polls, action) {
 				item.voters = action.poll.nItems[index].voters;
 				item.firstPlace = action.poll.nItems[index].firstPlace;
 			});
+
 			return polls.map(poll => (poll.id === pollId ? thePoll : poll));
 		}
 		// guest가 poll(별점매기기)에 rate를 함
 		case "SOMEONE_RATE": {
 			thePoll.totalVoters = action.poll.totalVoters;
 			thePoll.nItems[action.index].voters++;
+
 			return polls.map(poll => (poll.id === pollId ? thePoll : poll));
 		}
 		// guest가 poll(별점매기기)에 rate를 취소함
 		case "SOMEONE_CANCEL_RATE": {
 			thePoll.totalVoters = action.poll.totalVoters;
 			thePoll.nItems[action.index].voters--;
+
 			return polls.map(poll => (poll.id === pollId ? thePoll : poll));
 		}
 
@@ -88,6 +91,7 @@ function PollContainer({data}) {
 		}
 
 		const {poll} = res;
+
 		poll.totalVoters = 0;
 		setStandbyPolls([poll].concat(standbyPolls));
 	});

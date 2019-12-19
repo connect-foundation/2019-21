@@ -1,4 +1,4 @@
-import React, {useState, useContext, useReducer} from "react";
+import React, {useContext, useReducer} from "react";
 import styled from "styled-components";
 import {Button, Modal} from "@material-ui/core";
 import PollName from "./PollName";
@@ -88,7 +88,7 @@ function NewPollModal({open, handleClose}) {
 		dispatch({
 			type: "TEXT_CHANGE",
 			value: event.target.value,
-			id: id,
+			id,
 		});
 	};
 	const onAddText = () => {
@@ -100,7 +100,7 @@ function NewPollModal({open, handleClose}) {
 	const onDeleteText = id => {
 		dispatch({
 			type: "TEXT_DELETE",
-			id: id,
+			id,
 		});
 	};
 
@@ -109,7 +109,7 @@ function NewPollModal({open, handleClose}) {
 		dispatch({
 			type: "DATE_CHANGE",
 			value: newDate,
-			id: id,
+			id,
 		});
 	};
 
@@ -122,7 +122,7 @@ function NewPollModal({open, handleClose}) {
 	const onDeleteDate = id => {
 		dispatch({
 			type: "DATE_DELETE",
-			id: id,
+			id,
 		});
 	};
 
@@ -145,12 +145,13 @@ function NewPollModal({open, handleClose}) {
 	};
 
 	const getSelectionType = () =>
-		pollType === "rating" ? ratingValue.toString() : selectionType;
+		(pollType === "rating" ? ratingValue.toString() : selectionType);
 
 	const getCandidates = (pollType, selectionType) => {
 		if (pollType === "rating") {
 			return new Array(ratingValue);
 		}
+
 		if (selectionType === "date") {
 			return dates.map(
 				date =>

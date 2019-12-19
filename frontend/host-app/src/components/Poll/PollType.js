@@ -17,8 +17,6 @@ const RowWrapper = styled.div`
 	}
 `;
 
-<FormControlLabel value="male" control={<Radio />} label="Male" />;
-
 function PollType({pollType, onChange}) {
 	return (
 		<RowWrapper left>

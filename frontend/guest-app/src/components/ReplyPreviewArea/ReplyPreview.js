@@ -1,6 +1,7 @@
 import React from "react";
 import {styled} from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import gray from "@material-ui/core/colors/grey.js";
 import ReplyPreviewAvatar from "./ReplyPreviewAvatar.js";
 import ReplyNumber from "./ReplyNumber.js";
 
@@ -8,9 +9,9 @@ const MAX_SHOWING_AVATAR = 5;
 const ReplyPreviewStyle = styled(Paper)({
 	display: "flex",
 	height: "3rem",
-	marginBottom: 5,
+	marginBottom: 15,
 	alignItems: "center",
-	backgroundColor: "#e7f5ff",
+	backgroundColor: gray[300],
 });
 
 function extractUniqueReplier(replies) {

@@ -14,8 +14,8 @@ function Replies(props) {
 			<Divider
 				style={{marginTop: "0.3rem", marginBottom: "0.3rem"}}
 			/>
-			{props.replies.map(reply => (
-				<>
+			{props.replies.map((reply, i) => (
+				<div key={i}>
 					<QuestionMeta>
 						<ReplyInfo>
 							<Icon className={classes.replyIcon}>subdirectory_arrow_right</Icon>
@@ -26,11 +26,11 @@ function Replies(props) {
 						</ReplyInfo>
 					</QuestionMeta>
 					<ReplyBody>
-						<Typography color={"textPrimary"} variant={"body2"}>
+						<Typography color={"textPrimary"} variant={"body2"} component={"div"}>
 							{reply.content}
 						</Typography>
 					</ReplyBody>
-				</>))}
+				</div>))}
 		</div>
 	);
 }
