@@ -1,15 +1,14 @@
-import React, {useState, useContext} from "react";
+import React, {useContext} from "react";
 import EventCard from "./EventCard.js";
 import {HostContext} from "../../libs/hostContext";
 import {compareCurrentDateToTarget} from "../../libs/utils";
 
-const DEFAULT = 0;
-
 const dateFormat = date => new Date(parseInt(date));
 
 function EventCardList(props) {
-	const {events} = useContext(HostContext);
+	const {allEvents} = useContext(HostContext);
 	const {value, index} = props;
+
 	return (
 		<div
 			role="tabpanel"
@@ -18,11 +17,13 @@ function EventCardList(props) {
 			aria-labelledby={`hostpage-tab-${index}`}
 		>
 			{value === index &&
-				events.map(event => {
+				allEvents.map(event => {
 					const isLive =
 						compareCurrentDateToTarget(dateFormat(event.endAt)) > 0;
 
-					return <EventCard {...event} isLive={isLive} />;
+					return (
+						<EventCard {...event} key={event.id} isLive={isLive} />
+					);
 				})}
 		</div>
 	);

@@ -5,7 +5,7 @@ import generateAccessToken from "../authentication/token";
 import config from "../config";
 import CookieKeys from "../CookieKeys.js";
 
-const EXPIRE_TIME = 24;
+const EXPIRE_TIME = 2;
 const {routePage} = config;
 const router = express.Router();
 
@@ -15,7 +15,7 @@ router.get(
 		session: false,
 		scope: ["email", "profile"],
 		prompt: "select_account",
-	}),
+	})
 );
 
 router.get(
@@ -30,7 +30,7 @@ router.get(
 			expires: getTokenExpired(EXPIRE_TIME),
 		});
 		res.redirect(routePage.host);
-	},
+	}
 );
 
 export default router;

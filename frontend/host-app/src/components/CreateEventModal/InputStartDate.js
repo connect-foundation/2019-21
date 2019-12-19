@@ -31,7 +31,7 @@ const CustomTimePicker = styled(TimePicker)({
 
 function InputStartDate(props) {
 	const {startDate, dispatch, errorState} = props;
-	const [lastTime, setLastTime] = useState(new Date().setHours(0, 0));
+	const [lastTime, setLastTime] = useState(new Date().setHours(1, 0));
 
 	const calcEndDate = (lastTime, startTime = startDate) => {
 		const hour = moment(lastTime).format("HH");

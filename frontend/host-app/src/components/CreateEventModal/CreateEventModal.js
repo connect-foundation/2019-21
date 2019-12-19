@@ -1,4 +1,4 @@
-import React, {useReducer, useContext, useState, useRef} from "react";
+import React, {useReducer, useContext} from "react";
 import {Modal} from "@material-ui/core";
 import styled from "styled-components";
 import moment from "moment";
@@ -14,7 +14,6 @@ import {eventModalReducer} from "./eventModalReducer";
 import {createEvent, createHashTags} from "../../libs/gql";
 import {HostContext} from "../../libs/hostContext";
 import useSnackBar from "../../customhook/useSnackBar";
-import {validEventName, validDate} from "../../libs/eventValidation";
 
 const modalHeight = 38; // 37;
 const modalWidth = 28.125;
@@ -30,6 +29,8 @@ const PopUpLayOutStyle = styled.div`
 	// padding-left: 1.25rem;
 	padding: 0 1.5rem;
 	box-sizing: border-box;
+	border-radius: 15px;
+	outline: none;
 `;
 
 const StyledForm = styled.form`
@@ -40,14 +41,24 @@ const StyledForm = styled.form`
 `;
 
 const Header = styled.div`
-	// margin-left: 0;
-	// margin-top: 2rem;
-	// margin-bottom: 2rem;
 	margin: 1rem 0 0.5rem 0;
 	font-size: 2rem;
 	color: #139ffb;
 	text-align: center;
 `;
+
+const initEndDate = (startTime, lastTime) => {
+	const hour = moment(lastTime).format("HH");
+	const minuate = moment(lastTime).format("mm");
+	let addedTime = moment(startTime)
+		.add(hour, "h")
+		.toDate();
+
+	addedTime = moment(addedTime)
+		.add(minuate, "m")
+		.toDate();
+	return addedTime;
+};
 
 function verifyInputData(errorState) {
 	const isInValid = Object.values(errorState).some(inputValue => inputValue);
@@ -60,14 +71,14 @@ function formattingDate(date) {
 }
 
 function CreateEventModal({open, handleClose}) {
+	const {hostInfo, events, setEvents, allEvents} = useContext(HostContext);
 	const initialEventInfo = {
-		eventName: "",
+		eventName: `${hostInfo.name}님의 이벤트`,
 		startDate: new Date(),
-		endDate: new Date(),
+		endDate: initEndDate(new Date(), new Date().setHours(1, 0)),
 		hashTags: [],
-		errorState: {eventName: true, date: true},
+		errorState: {eventName: false, date: false},
 	};
-	const {hostInfo, events, setEvents} = useContext(HostContext);
 	const {snackBarOpen, snackBarHandleClose, setSnackBarOpen} = useSnackBar();
 	const [eventInfo, dispatchEventInfo] = useReducer(
 		eventModalReducer,
@@ -78,14 +89,15 @@ function CreateEventModal({open, handleClose}) {
 
 	const dispatchHandler = ({type, property, value}) => {
 		dispatchEventInfo({
-			type: type,
-			property: property,
-			value: value,
+			type,
+			property,
+			value,
 		});
 	};
 
 	const sendData = () => {
 		const isInValid = verifyInputData(eventInfo.errorState);
+
 		if (isInValid) {
 			setSnackBarOpen(true);
 			return;
@@ -109,16 +121,16 @@ function CreateEventModal({open, handleClose}) {
 
 				mutationHashTags({variables: {hashTags: hashTagList}}).catch(
 					e => {
-						console.error("해쉬태그 생성 Error" + e);
+						console.error(`해쉬태그 생성 Error${e}`);
 						alert("해쉬태그 생성 실패");
 					},
 				);
 				Object.assign(res.data.createEvent, {HashTags: hashTagList});
-				setEvents([...events, res.data.createEvent]);
+				setEvents([...allEvents, res.data.createEvent]);
 				handleClose();
 			})
 			.catch(e => {
-				console.error("이벤트 생성 Error" + e);
+				console.error(`이벤트 생성 Error${e}`);
 				alert("이벤트 생성 실패");
 			});
 	};
@@ -136,6 +148,7 @@ function CreateEventModal({open, handleClose}) {
 					<InputEventName
 						errorState={eventInfo.errorState}
 						dispatch={dispatchHandler}
+						eventName={eventInfo.eventName}
 					/>
 					<InputStartDate
 						errorState={eventInfo.errorState}

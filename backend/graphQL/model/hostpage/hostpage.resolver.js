@@ -65,10 +65,7 @@ export default {
 
 			events = events.filter(event => {
 				const eventPlainObject = event.get({plain: true});
-				const diff = compareCurrentDateToTarget(eventPlainObject.endAt);
-				if (diff > 0) {
-					return eventPlainObject;
-				}
+				return eventPlainObject;
 			});
 
 			const eventMap = new Map();

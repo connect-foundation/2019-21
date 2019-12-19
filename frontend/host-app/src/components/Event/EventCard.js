@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 });
 
 function EventCard(props) {
-	let className = "none";
+	const className = "none";
 	const classes = useStyles();
 	const {isLive} = props;
 
@@ -44,7 +44,7 @@ function EventCard(props) {
 }
 
 EventCard.propTypes = {
-	eventName: PropTypes.bool,
+	eventName: PropTypes.string,
 	startAt: PropTypes.string,
 	endAt: PropTypes.string,
 	eventCode: PropTypes.string,

@@ -6,7 +6,7 @@ import ReplyCard from "./ReplyCard.js";
 
 const RepliesListStyle = styled(Paper)({
 	width: "100%",
-	backgroundColor: "#e7f5ff",
+	// backgroundColor: "#e7f5ff",
 });
 
 function ReplyCardList(props) {

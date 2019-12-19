@@ -27,7 +27,7 @@ router.get("/:path", guestAuthenticate(), async (req, res, next) => {
 		const accessToken = generateAccessToken(guest.guestSid, "guest");
 
 		res.cookie(CookieKeys.GUEST_APP, accessToken, {
-			expires: getTokenExpired(24),
+			expires: getTokenExpired(2),
 		});
 		res.redirect(routePage.guest);
 	} catch (e) {

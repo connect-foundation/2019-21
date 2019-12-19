@@ -9,35 +9,58 @@ import {socketClient} from "../libs/socket.io-Client-wrapper";
 import AppSkeleton from "../components/Skeleton/AppSkeleton";
 import {compareCurrentDateToTarget} from "../libs/utils";
 
+const initialValue = "";
+
+const initialLoadEvents = (events, initialValue, dispatch, data) => {
+	if (events === initialValue) {
+		dispatch(data);
+	}
+};
+
 function App() {
 	const {data, loading, error} = useQuery(getEventsByHost());
-	const [events, setEvents] = useState("");
-	let eventNum = 0;
+	const [events, setEvents] = useState(initialValue);
+	let activeEventsNum = 0;
+	let eventsNum = 0;
+	let activeEvents;
 
 	if (loading) {
 		return <AppSkeleton />;
 	} else if (error) {
 		return <p>error-page...</p>;
 	}
-	if (events === "") {
-		setEvents(data.init.events);
-	}
+	initialLoadEvents(events, initialValue, setEvents, data.init.events);
 
 	const hostInfo = data.init.host;
 
-	eventNum = events.length;
-	if (eventNum) {
-		const eventId = events[0].id;
-
-		socketClient.emit("joinRoom", {room: eventId});
-		socketClient.emit("event/initOption", eventId);
+	eventsNum = events.length;
+	if (eventsNum) {
+		activeEvents = events.filter(event => {
+			const eventDeadLine = new Date(parseInt(event.endAt));
+			if (compareCurrentDateToTarget(eventDeadLine) > 0) {
+				return event;
+			}
+		});
+		activeEventsNum = activeEvents.length;
+		if (activeEventsNum) {
+			const eventId = activeEvents[0].id;
+			socketClient.emit("joinRoom", {room: eventId});
+			socketClient.emit("event/initOption", eventId);
+		}
 	}
 
 	return (
-		<HostProvider value={{hostInfo, events, setEvents}}>
+		<HostProvider
+			value={{
+				hostInfo,
+				events: activeEvents,
+				setEvents,
+				allEvents: events,
+			}}
+		>
 			<div className="App">
 				<Header />
-				<NavBar eventNum={eventNum} />
+				<NavBar eventNum={activeEventsNum} />
 			</div>
 		</HostProvider>
 	);
