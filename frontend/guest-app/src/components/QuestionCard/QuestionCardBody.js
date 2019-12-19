@@ -12,7 +12,7 @@ function QuestionBody(props) {
 
 	return (
 		<span>
-			<Typography color={"textPrimary"} variant={"body1"}>
+			<Typography color={"textPrimary"} variant={"body1"} component={"div"}>
 				{content}
 				{isMyQuestion && <QuestionEditButton {...props} />}
 			</Typography>
