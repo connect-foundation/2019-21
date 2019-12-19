@@ -33,7 +33,6 @@ function NavBar(props) {
 				<div className={classes.navBar}>
 					<NavBarTabs value={tabIdx} onChange={onChange}>
 						<NavBarTab label="라이브 이벤트" />
-						<NavBarTab label="이벤트 목록" />
 					</NavBarTabs>
 				</div>
 			</div>
@@ -42,7 +41,6 @@ function NavBar(props) {
 			) : (
 				<EmptyContent value={tabIdx} index={0} />
 			)}
-			<EventCardList value={tabIdx} index={1} />
 		</>
 	);
 }
