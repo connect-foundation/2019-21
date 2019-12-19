@@ -26,15 +26,16 @@ function newPollReducer(poll, action) {
 		}
 		case "TEXT_CHANGE": {
 			const newTexts = poll.texts.map((text, index) =>
-				index === action.id
-					? {
-							...text,
-							value: action.value,
-							error: false,
-							helperText: "",
-					  }
-					: text,
+				(index === action.id ?
+					{
+						...text,
+						value: action.value,
+						error: false,
+						helperText: "",
+					} :
+					text),
 			);
+
 			return {
 				...poll,
 				texts: newTexts,
@@ -50,6 +51,7 @@ function newPollReducer(poll, action) {
 			const newTexts = poll.texts.filter(
 				(_, index) => index !== action.id,
 			);
+
 			return {
 				...poll,
 				texts: newTexts,
@@ -57,18 +59,19 @@ function newPollReducer(poll, action) {
 		}
 		case "TEXT_CHECK": {
 			const newTexts = poll.texts.map(text =>
-				text.value.length === 0
-					? {
-							...text,
-							error: true,
-							helperText: "항목을 입력하세요",
-					  }
-					: {
-							...text,
-							error: false,
-							helperText: "",
-					  },
+				(text.value.length === 0 ?
+					{
+						...text,
+						error: true,
+						helperText: "항목을 입력하세요",
+					} :
+					{
+						...text,
+						error: false,
+						helperText: "",
+					}),
 			);
+
 			return {
 				...poll,
 				texts: newTexts,
@@ -76,8 +79,9 @@ function newPollReducer(poll, action) {
 		}
 		case "DATE_CHANGE": {
 			const newDates = poll.dates.map((date, index) =>
-				index === action.id ? action.value : date,
+				(index === action.id ? action.value : date),
 			);
+
 			return {
 				...poll,
 				dates: newDates,
@@ -93,6 +97,7 @@ function newPollReducer(poll, action) {
 			const newDates = poll.dates.filter(
 				(_, index) => index !== action.id,
 			);
+
 			return {
 				...poll,
 				dates: newDates,
@@ -111,6 +116,7 @@ function newPollReducer(poll, action) {
 			};
 		}
 		default: {
+			// eslint-disable-next-line no-console
 			console.error("Unhandled action type on newPollReducer");
 			return poll;
 		}

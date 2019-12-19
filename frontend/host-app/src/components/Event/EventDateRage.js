@@ -9,13 +9,16 @@ function getDateRangeString(startAt, endAt) {
 	const end = new Date(parseInt(endAt, 10));
 	const startDate = moment(start).format(dateFormat);
 	const endDate = moment(end).format(dateFormat);
+
 	return `${startDate} ~ ${endDate}`;
 }
 
 function EventDateRage(props) {
 	const {
-		startAt = new Date().getTime().toString(),
-		endAt = new Date().getTime().toString(),
+		startAt = new Date().getTime()
+			.toString(),
+		endAt = new Date().getTime()
+			.toString(),
 	} = props;
 
 	return (
