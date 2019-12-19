@@ -96,9 +96,9 @@ const ModerationStyle = styled.div`
 	display: flex;
 	flex-direction: column;
 	flex: 1;
-	animation: ${props => ((props.state) ? Open : Close)};
-    animation-duration: 0.2s;
-    animation-fill-mode: forwards;
+	animation: ${props => (props.state ? Open : Close)};
+	animation-duration: 0.2s;
+	animation-fill-mode: forwards;
 	justify-content: flex-start;
 	align-items: center;
 	border-radius: 8px;
@@ -112,8 +112,6 @@ const ModerationStyle = styled.div`
 		margin-left: 8px;
 	}
 `;
-
-
 
 export {
 	TitleStyle,

@@ -1,15 +1,15 @@
-import React, {useState, useContext} from "react";
+import React, {useContext} from "react";
 import EventCard from "./EventCard.js";
 import {HostContext} from "../../libs/hostContext";
 import {compareCurrentDateToTarget} from "../../libs/utils";
 
-const DEFAULT = 0;
-
-const dateFormat = date => new Date(parseInt(date));
+const dateFormat = date => new Date(
+	parseInt(date, 10));
 
 function EventCardList(props) {
 	const {events} = useContext(HostContext);
 	const {value, index} = props;
+
 	return (
 		<div
 			role="tabpanel"
