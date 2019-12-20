@@ -2,8 +2,9 @@
 
 [sli.do](https://www.sli.do/)에서 아이디어를 영감 받은 실시간 질의응답 및 투표 공유 웹 서비스
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/connect-foundation/2019-21)
+
 <p>
-  <a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/eadb64fd4fb978b52443a3dcb14c9a753cb0e8ac/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f76657273696f6e2d302e302e312d626c75652e7376673f63616368655365636f6e64733d32353932303030"><img alt="Version" src="https://camo.githubusercontent.com/eadb64fd4fb978b52443a3dcb14c9a753cb0e8ac/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f76657273696f6e2d302e302e312d626c75652e7376673f63616368655365636f6e64733d32353932303030" data-canonical-src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000" style="max-width:100%;"></a>
   <a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/9568ddd91a2785f55e0947fb55ac1adb87810b8f/68747470733a2f2f696d672e736869656c64732e696f2f6e6f64652f762f7265616374"><img alt="Version" src="https://camo.githubusercontent.com/9568ddd91a2785f55e0947fb55ac1adb87810b8f/68747470733a2f2f696d672e736869656c64732e696f2f6e6f64652f762f7265616374" data-canonical-src="https://img.shields.io/node/v/react" style="max-width:100%;"></a>
   <br>
 <a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/3fc8384246adb849bdc8a39fc7cc95164f9cb090/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4e6f64652e6a732d677261793f6c6f676f3d4e6f64652e6a73266c6f676f436f6c6f723d677265656e"><img alt="Node.js" src="https://camo.githubusercontent.com/3fc8384246adb849bdc8a39fc7cc95164f9cb090/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4e6f64652e6a732d677261793f6c6f676f3d4e6f64652e6a73266c6f676f436f6c6f723d677265656e" data-canonical-src="https://img.shields.io/badge/Node.js-gray?logo=Node.js&amp;logoColor=green" style="max-width:100%;"></a>
