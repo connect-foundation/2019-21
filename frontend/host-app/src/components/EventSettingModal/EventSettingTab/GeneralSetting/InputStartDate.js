@@ -67,7 +67,6 @@ function InputStartDate(props) {
 					label="남은시간"
 					value={lastTime}
 					onChange={calcEndDate}
-					readOnly={true}
 					minutesStep={5}
 				/>
 			</MuiPickersUtilsProvider>
