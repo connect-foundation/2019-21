@@ -46,6 +46,8 @@ function App() {
 		activeEventsNum = activeEvents.length;
 		if (activeEventsNum) {
 			const eventId = activeEvents[0].id;
+
+			socketClient.emit("leaveRoom");
 			socketClient.emit("joinRoom", {room: eventId});
 			socketClient.emit("event/initOption", eventId);
 		}

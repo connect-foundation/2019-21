@@ -3,6 +3,7 @@ class RoomSocket {
 		this.socket = socket;
 		this.server = server;
 		this.handlerPair = handlerEventPair;
+		this.registeredHandler = [];
 	}
 
 	joinRoom(room) {
@@ -10,8 +11,8 @@ class RoomSocket {
 
 		this.socket.join(this.room);
 
-		this.handlerPair.map(({eventName, handler}) =>
-			this.addListener(eventName, handler),
+		this.registeredHandler = this.handlerPair.map(({eventName, handler}) =>
+			this.addListener(eventName, handler)
 		);
 
 		this.socket.emit("joinRoom");
@@ -20,13 +21,14 @@ class RoomSocket {
 	leaveRoom() {
 		this.socket.leave(this.room);
 
-		this.handlerPair.map(({eventName, handler}) =>
-			this.removeListener(eventName, handler),
+		this.registeredHandler.map(({eventName, handler}) =>
+			this.socket.removeListener(eventName, handler)
 		);
 
 		this.socket.emit("leaveRoom");
 
 		this.room = null;
+		this.registeredHandler = [];
 	}
 
 	addListener(event, handler) {
@@ -39,10 +41,11 @@ class RoomSocket {
 		};
 
 		this.socket.on(event, wrappedSocketHandler);
-	}
 
-	removeListener(event, handler) {
-		this.socket.off(event, handler);
+		return {
+			eventName: event,
+			handler: wrappedSocketHandler,
+		};
 	}
 }
 

@@ -26,10 +26,10 @@ const RoomSocketHelper = ({server, socket, handlerEventPair}) => {
 	};
 
 	const onLeaveRoom = async () => {
-		if (currentRoom === null) {
-			logger.error(`id: ${id} is not in room`);
-			return;
-		}
+		// if (currentRoom === null) {
+		// 	logger.error(`id: ${id} is not in room`);
+		// 	return;
+		// }
 
 		try {
 			roomSocket.leaveRoom();
