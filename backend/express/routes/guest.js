@@ -1,4 +1,5 @@
 import express from "express";
+import jwt from "jsonwebtoken";
 import {getTokenExpired} from "../../libs/utils";
 import generateAccessToken from "../authentication/token";
 import config from "../config";
@@ -7,13 +8,29 @@ import {createGuest} from "../../DB/queries/guest";
 import {convertPathToEventId} from "../utils";
 import CookieKeys from "../CookieKeys.js";
 import logger from "../logger.js";
+import {isExistGuest} from "../../DB/queries/guest";
 
-const {routePage} = config;
+const {routePage, tokenArgs} = config;
 const router = express.Router();
 const cookieExpireTime = 2;
 
-router.get("/", guestAuthenticate(), (req, res, next) => {
-	res.redirect(routePage.main);
+router.get("/", async (req, res, next) => {
+	try {
+		const payload = jwt.verify(
+			req.cookies[CookieKeys.GUEST_APP],
+			tokenArgs.secret
+		);
+
+		const guest = await isExistGuest(payload.sub);
+		if (!guest) {
+			throw Error("Guest is not found");
+		}
+
+		res.redirect(routePage.guest);
+	} catch (e) {
+		logger.error([e, e.stack]);
+		res.redirect(routePage.main);
+	}
 });
 
 router.get("/logout", (req, res, next) => {
