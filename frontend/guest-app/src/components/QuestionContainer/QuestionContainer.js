@@ -18,7 +18,7 @@ const POPULAR_TAB_IDX = 2;
 
 const QuestionContainerStyle = styled.div`
 	overflow-y:scroll;
-	heigth: 100%
+	height: 100%
 `;
 
 function QuestionContainer() {
