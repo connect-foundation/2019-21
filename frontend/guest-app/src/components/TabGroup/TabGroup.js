@@ -2,12 +2,14 @@ import React from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import styled from "styled-components";
-import {PollTabIcon, QnATabIcon} from "./TabIcons.js";
-import useTabs from "../../materialUIHooks/useTabs.js";
+import useTabs from "../../hooks/useTabs.js";
 import TabBody from "./TabBody.js";
-import QuestionContainer from "../Question/QuestionContainer.js";
-import PollApollo from "../Poll/PollApollo.js";
-import {QuestionsProvider} from "../Question/QuestionsContext.js";
+import QuestionContainer from "../QuestionContainer/QuestionContainer.js";
+import QnATabIcon from "./QnATabIcon.js";
+import PollTabIcon from "./PollTabIcon.js";
+import QuestionsProvider from "../../contexts/Questions/QuestionsProvider.js";
+import PollsProvider from "../../contexts/Polls/PollsProvider.js";
+import PollContainer from "../Poll/PollContainer.js";
 
 const TabGroupStyle = styled.div`
 	position: fixed;
@@ -34,7 +36,9 @@ function TabGroup({showQnABadge = true, showPollBadge}) {
 				</QuestionsProvider>
 			</TabBody>
 			<TabBody hidden={tabIdx !== POLL_TAB_IDX}>
-				<PollApollo />
+				<PollsProvider>
+					<PollContainer />
+				</PollsProvider>
 			</TabBody>
 		</TabGroupStyle>
 	);

@@ -1,32 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {makeStyles} from "@material-ui/core";
-import Avatar from "@material-ui/core/Avatar";
-import randomMC from "random-material-color";
-import PersonIcon from "@material-ui/icons/Person";
-
-function NamedAvatar({userName}) {
-	const useStyles = makeStyles({
-		avatar: {
-			margin: 10,
-		},
-		randomAvatar: {
-			backgroundColor: randomMC.getColor({text: userName}),
-		},
-	});
-	const classes = useStyles();
-	const inner = userName.slice(0, 1);
-
-	return <Avatar className={classes.randomAvatar}>{inner}</Avatar>;
-}
-
-function AnonymousAvatar() {
-	return (
-		<Avatar>
-			<PersonIcon />
-		</Avatar>
-	);
-}
+import AnonymousAvatar from "./AnonymousAvatar.js";
+import NamedAvatar from "./NamedAvatar.js";
 
 function UserAvatar(props) {
 	const {userNameRef = {current: null}, userName = ""} = props;

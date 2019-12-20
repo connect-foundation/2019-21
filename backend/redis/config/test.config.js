@@ -3,8 +3,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const config = {
-	port: process.env.REDIS_DEV_PORT,
-	host: process.env.REDIS_DEV_HOST,
+	port: parseInt(process.env.REDIS_TEST_PORT, 10),
+	host: process.env.REDIS_TEST_HOST,
 };
 
 export default config;

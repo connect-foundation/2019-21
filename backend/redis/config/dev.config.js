@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const config = {
-	port: process.env.REDIS_DEV_PORT,
+	port: parseInt(process.env.REDIS_DEV_PORT, 10),
 	host: process.env.REDIS_DEV_HOST,
 };
 

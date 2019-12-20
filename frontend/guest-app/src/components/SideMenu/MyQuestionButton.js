@@ -1,12 +1,12 @@
 import React from "react";
 import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer.js";
 import SideMenuItem from "./SideMenuItem.js";
-import {useUIControllerContext} from "../UIController/UIController.js";
+import useUIController from "../../contexts/UIController/useUIController.js";
 
 const MY_QUESTION_BUTTON_TEXT = "내 질문들";
 
 function MyQuestionButton() {
-	const {myQuestionDrawerReducer} = useUIControllerContext();
+	const {myQuestionDrawerReducer} = useUIController();
 
 	return (
 		<SideMenuItem

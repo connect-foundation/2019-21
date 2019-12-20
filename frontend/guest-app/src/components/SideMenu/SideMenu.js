@@ -1,12 +1,12 @@
-import React, {useContext} from "react";
+import React from "react";
 import Drawer from "@material-ui/core/Drawer";
 import SideMenuHeader from "./SideMenuHeader.js";
 import SideMenuBody from "./SideMenuBody.js";
-import {GuestGlobalContext} from "../../libs/guestGlobalContext.js";
 import SideMenuFooter from "./SideMenuFooter.js";
+import useGlobalData from "../../contexts/GlobalData/useGlobalData.js";
 
 export function SideMenu({isOpen = false, toggleNavMenu}) {
-	const {event} = useContext(GuestGlobalContext);
+	const {event} = useGlobalData();
 
 	return (
 		<Drawer open={isOpen} onClose={toggleNavMenu}>

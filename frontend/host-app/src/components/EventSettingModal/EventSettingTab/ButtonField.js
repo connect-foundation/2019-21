@@ -37,7 +37,7 @@ function ButtonField({submit, onClose}) {
 	return (
 		<Container>
 			<CancelTextButton onClick={handleOpen}>취소</CancelTextButton>
-			<CreateTextButton onClick={submit}>저장</CreateTextButton>
+			<CreateTextButton onClick={submit}>확인</CreateTextButton>
 			{confirmModalOpen && (
 				<ConfirmModal
 					open={confirmModalOpen}

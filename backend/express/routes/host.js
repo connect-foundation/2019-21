@@ -1,13 +1,13 @@
 import express from "express";
-import loadConfig from "../config/configLoader";
+import config from "../config";
 import {hostAuthenticate} from "../middleware/authenticate";
+import CookieKeys from "../CookieKeys.js";
 
-const {routePage} = loadConfig();
+const {routePage} = config;
 const router = express.Router();
-const cookieName = "vaagle-host";
 
 router.get("/logout", (req, res, next) => {
-	res.clearCookie(cookieName).redirect(routePage.main);
+	res.clearCookie(CookieKeys.HOST_APP).redirect(routePage.main);
 });
 
 router.get("/", hostAuthenticate(), (req, res, next) => {

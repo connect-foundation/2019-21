@@ -1,11 +1,6 @@
-import {addVote, deleteVoteBy, addAndDelete} from "../../../DB/queries/vote";
-
-// const data = {
-//     GuestId: guest.id,
-//     CandidateId: vote.candidateId,
-//     allowDuplication: poll.allowDuplication,
-//     poll: poll,
-// };
+import {addVote, addAndDelete} from "../../../DB/queries/vote";
+import updateVoters from "./updateVoters";
+import logger from "../../logger.js";
 
 const voteOnSocketHandler = async (data, emit) => {
 	try {
@@ -17,27 +12,22 @@ const voteOnSocketHandler = async (data, emit) => {
 			candidateToDelete,
 		} = data;
 
-		// if (!allowDuplication && candidateToDelete) {
-		// 	await addAndDelete(GuestId, CandidateId, candidateToDelete);
-		// } else {
-		// 	await addVote({GuestId, CandidateId});
-		// }
-
-		await addVote({GuestId, CandidateId});
 		if (!allowDuplication && candidateToDelete) {
-			await deleteVoteBy({
-				GuestId,
-				CandidateId: candidateToDelete,
-			});
+			await addAndDelete(GuestId, CandidateId, candidateToDelete);
+		} else {
+			await addVote({GuestId, CandidateId});
 		}
 
+		await updateVoters(poll);
+
 		emit({
+			status: "ok",
 			GuestId,
 			poll,
 		});
 	} catch (e) {
-		console.error(e);
-		emit({status: "error(vote/on)", e});
+		logger.error(e);
+		emit({status: "error", e});
 	}
 };
 

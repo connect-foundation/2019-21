@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, {useContext, useReducer} from "react";
 import styled from "styled-components";
 import {Button, Modal} from "@material-ui/core";
 import PollName from "./PollName";
@@ -8,6 +8,8 @@ import RatingBlock from "./RatingBlock";
 import Duplication from "./Duplication";
 import {socketClient} from "../../libs/socket.io-Client-wrapper";
 import {HostContext} from "../../libs/hostContext";
+import initialPollData from "./InitialPollData";
+import newPollReducer from "./NewPollReducer";
 
 const ModalWrapper = styled.div`
 	display: flex;
@@ -29,25 +31,136 @@ const RowWrapper = styled.div`
 	box-sizing: border-box;
 `;
 
+// 모달의 스타일 선언
+const modalStyle = {
+	display: "flex",
+	justifyContent: "center",
+	alignItems: "center",
+};
+
 function NewPollModal({open, handleClose}) {
 	// Poll이 속한 EventId
 	const {events} = useContext(HostContext);
 	const EventId = events[0].id;
 
-	const initialPollName = {
-		value: "",
-		error: false,
-		helperText: "",
-	};
+	const [pollInfo, dispatch] = useReducer(newPollReducer, initialPollData);
+
+	const {
+		pollName,
+		pollType,
+		selectionType,
+		texts,
+		dates,
+		allowDuplication,
+		ratingValue,
+	} = pollInfo;
+
 	// Poll 이름
-	const [pollName, setPollName] = useState(initialPollName);
 	const onPollNameChange = event => {
-		setPollName({
-			...pollName,
-			value: event.target.value,
-			error: false,
-			helperText: "",
+		dispatch({
+			type: "POLL_NAME_CHANGE",
+			value: {
+				value: event.target.value,
+				error: false,
+				helperText: "",
+			},
 		});
+	};
+
+	// Poll 종류
+	const onPollTypeChange = event => {
+		dispatch({
+			type: "POLL_TYPE_CHANGE",
+			value: event.target.value,
+		});
+	};
+
+	// Poll 종류가 N지선다 일때, 항목들의 속성이 text 인지 date 인지 선택
+	const onSelectionTypeChange = event => {
+		dispatch({
+			type: "SELECTION_TYPE_CHANGE",
+			value: event.target.value,
+		});
+	};
+
+	// Poll 종류가 N지선다 이고 항목들의 속성이 text일때 항목들을 관리하는 부분
+	const onTextChange = (event, id) => {
+		dispatch({
+			type: "TEXT_CHANGE",
+			value: event.target.value,
+			id,
+		});
+	};
+	const onAddText = () => {
+		dispatch({
+			type: "TEXT_ADD",
+		});
+	};
+
+	const onDeleteText = id => {
+		dispatch({
+			type: "TEXT_DELETE",
+			id,
+		});
+	};
+
+	// Poll 종류가 N지선다 이고 항목들의 속성이 date일때 항목들을 관리하는 부분
+	const onDateChange = (newDate, id) => {
+		dispatch({
+			type: "DATE_CHANGE",
+			value: newDate,
+			id,
+		});
+	};
+
+	const onAddDate = () => {
+		dispatch({
+			type: "DATE_ADD",
+		});
+	};
+
+	const onDeleteDate = id => {
+		dispatch({
+			type: "DATE_DELETE",
+			id,
+		});
+	};
+
+	// Poll 종류가 별점 일때
+	const MAX_STARS = 10;
+
+	const onRatingValueChange = newValue => {
+		dispatch({
+			type: "RATING_VALUE_CHANGE",
+			value: newValue,
+		});
+	};
+
+	// Poll 종류가 N지선다 일때 중복선택 옵션을 체크하는 부분
+	const onDuplicationChange = event => {
+		dispatch({
+			type: "DUPLICATION_CHANGE",
+			value: event.target.checked,
+		});
+	};
+
+	const getSelectionType = () =>
+		(pollType === "rating" ? ratingValue.toString() : selectionType);
+
+	const getCandidates = (pollType, selectionType) => {
+		if (pollType === "rating") {
+			return new Array(ratingValue);
+		}
+
+		if (selectionType === "date") {
+			return dates.map(
+				date =>
+					`${date.getFullYear()}년 
+					${date.getMonth() + 1}월 
+					${date.getDate()}일`,
+			);
+		}
+		return texts.map(text => text.value);
 	};
 
 	// createPoll()을 호출하기 전에 입력 항목들이 empty가 아닌지 체크함
@@ -57,19 +170,26 @@ function NewPollModal({open, handleClose}) {
 		if (pollName.value.length === 0) {
 			result = false;
 		}
-		setPollName(
-			pollName.value.length === 0 ?
-				{
+
+		if (pollName.value.length === 0) {
+			dispatch({
+				type: "POLL_NAME_CHANGE",
+				value: {
 					...pollName,
 					error: true,
 					helperText: "투표 제목을 입력하세요",
-				  } :
-				{
+				},
+			});
+		} else {
+			dispatch({
+				type: "POLL_NAME_CHANGE",
+				value: {
 					...pollName,
 					error: false,
 					helperText: "",
-				  },
-		);
+				},
+			});
+		}
 
 		// 별점매기기의 경우는 투표제목만 입력되면 validity가 통과됨
 		if (pollType === "rating") {
@@ -83,120 +203,13 @@ function NewPollModal({open, handleClose}) {
 
 		// 별점이 아닌 N지선다형의 text인경우에만 계속 validity를 진행함
 		if (!texts.every(text => text.value.length > 0)) {
+			dispatch({
+				type: "TEXT_CHECK",
+			});
 			result = false;
 		}
-		setTexts(
-			texts.map(text =>
-				(text.value.length === 0 ?
-					{
-						...text,
-						error: true,
-						helperText: "항목을 입력하세요",
-					  } :
-					{
-						...text,
-						error: false,
-						helperText: "",
-					  }),
-			),
-		);
 
 		return result;
-	};
-
-	// Poll 종류
-	const [pollType, setPollType] = useState("nItems");
-	const onPollTypeChange = event => {
-		setPollType(event.target.value);
-	};
-
-	// Poll 종류가 N지선다 일때, 항목들의 속성이 text 인지 date 인지 선택
-	const [selectionType, setSelectionType] = useState("text");
-	const onSelectionTypeChange = event => {
-		setSelectionType(event.target.value);
-	};
-
-	// Poll 종류가 N지선다 이고 항목들의 속성이 text일때 항목들을 관리하는 부분
-	const initialText = {
-		value: "",
-		error: false,
-		helperText: "",
-	};
-	const initialTexts = [initialText, initialText];
-	const [texts, setTexts] = useState(initialTexts);
-	const onTextChange = (event, id) => {
-		setTexts(
-			texts.map((text, index) =>
-				(index === id ?
-					{
-						...text,
-						value: event.target.value,
-						error: false,
-						helperText: "",
-					  } :
-					text),
-			),
-		);
-	};
-	const onAddText = () => {
-		setTexts([...texts, initialText]);
-	};
-
-	const onDeleteText = id => {
-		setTexts(texts.filter((_, index) => index !== id));
-	};
-
-	// Poll 종류가 N지선다 이고 항목들의 속성이 date일때 항목들을 관리하는 부분
-	const now = new Date();
-	const initialDates = [now, now];
-
-	const [dates, setDates] = useState(initialDates);
-	const onDateChange = (newDate, id) => {
-		setDates(dates.map((date, index) => (index === id ? newDate : date)));
-	};
-
-	const onAddDate = () => {
-		setDates([...dates, new Date()]);
-	};
-
-	const onDeleteDate = id => {
-		setDates(dates.filter((_, index) => index !== id));
-	};
-
-	// Poll 종류가 별점 일때
-	const RECOMMENDED_MAX_STARS = 5;
-	const MAX_STARS = 10;
-	const [ratingValue, setRatingValue] = useState(RECOMMENDED_MAX_STARS);
-
-	// Poll 종류가 N지선다 일때 중복선택 옵션을 체크하는 부분
-	const [allowDuplication, setDuplication] = useState(false);
-	const onDuplicationChange = event => {
-		setDuplication(event.target.checked);
-	};
-
-	// 모달의 스타일 선언
-	const modalStyle = {
-		display: "flex",
-		justifyContent: "center",
-		alignItems: "center",
-	};
-
-	const getSelectionType = () =>
-		(pollType === "rating" ? ratingValue.toString() : selectionType);
-
-	const getCandidates = (pollType, selectionType) => {
-		if (pollType === "rating") {
-			return new Array(ratingValue);
-		}
-		if (selectionType === "date") {
-			return dates.map(
-				date =>
-					`${date.getFullYear()}년 
-					${date.getMonth() + 1}월 
-					${date.getDate()}일`,
-			);
-		}
-		return texts.map(text => text.value);
 	};
 
 	const onCreatePoll = () => {
@@ -244,7 +257,7 @@ function NewPollModal({open, handleClose}) {
 					<RatingBlock
 						ratingValue={ratingValue}
 						maxValue={MAX_STARS}
-						onChange={setRatingValue}
+						onChange={onRatingValueChange}
 					/>
 				)}
 				{pollType === "nItems" && (

@@ -32,7 +32,7 @@ const QuestionBody = styled.div`
 `;
 
 const QuestionButtons = styled.div`
-	margin-left:auto;
+	margin-left: auto;
 `;
 
 const ThumbUpContainer = styled.div`
@@ -43,6 +43,7 @@ const ThumbUpContainer = styled.div`
 
 const ReplyContainer = styled.div`
 	margin-left: auto;
+	cursor: pointer;
 `;
 
 const ReplyBody = styled.div`

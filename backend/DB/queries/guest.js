@@ -1,26 +1,26 @@
 import uuidv1 from "uuid/v1";
 import models from "../models";
+import getRandomGuestName from "../dummy/RandomGuestName";
 
 const Guest = models.Guest;
 
-async function findGuestBySid(guestSid) {
-	const guest = await Guest.findOne({where: {guestSid}});
-	const result = guest ? guest.dataValues : false;
-
-	return result;
+async function getGuestByGuestSid(guestSid) {
+	return Guest.findOne({where: {guestSid}});
 }
 
-async function createGuest(name, eventId) {
+async function isExistGuest(guestSid) {
+	return !!(await getGuestByGuestSid(guestSid));
+}
+
+async function createGuest(eventId) {
 	const guest = await Guest.create({
-		name,
+		name: getRandomGuestName(),
 		EventId: eventId,
 		guestSid: uuidv1(),
 		isAnonymous: 1,
 	});
 
-	const result = guest ? guest.dataValues : false;
-
-	return result;
+	return guest.get({plain: true});
 }
 
 async function getGuestById(id) {
@@ -30,10 +30,7 @@ async function getGuestById(id) {
 }
 
 async function updateGuestById({id, name, isAnonymous, company, email}) {
-	return Guest.update(
-		{name, company, isAnonymous, email},
-		{where: {id}},
-	);
+	return Guest.update({name, company, isAnonymous, email}, {where: {id}});
 }
 
 async function getGuestByEventId(EventId) {
@@ -45,5 +42,6 @@ export {
 	getGuestById,
 	updateGuestById,
 	getGuestByEventId,
-	findGuestBySid,
+	isExistGuest,
+	getGuestByGuestSid
 };

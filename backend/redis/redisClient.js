@@ -1,9 +1,8 @@
 import redis from "redis";
 import asyncRedis from "async-redis";
 import getLogger from "../libs/logger.js";
-import loadConfig from "./config/configLoader.js";
+import config from "./config";
 
-const config = loadConfig();
 const client = redis.createClient(config.port, config.host);
 const asyncRedisClient = asyncRedis.decorate(client);
 

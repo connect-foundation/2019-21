@@ -27,16 +27,18 @@ const CustomTimePicker = styled(TimePicker)({
 });
 
 function InputStartDate(props) {
+	const {startDate, endDate} = props;
 	const {setStartDate, setEndDate} = props.dispatch;
+	const minutes = moment(endDate).diff(moment(new Date()), "minutes") + 1;
 	const [lastTime, handleLastTimeChange] = useState(
-		new Date().setHours(0, 0),
+		new Date().setHours(0, minutes),
 	);
 
 	const calcEndDate = inputTime => {
 		const hour = moment(inputTime).format("HH");
 		const minuate = moment(inputTime).format("mm");
 
-		let addedDate = moment(props.startDate)
+		let addedDate = moment()
 			.add(hour, "h")
 			.toDate();
 
@@ -53,13 +55,14 @@ function InputStartDate(props) {
 				<CustomDateTimePicker
 					label="시작날짜"
 					format={"yyyy년 MM월 dd일 HH시 mm분"}
-					value={props.startDate}
+					value={startDate}
 					onChange={setStartDate}
+					readOnly={true}
 				/>
 				<CustomTimePicker
 					clearable
 					ampm={false}
-					label="유효시간"
+					label="남은시간"
 					value={lastTime}
 					onChange={calcEndDate}
 					minutesStep={5}

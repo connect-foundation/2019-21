@@ -33,7 +33,7 @@ function InputEventLink(props) {
 		<InputWithIcon>
 			<CustomTextField
 				inputRef={linkRef}
-				id="eventName"
+				id="eventLink"
 				label="이벤트 링크"
 				color="primary"
 				value={props.eventLink}

@@ -10,23 +10,31 @@ const CustomTextField = styled(TextField)({
 });
 
 function InputHashTag(props) {
-	const prevHashTagList = props.hashTags;
+	const {hashTags, dispatch} = props;
+	const prevHashTagList = hashTags;
 	const addHashTag = event => {
+		const inputValue = event.target.value;
 		if (event.keyCode === ENTER_KEY_CODE) {
 			const hashTag = {
 				key: uuidv1(),
-				label: event.target.value,
+				label: inputValue,
 			};
+
+			if (inputValue.length <= 0 && inputValue.length > 100) return;
 			const hashTagList = [...prevHashTagList, hashTag];
 
-			props.dispatch(hashTagList);
+			dispatch({
+				type: "SET_PROPERTY",
+				property: "hashTags",
+				value: hashTagList,
+			});
 			event.target.value = "";
 		}
 	};
 
 	return (
 		<CustomTextField
-			id="eventName"
+			id="hashTag"
 			label="해시태그를 입력 후 Enter키를 눌러주세요" // "Press Enter"
 			color="primary"
 			onKeyDown={addHashTag}

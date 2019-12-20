@@ -1,42 +1,55 @@
 import express from "express";
-import {getTokenExpired} from "../utils";
+import jwt from "jsonwebtoken";
+import {getTokenExpired} from "../../libs/utils";
 import generateAccessToken from "../authentication/token";
-import loadConfig from "../config/configLoader";
+import config from "../config";
 import {guestAuthenticate} from "../middleware/authenticate";
 import {createGuest} from "../../DB/queries/guest";
-import {getEventIdByEventCode} from "../../DB/queries/event";
+import {convertPathToEventId} from "../utils";
+import CookieKeys from "../CookieKeys.js";
+import logger from "../logger.js";
+import {isExistGuest} from "../../DB/queries/guest";
 
-const {routePage} = loadConfig();
+const {routePage, tokenArgs} = config;
 const router = express.Router();
-const cookieName = "vaagle-guest";
+const cookieExpireTime = 2;
 
-async function pathToCode(path) {
-	const eventCode = Buffer.from(path, "base64").toString();
-	const eventId = await getEventIdByEventCode(eventCode);
+router.get("/", async (req, res, next) => {
+	try {
+		const payload = jwt.verify(
+			req.cookies[CookieKeys.GUEST_APP],
+			tokenArgs.secret
+		);
 
-	return eventId.dataValues.id;
-}
+		const guest = await isExistGuest(payload.sub);
+		if (!guest) {
+			throw Error("Guest is not found");
+		}
 
-router.get("/", guestAuthenticate(), (req, res, next) => {
-	res.redirect(routePage.main);
+		res.redirect(routePage.guest);
+	} catch (e) {
+		logger.error([e, e.stack]);
+		res.redirect(routePage.main);
+	}
 });
 
 router.get("/logout", (req, res, next) => {
-	res.clearCookie(cookieName).redirect(routePage.main);
+	res.clearCookie(CookieKeys.GUEST_APP).redirect(routePage.main);
 });
 
 router.get("/:path", guestAuthenticate(), async (req, res, next) => {
 	try {
 		const path = req.params.path;
-		const eventId = await pathToCode(path);
-		const guest = await createGuest("Anonymous", eventId);
+		const eventId = await convertPathToEventId(path);
+		const guest = await createGuest(eventId);
 		const accessToken = generateAccessToken(guest.guestSid, "guest");
-		res.cookie(cookieName, accessToken, {
-			expires: getTokenExpired(24),
+
+		res.cookie(CookieKeys.GUEST_APP, accessToken, {
+			expires: getTokenExpired(cookieExpireTime),
 		});
 		res.redirect(routePage.guest);
 	} catch (e) {
-		console.log(e);
+		logger.error([e, e.stack]);
 		res.redirect(routePage.main);
 	}
 });

@@ -2,7 +2,7 @@ import React from "react";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp.js";
 import useCommonModal from "../CommonComponent/CommonModal/useCommonModal.js";
 import SideMenuItem from "./SideMenuItem.js";
-import LogOutModal from "../Modals/LogoutModal.js";
+import LogOutModal from "./LogoutModal.js";
 import config from "../../config";
 
 function LogoutButton(props) {

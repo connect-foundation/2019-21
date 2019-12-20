@@ -1,18 +1,23 @@
 import {deleteVoteBy} from "../../../DB/queries/vote";
+import updateVoters from "./updateVoters";
+import logger from "../../logger.js";
 
 const voteOffSocketHandler = async (data, emit) => {
 	try {
-		const {GuestId, CandidateId, allowDuplication, poll} = data;
+		const {GuestId, CandidateId, poll} = data;
 
 		await deleteVoteBy({GuestId, CandidateId});
 
+		await updateVoters(poll);
+
 		emit({
+			status: "ok",
 			GuestId,
 			poll,
 		});
 	} catch (e) {
-		console.error(e);
-		emit({status: "error(vote/off)", e});
+		logger.error(e);
+		emit({status: "error", e});
 	}
 };
 

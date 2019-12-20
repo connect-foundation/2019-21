@@ -1,11 +1,16 @@
 import Typography from "@material-ui/core/Typography";
 import React from "react";
+import moment from "moment";
+
+const dateFormat = "YYYY년 MM월 DD일 HH시 mm분";
 
 function getDateRangeString(startAt, endAt) {
 	const start = new Date(parseInt(startAt, 10));
 	const end = new Date(parseInt(endAt, 10));
+	const startDate = moment(start).format(dateFormat);
+	const endDate = moment(end).format(dateFormat);
 
-	return `${end.getFullYear()}.${start.getDay()} ~ ${end.getFullYear()}.${end.getDay()}`;
+	return `${startDate} ~ ${endDate}`;
 }
 
 function EventDateRage(props) {

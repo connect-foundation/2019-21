@@ -11,3 +11,12 @@ code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
 		monospace;
 }
+
+/* focus 시 생기는 파란 외각선 제거*/
+input,
+textarea,
+select,
+a,
+button:focus {
+	outline: none;
+}

@@ -1,17 +1,15 @@
 import React from "react";
-import ModerationQuestionCard from "./ModerationQuestionCard.js";
-import LiveQuestionCard from "./LiveQuestionCard";
-import CompleteQuestionCard from "./CompleteQuestionCard";
+import ModerationQuestionCard from "./QuestionCard/ModerationQuestionCard.js";
+import LiveQuestionCard from "./QuestionCard/LiveQuestionCard";
+import CompleteQuestionCard from "./QuestionCard/CompleteQuestionCard";
 import PollApollo from "../Poll/PollApollo.js";
 import {filterQuestion, filterReplies} from "../../libs/utils";
 import {FocusedDiv, UnFocusedDiv} from "./QuestionStyle";
 
-const compareByCreateAt = (a, b) =>
-	(a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0);
-const compareByLikeCount = (a, b) =>
-	(a.likeCount < b.likeCount ? 1 : a.likeCount > b.likeCount ? -1 : 0);
+const compareByCreateAt = (a, b) => b.createdAt.localeCompare(a.createdAt);
+const compareByLikeCount = (a, b) => b.likeCount - a.likeCount;
 
-function QuestionContainer({datas, type, dataHandler, handleStar, containerType}) {
+function QuestionContainer({datas, type, containerType}) {
 	const QuestionDiv = containerType === "focus" ? FocusedDiv : UnFocusedDiv;
 
 	return (
@@ -20,10 +18,9 @@ function QuestionContainer({datas, type, dataHandler, handleStar, containerType}
 				filterQuestion("moderation", datas).questions.map(question => (
 					<ModerationQuestionCard
 						{...question}
-						id={question.id}
-						dataHandler={dataHandler}
 						type={type}
-						handleStar={handleStar}
+						data={datas}
+						key={question.id}
 					/>
 				))}
 			{type === "popularQuestion" &&
@@ -32,11 +29,10 @@ function QuestionContainer({datas, type, dataHandler, handleStar, containerType}
 					.map(question => (
 						<LiveQuestionCard
 							{...question}
-							id={question.id}
-							dataHandler={dataHandler}
 							type={type}
-							handleStar={handleStar}
 							replies={filterReplies(question.id, datas).questions}
+							data={datas}
+							key={question.id}
 						/>
 					))}
 			{type === "newQuestion" &&
@@ -45,22 +41,20 @@ function QuestionContainer({datas, type, dataHandler, handleStar, containerType}
 					.map(question => (
 						<LiveQuestionCard
 							{...question}
-							id={question.id}
-							dataHandler={dataHandler}
 							type={type}
-							handleStar={handleStar}
 							replies={filterReplies(question.id, datas).questions}
+							data={datas}
+							key={question.id}
 						/>
 					))}
 			{type === "completeQuestion" &&
 				filterQuestion("completeQuestion", datas).questions.map(question => (
 					<CompleteQuestionCard
 						{...question}
-						id={question.id}
-						dataHandler={dataHandler}
 						type={type}
-						handleStar={handleStar}
 						replies={filterReplies(question.id, datas).questions}
+						data={datas}
+						key={question.id}
 					/>
 				))}
 			{(type === "poll" && containerType !== "focus") && <PollApollo />}

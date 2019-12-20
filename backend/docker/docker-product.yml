@@ -1,89 +1,89 @@
 version: "2.0"
 
 services:
-  express:
-    container_name: ${EXPRESS_PROD_CONTAINER_NAME}
-    image: ${NODE_IMAGE_NAME}
-    command: yarn pm2-runtime start ./build/express/app.js --watch
-    environment:
-      - NODE_ENV=production
-      # container 내부에서 DB container 를 접근하기위해 필요한 환경변수
-      - IS_DOCKER_CONTAINER=true
-    volumes:
-      - ../build:/usr/src/app/build
-    tty: true
-    ports:
-      - 80:${EXPRESS_PROD_PORT}
-    networks:
-      - backend
-    links:
-      - mysql
-      - redis
+    express:
+        container_name: ${EXPRESS_PROD_CONTAINER_NAME}
+        image: ${NODE_IMAGE_NAME}
+        command: yarn pm2-runtime start ./build/express/app.js --watch
+        environment:
+            - NODE_ENV=production
+            # container 내부에서 DB container 를 접근하기위해 필요한 환경변수
+            - IS_DOCKER_CONTAINER=true
+        volumes:
+            - ../build:/usr/src/app/build
+        tty: true
+        ports:
+            - 80:${EXPRESS_PROD_PORT}
+        networks:
+            - backend
+        links:
+            - mysql
+            - redis
 
-  socket_io:
-    container_name: ${SOCKET_IO_SERVER_PROD_CONTAINER_NAME}
-    image: ${NODE_IMAGE_NAME}
-    command: yarn pm2-runtime start ./build/socket_io_server/app.js --watch
-    environment:
-      - NODE_ENV=production
-      # container 내부에서 DB container 를 접근하기위해 필요한 환경변수
-      - IS_DOCKER_CONTAINER=true
-    volumes:
-      - ../build:/usr/src/app/build
-    tty: true
-    ports:
-      - ${SOCKET_IO_SERVER_PROD_PORT}:${SOCKET_IO_SERVER_PROD_PORT}
-    networks:
-      - backend
-    links:
-      - mysql
-      - redis
+    socket_io:
+        container_name: ${SOCKET_IO_SERVER_PROD_CONTAINER_NAME}
+        image: ${NODE_IMAGE_NAME}
+        command: yarn pm2-runtime start ./build/socket_io_server/app.js --watch
+        environment:
+            - NODE_ENV=production
+            # container 내부에서 DB container 를 접근하기위해 필요한 환경변수
+            - IS_DOCKER_CONTAINER=true
+        volumes:
+            - ../build:/usr/src/app/build
+        tty: true
+        ports:
+            - ${SOCKET_IO_SERVER_PROD_PORT}:${SOCKET_IO_SERVER_PROD_PORT}
+        networks:
+            - backend
+        links:
+            - mysql
+            - redis
 
-  graphQL_yoga:
-    container_name: ${GRAPHQL_YOGA_SERVER_PROD_CONTAINER_NAME}
-    image: ${NODE_IMAGE_NAME}
-    command: yarn pm2-runtime start ./build/graphQL/app.js --watch
-    environment:
-      - NODE_ENV=production
-      # container 내부에서 DB container 를 접근하기위해 필요한 환경변수
-      - IS_DOCKER_CONTAINER=true
-    volumes:
-      - ../build:/usr/src/app/build
-    tty: true
-    ports:
-      - ${GRAPHQL_YOGA_SERVER_PROD_PORT}:${GRAPHQL_YOGA_SERVER_PROD_PORT}
-    networks:
-      - backend
-    links:
-      - mysql
-      - redis
+    graphQL_yoga:
+        container_name: ${GRAPHQL_YOGA_SERVER_PROD_CONTAINER_NAME}
+        image: ${NODE_IMAGE_NAME}
+        command: yarn pm2-runtime start ./build/graphQL/app.js --watch
+        environment:
+            - NODE_ENV=production
+            # container 내부에서 DB container 를 접근하기위해 필요한 환경변수
+            - IS_DOCKER_CONTAINER=true
+        volumes:
+            - ../build:/usr/src/app/build
+        tty: true
+        ports:
+            - ${GRAPHQL_YOGA_SERVER_PROD_PORT}:${GRAPHQL_YOGA_SERVER_PROD_PORT}
+        networks:
+            - backend
+        links:
+            - mysql
+            - redis
 
-  mysql:
-    container_name: ${MYSQL_PROD_CONTAINER_NAME}
-    image: mysql
-    ports:
-      - ${MYSQL_PROD_PORT}:3306
-    volumes:
-      - ${DOCKER_VOLUMNS_PATH}/${MYSQL_PROD_CONTAINER_NAME}:/var/lib/mysql
-    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci  --log-bin-trust-function-creators=1
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_PROD_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_PROD_SCHEME}
-      - MYSQL_USER=${MYSQL_PROD_USER}
-      - MYSQL_PASSWORD=${MYSQL_PROD_PASSWORD}
-    networks:
-      - backend
+    mysql:
+        container_name: ${MYSQL_PROD_CONTAINER_NAME}
+        image: mysql
+        ports:
+            - ${MYSQL_PROD_PORT}:3306
+        volumes:
+            - ${DOCKER_VOLUMNS_PATH}/${MYSQL_PROD_CONTAINER_NAME}:/var/lib/mysql
+        command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci  --log-bin-trust-function-creators=1
+        environment:
+            - MYSQL_ROOT_PASSWORD=${MYSQL_PROD_ROOT_PASSWORD}
+            - MYSQL_DATABASE=${MYSQL_PROD_SCHEME}
+            - MYSQL_USER=${MYSQL_PROD_USER}
+            - MYSQL_PASSWORD=${MYSQL_PROD_PASSWORD}
+        networks:
+            - backend
 
-  redis:
-    container_name: ${REDIS_PROD_CONTAINER_NAME}
-    image: redis
-    ports:
-      - ${REDIS_PROD_PORT}:6379
-    volumes:
-      - ${DOCKER_VOLUMNS_PATH}/${REDIS_PROD_CONTAINER_NAME}:/data
-    networks:
-      - backend
+    redis:
+        container_name: ${REDIS_PROD_CONTAINER_NAME}
+        image: redis
+        ports:
+            - ${REDIS_PROD_PORT}:6379
+        volumes:
+            - ${DOCKER_VOLUMNS_PATH}/${REDIS_PROD_CONTAINER_NAME}:/data
+        networks:
+            - backend
 
 networks:
-  backend:
-    driver: "bridge"
+    backend:
+        driver: "bridge"

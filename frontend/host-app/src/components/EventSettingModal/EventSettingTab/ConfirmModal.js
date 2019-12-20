@@ -32,11 +32,13 @@ function ConfirmModal(props) {
 			onClose={props.handleClose}
 		>
 			<div style={modalStyle} className={classes.paper}>
-				<Typography>정말취소?</Typography>
+				<Typography>
+					취소하시면 현재 입력한 내용이 저장되지 않습니다. 정말 취소
+					하시겠습니까?
+				</Typography>
 				<Grid container direction={"row"} justify="flex-end">
-					<Button onClick={props.handleClose}>취소</Button>
 					<Button color="secondary" onClick={props.reset}>
-						버리기
+						확인
 					</Button>
 				</Grid>
 			</div>

@@ -10,12 +10,10 @@ const ColumnWrapper = styled.div`
 	align-items: center;
 	justify-content: flex-start;
 	box-sizing: border-box;
-	border: 1px solid #adb5bd; /* Gray5 */
-	// box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+	border: 1px solid #dee2e6; /* Gray3 */
 	width: 100%;
-	& + & {
-		margin-top: 1rem;
-	}
+	margin-top: 1rem;
+	background-color: white;
 `;
 
 const RowWrapper = styled.div`
@@ -50,13 +48,14 @@ function PollCard(props) {
 	} = props;
 
 	let localePollDate;
+
 	// socket.io, sequelize, graphQL 을 거치면서 format이 변경되어서 그때그때 처리하기 위함
 	if (pollDate) {
 		localePollDate = pollDate;
 		if (localePollDate.includes("-")) {
 			localePollDate = new Date(localePollDate);
 		} else {
-			localePollDate = new Date(parseInt(localePollDate));
+			localePollDate = new Date(parseInt(localePollDate, 10));
 		}
 		localePollDate = `
 			${localePollDate.getMonth() + 1}월 
@@ -89,7 +88,7 @@ function PollCard(props) {
 			{pollType === "rating" && <RatingItem state={state} {...others} />}
 			<RowWrapper left>
 				<MdPerson />
-				{`${parseInt(totalVoters).toLocaleString()} 명 참여`}
+				{`${parseInt(totalVoters, 10).toLocaleString()} 명 참여`}
 			</RowWrapper>
 		</ColumnWrapper>
 	);

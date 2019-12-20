@@ -11,7 +11,7 @@ const Title = styled.div`
 `;
 
 function TabHeader(props) {
-	const TITLE = {general: "기본설정", feature: "상세설정"};
+	const TITLE = {general: "기본설정"};
 	const type = props.type;
 
 	return <Title id="createEvent-modal-title">{TITLE[type]}</Title>;

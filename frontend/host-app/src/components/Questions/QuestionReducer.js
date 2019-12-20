@@ -1,12 +1,11 @@
 const QuestionsReducer = (state, action) => {
 	const actionTable = {
-		addNewQuestion: () => {
-			console.log(action.data);
-			return ({questions: [...state.questions, action.data]});
-		},
+		addNewQuestion: () => ({questions: [...state.questions, action.data]}),
 		toggleStar: () => {
 			const newData = state.questions.map(e => {
-				(e.id !== action.data.id) ? (e.isStared = false) : (e.isStared = action.data.isStared);
+				e.id !== action.data.id ?
+					(e.isStared = false) :
+					(e.isStared = action.data.isStared);
 				return e;
 			});
 
@@ -17,22 +16,49 @@ const QuestionsReducer = (state, action) => {
 
 			if (action.data.id === "all") {
 				newData = state.questions.map(e => {
-					if (e.state === action.data.from) { e.state = action.data.to; }
+					if (e.state === action.data.from) {
+						e.state = action.data.to;
+					}
+
 					return e;
 				});
 			} else {
 				newData = state.questions.map(e => {
-					if (e.id === action.data.id) { e.state = action.data.to; }
+					if (e.id === action.data.id) {
+						e.state = action.data.to;
+					}
+
 					return e;
 				});
 			}
 
 			return {questions: [...newData]};
 		},
+		updateQuestion: () => {
+			const newData = state.questions.map(e => {
+				if (e.id === action.data.id) { e.content = action.data.content; }
+				return e;
+			});
+
+			return {questions: [...newData]};
+		},
+		removeQuestion: () => {
+			const newData = state.questions.map(e => {
+				if (e.id === action.data.id) {
+					e.state = "deleted";
+				}
+				return e;
+			});
+
+			return {questions: [...newData]};
+		},
 		createLike: () => {
 			const targetId = action.data.QuestionId;
 			const newData = state.questions.map(e => {
-				if (e.id === targetId) e.likeCount++;
+				if (e.id === targetId) {
+					e.likeCount++;
+				}
+
 				return e;
 			});
 
@@ -41,7 +67,10 @@ const QuestionsReducer = (state, action) => {
 		removeLike: () => {
 			const targetId = action.data.QuestionId;
 			const newData = state.questions.map(e => {
-				if (e.id === targetId) e.likeCount--;
+				if (e.id === targetId) {
+					e.likeCount--;
+				}
+
 				return e;
 			});
 

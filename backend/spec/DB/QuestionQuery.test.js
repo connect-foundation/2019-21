@@ -1,4 +1,3 @@
-import {getQuestionLikeCount} from "../../DB/queries/event.js";
 import {
 	createQuestion,
 	deleteQuestionById,
@@ -45,15 +44,6 @@ describe("questions query api", () => {
 		// console.log(res.length);
 	});
 
-	it("should able to get question likeCount", async () => {
-		const eventId = 2;
-		const res = await getQuestionLikeCount(eventId);
-
-		QueryExpectMoreThanOne(res);
-		// res = res.map(x => x.get({ plain: true }));
-		// console.log(res.slice(0, 2));
-		// console.log(res.length);
-	});
 
 	it("should able to get by event id", async () => {
 		const eventId = 2;
