@@ -53,7 +53,7 @@
 ## 기술 스택
 
 -   Front-end: React, Apollo
--   Back-end: Nginx, nodejs, MySQL2, Sequelize, GraphQL(Yoga), socket.io, Oauth, Docker
+-   Back-end: nodejs, MySQL2, Sequelize, GraphQL(Yoga), socket.io, Oauth, Docker
 -   Env & etc: Eslint, babel, webpack, prettier, yarn, github, slack
 
 ## DataFlow
