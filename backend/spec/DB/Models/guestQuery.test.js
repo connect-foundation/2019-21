@@ -4,7 +4,7 @@ import {
 	getGuestByEventId,
 	getGuestById,
 	updateGuestById,
-} from "../../DB/queries/guest.js";
+} from "../../../DB/queries/guest.js";
 
 describe("guest query api", () => {
 	let newId = null;

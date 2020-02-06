@@ -5,7 +5,7 @@ import {
 	getQuestionReplyByEventId,
 	getQuestionsByEventId,
 	updateQuestionById,
-} from "../../DB/queries/question.js";
+} from "../../../DB/queries/question.js";
 
 // import mocha from "mocha";
 //
