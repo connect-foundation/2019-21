@@ -17,7 +17,6 @@ module.exports = {
 			},
 			EmojiName: {
 				type: Sequelize.STRING,
-				primaryKey: true,
 			},
 		}),
 

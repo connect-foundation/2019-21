@@ -18,15 +18,12 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			name: {
 				type: DataTypes.STRING(100),
-				primaryKey: true,
 			},
 			QuestionId: {
 				type: DataTypes.INTEGER,
-				primaryKey: true,
 			},
 			GuestId: {
 				type: DataTypes.INTEGER,
-				primaryKey: true,
 			},
 		},
 	);
