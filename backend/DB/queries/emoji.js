@@ -30,7 +30,7 @@ export async function getEmojiCountBy({name, QuestionId}) {
 	return Emoji.count({where: {name, QuestionId}});
 }
 
-export async function getEmojiGroupByQuestionId({EventId}) {
+export async function getEmojiCountByEventIdGroupByQuestionId({EventId}) {
 	return Emoji.findAll({
 		attributes: ["QuestionId", "name", [sequelize.fn("count", "id"), "count"], [sequelize.literal("MIN(createdAt)"), "createdAt"]],
 		where: {EventId},
