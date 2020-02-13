@@ -1,5 +1,5 @@
 import assert from "assert";
-import {it, describe} from "mocha";
+import {it, describe, before} from "mocha";
 import {
 	createEmoji,
 	deleteEmojiBy,
@@ -13,7 +13,19 @@ import models from "../../DB/models";
 
 const Emoji = models.Emoji;
 
+
 describe("emoji query api", () => {
+	before(async () => {
+		await models.sequelize.sync();
+	});
+
+	after(async () => {
+		Emoji.destroy({
+			where: {},
+			truncate: true,
+		});
+	});
+
 	it("should able to use Emoji models", async () => {
 		await Emoji.findAll({limit: 1});
 	});

@@ -23,6 +23,7 @@ module.exports = {
 		dialect: process.env.MYSQL_TEST_DIALECT,
 		port: process.env.MYSQL_TEST_PORT,
 		containerName: process.env.MYSQL_TEST_CONTAINER_NAME,
+		storage: process.env.MYSQL_TEST_STORAGE,
 		logging: false,
 	},
 	production: {
