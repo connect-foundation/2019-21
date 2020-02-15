@@ -28,7 +28,7 @@ module.exports = {
 				},
 			),
 		),
-	down: (queryInterface, Sequelize) => queryInterface
+	down: queryInterface => queryInterface
 		.removeColumn(
 			"Votes", // name of Source model
 			"GuestId", // key we want to remove

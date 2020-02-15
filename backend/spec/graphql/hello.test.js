@@ -1,5 +1,6 @@
 import assert from "assert";
-import {GQLClient} from "./graphqlTestClient.js";
+import {describe, it} from "mocha";
+import GQLClient from "./graphqlTestClient.js";
 
 describe("graphql yoga server hello", () => {
 	it("able query hello", async () => {
@@ -14,6 +15,6 @@ describe("graphql yoga server hello", () => {
 		const res = await GQLClient.request(query, variables);
 		const expect = {hello: {name: "hello", value: 12313}};
 
-		assert.deepEqual(expect, res);
+		assert.deepStrictEqual(expect, res);
 	});
 });

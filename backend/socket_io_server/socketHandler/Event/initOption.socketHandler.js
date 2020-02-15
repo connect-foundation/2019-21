@@ -1,6 +1,6 @@
 import {getEventOptionByEventId} from "../../../DB/queries/event";
-
 import eventCache from "../../EventCache";
+import logger from "../../logger.js";
 
 const initOptionSocketHandler = async (data, emit) => {
 	try {
@@ -8,13 +8,14 @@ const initOptionSocketHandler = async (data, emit) => {
 
 		await eventCache.set(data.eventId, currentState.get({plain: true}));
 	} catch (e) {
-		console.log(e);
+		logger.error(e);
 		emit({status: "error", e});
 	}
 };
 
 const eventName = "event/initOption";
 
+// noinspection JSUnusedGlobalSymbols
 export default {
 	eventName,
 	handler: initOptionSocketHandler,

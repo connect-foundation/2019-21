@@ -2,7 +2,9 @@ import models from "../models";
 import logger from "../logger.js";
 
 const sequelize = models.sequelize;
+// noinspection JSUnresolvedVariable
 const Poll = models.Poll;
+// noinspection JSUnresolvedVariable
 const Candidate = models.Candidate;
 
 export async function openPoll(id) {

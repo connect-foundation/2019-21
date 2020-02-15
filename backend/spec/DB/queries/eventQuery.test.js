@@ -1,6 +1,7 @@
+import {describe, it} from "mocha";
 import {
 	createEvent,
-	getEventIdByEventCode,
+	getEventByEventCode,
 	getEventsByHostId,
 	updateEventById,
 } from "../../../DB/queries/event.js";
@@ -12,18 +13,21 @@ describe("event query api", () => {
 		const GuestId = 1;
 
 		await createEvent({eventCode, content, GuestId});
+		// todo add assertion
 	});
 
-	it("be able to getEventIdByEventCode", async () => {
+	it("be able to getEventByEventCode", async () => {
 		const eventCode = "k9me";
 
-		await getEventIdByEventCode(eventCode);
+		await getEventByEventCode(eventCode);
+		// todo add assertion
 	});
 
 	it("be able to getEventsByHostId", async () => {
 		const hostId = 1;
 
 		await getEventsByHostId(hostId);
+		// todo add assertion
 	});
 
 	it("be able to updateEventById", async () => {
@@ -36,8 +40,7 @@ describe("event query api", () => {
 			endAt: new Date(),
 		};
 
-		const ddd = await updateEventById(EventId, newValue);
-
-		console.log(ddd);
+		await updateEventById({EventId, newValue});
+		// todo add assertion
 	});
 });

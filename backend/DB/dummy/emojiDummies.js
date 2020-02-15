@@ -2,7 +2,7 @@ import faker from "faker";
 import config from "./initialConfig";
 import {getQuestionById} from "../queries/question.js";
 
-const {INIT_SEED, GUEST_NUM} = config;
+const {INIT_SEED} = config;
 
 faker.seed(INIT_SEED);
 

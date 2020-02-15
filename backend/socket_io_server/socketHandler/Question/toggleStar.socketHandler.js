@@ -1,4 +1,5 @@
 import {updateIsStared} from "../../../DB/queries/question";
+import logger from "../../logger.js";
 
 const toggleStarSocketHandler = async (data, emit) => {
 	try {
@@ -8,13 +9,14 @@ const toggleStarSocketHandler = async (data, emit) => {
 		await updateIsStared(from, to);
 		emit(to);
 	} catch (e) {
-		console.log(e);
+		logger.error(e);
 		emit({status: "error", e});
 	}
 };
 
 const eventName = "question/toggleStar";
 
+// noinspection JSUnusedGlobalSymbols
 export default {
 	eventName,
 	handler: toggleStarSocketHandler,

@@ -5,7 +5,7 @@ export const simplifyList = list => list.map(n => n.get({plain: true}));
 
 /**
  *
- * @param {array of object} items
+ * @param {object[]} items
  *
  * CandidateId (int) 만 읽어서 array로 반환해주는 함수
  */
@@ -13,7 +13,7 @@ export const getCandidateList = items => items.map(n => n.id);
 /**
  *
  * @param {int} pollId
- * @param {array of int} candidates
+ * @param {int[]} candidates
  *
  * 하나의 poll 은 여러개의 candidates (예. 기호1번, 기호2번 등)을 가지고 있음
  * 각 candidate 별 득표수를 계산하고,
@@ -57,7 +57,7 @@ export async function getItems(pollId, candidates) {
 
 /**
  *
- * @param {array of object} polls
+ * @param {object[]} polls
  *
  * 하나의 poll에 속한 candidates들을 DB에서 읽어오는 함수
  */
@@ -70,8 +70,8 @@ export async function getCandidatesByPolls(polls) {
 
 /**
  *
- * @param {array of object} polls
- * @param {array of object} candidates
+ * @param {object[]} polls
+ * @param {object[]} candidates
  *
  * 여러개의 poll들과 그 poll들에 속하는 모든 candidates를 가져와서
  * 각 poll에 속한 candidates 들만 nItems 객체로 만들어서 저장함

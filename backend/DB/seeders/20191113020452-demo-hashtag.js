@@ -1,9 +1,9 @@
 import makeHashTagDummy from "../dummy/hashTagDummies";
 
 module.exports = {
-	up: (queryInterface, Sequelize) =>
+	up: queryInterface =>
 		queryInterface.bulkInsert("Hashtags", makeHashTagDummy(), {}),
 
-	down: (queryInterface, Sequelize) =>
+	down: queryInterface =>
 		queryInterface.bulkDelete("Hashtags", null, {}),
 };

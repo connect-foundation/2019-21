@@ -8,9 +8,9 @@ const openPollSocketHandler = async (data, emit) => {
 
 		const result = await openPoll(pollId);
 
-		if (result[0] != 1) {
+		if (result[0] !== 1) {
 			logger.error(
-				`Something wrong with poll/open: affected number of rows = ${result[0]}`
+				`Something wrong with poll/open: affected number of rows = ${result[0]}`,
 			);
 			status = "error";
 		}
@@ -23,6 +23,7 @@ const openPollSocketHandler = async (data, emit) => {
 
 const eventName = "poll/open";
 
+// noinspection JSUnusedGlobalSymbols
 export default {
 	eventName,
 	handler: openPollSocketHandler,

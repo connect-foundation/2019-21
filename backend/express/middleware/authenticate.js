@@ -15,7 +15,7 @@ export function guestAuthenticate() {
 		try {
 			const payload = jwt.verify(
 				req.cookies[CookieKeys.GUEST_APP],
-				tokenArgs.secret
+				tokenArgs.secret,
 			);
 
 			const guest = await isExistGuest(payload.sub);
@@ -39,7 +39,7 @@ export function hostAuthenticate() {
 		try {
 			const payload = jwt.verify(
 				req.cookies[CookieKeys.HOST_APP],
-				tokenArgs.secret
+				tokenArgs.secret,
 			);
 			const host = await findHostByAuthId(payload.sub);
 

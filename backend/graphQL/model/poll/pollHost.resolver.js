@@ -4,7 +4,6 @@ import {getCandidatesByPolls, setPollItems, simplifyList} from "./resolveHelper.
 /**
  *
  * @param {int} EventId
- * @param {int} guestId
  *
  * Yoga Resolver
  */

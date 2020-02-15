@@ -1,3 +1,4 @@
+import {describe, it} from "mocha";
 import {
 	createQuestion,
 	deleteQuestionById,
@@ -7,9 +8,6 @@ import {
 	updateQuestionById,
 } from "../../../DB/queries/question.js";
 
-// import mocha from "mocha";
-//
-// mocha.setup({ timeout: 5000 });
 
 function QueryExpectMoreThanOne(result) {
 	if (result.length === 0) {
@@ -35,15 +33,10 @@ describe("questions query api", () => {
 	}).timeout(1000);
 
 	it("should able to get question EventCodeAndGuestId", async () => {
-		let res = await getQuestionsByEventId("u959", 22);
+		const res = await getQuestionsByEventId("u959", 22);
 
 		QueryExpectMoreThanOne(res);
-		res = res.map(x => x.get({plain: true}));
-
-		// console.log(res.slice(0, 2));
-		// console.log(res.length);
 	});
-
 
 	it("should able to get by event id", async () => {
 		const eventId = 2;
@@ -62,7 +55,7 @@ describe("questions query api", () => {
 	it("should able to create question", async () => {
 		const eventId = 2;
 		const guestId = 17;
-		const content = "soirglsdfhgslkjdfhglksdjfhgk";
+		const content = "question question";
 		const res = await createQuestion(eventId, content, guestId);
 
 		newId = res.dataValues.id;
@@ -77,7 +70,7 @@ describe("questions query api", () => {
 
 	it("should able to update question by id", async () => {
 		const res = await updateQuestionById({
-			content: "sdjfhsldhflskdhfklsajdf",
+			content: "question question",
 			id: newId,
 		});
 

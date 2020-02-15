@@ -4,6 +4,7 @@ import logger from "../logger.js";
 
 const sequelize = models.sequelize;
 const Op = Sequelize.Op;
+// noinspection JSUnresolvedVariable
 const Question = models.Question;
 
 export async function createQuestion(

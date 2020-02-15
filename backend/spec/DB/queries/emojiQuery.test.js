@@ -12,6 +12,7 @@ import {
 
 import models from "../../../DB/models";
 
+// noinspection JSUnresolvedVariable
 const Emoji = models.Emoji;
 
 describe("emoji query api", () => {

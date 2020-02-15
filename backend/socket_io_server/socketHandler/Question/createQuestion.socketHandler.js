@@ -12,7 +12,8 @@ function getNewQuestion({
 	content,
 	emojis = [],
 	isAnonymous = false,
-	createdAt = new Date().getTime().toString(),
+	createdAt = new Date().getTime()
+		.toString(),
 	isShowEditButton = true,
 	didILike = false,
 	likeCount = 0,
@@ -37,7 +38,7 @@ function getNewQuestion({
 	};
 }
 
-const createQuestionSocketHandler = async (data, emit, socket, server) => {
+const createQuestionSocketHandler = async (data, emit, socket) => {
 	try {
 		const newQuestion = getNewQuestion(data);
 		const {
@@ -71,7 +72,7 @@ const createQuestionSocketHandler = async (data, emit, socket, server) => {
 				EventId,
 				content,
 				GuestId,
-				QuestionId
+				QuestionId,
 			);
 		}
 
@@ -98,6 +99,7 @@ const createQuestionSocketHandler = async (data, emit, socket, server) => {
 
 const eventName = "question/create";
 
+// noinspection JSUnusedGlobalSymbols
 export default {
 	eventName,
 	handler: createQuestionSocketHandler,

@@ -8,7 +8,7 @@ module.exports = {
 				allowNull: true,
 			},
 		),
-	down: (queryInterface, Sequelize) =>
+	down: queryInterface =>
 		queryInterface.removeColumn(
 			"Events",
 			"eventName", // name of Source model

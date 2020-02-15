@@ -1,5 +1,6 @@
 import models from "../models";
 
+// noinspection JSUnresolvedVariable
 const Hashtag = models.Hashtag;
 
 export async function createHashtag({name, EventId}) {
