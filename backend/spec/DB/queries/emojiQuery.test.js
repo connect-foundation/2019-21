@@ -1,18 +1,18 @@
 import assert from "assert";
-import {it, describe, before} from "mocha";
+import {before, describe, it} from "mocha";
 import {
 	createEmoji,
 	deleteEmojiBy,
 	deleteEmojiById,
 	getDidIPicked,
 	getEmojiCountBy,
-	getEmojiCountByEventIdGroupByQuestionId, getEmojiPick,
-} from "../../DB/queries/emoji.js";
+	getEmojiCountByEventIdGroupByQuestionId,
+	getEmojiPick,
+} from "../../../DB/queries/emoji.js";
 
-import models from "../../DB/models";
+import models from "../../../DB/models";
 
 const Emoji = models.Emoji;
-
 
 describe("emoji query api", () => {
 	before(async () => {
@@ -37,8 +37,8 @@ describe("emoji query api", () => {
 		const name = "234234";
 
 		// when
-		const real = (await createEmoji({GuestId, name, QuestionId})).dataValues;
-
+		const real = (await createEmoji({GuestId, name, QuestionId}))
+			.dataValues;
 
 		// than
 		const id = real.id;
@@ -57,7 +57,8 @@ describe("emoji query api", () => {
 		const name = "234234";
 		const EventId = undefined;
 
-		const id = (await Emoji.create({GuestId, QuestionId, name, EventId})).dataValues.id;
+		const id = (await Emoji.create({GuestId, QuestionId, name, EventId}))
+			.dataValues.id;
 
 		// when
 		const real = await deleteEmojiById(id);
@@ -68,7 +69,7 @@ describe("emoji query api", () => {
 		assert(real > expected);
 		// todo more assert
 
-		const res = (await Emoji.findOne({where: {id}}));
+		const res = await Emoji.findOne({where: {id}});
 
 		assert.equal(res, null);
 	});
@@ -91,7 +92,7 @@ describe("emoji query api", () => {
 		assert(real > expected);
 		// todo more assert
 
-		const res = (await Emoji.findOne({where: {name, QuestionId, GuestId}}));
+		const res = await Emoji.findOne({where: {name, QuestionId, GuestId}});
 
 		assert.equal(res, null);
 	});
@@ -106,7 +107,7 @@ describe("emoji query api", () => {
 		await Emoji.create({GuestId, QuestionId, name, EventId});
 
 		// when
-		let real = (await getDidIPicked({name, GuestId, QuestionId}));
+		let real = await getDidIPicked({name, GuestId, QuestionId});
 
 		real = real.map(x => x.get({plain: true}));
 
