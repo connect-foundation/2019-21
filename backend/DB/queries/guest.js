@@ -8,6 +8,7 @@ async function getGuestByGuestSid(guestSid) {
 	return Guest.findOne({where: {guestSid}});
 }
 
+// todo refactoring
 async function isExistGuest(guestSid) {
 	return !!(await getGuestByGuestSid(guestSid));
 }

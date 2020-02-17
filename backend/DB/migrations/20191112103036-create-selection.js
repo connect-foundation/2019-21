@@ -18,11 +18,9 @@ module.exports = {
 		},
 		VoterId: {
 			type: Sequelize.INTEGER,
-			primaryKey: true,
 		},
 		CandidateId: {
 			type: Sequelize.INTEGER,
-			primaryKey: true,
 		},
 	}),
 

@@ -37,6 +37,7 @@ export async function getPollsByEventId(EventId) {
 	});
 }
 
+// todo: refactoring
 const makeCandidateRows = (id, pollType, candidates) => {
 	let i = 0;
 	const nItems = [];
@@ -53,6 +54,10 @@ const makeCandidateRows = (id, pollType, candidates) => {
 	return nItems;
 };
 
+
+// todo: refactoring
+// look for inject transaction object
+// https://sequelize.org/master/manual/transactions.html#automatically-pass-transactions-to-all-queries
 export async function createPoll(
 	EventId,
 	pollName,

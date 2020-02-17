@@ -3,7 +3,7 @@ import {
 	getEventIdByEventCode,
 	getEventsByHostId,
 	updateEventById,
-} from "../../DB/queries/event.js";
+} from "../../../DB/queries/event.js";
 
 describe("event query api", () => {
 	it("be able to createQuestion", async () => {
