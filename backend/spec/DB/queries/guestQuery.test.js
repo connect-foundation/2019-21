@@ -1,4 +1,4 @@
-// createGuest, getGuestById, updateGuestById
+import {describe, it} from "mocha";
 import {
 	createGuest,
 	getGuestByEventId,
@@ -7,31 +7,33 @@ import {
 } from "../../../DB/queries/guest.js";
 
 describe("guest query api", () => {
-	let newId = null;
-	let res = null;
+	const newId = null;
 
 	it("should able to create guest", async () => {
 		const EventId = 3;
-		const name = "sdfsdf";
+		const name = "name";
 
-		res = await createGuest(name, EventId);
+		await createGuest(name, EventId);
 
-		newId = res.id;
+		// todo add assertion
 	});
 
 	it("should able to update guest", async () => {
-		const name = "sdfsdf";
+		const name = "name";
 
-		res = await updateGuestById({id: newId, name});
+		await updateGuestById({id: newId, name});
+		// todo add assertion
 	});
 
 	it("should able to get guest by Id", async () => {
-		res = await getGuestById(newId);
+		await getGuestById(newId);
+		// todo add assertion
 	});
 
 	it("should able to get guest by EventId", async () => {
 		const EventId = 3;
 
-		res = await getGuestByEventId(EventId);
+		await getGuestByEventId(EventId);
+		// todo add assertion
 	});
 });

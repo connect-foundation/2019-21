@@ -7,6 +7,8 @@ function toMapped(data, attr) {
 	data.map(x => {
 		mappped[x[attr]] = x;
 	});
+
+
 	return mappped;
 }
 
@@ -24,6 +26,7 @@ function joinGuest(data, guests) {
 			// console.log(questionsMapped[x.id]);
 		}
 	});
+
 
 	return fromMapped(data);
 }
@@ -90,14 +93,11 @@ function buildQuestions(data) {
 	questions = joinDidILikes(questions, didILikes);
 	emojis = joinEmojiAndEmojiPicks(emojis, emojiPicks);
 
-	const res = joinQuestionAndEmoji(questions, emojis);
-
-	// console.log(res);
-	return res;
+	return joinQuestionAndEmoji(questions, emojis);
 }
 
 describe("graphql data assemble", () => {
 	it("should assemble questions", () => {
-		const result = buildQuestions(data);
+		buildQuestions(data);
 	});
 });

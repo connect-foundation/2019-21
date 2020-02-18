@@ -1,6 +1,7 @@
 import sequelize from "sequelize";
 import models from "../models";
 
+// noinspection JSUnresolvedVariable
 const Emoji = models.Emoji;
 
 export async function createEmoji({GuestId, QuestionId, name, EventId}) {

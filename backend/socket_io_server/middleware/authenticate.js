@@ -33,6 +33,7 @@ async function payloadVerify(payload) {
 }
 
 function authenticate() {
+	// eslint-disable-next-line consistent-return
 	return async (socket, next) => {
 		try {
 			const token = socket.handshake.query.token;

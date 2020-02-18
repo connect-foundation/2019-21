@@ -24,7 +24,7 @@ module.exports = {
 		},
 	}),
 
-	down: (queryInterface, Sequelize) =>
+	down: queryInterface =>
 	// remove table
 		queryInterface.dropTable("Selections")
 	,

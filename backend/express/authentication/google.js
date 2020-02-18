@@ -41,5 +41,7 @@ export default (function() {
 		}
 	};
 
-	passport.use(new GoogleStrategy({...oAuthArgs}, verify));
+	const googleStrategy = new GoogleStrategy({...oAuthArgs}, verify);
+
+	passport.use(googleStrategy);
 })();

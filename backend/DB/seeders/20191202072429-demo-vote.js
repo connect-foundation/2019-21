@@ -1,9 +1,9 @@
 import makeVoteDummy from "../dummy/voteDummies";
 
 module.exports = {
-	up: (queryInterface, Sequelize) =>
+	up: queryInterface =>
 		queryInterface.bulkInsert("Votes", makeVoteDummy(), {}),
 
-	down: (queryInterface, Sequelize) =>
+	down: queryInterface =>
 		queryInterface.bulkDelete("Votes", null, {}),
 };

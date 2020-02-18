@@ -1,5 +1,5 @@
 module.exports = {
-	up: (queryInterface, Sequelize) =>
+	up: queryInterface =>
 		queryInterface
 			.removeColumn(
 				"Likes", // name of Source model

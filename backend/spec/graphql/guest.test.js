@@ -1,6 +1,6 @@
 import assert from "assert";
 import {describe, it} from "mocha";
-import {GQLClient} from "./graphqlTestClient.js";
+import GQLClient from "./graphqlTestClient.js";
 import testCase from "./question.testcase.js";
 
 describe("graphql yoga guest model", () => {
@@ -23,8 +23,7 @@ describe("graphql yoga guest model", () => {
 			EventId: 2,
 		};
 		const res = await GQLClient.request(query, variables);
-		// console.log(res)
 
-		// assert.deepEqual(res, testCase.question);
+		assert.deepStrictEqual(res, testCase.question);
 	});
 });

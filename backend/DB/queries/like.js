@@ -1,5 +1,6 @@
 import models from "../models";
 
+// noinspection JSUnresolvedVariable
 const Like = models.Like;
 
 export async function createLike(GuestId, QuestionId) {

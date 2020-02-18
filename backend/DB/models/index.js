@@ -12,12 +12,14 @@ const db = {};
 let sequelize;
 // noinspection JSUnresolvedVariable
 if (config.use_env_variable) {
+	// noinspection JSValidateTypes,JSCheckFunctionSignatures
 	sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
 	if (process.env.IS_DOCKER_CONTAINER) {
 		config.host = config.containerName;
 	}
 
+	// noinspection JSValidateTypes
 	sequelize = new Sequelize(
 		config.database,
 		config.username,

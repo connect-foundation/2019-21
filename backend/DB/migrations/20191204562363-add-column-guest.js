@@ -19,7 +19,7 @@ module.exports = {
 					},
 				),
 			),
-	down: (queryInterface, Sequelize) =>
+	down: queryInterface =>
 		queryInterface
 			.removeColumn(
 				"Guests", // name of Source model

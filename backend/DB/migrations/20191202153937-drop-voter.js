@@ -1,5 +1,5 @@
 module.exports = {
-	up: (queryInterface, Sequelize) => queryInterface.dropTable("Voters"),
+	up: queryInterface => queryInterface.dropTable("Voters"),
 	down: (queryInterface, Sequelize) =>
 		queryInterface.createTable("Voters", {
 			id: {

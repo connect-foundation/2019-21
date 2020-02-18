@@ -1,3 +1,4 @@
+import {describe, it} from "mocha";
 import {
 	createHashtag,
 	deleteHashTagById,
@@ -6,34 +7,30 @@ import {
 } from "../../../DB/queries/hashtag.js";
 
 describe("hashtag query api", () => {
-	let res = null;
 	let newId = null;
 
 	it("should able to create hashtag", async () => {
-		let res = null;
 		const EventId = 3;
-		const name = "sdfsdf";
+		const name = "name";
 
-		res = await createHashtag({EventId, name});
+		const res = await createHashtag({EventId, name});
 
 		newId = res.dataValues.id;
 	});
 
 	it("should able to update hashtag by id", async () => {
-		res = await updateHashtagById(newId);
-		// console.log(res);
+		await updateHashtagById(newId);
 	});
 
 	it("should able to delete hashtag by id", async () => {
-		res = await deleteHashTagById(newId);
-		// console.log(res);
+		await deleteHashTagById(newId);
 	});
 
 	it("should able to get hashtag by event id", async () => {
 		const EventId = 3;
 
-		res = await getHashtagByEventId(EventId);
-		res = await res.map(x => x.get({plain: true}));
-		// console.log(res);
+		const res = await getHashtagByEventId(EventId);
+
+		await res.map(x => x.get({plain: true}));
 	});
 });

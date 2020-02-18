@@ -1,3 +1,4 @@
+import {describe, it} from "mocha";
 import {
 	createLike,
 	deleteLikeById,
@@ -15,40 +16,43 @@ describe("like query api", () => {
 		const res = await createLike(eventId);
 
 		newId = res.dataValues.id;
-		// console.log(res.length);
+		// todo add assertion
 	});
 
 	it("should able to delete Like", async () => {
-		const id = newId;
-		const res = await deleteLikeById(id);
-		// console.log(res.length);
+		await deleteLikeById(newId);
+		// todo add assertion
 	});
 
 	it("should able to get likes by guest id", async () => {
 		const guestId = 17;
-		const res = await getLikesByGuestId(guestId);
-		// console.log(newId)
+
+		await getLikesByGuestId(guestId);
+		// todo add assertion
 	});
 
 	it("should able to get likes question id", async () => {
 		const questionId = 34;
-		const res = await getLikesByQuestionId(questionId);
-		// console.log(res);
+
+		await getLikesByQuestionId(questionId);
+		// todo add assertion
 	});
 
 	it("should able to get like count By Question", async () => {
 		const questionId = 34;
-		const res = await getLikeCountByQuestion(questionId);
-		// console.log(res);
+
+		await getLikeCountByQuestion(questionId);
+		// todo add assertion
 	});
 
 	it("should able to get didILiked", async () => {
 		const QuestionId = 11;
 		const GuestId = 58;
-		const res = await getDidILikes({
+
+		await getDidILikes({
 			QuestionId,
 			GuestId,
 		});
-		// console.log(res);
+		// todo add assertion
 	});
 });

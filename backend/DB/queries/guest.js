@@ -2,6 +2,8 @@ import uuidv1 from "uuid/v1";
 import models from "../models";
 import getRandomGuestName from "../dummy/RandomGuestName";
 
+// todo fix lint of line
+// noinspection JSUnresolvedVariable
 const Guest = models.Guest;
 
 async function getGuestByGuestSid(guestSid) {
@@ -44,5 +46,5 @@ export {
 	updateGuestById,
 	getGuestByEventId,
 	isExistGuest,
-	getGuestByGuestSid
+	getGuestByGuestSid,
 };

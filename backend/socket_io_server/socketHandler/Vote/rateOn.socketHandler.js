@@ -30,6 +30,7 @@ const rateOnSocketHandler = async (data, emit) => {
 
 const eventName = "rate/on";
 
+// noinspection JSUnusedGlobalSymbols
 export default {
 	eventName,
 	handler: rateOnSocketHandler,
