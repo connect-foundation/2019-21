@@ -33,9 +33,9 @@ describe("emoji query api", () => {
 
 	it("should able to create emoji", async () => {
 		// given
-		const GuestId = 1;
-		const QuestionId = 40;
-		const name = "234234";
+		const GuestId = null;
+		const QuestionId = null;
+		const name = "name";
 
 		// when
 		const real = (await createEmoji({GuestId, name, QuestionId}))
@@ -53,9 +53,9 @@ describe("emoji query api", () => {
 
 	it("should able to delete emoji by id", async () => {
 		// given
-		const GuestId = 1;
-		const QuestionId = 40;
-		const name = "234234";
+		const GuestId = null;
+		const QuestionId = null;
+		const name = "name";
 		const EventId = undefined;
 
 		const id = (await Emoji.create({GuestId, QuestionId, name, EventId}))
@@ -77,8 +77,8 @@ describe("emoji query api", () => {
 
 	it("should able to delete emoji by  GuestId, name, QuestionId ", async () => {
 		// given
-		const GuestId = 1;
-		const QuestionId = 40;
+		const GuestId = null;
+		const QuestionId = null;
 		const name = "234234";
 		const EventId = undefined;
 
@@ -100,9 +100,9 @@ describe("emoji query api", () => {
 
 	it("should able to find did i picked emoji list", async () => {
 		// given
-		const GuestId = 34;
+		const GuestId = null;
 		const name = "point_up";
-		const QuestionId = 33;
+		const QuestionId = null;
 		const EventId = undefined;
 
 		await Emoji.create({GuestId, QuestionId, name, EventId});
@@ -121,9 +121,9 @@ describe("emoji query api", () => {
 
 	it("should able to get count of emoji By question and name", async () => {
 		// given
-		const QuestionId = 34;
+		const QuestionId = null;
 		const name = "point_up";
-		const GuestId = 34;
+		const GuestId = null;
 
 		await Emoji.create({QuestionId, name, GuestId});
 
@@ -140,10 +140,10 @@ describe("emoji query api", () => {
 
 	it("should able to find emoji count by eventId group by QuestionId", async () => {
 		// given
-		const QuestionId = 34;
+		const QuestionId = null;
 		const name = "point_up";
-		const EventId = 2;
-		const GuestId = 34;
+		const EventId = null;
+		const GuestId = null;
 
 		await Emoji.create({QuestionId, name, GuestId, EventId});
 
@@ -159,10 +159,10 @@ describe("emoji query api", () => {
 
 	it("should able to get emoji pick", async () => {
 		// given
-		const QuestionId = 34;
+		const QuestionId = null;
 		const name = "point_up";
-		const EventId = 2;
-		const GuestId = 34;
+		const EventId = null;
+		const GuestId = null;
 
 		await Emoji.create({QuestionId, name, GuestId, EventId});
 

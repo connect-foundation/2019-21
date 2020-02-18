@@ -1,4 +1,4 @@
-import {describe, it} from "mocha";
+import {before, describe, it} from "mocha";
 import {
 	createLike,
 	deleteLikeById,
@@ -7,12 +7,17 @@ import {
 	getLikesByGuestId,
 	getLikesByQuestionId,
 } from "../../../DB/queries/like.js";
+import models from "../../../DB/models";
 
 describe("like query api", () => {
 	let newId = null;
 
+	before(async () => {
+		await models.sequelize.sync();
+	});
+
 	it("should able to create Like", async () => {
-		const eventId = 2;
+		const eventId = null;
 		const res = await createLike(eventId);
 
 		newId = res.dataValues.id;
@@ -25,29 +30,29 @@ describe("like query api", () => {
 	});
 
 	it("should able to get likes by guest id", async () => {
-		const guestId = 17;
+		const guestId = null;
 
 		await getLikesByGuestId(guestId);
 		// todo add assertion
 	});
 
 	it("should able to get likes question id", async () => {
-		const questionId = 34;
+		const questionId = null;
 
 		await getLikesByQuestionId(questionId);
 		// todo add assertion
 	});
 
 	it("should able to get like count By Question", async () => {
-		const questionId = 34;
+		const questionId = null;
 
 		await getLikeCountByQuestion(questionId);
 		// todo add assertion
 	});
 
 	it("should able to get didILiked", async () => {
-		const QuestionId = 11;
-		const GuestId = 58;
+		const QuestionId = null;
+		const GuestId = null;
 
 		await getDidILikes({
 			QuestionId,

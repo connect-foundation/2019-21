@@ -1,19 +1,23 @@
-import {describe, it} from "mocha";
+import {before, describe, it} from "mocha";
 import {
 	createGuest,
 	getGuestByEventId,
 	getGuestById,
 	updateGuestById,
 } from "../../../DB/queries/guest.js";
+import models from "../../../DB/models";
 
 describe("guest query api", () => {
 	const newId = null;
 
-	it("should able to create guest", async () => {
-		const EventId = 3;
-		const name = "name";
+	before(async () => {
+		await models.sequelize.sync();
+	});
 
-		await createGuest(name, EventId);
+	it("should able to create guest", async () => {
+		const EventId = null;
+
+		await createGuest(EventId);
 
 		// todo add assertion
 	});

@@ -1,16 +1,21 @@
-import {describe, it} from "mocha";
+import {before, describe, it} from "mocha";
 import {
 	createHashtag,
 	deleteHashTagById,
-	updateHashtagById,
 	getHashtagByEventId,
+	updateHashtagById,
 } from "../../../DB/queries/hashtag.js";
+import models from "../../../DB/models";
 
 describe("hashtag query api", () => {
 	let newId = null;
 
+	before(async () => {
+		await models.sequelize.sync();
+	});
+
 	it("should able to create hashtag", async () => {
-		const EventId = 3;
+		const EventId = null;
 		const name = "name";
 
 		const res = await createHashtag({EventId, name});
@@ -19,7 +24,7 @@ describe("hashtag query api", () => {
 	});
 
 	it("should able to update hashtag by id", async () => {
-		await updateHashtagById(newId);
+		await updateHashtagById({id: newId, name: "newName"});
 	});
 
 	it("should able to delete hashtag by id", async () => {

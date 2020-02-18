@@ -1,12 +1,17 @@
-import {describe, it} from "mocha";
+import {before, describe, it} from "mocha";
 import {
 	createEvent,
 	getEventByEventCode,
 	getEventsByHostId,
 	updateEventById,
 } from "../../../DB/queries/event.js";
+import models from "../../../DB/models";
 
 describe("event query api", () => {
+	before(async () => {
+		await models.sequelize.sync();
+	});
+
 	it("be able to createQuestion", async () => {
 		const eventCode = "new code";
 		const content = "test content";
