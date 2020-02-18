@@ -27,10 +27,6 @@ describe("emoji query api", () => {
 		});
 	});
 
-	it("should able to use Emoji models", async () => {
-		await Emoji.findAll({limit: 1});
-	});
-
 	it("should able to create emoji", async () => {
 		// given
 		const GuestId = null;
@@ -38,8 +34,7 @@ describe("emoji query api", () => {
 		const name = "name";
 
 		// when
-		const real = (await createEmoji({GuestId, name, QuestionId}))
-			.dataValues;
+		const real = await createEmoji({GuestId, name, QuestionId});
 
 		// than
 		const id = real.id;
@@ -58,8 +53,7 @@ describe("emoji query api", () => {
 		const name = "name";
 		const EventId = undefined;
 
-		const id = (await Emoji.create({GuestId, QuestionId, name, EventId}))
-			.dataValues.id;
+		const {id} = await createEmoji({GuestId, QuestionId, name, EventId});
 
 		// when
 		const real = await deleteEmojiById(id);
@@ -88,9 +82,7 @@ describe("emoji query api", () => {
 		const real = await deleteEmojiBy({name, QuestionId, GuestId});
 
 		// than
-		const expected = 0;
-
-		assert(real > expected);
+		assert(real === 1);
 		// todo more assert
 
 		const res = await Emoji.findOne({where: {name, QuestionId, GuestId}});
@@ -108,9 +100,7 @@ describe("emoji query api", () => {
 		await Emoji.create({GuestId, QuestionId, name, EventId});
 
 		// when
-		let real = await getDidIPicked({name, GuestId, QuestionId});
-
-		real = real.map(x => x.get({plain: true}));
+		const real = await getDidIPicked({name, GuestId, QuestionId});
 
 		// than
 		assert(real.length > 0);
@@ -131,7 +121,6 @@ describe("emoji query api", () => {
 		const real = await getEmojiCountBy({name, QuestionId});
 
 		// than
-
 		// todo more assert
 		assert(real > 0);
 
@@ -167,9 +156,7 @@ describe("emoji query api", () => {
 		await Emoji.create({QuestionId, name, GuestId, EventId});
 
 		// when
-		let real = await getEmojiPick({EventId, GuestId});
-
-		real = real.map(x => x.get({plain: true}));
+		const real = await getEmojiPick({EventId, GuestId});
 
 		// than
 		assert(real.length > 0);

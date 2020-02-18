@@ -5,12 +5,14 @@ import models from "../models";
 const Emoji = models.Emoji;
 
 export async function createEmoji({GuestId, QuestionId, name, EventId}) {
-	return Emoji.create({
+	const res = await Emoji.create({
 		GuestId,
 		QuestionId,
 		name,
 		EventId,
 	});
+
+	return res.get({plain: true});
 }
 
 export async function deleteEmojiById(id) {
@@ -24,7 +26,9 @@ export async function deleteEmojiBy({name, GuestId, QuestionId}) {
 }
 
 export async function getDidIPicked({name, QuestionId, GuestId}) {
-	return Emoji.findAll({where: {name, QuestionId, GuestId}});
+	const res = await Emoji.findAll({where: {name, QuestionId, GuestId}});
+
+	return res.map(x => x.get({plain: true}));
 }
 
 export async function getEmojiCountBy({name, QuestionId}) {
@@ -41,8 +45,10 @@ export async function getEmojiCountByEventIdGroupByQuestionId({EventId}) {
 }
 
 export async function getEmojiPick({GuestId, EventId}) {
-	return Emoji.findAll({
+	const res = await Emoji.findAll({
 		where: {GuestId, EventId},
 		attributes: ["name", "QuestionId"],
 	});
+
+	return res.map(x => x.get({plain: true}));
 }
