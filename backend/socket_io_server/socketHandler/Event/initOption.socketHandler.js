@@ -6,7 +6,7 @@ const initOptionSocketHandler = async (data, emit) => {
 	try {
 		const currentState = await getEventOptionByEventId(data); // dummy event Id
 
-		await eventCache.set(data.eventId, currentState.get({plain: true}));
+		await eventCache.set(data.eventId, currentState);
 	} catch (e) {
 		logger.error(e);
 		emit({status: "error", e});

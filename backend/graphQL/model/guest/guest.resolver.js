@@ -12,7 +12,7 @@ const guestInEventResolver = async authority => {
 	}
 
 	const guest = (await getGuestByGuestSid(authority.info)).get({plain: true});
-	const event = (await getEventById(guest.EventId)).get({plain: true});
+	const event = await getEventById(guest.EventId);
 
 	return {event, guest};
 };
