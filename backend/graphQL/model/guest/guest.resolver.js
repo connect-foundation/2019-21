@@ -11,7 +11,7 @@ const guestInEventResolver = async authority => {
 		throw Error("AuthenticationError in guestInEventResolver");
 	}
 
-	const guest = (await getGuestByGuestSid(authority.info)).get({plain: true});
+	const guest = await getGuestByGuestSid(authority.info);
 	const event = await getEventById(guest.EventId);
 
 	return {event, guest};
