@@ -16,7 +16,7 @@ describe("event query api", () => {
 		await models.sequelize.sync();
 	});
 
-	it("be should able to find all events", async () => {
+	it("should be able to find all events", async () => {
 		const eventCode = "event code";
 		const eventName = "event name";
 		const HostId = null;
@@ -29,7 +29,7 @@ describe("event query api", () => {
 		assert(res.length > 0);
 	});
 
-	it("be able to createQuestion", async () => {
+	it("should be able to create event", async () => {
 		const eventCode = "event code";
 		const eventName = "event name";
 		const HostId = null;
@@ -49,7 +49,7 @@ describe("event query api", () => {
 		assert(res.updatedAt !== undefined);
 	});
 
-	it("be able to find event by id", async () => {
+	it("should be able to find event by id", async () => {
 		const oldData = {
 			eventName: "event name2",
 			eventCode: "event code2",
@@ -75,13 +75,13 @@ describe("event query api", () => {
 		assert(event.updatedAt !== undefined);
 	});
 
-	it("be able to return null when can not find event by id", async () => {
+	it("should be able to return null when can not find event by id", async () => {
 		const event = await getEventById(4444);
 
 		assert(event === null);
 	});
 
-	it("be able to updateEventById", async () => {
+	it("should be able to updateEventById", async () => {
 		const id = 1;
 		const newValue = {
 			eventCode: "15125",
@@ -97,7 +97,7 @@ describe("event query api", () => {
 		assert(res > 0);
 	});
 
-	it("be able to getEventByEventCode", async () => {
+	it("should be able to getEventByEventCode", async () => {
 		const oldData = {
 			eventName: "event name2",
 			eventCode: "event code2",
@@ -123,7 +123,7 @@ describe("event query api", () => {
 		assert(event.updatedAt !== undefined);
 	});
 
-	it("be able to return null when can not getEventByEventCode", async () => {
+	it("should be able to return null when can not getEventByEventCode", async () => {
 		const eventCode = "0000";
 
 		const res = await getEventByEventCode(eventCode);
@@ -131,7 +131,7 @@ describe("event query api", () => {
 		assert(res === null);
 	});
 
-	it("be able to getEventsByHostId", async () => {
+	it("should be able to getEventsByHostId", async () => {
 		const oldData = {
 			eventName: "event name3",
 			eventCode: "event code3",
@@ -149,7 +149,7 @@ describe("event query api", () => {
 		assert(events.length > 0);
 	});
 
-	it("be able to getEventOptionByEventId", async () => {
+	it("should be able to getEventOptionByEventId", async () => {
 		const oldData = {
 			eventName: "event name3",
 			eventCode: "event code3",
@@ -168,7 +168,7 @@ describe("event query api", () => {
 		assert.equal(event.replyOption, oldEvent.replyOption);
 	});
 
-	it("be able to return null when can not getEventOptionByEventId", async () => {
+	it("should be able to return null when can not getEventOptionByEventId", async () => {
 		const oldData = {
 			eventName: "event name3",
 			eventCode: "event code3",
