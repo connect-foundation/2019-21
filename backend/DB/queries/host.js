@@ -3,12 +3,31 @@ import models from "../models";
 // noinspection JSUnresolvedVariable
 const Host = models.Host;
 
-// todo: 더 좋은 이름
-// todo refactoring
-export async function findHostByAuthId(oauthId) {
-	const host = await Host.findOne({where: {oauthId}});
 
-	return host ? host.dataValues : false;
+/**
+ *
+ * @param oauthId {String}
+ * @returns {Promise<Model<any, any>|any>}
+ */
+export async function findHostByOAuthId(oauthId) {
+	let res = await Host.findOne({where: {oauthId}});
+
+	if (res !== null) {
+		res = res.get({plain: true});
+	}
+
+	return res;
+}
+
+/**
+ *
+ * @param oauthId {String}
+ * @returns {Promise<boolean>}
+ */
+export async function isExistHostOAuthId(oauthId) {
+	const host = await findHostByOAuthId(oauthId);
+
+	return !!host;
 }
 
 /**
