@@ -20,9 +20,7 @@ function verifySubjectHostJwt(jwtSub) {
 
 function mappingHashTagsToEvents(hashTags, events, eventMap) {
 	hashTags.forEach(hashTag => {
-		const hashTagObject = hashTag.get({plain: true});
-
-		eventMap.get(hashTagObject.EventId).push(hashTagObject);
+		eventMap.get(hashTag.EventId).push(hashTag);
 	});
 	events.forEach(event => {
 		Object.assign(event, {HashTags: eventMap.get(event.id)});
