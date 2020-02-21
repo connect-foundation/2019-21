@@ -55,26 +55,21 @@ const createQuestionSocketHandler = async (data, emit, socket) => {
 		const event = await eventCache.get(EventId);
 		const currentModerationOption = event.moderationOption;
 		const reqData = newQuestion;
-		let newData;
+		let state;
 
-		// todo 성능 개선: 위해 여러개의 DB query를 promise.all 처리해야함
 		if (currentModerationOption) {
 			reqData.state = QUESTION_STATE_MODERATION;
-			newData = await createQuestion(
-				EventId,
-				content,
-				GuestId,
-				QuestionId,
-				QUESTION_STATE_MODERATION,
-			);
-		} else {
-			newData = await createQuestion(
-				EventId,
-				content,
-				GuestId,
-				QuestionId,
-			);
+			state = QUESTION_STATE_MODERATION;
 		}
+
+		// todo 성능 개선: 위해 여러개의 DB query를 promise.all 처리해야함
+		const newData = await createQuestion({
+			EventId,
+			content,
+			GuestId,
+			QuestionId,
+			state,
+		});
 
 		await updateGuestById({
 			id: GuestId,
@@ -82,7 +77,7 @@ const createQuestionSocketHandler = async (data, emit, socket) => {
 			isAnonymous,
 		});
 
-		reqData.id = newData.get({plain: true}).id;
+		reqData.id = newData.id;
 		if (QuestionId) {
 			reqData.QuestionId = QuestionId;
 		} else {

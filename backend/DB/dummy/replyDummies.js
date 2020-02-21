@@ -18,14 +18,14 @@ export default async function makeReplyDummy(number = 200) {
 
 		const QuestionId = faker.random.number({min: 1, max: 100});
 		// eslint-disable-next-line no-await-in-loop
-		const EventId = (await getQuestionById(QuestionId)).dataValues.EventId;
+		const EventId = (await getQuestionById(QuestionId)).EventId;
 		// eslint-disable-next-line no-await-in-loop
 		const candidates = await getGuestByEventId(EventId);
 		const candidateGuestIdx = faker.random.number({
 			min: 0,
 			max: candidates.length - 1,
 		});
-		const GuestId = candidates[candidateGuestIdx].dataValues.id;
+		const GuestId = candidates[candidateGuestIdx].id;
 		const isStared = false;
 
 		bulkQuestion.push({
