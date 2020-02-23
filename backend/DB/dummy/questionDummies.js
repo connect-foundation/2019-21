@@ -17,7 +17,7 @@ export default async function makeQuestionDummy(number = 100) {
 		const GuestId = faker.random.number({min: 1, max: GUEST_NUM});
 		// eslint-disable-next-line no-await-in-loop
 		const res = await getGuestById(GuestId);
-		const EventId = res.dataValues.EventId;
+		const EventId = res.EventId;
 		const QuestionId = null;
 		const isStared = false;
 		const likeCount = 0;

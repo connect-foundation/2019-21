@@ -1,4 +1,4 @@
-import {updateIsStared} from "../../../DB/queries/question";
+import {updateQuestionIsStared} from "../../../DB/queries/question";
 import logger from "../../logger.js";
 
 const toggleStarSocketHandler = async (data, emit) => {
@@ -6,7 +6,7 @@ const toggleStarSocketHandler = async (data, emit) => {
 		const from = data.from[0];
 		const to = data.to[0];
 
-		await updateIsStared(from, to);
+		await updateQuestionIsStared({from: from.id, to: to.id});
 		emit(to);
 	} catch (e) {
 		logger.error(e);

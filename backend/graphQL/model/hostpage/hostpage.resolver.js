@@ -20,9 +20,7 @@ function verifySubjectHostJwt(jwtSub) {
 
 function mappingHashTagsToEvents(hashTags, events, eventMap) {
 	hashTags.forEach(hashTag => {
-		const hashTagObject = hashTag.get({plain: true});
-
-		eventMap.get(hashTagObject.EventId).push(hashTagObject);
+		eventMap.get(hashTag.EventId).push(hashTag);
 	});
 	events.forEach(event => {
 		Object.assign(event, {HashTags: eventMap.get(event.id)});
@@ -60,8 +58,6 @@ export default {
 			const host = authority.info;
 			let events = await getEventsByHostId(host.id);
 
-			events = events.filter(event => event.get({plain: true}));
-
 			const eventMap = new Map();
 			const eventIdList = events.map(event => {
 				eventMap.set(event.id, []);
@@ -94,8 +90,7 @@ export default {
 		createEvent: async (_, {info}, authority) => {
 			verifySubjectHostJwt(authority.sub);
 			const eventCode = await generateEventCode();
-
-			let event = await createEvent({
+			const event = await createEvent({
 				eventName: info.eventName,
 				eventCode,
 				HostId: authority.info.id,
@@ -103,7 +98,6 @@ export default {
 				endAt: info.endAt,
 			});
 
-			event = event[0].get({plain: true});
 			return {...event};
 		},
 

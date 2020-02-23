@@ -1,58 +1,61 @@
-import {describe, it} from "mocha";
+import assert from "assert";
+import {before, beforeEach, describe, it} from "mocha";
 import {
 	createLike,
-	deleteLikeById,
-	getDidILikes,
-	getLikeCountByQuestion,
+	deleteLikeBy,
 	getLikesByGuestId,
-	getLikesByQuestionId,
 } from "../../../DB/queries/like.js";
+import models from "../../../DB/models";
 
 describe("like query api", () => {
-	let newId = null;
-
-	it("should able to create Like", async () => {
-		const eventId = 2;
-		const res = await createLike(eventId);
-
-		newId = res.dataValues.id;
-		// todo add assertion
+	before(async () => {
+		await models.sequelize.sync();
 	});
 
-	it("should able to delete Like", async () => {
-		await deleteLikeById(newId);
-		// todo add assertion
+	beforeEach(async () => {
+		await models.Like.destroy({where: {}, truncate: true});
+	});
+
+	it("should able to create Like", async () => {
+		// given
+		const QuestionId = null;
+		const GuestId = null;
+
+		// when
+		const res = await createLike({QuestionId, GuestId});
+
+		// than
+
+		assert(res.id > 0);
+		assert.equal(res.GuestId, GuestId);
+		assert.equal(res.QuestionId, QuestionId);
+	});
+
+	it("should able to delete Like by ", async () => {
+		// given
+		const QuestionId = null;
+		const GuestId = null;
+
+		await createLike({QuestionId, GuestId});
+
+		// when
+		const res = await deleteLikeBy({QuestionId, GuestId});
+
+		// than
+		assert.equal(res, 1);
 	});
 
 	it("should able to get likes by guest id", async () => {
-		const guestId = 17;
+		// given
+		const QuestionId = null;
+		const GuestId = null;
+		const like = await createLike({QuestionId, GuestId});
 
-		await getLikesByGuestId(guestId);
-		// todo add assertion
-	});
+		// when
+		const res = await getLikesByGuestId(GuestId);
 
-	it("should able to get likes question id", async () => {
-		const questionId = 34;
-
-		await getLikesByQuestionId(questionId);
-		// todo add assertion
-	});
-
-	it("should able to get like count By Question", async () => {
-		const questionId = 34;
-
-		await getLikeCountByQuestion(questionId);
-		// todo add assertion
-	});
-
-	it("should able to get didILiked", async () => {
-		const QuestionId = 11;
-		const GuestId = 58;
-
-		await getDidILikes({
-			QuestionId,
-			GuestId,
-		});
-		// todo add assertion
+		// than
+		assert.equal(res.length, 1);
+		assert.deepStrictEqual(res[0], like);
 	});
 });

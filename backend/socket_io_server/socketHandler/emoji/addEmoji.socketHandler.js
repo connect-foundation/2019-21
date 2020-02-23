@@ -4,7 +4,7 @@ const moveQuestionSocketHandler = async (data, emit) => {
 	const {GuestId, name, EventId, QuestionId} = data;
 	const res = await createEmoji({GuestId, name, EventId, QuestionId});
 
-	emit(res.get({plain: true}));
+	emit(res);
 };
 
 const eventName = "questionEmoji/create";

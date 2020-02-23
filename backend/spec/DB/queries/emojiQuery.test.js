@@ -27,19 +27,14 @@ describe("emoji query api", () => {
 		});
 	});
 
-	it("should able to use Emoji models", async () => {
-		await Emoji.findAll({limit: 1});
-	});
-
 	it("should able to create emoji", async () => {
 		// given
-		const GuestId = 1;
-		const QuestionId = 40;
-		const name = "234234";
+		const GuestId = null;
+		const QuestionId = null;
+		const name = "name";
 
 		// when
-		const real = (await createEmoji({GuestId, name, QuestionId}))
-			.dataValues;
+		const real = await createEmoji({GuestId, name, QuestionId});
 
 		// than
 		const id = real.id;
@@ -53,13 +48,12 @@ describe("emoji query api", () => {
 
 	it("should able to delete emoji by id", async () => {
 		// given
-		const GuestId = 1;
-		const QuestionId = 40;
-		const name = "234234";
+		const GuestId = null;
+		const QuestionId = null;
+		const name = "name";
 		const EventId = undefined;
 
-		const id = (await Emoji.create({GuestId, QuestionId, name, EventId}))
-			.dataValues.id;
+		const {id} = await createEmoji({GuestId, QuestionId, name, EventId});
 
 		// when
 		const real = await deleteEmojiById(id);
@@ -77,8 +71,8 @@ describe("emoji query api", () => {
 
 	it("should able to delete emoji by  GuestId, name, QuestionId ", async () => {
 		// given
-		const GuestId = 1;
-		const QuestionId = 40;
+		const GuestId = null;
+		const QuestionId = null;
 		const name = "234234";
 		const EventId = undefined;
 
@@ -88,9 +82,7 @@ describe("emoji query api", () => {
 		const real = await deleteEmojiBy({name, QuestionId, GuestId});
 
 		// than
-		const expected = 0;
-
-		assert(real > expected);
+		assert(real === 1);
 		// todo more assert
 
 		const res = await Emoji.findOne({where: {name, QuestionId, GuestId}});
@@ -100,17 +92,15 @@ describe("emoji query api", () => {
 
 	it("should able to find did i picked emoji list", async () => {
 		// given
-		const GuestId = 34;
+		const GuestId = null;
 		const name = "point_up";
-		const QuestionId = 33;
+		const QuestionId = null;
 		const EventId = undefined;
 
 		await Emoji.create({GuestId, QuestionId, name, EventId});
 
 		// when
-		let real = await getDidIPicked({name, GuestId, QuestionId});
-
-		real = real.map(x => x.get({plain: true}));
+		const real = await getDidIPicked({name, GuestId, QuestionId});
 
 		// than
 		assert(real.length > 0);
@@ -121,9 +111,9 @@ describe("emoji query api", () => {
 
 	it("should able to get count of emoji By question and name", async () => {
 		// given
-		const QuestionId = 34;
+		const QuestionId = null;
 		const name = "point_up";
-		const GuestId = 34;
+		const GuestId = null;
 
 		await Emoji.create({QuestionId, name, GuestId});
 
@@ -131,7 +121,6 @@ describe("emoji query api", () => {
 		const real = await getEmojiCountBy({name, QuestionId});
 
 		// than
-
 		// todo more assert
 		assert(real > 0);
 
@@ -140,10 +129,10 @@ describe("emoji query api", () => {
 
 	it("should able to find emoji count by eventId group by QuestionId", async () => {
 		// given
-		const QuestionId = 34;
+		const QuestionId = null;
 		const name = "point_up";
-		const EventId = 2;
-		const GuestId = 34;
+		const EventId = null;
+		const GuestId = null;
 
 		await Emoji.create({QuestionId, name, GuestId, EventId});
 
@@ -159,17 +148,15 @@ describe("emoji query api", () => {
 
 	it("should able to get emoji pick", async () => {
 		// given
-		const QuestionId = 34;
+		const QuestionId = null;
 		const name = "point_up";
-		const EventId = 2;
-		const GuestId = 34;
+		const EventId = null;
+		const GuestId = null;
 
 		await Emoji.create({QuestionId, name, GuestId, EventId});
 
 		// when
-		let real = await getEmojiPick({EventId, GuestId});
-
-		real = real.map(x => x.get({plain: true}));
+		const real = await getEmojiPick({EventId, GuestId});
 
 		// than
 		assert(real.length > 0);
