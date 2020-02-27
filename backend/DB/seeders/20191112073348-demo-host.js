@@ -1,9 +1,9 @@
 import makeHostDummy from "../dummy/hostDummies";
 
 module.exports = {
-	up: queryInterface =>
+	up: (queryInterface, Sequelize) =>
 		queryInterface.bulkInsert("Hosts", makeHostDummy(), {}),
 
-	down: queryInterface =>
+	down: (queryInterface, Sequelize) =>
 		queryInterface.bulkDelete("Hosts", null, {}),
 };

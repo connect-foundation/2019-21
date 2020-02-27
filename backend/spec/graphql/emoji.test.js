@@ -1,5 +1,5 @@
 import {describe, it} from "mocha";
-import GQLClient from "./graphqlTestClient.js";
+import {GQLClient} from "./graphqlTestClient.js";
 
 describe("graphql yoga emoji model", () => {
 	it("able query emoji", async () => {
@@ -18,9 +18,11 @@ describe("graphql yoga emoji model", () => {
 		const variables = {
 			EventId: 2,
 		};
+		const res = await GQLClient.request(query, variables);
 
-		await GQLClient.request(query, variables);
-		// todo add assertion
+		console.log(res);
+
+		// assert.deepEqual(res, testCase.question);
 	});
 
 	it("able query emoji", async () => {
@@ -40,8 +42,10 @@ describe("graphql yoga emoji model", () => {
 			EventId: 2,
 			GuestId: 7,
 		};
+		const res = await GQLClient.request(query, variables);
 
-		await GQLClient.request(query, variables);
-		// todo add assertion
+		console.log(res);
+
+		// assert.deepEqual(res, testCase.question);
 	});
 });

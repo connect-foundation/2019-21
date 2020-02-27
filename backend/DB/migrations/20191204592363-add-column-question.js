@@ -10,7 +10,7 @@ module.exports = {
 					defaultValue: 0,
 				},
 			),
-	down: queryInterface =>
+	down: (queryInterface, Sequelize) =>
 		queryInterface
 			.removeColumn(
 				"Questions", // name of Source model

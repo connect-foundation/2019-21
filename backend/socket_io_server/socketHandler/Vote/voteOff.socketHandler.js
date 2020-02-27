@@ -23,7 +23,6 @@ const voteOffSocketHandler = async (data, emit) => {
 
 const eventName = "vote/off";
 
-// noinspection JSUnusedGlobalSymbols
 export default {
 	eventName,
 	handler: voteOffSocketHandler,

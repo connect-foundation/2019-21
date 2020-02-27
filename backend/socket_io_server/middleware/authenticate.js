@@ -1,12 +1,12 @@
 import jwt from "jsonwebtoken";
 import loadConfig from "../config/configLoader";
 import logger from "../logger";
-import {isExistHostOAuthId} from "../../DB/queries/host";
+import {findHostByAuthId} from "../../DB/queries/host";
 import {isExistGuest} from "../../DB/queries/guest";
 
 const {tokenArgs} = loadConfig();
 
-const audienceVerify = {guest: isExistGuest, host: isExistHostOAuthId};
+const audienceVerify = {guest: isExistGuest, host: findHostByAuthId};
 
 const isValidAud = aud => aud !== "guest" && aud !== "host";
 
@@ -33,7 +33,6 @@ async function payloadVerify(payload) {
 }
 
 function authenticate() {
-	// eslint-disable-next-line consistent-return
 	return async (socket, next) => {
 		try {
 			const token = socket.handshake.query.token;

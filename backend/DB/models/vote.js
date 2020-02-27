@@ -1,30 +1,28 @@
-import {Model} from "sequelize";
-
-export default class Vote extends Model {
-	static init(sequelize, DataTypes) {
-		return super.init(
-			{
-				id: {
-					allowNull: false,
-					autoIncrement: true,
-					primaryKey: true,
-					type: DataTypes.INTEGER,
-				},
-				createdAt: {
-					allowNull: false,
-					type: DataTypes.DATE,
-				},
-				updatedAt: {
-					allowNull: false,
-					type: DataTypes.DATE,
-				},
+module.exports = (sequelize, DataTypes) => {
+	const Vote = sequelize.define(
+		"Vote",
+		{
+			id: {
+				allowNull: false,
+				autoIncrement: true,
+				primaryKey: true,
+				type: DataTypes.INTEGER,
 			},
-			{sequelize, tableName: "Votes"},
-		);
-	}
+			createdAt: {
+				allowNull: false,
+				type: DataTypes.DATE,
+			},
+			updatedAt: {
+				allowNull: false,
+				type: DataTypes.DATE,
+			},
+		},
+		{},
+	);
 
-	static associate(models) {
-		models.Vote.belongsTo(models.Guest);
-		models.Vote.belongsTo(models.Candidate);
-	}
-}
+	Vote.associate = function(models) {
+		Vote.belongsTo(models.Guest);
+		Vote.belongsTo(models.Candidate);
+	};
+	return Vote;
+};

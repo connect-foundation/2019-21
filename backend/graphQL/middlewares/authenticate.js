@@ -1,4 +1,4 @@
-import {findHostByOAuthId} from "../../DB/queries/host.js";
+import {findHostByAuthId} from "../../DB/queries/host.js";
 import logger from "../logger.js";
 
 const authenticate = async (resolve, root, args, context, info) => {
@@ -7,7 +7,7 @@ const authenticate = async (resolve, root, args, context, info) => {
 
 	switch (audience) {
 		case "host": {
-			const hostInfo = await findHostByOAuthId(context.payload.sub);
+			const hostInfo = await findHostByAuthId(context.payload.sub);
 
 			authority = {sub: "host", info: hostInfo};
 			break;

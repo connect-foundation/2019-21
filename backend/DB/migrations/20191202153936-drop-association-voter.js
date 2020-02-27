@@ -13,7 +13,7 @@ module.exports = {
 				onDelete: "CASCADE",
 			},
 		),
-	up: queryInterface =>
+	up: (queryInterface, Sequelize) =>
 		queryInterface.removeColumn(
 			"Voters", // name of Source model
 			"GuestId", // key we want to remove

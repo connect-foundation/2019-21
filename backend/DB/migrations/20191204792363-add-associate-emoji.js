@@ -13,7 +13,7 @@ module.exports = {
 				onDelete: "CASCADE",
 			},
 		),
-	down: queryInterface =>
+	down: (queryInterface, Sequelize) =>
 		queryInterface.removeColumn(
 			"Emojis",
 			"EventId", // name of Source model

@@ -3,7 +3,6 @@ import models from "../models";
 import logger from "../logger.js";
 
 const sequelize = models.sequelize;
-// noinspection JSUnresolvedVariable
 const Vote = models.Vote;
 const Op = Sequelize.Op;
 

@@ -21,13 +21,13 @@ drop TRIGGER dec_likeCount
 `;
 
 module.exports = {
-	up: queryInterface =>
+	up: (queryInterface, Sequelize) =>
 		queryInterface.sequelize
 			.query(createLikeCountIncrementTrigger)
 			.then(() =>
 				queryInterface.sequelize.query(createLikeCountDecrementTrigger),
 			),
-	down: queryInterface =>
+	down: (queryInterface, Sequelize) =>
 		queryInterface.sequelize
 			.query(dropLikeCountIncrementTrigger)
 			.then(() =>

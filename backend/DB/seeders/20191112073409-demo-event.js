@@ -1,9 +1,9 @@
 import makeEventDummy from "../dummy/eventDummies";
 
 module.exports = {
-	up: queryInterface =>
+	up: (queryInterface, Sequelize) =>
 		queryInterface.bulkInsert("Events", makeEventDummy(), {}),
 
-	down: queryInterface =>
+	down: (queryInterface, Sequelize) =>
 		queryInterface.bulkDelete("Events", null, {}),
 };

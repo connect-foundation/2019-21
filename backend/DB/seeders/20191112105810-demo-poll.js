@@ -1,9 +1,9 @@
 import makePollDummy from "../dummy/pollDummies";
 
 module.exports = {
-	up: queryInterface =>
+	up: (queryInterface, Sequelize) =>
 		queryInterface.bulkInsert("Polls", makePollDummy(), {}),
 
-	down: queryInterface =>
+	down: (queryInterface, Sequelize) =>
 		queryInterface.bulkDelete("Polls", null, {}),
 };

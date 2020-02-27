@@ -4,7 +4,6 @@ const envPath = path.resolve(__dirname, "../.env");
 
 require("dotenv").config({path: envPath});
 
-// todo ./config의 *.config.js 에서 로드 하도록 변경
 module.exports = {
 	development: {
 		username: process.env.MYSQL_DEV_USER,
@@ -24,7 +23,6 @@ module.exports = {
 		dialect: process.env.MYSQL_TEST_DIALECT,
 		port: process.env.MYSQL_TEST_PORT,
 		containerName: process.env.MYSQL_TEST_CONTAINER_NAME,
-		storage: process.env.MYSQL_TEST_STORAGE,
 		logging: false,
 	},
 	production: {

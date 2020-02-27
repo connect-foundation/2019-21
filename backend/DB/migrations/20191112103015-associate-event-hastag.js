@@ -20,7 +20,7 @@ module.exports = {
 		},
 	}),
 
-	down: queryInterface =>
+	down: (queryInterface, Sequelize) =>
 	// remove table
 		queryInterface.dropTable("EventHashtags")
 	,

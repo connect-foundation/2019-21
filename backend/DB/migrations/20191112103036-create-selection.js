@@ -18,13 +18,15 @@ module.exports = {
 		},
 		VoterId: {
 			type: Sequelize.INTEGER,
+			primaryKey: true,
 		},
 		CandidateId: {
 			type: Sequelize.INTEGER,
+			primaryKey: true,
 		},
 	}),
 
-	down: queryInterface =>
+	down: (queryInterface, Sequelize) =>
 	// remove table
 		queryInterface.dropTable("Selections")
 	,

@@ -17,10 +17,11 @@ module.exports = {
 			},
 			EmojiName: {
 				type: Sequelize.STRING,
+				primaryKey: true,
 			},
 		}),
 
-	down: queryInterface =>
+	down: (queryInterface, Sequelize) =>
 		// remove table
 		queryInterface.dropTable("Emojis"),
 };

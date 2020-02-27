@@ -1,45 +1,42 @@
-import {Model} from "sequelize";
-
-export default class Host extends Model {
-	static init(sequelize, DataTypes) {
-		return super.init(
-			{
-				id: {
-					allowNull: false,
-					autoIncrement: true,
-					primaryKey: true,
-					type: DataTypes.INTEGER,
-				},
-				oauthId: {
-					type: DataTypes.STRING(100),
-				},
-				name: {
-					type: DataTypes.STRING(100),
-				},
-				email: {
-					type: DataTypes.STRING(100),
-				},
-				emailFeedBack: {
-					type: DataTypes.BOOLEAN,
-				},
-				image: {
-					type: DataTypes.TEXT,
-				},
-				createdAt: {
-					allowNull: false,
-					type: DataTypes.DATE,
-				},
-				updatedAt: {
-					allowNull: false,
-					type: DataTypes.DATE,
-				},
+module.exports = (sequelize, DataTypes) => {
+	const Host = sequelize.define(
+		"Host",
+		{
+			id: {
+				allowNull: false,
+				autoIncrement: true,
+				primaryKey: true,
+				type: DataTypes.INTEGER,
 			},
-			{sequelize, tableName: "Hosts"},
-		);
-	}
+			oauthId: {
+				type: DataTypes.STRING(100),
+			},
+			name: {
+				type: DataTypes.STRING(100),
+			},
+			email: {
+				type: DataTypes.STRING(100),
+			},
+			emailFeedBack: {
+				type: DataTypes.BOOLEAN,
+			},
+			image: {
+				type: DataTypes.TEXT,
+			},
+			createdAt: {
+				allowNull: false,
+				type: DataTypes.DATE,
+			},
+			updatedAt: {
+				allowNull: false,
+				type: DataTypes.DATE,
+			},
+		},
+		{},
+	);
 
-	static associate(models) {
-		models.Host.hasMany(models.Event);
-	}
-}
-
+	Host.associate = function(models) {
+		Host.hasMany(models.Event);
+	};
+	return Host;
+};

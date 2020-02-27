@@ -1,6 +1,6 @@
 import {deleteQuestionById} from "../../../DB/queries/question";
 
-const questionCreateSocketHandler = async (data, emit) => {
+const questionCreateSocketHandler = async (data, emit, socket, server) => {
 	await deleteQuestionById(data.id);
 
 	emit(data);
@@ -8,7 +8,6 @@ const questionCreateSocketHandler = async (data, emit) => {
 
 const eventName = "question/remove";
 
-// noinspection JSUnusedGlobalSymbols
 export default {
 	eventName,
 	handler: questionCreateSocketHandler,

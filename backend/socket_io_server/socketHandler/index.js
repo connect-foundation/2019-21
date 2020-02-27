@@ -8,11 +8,13 @@ import glob from "glob";
 function fileLoader(filePath) {
 	const files = glob.sync(filePath);
 
-	return files.map(
+	const handlers = files.map(
 		file =>
 			// eslint-disable-next-line import/no-dynamic-require
 			require(file).default,
 	);
+
+	return handlers;
 }
 
 const socketHandlers = fileLoader(
