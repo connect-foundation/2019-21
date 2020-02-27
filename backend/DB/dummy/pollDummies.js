@@ -23,7 +23,10 @@ export default function makePollDummy(number = POLL_NUM) {
 			selectionType = "date";
 		} else {
 			pollType = "rating";
-			selectionType = Number(10).toString();
+			// let number = faker.random.number({ min: 2, max: 10 });
+			const number = 10;
+
+			selectionType = number.toString();
 		}
 
 		const allowDuplication = faker.random.boolean();

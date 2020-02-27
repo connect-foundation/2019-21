@@ -1,5 +1,5 @@
 import {describe, it} from "mocha";
-import GQLClient from "./graphqlTestClient.js";
+import {GQLClient} from "./graphqlTestClient.js";
 
 describe("graphql yoga like model", () => {
 	it("able query didILike", async () => {
@@ -16,8 +16,10 @@ describe("graphql yoga like model", () => {
 		const variables = {
 			GuestId: 2,
 		};
+		const res = await GQLClient.request(query, variables);
 
-		await GQLClient.request(query, variables);
-		// todo add assertion
+		console.log(res);
+
+		// assert.deepEqual(res, testCase.question);
 	});
 });

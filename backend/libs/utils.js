@@ -1,12 +1,17 @@
 import moment from "moment";
 
-export const compareCurrentDateToTarget = baseDate => {
+const compareCurrentDateToTarget = baseDate => {
 	const endAt = moment(baseDate);
 	const current = moment();
 
 	return endAt.diff(current, "minute");
 };
 
-export const getTokenExpired = hour =>
+const getSequelizeData = function(data) {
+	return JSON.parse(JSON.stringify(data));
+};
+
+const getTokenExpired = hour =>
 	new Date(new Date().getTime() + 1000 * 60 * 60 * Number(hour));
 
+export {getSequelizeData, getTokenExpired, compareCurrentDateToTarget};

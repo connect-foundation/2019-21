@@ -10,6 +10,7 @@ module.exports = {
 					"Emojis", // name of Source model
 					"name", // name of the key we're adding
 					{
+						allowNull: false,
 						type: Sequelize.STRING(100),
 					},
 				),
@@ -21,6 +22,7 @@ module.exports = {
 				"Emojis", // name of Source model
 				"EmojiName", // name of the key we're adding
 				{
+					allowNull: false,
 					type: Sequelize.STRING(100),
 				},
 			)

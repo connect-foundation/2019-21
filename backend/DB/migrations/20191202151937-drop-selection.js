@@ -1,5 +1,5 @@
 module.exports = {
-	up: queryInterface => queryInterface.dropTable("Selections"),
+	up: (queryInterface, Sequelize) => queryInterface.dropTable("Selections"),
 
 	down: (queryInterface, Sequelize) =>
 		queryInterface.createTable("Selections", {
@@ -19,9 +19,11 @@ module.exports = {
 			},
 			VoterId: {
 				type: Sequelize.INTEGER,
+				primaryKey: true,
 			},
 			CandidateId: {
 				type: Sequelize.INTEGER,
+				primaryKey: true,
 			},
 		}),
 };

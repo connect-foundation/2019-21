@@ -15,7 +15,7 @@ module.exports = {
 		},
 	),
 
-	down: queryInterface => queryInterface.removeColumn(
+	down: (queryInterface, Sequelize) => queryInterface.removeColumn(
 		"Guests", // name of Source model
 		"EventId", // key we want to remove
 	),

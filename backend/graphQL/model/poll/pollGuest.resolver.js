@@ -7,9 +7,6 @@ import {
 } from "./resolveHelper.js";
 import {getPollsByEventId} from "../../../DB/queries/poll.js";
 
-
-// todo 이함수 동장이 무엇인지 알아내기
-// noinspection JSClosureCompilerSyntax,JSCommentMatchesSignature
 /**
  *
  * @param {candidate에 해당하는 객체} items
@@ -32,7 +29,7 @@ const setVotedOnCandidate = (poll, votedList) => {
 
 /**
  *
- * @param {object[]} polls
+ * @param {array of object} polls
  * @param {int} guestId
  *
  * 특정 guest가 poll에 속한 여러 candidate들 중에서 투표한 candidate가 있는지 확인하고 투표여부를 저장함
@@ -42,8 +39,6 @@ async function setVotedOnPolls(polls, guestId) {
 		poll.ratingValue = 0;
 		poll.rated = false;
 		const candidateList = getCandidateList(poll.nItems);
-		// todo fix lint here
-		// eslint-disable-next-line no-await-in-loop
 		let votedList = await getCandidatesByGuestId(candidateList, guestId);
 
 		votedList = simplifyList(votedList);

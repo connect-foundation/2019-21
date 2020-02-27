@@ -1,48 +1,20 @@
 import models from "../models";
 
-// noinspection JSUnresolvedVariable
-const Host = models.Host;
+// todo: 더 좋은 이름
+export async function findHostByAuthId(oauthId) {
+	const host = await models.Host.findOne({where: {oauthId}});
 
-
-/**
- *
- * @param oauthId {String}
- * @returns {Promise<Model<any, any>|any>}
- */
-export async function findHostByOAuthId(oauthId) {
-	let res = await Host.findOne({where: {oauthId}});
-
-	if (res !== null) {
-		res = res.get({plain: true});
-	}
-
-	return res;
+	return host ? host.dataValues : false;
 }
 
-/**
- *
- * @param oauthId {String}
- * @returns {Promise<boolean>}
- */
-export async function isExistHostOAuthId(oauthId) {
-	const host = await findHostByOAuthId(oauthId);
-
-	return !!host;
-}
-
-/**
- *
- * @param oauthId {string}
- * @param name {string|undefined}
- * @param image {string|undefined}
- * @param email {string|undefined}
- * @returns {Promise<object>}
- */
-export async function findOrCreateHostByOAuth({oauthId, name, image, email}) {
-	const res = await Host.findOrCreate({
-		where: {oauthId},
-		defaults: {name, image, email, emailFeedBack: false},
+export async function createHost(oauthId, name, image, email) {
+	const host = await models.Host.create({
+		oauthId,
+		name,
+		email,
+		image,
+		emailFeedBack: false,
 	});
 
-	return res[0].get({plain: true});
+	return host ? host.dataValues : false;
 }

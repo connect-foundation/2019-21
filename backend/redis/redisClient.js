@@ -1,11 +1,9 @@
 import redis from "redis";
-// noinspection NpmUsedModulesInstalled
 import asyncRedis from "async-redis";
 import getLogger from "../libs/logger.js";
 import config from "./config";
 
 const client = redis.createClient(config.port, config.host);
-// noinspection JSUnresolvedFunction
 const asyncRedisClient = asyncRedis.decorate(client);
 
 const logger = getLogger("socket.io-redis");
