@@ -1,17 +1,16 @@
 import faker from "faker";
 import {
-	getEventsByHostId,
 	createEvent,
 	getAllEvents,
-	updateEventById,
-	getEventOptionByEventId,
 	getEventById,
+	getEventOptionByEventId,
+	getEventsByHostId,
+	updateEventById,
 } from "../../../DB/queries/event.js";
 import {
 	createHashtag,
 	getHashtagByEventIds,
 } from "../../../DB/queries/hashtag.js";
-import {compareCurrentDateToTarget} from "../../../libs/utils";
 
 function verifySubjectHostJwt(jwtSub) {
 	if (jwtSub !== "host") {
@@ -21,9 +20,7 @@ function verifySubjectHostJwt(jwtSub) {
 
 function mappingHashTagsToEvents(hashTags, events, eventMap) {
 	hashTags.forEach(hashTag => {
-		const hashTagObject = hashTag.get({plain: true});
-
-		eventMap.get(hashTagObject.EventId).push(hashTagObject);
+		eventMap.get(hashTag.EventId).push(hashTag);
 	});
 	events.forEach(event => {
 		Object.assign(event, {HashTags: eventMap.get(event.id)});
@@ -35,11 +32,11 @@ function mappingHashTagsToEvents(hashTags, events, eventMap) {
 async function generateEventCode() {
 	let generatedEventCode = faker.random.alphaNumeric(4);
 	const events = await getAllEvents();
-	const allreadyExistEventCode = events.map(event => event.eventCode);
+	const alreadyExistEventCode = events.map(event => event.eventCode);
 
-	while (1) {
-		const isExist = allreadyExistEventCode.some(
-			someCode => generateEventCode === someCode
+	while (true) {
+		const isExist = alreadyExistEventCode.some(
+			someCode => generateEventCode === someCode,
 		);
 
 		if (!isExist) {
@@ -50,23 +47,16 @@ async function generateEventCode() {
 	return generatedEventCode;
 }
 
-const getEventOptionResolver = async eventId => {
-	const evnetOption = await getEventOptionByEventId(eventId);
+const getEventOptionResolver = async eventId =>
+	getEventOptionByEventId(eventId);
 
-	return evnetOption;
-};
-
+// noinspection JSUnusedGlobalSymbols
 export default {
 	Query: {
 		init: async (_, {param}, authority) => {
 			verifySubjectHostJwt(authority.sub);
 			const host = authority.info;
 			let events = await getEventsByHostId(host.id);
-
-			events = events.filter(event => {
-				const eventPlainObject = event.get({plain: true});
-				return eventPlainObject;
-			});
 
 			const eventMap = new Map();
 			const eventIdList = events.map(event => {
@@ -75,6 +65,7 @@ export default {
 			});
 
 			const hashTags = await getHashtagByEventIds(eventIdList);
+
 			events = mappingHashTagsToEvents(hashTags, events, eventMap);
 
 			return {events, host};
@@ -86,7 +77,9 @@ export default {
 	Mutation: {
 		createHashTags: async (_, {hashTags}, authority) => {
 			verifySubjectHostJwt(authority.sub);
+			// todo fix to bulk insert
 			for (const hashTag of hashTags) {
+				// eslint-disable-next-line no-await-in-loop
 				await createHashtag({
 					name: hashTag.name,
 					EventId: hashTag.EventId,
@@ -97,16 +90,14 @@ export default {
 		createEvent: async (_, {info}, authority) => {
 			verifySubjectHostJwt(authority.sub);
 			const eventCode = await generateEventCode();
-
-			let event = await createEvent({
+			const event = await createEvent({
 				eventName: info.eventName,
-				eventCode: eventCode,
+				eventCode,
 				HostId: authority.info.id,
 				startAt: info.startAt,
 				endAt: info.endAt,
 			});
 
-			event = event[0].get({plain: true});
 			return {...event};
 		},
 

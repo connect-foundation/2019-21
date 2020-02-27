@@ -1,6 +1,6 @@
 import assert from "assert";
 import {describe, it} from "mocha";
-import {GQLClient} from "./graphqlTestClient.js";
+import GQLClient from "./graphqlTestClient.js";
 import testCase from "./question.testcase.js";
 
 describe("graphql yoga question model", () => {

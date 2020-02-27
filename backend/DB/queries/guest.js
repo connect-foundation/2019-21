@@ -2,17 +2,41 @@ import uuidv1 from "uuid/v1";
 import models from "../models";
 import getRandomGuestName from "../dummy/RandomGuestName";
 
+// todo fix lint of line
+// noinspection JSUnresolvedVariable
 const Guest = models.Guest;
 
-async function getGuestByGuestSid(guestSid) {
-	return Guest.findOne({where: {guestSid}});
+/**
+ *
+ * @param guestSid {string}
+ * @returns {Promise<object|null>}
+ */
+export async function getGuestByGuestSid(guestSid) {
+	let res = await Guest.findOne({where: {guestSid}});
+
+	if (res !== null) {
+		res = res.get({plain: true});
+	}
+
+	return res;
 }
 
-async function isExistGuest(guestSid) {
+// todo refactoring
+/**
+ *
+ * @param guestSid {string}
+ * @returns {Promise<boolean>}
+ */
+export async function isExistGuest(guestSid) {
 	return !!(await getGuestByGuestSid(guestSid));
 }
 
-async function createGuest(eventId) {
+/**
+ *
+ * @param eventId {number|null}
+ * @returns {Promise<object>}
+ */
+export async function createGuest(eventId) {
 	const guest = await Guest.create({
 		name: getRandomGuestName(),
 		EventId: eventId,
@@ -23,25 +47,48 @@ async function createGuest(eventId) {
 	return guest.get({plain: true});
 }
 
-async function getGuestById(id) {
-	return Guest.findOne({
+/**
+ *
+ * @param id {number}
+ * @returns {Promise<object|null>}
+ */
+export async function getGuestById(id) {
+	let res = await Guest.findOne({
 		where: {id},
 	});
+
+	if (res !== null) {
+		res = res.get({plain: true});
+	}
+
+	return res;
 }
 
-async function updateGuestById({id, name, isAnonymous, company, email}) {
-	return Guest.update({name, company, isAnonymous, email}, {where: {id}});
+/**
+ *
+ * @param id {number}
+ * @param name {string|undefined}
+ * @param isAnonymous {boolean|undefined}
+ * @param company {string|undefined}
+ * @param email {string|undefined}
+ * @returns {Promise<number>}
+ */
+export async function updateGuestById({id, name, isAnonymous, company, email}) {
+	const res = await Guest.update(
+		{name, company, isAnonymous, email},
+		{where: {id}},
+	);
+
+	return res[0];
 }
 
-async function getGuestByEventId(EventId) {
-	return Guest.findAll({where: {EventId}});
-}
+/**
+ *
+ * @param EventId {number}
+ * @returns {Promise<Model[]|any[]>}
+ */
+export async function getGuestByEventId(EventId) {
+	const res = Guest.findAll({where: {EventId}});
 
-export {
-	createGuest,
-	getGuestById,
-	updateGuestById,
-	getGuestByEventId,
-	isExistGuest,
-	getGuestByGuestSid
-};
+	return res.map(x => x.get({plain: true}));
+}

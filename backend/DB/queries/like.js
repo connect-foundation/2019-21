@@ -1,42 +1,42 @@
 import models from "../models";
 
+// noinspection JSUnresolvedVariable
 const Like = models.Like;
 
-export async function createLike(GuestId, QuestionId) {
-	return Like.create({
+/**
+ *
+ * @param GuestId {number|null}
+ * @param QuestionId {number|null}
+ * @returns {Promise<object>}
+ */
+export async function createLike({GuestId, QuestionId}) {
+	const res = await Like.create({
 		GuestId,
 		QuestionId,
 	});
+
+	return res.get({plain: true});
 }
 
-export async function deleteLikeById(id) {
-	return Like.destroy({
-		where: {id},
-	});
-}
-
+/**
+ *
+ * @param GuestId {number|null}
+ * @param QuestionId {number|null}
+ * @returns {Promise<number>}
+ */
 export async function deleteLikeBy({GuestId, QuestionId}) {
 	return Like.destroy({where: {GuestId, QuestionId}});
 }
 
+/**
+ *
+ * @param GuestId {number|null}
+ * @returns {Promise<Object[]>}
+ */
 export async function getLikesByGuestId(GuestId) {
-	return Like.findAll({
+	const res = await Like.findAll({
 		where: {GuestId},
 	});
-}
 
-export async function getLikesByQuestionId(QuestionId) {
-	return Like.findAll({
-		where: {QuestionId},
-	});
-}
-
-export async function getLikeCountByQuestion(QuestionId) {
-	return Like.count({
-		where: {QuestionId},
-	});
-}
-
-export async function getDidILikes({QuestionId, GuestId}) {
-	return Like.findOne({where: {QuestionId, GuestId}});
+	return res.map(x => x.get({plain: true}));
 }

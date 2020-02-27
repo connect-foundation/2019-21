@@ -18,7 +18,7 @@ const createPollSocketHandler = async (data, emit) => {
 			pollType,
 			selectionType,
 			allowDuplication,
-			candidates
+			candidates,
 		);
 
 		emit({status: "ok", poll});
@@ -30,6 +30,7 @@ const createPollSocketHandler = async (data, emit) => {
 
 const eventName = "poll/create";
 
+// noinspection JSUnusedGlobalSymbols
 export default {
 	eventName,
 	handler: createPollSocketHandler,

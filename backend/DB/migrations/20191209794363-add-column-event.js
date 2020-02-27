@@ -8,7 +8,7 @@ module.exports = {
 				defaultValue: false,
 			},
 		),
-	down: (queryInterface, Sequelize) =>
+	down: queryInterface =>
 		queryInterface.removeColumn(
 			"Events",
 			"isLive", // name of Source model

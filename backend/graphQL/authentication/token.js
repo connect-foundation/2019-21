@@ -7,6 +7,7 @@ const tokenArgs = {
 	audience: process.env.AUTH_TOKEN_AUDIENCE,
 };
 
+// noinspection JSUnusedGlobalSymbols
 export default function generateAccessToken(hostOauthId) {
 	return jwt.sign({}, tokenArgs.secret, {
 		expiresIn,

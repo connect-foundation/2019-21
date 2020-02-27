@@ -1,34 +1,36 @@
-module.exports = (sequelize, DataTypes) => {
-	const Candidate = sequelize.define(
-		"Candidate",
-		{
-			id: {
-				allowNull: false,
-				autoIncrement: true,
-				primaryKey: true,
-				type: DataTypes.INTEGER,
-			},
-			number: {
-				type: DataTypes.INTEGER,
-			},
-			content: {
-				type: DataTypes.STRING(100),
-			},
-			createdAt: {
-				allowNull: false,
-				type: DataTypes.DATE,
-			},
-			updatedAt: {
-				allowNull: false,
-				type: DataTypes.DATE,
-			},
-		},
-		{},
-	);
+import {Model} from "sequelize";
 
-	Candidate.associate = function(models) {
-		Candidate.belongsTo(models.Poll);
-		Candidate.belongsToMany(models.Guest, {through: "Votes"});
-	};
-	return Candidate;
-};
+export default class Candidate extends Model {
+	static init(sequelize, DataTypes) {
+		return super.init(
+			{
+				id: {
+					allowNull: false,
+					autoIncrement: true,
+					primaryKey: true,
+					type: DataTypes.INTEGER,
+				},
+				number: {
+					type: DataTypes.INTEGER,
+				},
+				content: {
+					type: DataTypes.STRING(100),
+				},
+				createdAt: {
+					allowNull: false,
+					type: DataTypes.DATE,
+				},
+				updatedAt: {
+					allowNull: false,
+					type: DataTypes.DATE,
+				},
+			},
+			{sequelize, tableName: "Candidates"},
+		);
+	}
+
+	static associate(models) {
+		models.Candidate.belongsTo(models.Poll);
+		models.Candidate.belongsToMany(models.Guest, {through: "Votes"});
+	}
+}

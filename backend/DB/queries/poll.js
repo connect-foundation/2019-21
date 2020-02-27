@@ -2,7 +2,9 @@ import models from "../models";
 import logger from "../logger.js";
 
 const sequelize = models.sequelize;
+// noinspection JSUnresolvedVariable
 const Poll = models.Poll;
+// noinspection JSUnresolvedVariable
 const Candidate = models.Candidate;
 
 export async function openPoll(id) {
@@ -37,6 +39,7 @@ export async function getPollsByEventId(EventId) {
 	});
 }
 
+// todo: refactoring
 const makeCandidateRows = (id, pollType, candidates) => {
 	let i = 0;
 	const nItems = [];
@@ -53,6 +56,10 @@ const makeCandidateRows = (id, pollType, candidates) => {
 	return nItems;
 };
 
+
+// todo: refactoring
+// look for inject transaction object
+// https://sequelize.org/master/manual/transactions.html#automatically-pass-transactions-to-all-queries
 export async function createPoll(
 	EventId,
 	pollName,

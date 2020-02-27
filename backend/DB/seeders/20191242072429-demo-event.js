@@ -7,7 +7,7 @@ const {INIT_SEED} = config;
 faker.seed(INIT_SEED);
 
 module.exports = {
-	up: (queryInterface, Sequelize) => {
+	up: queryInterface => {
 		const createdAt = faker.date.past(10);
 		const startAt = createdAt;
 		const updatedAt = createdAt;
@@ -32,6 +32,6 @@ module.exports = {
 		return queryInterface.bulkInsert("Events", dummy, {});
 	},
 
-	down: (queryInterface, Sequelize) =>
+	down: queryInterface =>
 		queryInterface.bulkDelete("Events", null, {}),
 };

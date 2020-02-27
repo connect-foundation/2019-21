@@ -15,7 +15,7 @@ router.get(
 		session: false,
 		scope: ["email", "profile"],
 		prompt: "select_account",
-	})
+	}),
 );
 
 router.get(
@@ -24,13 +24,14 @@ router.get(
 		session: false,
 	}),
 	(req, res) => {
-		const accessToken = generateAccessToken(req.user.oauthId, "host");
+		const {user} = req;
+		const accessToken = generateAccessToken(user.oauthId, "host");
 
 		res.cookie(CookieKeys.HOST_APP, accessToken, {
 			expires: getTokenExpired(EXPIRE_TIME),
 		});
 		res.redirect(routePage.host);
-	}
+	},
 );
 
 export default router;

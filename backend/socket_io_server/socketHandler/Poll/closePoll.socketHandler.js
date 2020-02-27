@@ -8,9 +8,9 @@ const closePollSocketHandler = async (data, emit) => {
 
 		const result = await closePoll(pollId);
 
-		if (result[0] != 1) {
+		if (result[0] !== 1) {
 			logger.error(
-				`Something wrong with poll/close: affected number of rows = ${result[0]}`
+				`Something wrong with poll/close: affected number of rows = ${result[0]}`,
 			);
 			status = "error";
 		}
@@ -23,6 +23,7 @@ const closePollSocketHandler = async (data, emit) => {
 
 const eventName = "poll/close";
 
+// noinspection JSUnusedGlobalSymbols
 export default {
 	eventName,
 	handler: closePollSocketHandler,

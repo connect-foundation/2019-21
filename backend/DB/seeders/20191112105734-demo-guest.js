@@ -1,9 +1,9 @@
 import makeGuestDummy from "../dummy/guestDummies";
 
 module.exports = {
-	up: (queryInterface, Sequelize) =>
+	up: queryInterface =>
 		queryInterface.bulkInsert("Guests", makeGuestDummy(), {}),
 
-	down: (queryInterface, Sequelize) =>
+	down: queryInterface =>
 		queryInterface.bulkDelete("Guests", null, {}),
 };

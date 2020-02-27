@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken";
 import config from "../config";
-import {findHostByAuthId} from "../../DB/queries/host";
 import {isExistGuest} from "../../DB/queries/guest";
 import {convertPathToEventId} from "../utils";
 import logger from "../logger.js";
 import CookieKeys from "../CookieKeys.js";
+import {isExistHostOAuthId} from "../../DB/queries/host.js";
 
 const {tokenArgs, routePage} = config;
 
@@ -15,7 +15,7 @@ export function guestAuthenticate() {
 		try {
 			const payload = jwt.verify(
 				req.cookies[CookieKeys.GUEST_APP],
-				tokenArgs.secret
+				tokenArgs.secret,
 			);
 
 			const guest = await isExistGuest(payload.sub);
@@ -39,11 +39,11 @@ export function hostAuthenticate() {
 		try {
 			const payload = jwt.verify(
 				req.cookies[CookieKeys.HOST_APP],
-				tokenArgs.secret
+				tokenArgs.secret,
 			);
-			const host = await findHostByAuthId(payload.sub);
+			const isExist = await isExistHostOAuthId(payload.sub);
 
-			if (host) {
+			if (isExist) {
 				res.redirect(routePage.host);
 			}
 

@@ -12,7 +12,7 @@ import guestRouter from "./routes/guest";
 import hostRouter from "./routes/host";
 import logger from "./logger.js";
 
-dotenv.config()
+dotenv.config();
 
 const {port, publicPath, routePage} = config;
 const app = express();
@@ -28,7 +28,7 @@ app.use("/auth", authRouter);
 app.use("/guest", guestRouter);
 app.use("/host", hostRouter);
 
-app.get("/", (req, res, next) => {
+app.get("/", (req, res) => {
 	res.redirect(routePage.main);
 });
 
@@ -38,4 +38,5 @@ app.listen(port, () => {
 	);
 });
 
+// noinspection JSUnusedGlobalSymbols
 export default app;

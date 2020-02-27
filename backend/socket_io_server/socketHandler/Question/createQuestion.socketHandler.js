@@ -12,7 +12,8 @@ function getNewQuestion({
 	content,
 	emojis = [],
 	isAnonymous = false,
-	createdAt = new Date().getTime().toString(),
+	createdAt = new Date().getTime()
+		.toString(),
 	isShowEditButton = true,
 	didILike = false,
 	likeCount = 0,
@@ -37,7 +38,7 @@ function getNewQuestion({
 	};
 }
 
-const createQuestionSocketHandler = async (data, emit, socket, server) => {
+const createQuestionSocketHandler = async (data, emit, socket) => {
 	try {
 		const newQuestion = getNewQuestion(data);
 		const {
@@ -54,26 +55,21 @@ const createQuestionSocketHandler = async (data, emit, socket, server) => {
 		const event = await eventCache.get(EventId);
 		const currentModerationOption = event.moderationOption;
 		const reqData = newQuestion;
-		let newData;
+		let state;
 
-		// todo 성능 개선: 위해 여러개의 DB query를 promise.all 처리해야함
 		if (currentModerationOption) {
 			reqData.state = QUESTION_STATE_MODERATION;
-			newData = await createQuestion(
-				EventId,
-				content,
-				GuestId,
-				QuestionId,
-				QUESTION_STATE_MODERATION,
-			);
-		} else {
-			newData = await createQuestion(
-				EventId,
-				content,
-				GuestId,
-				QuestionId
-			);
+			state = QUESTION_STATE_MODERATION;
 		}
+
+		// todo 성능 개선: 위해 여러개의 DB query를 promise.all 처리해야함
+		const newData = await createQuestion({
+			EventId,
+			content,
+			GuestId,
+			QuestionId,
+			state,
+		});
 
 		await updateGuestById({
 			id: GuestId,
@@ -81,7 +77,7 @@ const createQuestionSocketHandler = async (data, emit, socket, server) => {
 			isAnonymous,
 		});
 
-		reqData.id = newData.get({plain: true}).id;
+		reqData.id = newData.id;
 		if (QuestionId) {
 			reqData.QuestionId = QuestionId;
 		} else {
@@ -98,6 +94,7 @@ const createQuestionSocketHandler = async (data, emit, socket, server) => {
 
 const eventName = "question/create";
 
+// noinspection JSUnusedGlobalSymbols
 export default {
 	eventName,
 	handler: createQuestionSocketHandler,

@@ -1,15 +1,16 @@
 import {deleteLikeBy} from "../../../DB/queries/like.js";
 
-const handler = async (data, emit, socket, server) => {
+const handler = async (data, emit) => {
 	const {GuestId, QuestionId} = data;
 
-	const res = await deleteLikeBy({GuestId, QuestionId});
+	await deleteLikeBy({GuestId, QuestionId});
 
 	emit(data);
 };
 
 const eventName = "questionLike/remove";
 
+// noinspection JSUnusedGlobalSymbols
 export default {
 	eventName,
 	handler,

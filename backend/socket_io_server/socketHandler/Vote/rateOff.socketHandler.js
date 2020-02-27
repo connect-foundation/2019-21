@@ -24,6 +24,7 @@ const rateOffSocketHandler = async (data, emit) => {
 
 const eventName = "rate/off";
 
+// noinspection JSUnusedGlobalSymbols
 export default {
 	eventName,
 	handler: rateOffSocketHandler,

@@ -15,7 +15,7 @@ const {port} = configLoader();
 const app = express();
 const httpServer = http.createServer(app).listen(port, () => {
 	logger.info(
-		`start socket.io server at ${port} with ${process.env.NODE_ENV} mode`
+		`start socket.io server at ${port} with ${process.env.NODE_ENV} mode`,
 	);
 });
 const socketServer = io(httpServer);
@@ -34,7 +34,7 @@ namedServer.on("connection", async socket => {
 	});
 
 	socket.on("error", error =>
-		logger.info(`error occur at socket id ${id} disconnected ${error}`)
+		logger.info(`error occur at socket id ${id} disconnected ${error}`),
 	);
 	socket.on("disconnecting", reason => {
 		logger.info(`disconnecting at id ${id}, reason:${reason}`);
@@ -44,4 +44,5 @@ namedServer.on("connection", async socket => {
 	});
 });
 
+// noinspection JSUnusedGlobalSymbols
 export default app;

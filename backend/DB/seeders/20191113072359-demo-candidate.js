@@ -1,8 +1,8 @@
 import makeCandidateDummy from "../dummy/candidateDummies";
 
 module.exports = {
-	up: (queryInterface, Sequelize) =>
+	up: queryInterface =>
 		queryInterface.bulkInsert("Candidates", makeCandidateDummy(), {}),
-	down: (queryInterface, Sequelize) =>
+	down: queryInterface =>
 		queryInterface.bulkDelete("Candidates", null, {}),
 };

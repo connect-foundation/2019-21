@@ -10,7 +10,7 @@ export default function makeCandidateDummy(number = POLL_NUM) {
 	const bulkCandidate = [];
 	const numberOfCandidates = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; // index: 0 ~ 9
 
-	for (let index = 1; index <= POLL_NUM; index++) {
+	for (let index = 1; index <= number; index++) {
 		// 0: N지선다(text), 1: N지선다(date), 2: 별점매기기
 		if (index % 3 === 0) {
 			const LIMIT =
