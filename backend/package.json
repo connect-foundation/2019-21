@@ -67,7 +67,7 @@
     "jsonwebtoken": "^8.5.1",
     "merge-graphql-schemas": "^1.7.3",
     "mocha": "^6.2.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "morgan": "^1.9.1",
     "mysql2": "^2.0.0",
     "node-mocks-http": "^1.8.0",
